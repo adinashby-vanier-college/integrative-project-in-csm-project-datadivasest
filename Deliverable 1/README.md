@@ -86,16 +86,16 @@ Pages (possibly)
 
 Implementation Components:
 Game Logic & Physics
-Game Loop (AnimationTimer) – To continuously update and render the game.
-Input Handling (KeyEvent, MouseEvent) – To move the player and interact with objects.
-Entity System – Classes for Player, Enemies, Platforms, and Collectibles.
-Level System - Classes for organizing the properties of each level/world etc
-Graphics & Animations
-Particle Effects (explosions, energy bursts) – To visualize chemical reactions.
-Game State & Persistence
-Scene Management – Switching between menus, levels, and game-over screens.
-Save/Load System (File I/O or Serialization) – To track player progress.
-Score(HUD) – To see the user's progress
+* Game Loop (AnimationTimer) – To continuously update and render the game.
+* Input Handling (KeyEvent, MouseEvent) – To move the player and interact with objects.
+* Entity System – Classes for Player, Enemies, Platforms, and Collectibles.
+* Level System - Classes for organizing the properties of each level/world etc
+* Graphics & Animations
+* Particle Effects (explosions, energy bursts) – To visualize chemical reactions.
+* Game State & Persistence
+* Scene Management – Switching between menus, levels, and game-over screens.
+* Save/Load System (File I/O or Serialization) – To track player progress.
+* Score(HUD) – To see the user's progress
 
 ### Justify the feasibility in terms of timeline and team tasks assignment. (laila)
 The project seems feasible, taking each person’s individual responsibility into consideration. We divide the many tasks into each person’s strong suit.
