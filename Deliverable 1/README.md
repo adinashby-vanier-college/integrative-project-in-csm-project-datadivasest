@@ -100,11 +100,11 @@ Score(HUD) – To see the user's progress
 ### Justify the feasibility in terms of timeline and team tasks assignment. (laila)
 The project seems feasible, taking each person’s individual responsibility into consideration. We divide the many tasks into each person’s strong suit.
 Timeline:
-Today (Week 3): Have project plan in order;
-Week 3-5: Create all relevant classes, Basic working program, Story Board, Movement, Basic UI, inputs;
-Weeks 5-9: Main implementation: database classes, art/graphics are finished, world/level classes have working methods, have all dialogue written, all graphics/art completed;
-Weeks 9-11: Further polishing: working HUD, implementing power ups and how they affect interface;
-Weeks 11-12: Program fully working, bug testing.
+* Today (Week 3): Have project plan in order;
+* Week 3-5: Create all relevant classes, Basic working program, Story Board, Movement, Basic UI, inputs;
+* Weeks 5-9: Main implementation: database classes, art/graphics are finished, world/level classes have working methods, have all dialogue written, all graphics/art completed;
+* Weeks 9-11: Further polishing: working HUD, implementing power ups and how they affect interface;
+* Weeks 11-12: Program fully working, bug testing.
 
 ## Individual part: 
 For each team member, describe their individual part and how it would integrate with the whole project with other team members' parts.
