@@ -13,6 +13,8 @@ Class Diagram: https://drive.google.com/file/d/1ZSK5UiecofixJJlaclvOXTHnl-7nKfis
 
 Wireframe and Input/Output Data Grid: https://www.figma.com/design/DW7LKyzrPUiNHnkQnP5UWb/LetsChem?node-id=0-1&t=aDTauXrxQnJ3KzBn-1
 
+Prototype: https://www.figma.com/proto/DW7LKyzrPUiNHnkQnP5UWb/LetsChem?node-id=0-1&t=aaIbGEGCOVQzsYTc-1
+
 ### Sprint Report
 
 Include one screenshot of the Trello board in the end of the sprint
