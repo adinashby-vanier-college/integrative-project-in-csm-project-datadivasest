@@ -1,13 +1,16 @@
 # Deliverable 2 Files
 
 For this deliverable, the following tasks will be executed:
+
 Tasks Breakdown, Timeline and Tasks Assignment
 
 Create a table and identify the tasks/user stories, to be implemented, assign them to a team member and estimate their durations.
 
 ### Important links
 Jira Kanban board: https://tabasuumchowdhury.atlassian.net/jira/software/projects/LETS/list?sortBy=customfield_10020&direction=ASC&atlOrigin=eyJpIjoiNzI5MmIwYTMzOTM5NGY5YjkwNmI5ZDI1YzVlZTIzYWYiLCJwIjoiaiJ9
+
 Class Diagram: https://drive.google.com/file/d/1ZSK5UiecofixJJlaclvOXTHnl-7nKfis/view?usp=sharing
+
 Wireframe and Input/Output Data Grid: https://www.figma.com/design/DW7LKyzrPUiNHnkQnP5UWb/LetsChem?node-id=0-1&t=aDTauXrxQnJ3KzBn-1
 
 ### Sprint Report
