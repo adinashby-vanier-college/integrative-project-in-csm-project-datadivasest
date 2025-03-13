@@ -1,5 +1,6 @@
 package edu.vanier.template.ui;
 
+import edu.vanier.template.controllers.DialogueFXMLController;
 import edu.vanier.template.controllers.MainAppFXMLController;
 import edu.vanier.template.controllers.SceneController;
 import edu.vanier.template.controllers.SecondaryFXMLController;
@@ -28,6 +29,8 @@ public class MainApp extends Application {
     public static final String MAINAPP_SCENE = "MainApp_layout";
     // The FXML file name of the secondary scene.
     public static final String SECONDARY_SCENE = "secondary_layout";
+    // The FXML file name of the dialogue scene.
+    public static final String DIALOGUE_SCENE = "Dialogue_layout";
     private final static Logger logger = LoggerFactory.getLogger(MainApp.class);
     private static Scene scene;
     private static SceneController sceneController;
@@ -79,13 +82,13 @@ public class MainApp extends Application {
                 // was already done in the start method.                
                 sceneController.activateScene(fxmlFileName);
 
-            } else if (fxmlFileName.equals(SECONDARY_SCENE)) {
+            } else if (fxmlFileName.equals(DIALOGUE_SCENE)) {
                 if (!sceneController.sceneExists(fxmlFileName)) {
                     // Instantiate the corresponding FXML controller if the 
                     // specified scene is being loaded for the frist time.
-                    SecondaryFXMLController controller = new SecondaryFXMLController();
+                    DialogueFXMLController controller = new DialogueFXMLController();
                     Parent root = FxUIHelper.loadFXML(fxmlFileName, controller);
-                    sceneController.addScene(SECONDARY_SCENE, root);
+                    sceneController.addScene(DIALOGUE_SCENE, root);
                 }
                 // The scene has been previously added, we active it.
                 sceneController.activateScene(fxmlFileName);

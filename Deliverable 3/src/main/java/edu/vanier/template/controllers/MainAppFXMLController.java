@@ -38,8 +38,8 @@ public class MainAppFXMLController {
     }
 
     private void loadSecondaryScene(Event e) {
-        MainApp.switchScene(MainApp.SECONDARY_SCENE);
-        logger.info("Loaded the secondary scene...");
+        MainApp.switchScene(MainApp.DIALOGUE_SCENE);
+        logger.info("Loaded the dialogue scene...");
     }
 
     private void addFontIcons() {
