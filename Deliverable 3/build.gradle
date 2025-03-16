@@ -6,7 +6,7 @@ plugins {
 }
 
 def logbackVersion = "1.4.11"
-def javafxVersion = "22.0.2"    
+def javafxVersion = "23.0.2"
 
 repositories {
     // Use Maven Central for resolving dependencies.

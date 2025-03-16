@@ -11,11 +11,11 @@ import javafx.scene.shape.Rectangle;
  */
 public class Platform extends ImageView {
     private final String family;
-    private final sizeX;
-    private final sizeY;
+    private int sizeX;
+    private int sizeY;
     private final String type;
     
-    public Sprite(int x, int y, String family, String type) {
+    public Platform(int x, int y, String family, String type, int sizeY, int sizeX) {
         setPosition(x,y);
         this.family = family;
         this.type = type;

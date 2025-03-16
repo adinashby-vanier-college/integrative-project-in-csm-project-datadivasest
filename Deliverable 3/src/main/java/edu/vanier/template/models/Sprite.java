@@ -22,11 +22,10 @@ public class Sprite extends ImageView {
         setSize(100);
     }
 
-
-    public Projectile shootBullet() {
-        Projectile bullet = null;
-        return bullet;
-    }
+//    public Projectile shootBullet() {
+//        Projectile bullet = null;
+//        return bullet;
+//    }
     public void setImage(String filename) {
         Image i = new Image(filename);
         setImage(i);
