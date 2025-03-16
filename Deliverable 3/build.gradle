@@ -20,6 +20,8 @@ javafx {
     modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.graphics', 'javafx.media' ]
 }
 
+url("file:C:\Users\tabas\OneDrive-VanierCollege\Documents\GitHub\integrative-project-in-csm-project-datadivasest\Deliverable 3\src\main\resources\images\map_pergament.png")
+
 dependencies {
     // The following .jars are pulled from:
     // https://repo.maven.apache.org/maven2/org/openjfx/    
