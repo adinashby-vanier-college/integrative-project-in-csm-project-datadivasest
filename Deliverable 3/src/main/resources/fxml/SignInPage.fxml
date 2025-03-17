@@ -12,9 +12,9 @@
 <Pane fx:id="signInPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Button fx:id="backBtn" layoutX="26.0" layoutY="24.0" mnemonicParsing="false" text="&lt;" />
-      <Text layoutX="267.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign In">
+      <Text layoutX="200.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign In">
          <font>
-            <Font name="System Bold" size="23.0" />
+            <Font name="System Bold" size="59.0" />
          </font>
       </Text>
       <VBox layoutX="195.0" layoutY="134.0" prefHeight="150.0" prefWidth="210.0">
