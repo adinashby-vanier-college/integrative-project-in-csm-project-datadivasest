@@ -34,7 +34,7 @@
                <children>
                   <Button mnemonicParsing="false" text="Map" />
                   <Button mnemonicParsing="false" text="Help" />
-                  <Button mnemonicParsing="false" text="Instructions" />
+                  <Button mnemonicParsing="false" text="Setting" />
                   <ImageView fitHeight="26.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </HBox>
