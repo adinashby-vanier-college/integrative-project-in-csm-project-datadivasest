@@ -8,12 +8,13 @@
 <?import javafx.scene.text.Text?>
 
 <!--fixed all the red issues-->
-<Pane fx:id="signInPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+
+<Pane fx:id="signInPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Button fx:id="backBtn" layoutX="26.0" layoutY="24.0" mnemonicParsing="false" text="&lt;" />
-      <Text layoutX="225.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create Account">
+      <Text layoutX="138.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create Account">
          <font>
-            <Font size="23.0" />
+            <Font name="System Bold" size="45.0" />
          </font>
       </Text>
       <VBox layoutX="195.0" layoutY="134.0" prefHeight="150.0" prefWidth="210.0" spacing="10.0">
