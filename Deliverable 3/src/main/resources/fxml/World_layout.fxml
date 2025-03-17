@@ -27,7 +27,7 @@
          <children>
             <HBox prefHeight="26.0" prefWidth="213.0">
                <children>
-                  <Button fx:id="btnBack" mnemonicParsing="false" text="Back" />
+                  <Button fx:id="btnBack" mnemonicParsing="false" text="&lt;" />
                </children>
             </HBox>
             <HBox alignment="TOP_RIGHT" prefHeight="26.0" prefWidth="369.0">
