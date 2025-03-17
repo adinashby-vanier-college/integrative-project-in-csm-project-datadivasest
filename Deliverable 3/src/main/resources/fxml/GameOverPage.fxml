@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Text layoutX="159.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Game Over">
+         <font>
+            <Font name="System Bold" size="59.0" />
+         </font>
+      </Text>
+      <Button fx:id="exitBtn" layoutX="26.0" layoutY="27.0" mnemonicParsing="false" text="X" />
+      <VBox alignment="TOP_CENTER" layoutX="250.0" layoutY="200.0" prefHeight="179.0" prefWidth="100.0" spacing="30.0">
+         <children>
+            <Button fx:id="tryagnBtn" mnemonicParsing="false" text="Try Again" />
+            <Button fx:id="titileScreenBtn" mnemonicParsing="false" text="Title Screen" />
+            <Button fx:id="mapBtn" mnemonicParsing="false" text="Map" />
+         </children>
+      </VBox>
+   </children>
+</Pane>
