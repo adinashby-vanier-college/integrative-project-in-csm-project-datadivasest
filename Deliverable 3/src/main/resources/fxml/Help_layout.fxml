@@ -138,7 +138,7 @@
          <top>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Help" wrappingWidth="538.9366943836212" BorderPane.alignment="CENTER">
                <font>
-                  <Font name="Elephant" size="34.0" />
+                  <Font name="System Bold" size="34.0" />
                </font>
                <BorderPane.margin>
                   <Insets bottom="10.0" />
