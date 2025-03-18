@@ -10,6 +10,7 @@
 <?import javafx.scene.text.Text?>
 
 <!--backpack menus-->
+<?import java.awt.ScrollPane?>
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ScrollPane layoutX="101.0" layoutY="75.0" prefHeight="251.0" prefWidth="399.0">
