@@ -1,3 +1,4 @@
+[![Open in Codespaces](https://classroom.github.com/assets/launch-codespace-2972f46106e565e64193e422d61a12cf1da4916b45550586e14ef0a7c637dd04.svg)](https://classroom.github.com/open-in-codespaces?assignment_repo_id=17781049)
 # Integrative Project in Computer Science and Mathematics - Project
 
 This template repository is the starter project for Integrative Project in Computer Science and Mathematics Project. Written in Java, and tested with Gradle/JUnit.
@@ -47,10 +48,10 @@ Each team member must think of and choose a project idea then work with their te
 
 | Project Ideas                            | Description |
 | ---------------------------------------- | ----------- |
-| Team Member’s name and Project Idea 1:   |             |
-| Team Member’s name and Project Idea 2:   |             |
-| Team Member’s name and Project Idea 3:   |             |
-| Team Member’s name and Project Idea 4:   |             |
+| Eliza and Graph simulator:               |             |
+| Laila and Human Body:                    |             |
+| Sofia and SuperHero Game:                |             |
+| Tabasuum and Chemistry Platform Game:    |             |
 | Selected Project Ideas and why:          |             |
 
 The following description should be given in the PowerPoint:
