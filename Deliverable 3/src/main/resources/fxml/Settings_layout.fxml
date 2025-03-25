@@ -10,10 +10,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <top>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="150.0" BorderPane.alignment="CENTER">
          <children>
             <Label text="Settings">
                <font>
@@ -33,7 +32,7 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <CheckBox mnemonicParsing="false" selected="true" />
+                  <CheckBox fx:id="checkBoxThemeSong" mnemonicParsing="false" selected="true" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
@@ -43,7 +42,7 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <CheckBox mnemonicParsing="false" selected="true" />
+                  <CheckBox fx:id="checkBoxSound" mnemonicParsing="false" selected="true" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
@@ -53,7 +52,7 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <CheckBox mnemonicParsing="false" />
+                  <CheckBox fx:id="checkBoxNightMode" mnemonicParsing="false" />
                </children>
             </HBox>
             <HBox alignment="CENTER" layoutX="10.0" layoutY="149.0" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
@@ -63,12 +62,17 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <Slider value="100.0" />
+                  <Slider fx:id="sliderVolume" value="100.0" />
                </children>
             </HBox>
             <HBox alignment="CENTER" layoutX="10.0" layoutY="220.0" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                <children>
-                  <Button mnemonicParsing="false" text="Quit">
+                  <Button fx:id="btnQuit1" layoutX="197.0" layoutY="20.0" mnemonicParsing="false" text="Back">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnQuit" mnemonicParsing="false" text="Quit" textFill="#c43c3c">
                      <font>
                         <Font size="17.0" />
                      </font>
