@@ -14,7 +14,6 @@ public class World {
     private ArrayList <String> obstacles;
     private ArrayList <String> portals;
     public void generateElements() {
-
     }
     public void displayInfo() {
 

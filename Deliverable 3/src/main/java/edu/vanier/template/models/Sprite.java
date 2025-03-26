@@ -1,4 +1,4 @@
-package edu.vanier.spaceshooter.entities;
+package edu.vanier.template.models;
 
 import javafx.scene.Node;
 import javafx.scene.image.Image;

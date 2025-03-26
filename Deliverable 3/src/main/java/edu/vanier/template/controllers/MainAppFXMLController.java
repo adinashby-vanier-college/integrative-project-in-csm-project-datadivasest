@@ -34,6 +34,7 @@ public class MainAppFXMLController {
 
     private void handleClickMe(Event e) {
         System.out.println("Playing...");
+        MainApp.switchScene(MainApp.GAME_SCENE);
         logger.info("Play button has been clicked...");
     }
 
