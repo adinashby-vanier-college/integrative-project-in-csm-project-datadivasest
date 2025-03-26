@@ -1,4 +1,4 @@
-package edu.vanier.spaceshooter.entities;
+package edu.vanier.template.models;
 
 import javafx.scene.Node;
 import javafx.scene.image.Image;
@@ -10,14 +10,12 @@ import javafx.scene.shape.Rectangle;
  * Base class for all sprites
  */
 public class Platform extends ImageView {
-    private final String family;
     private int sizeX;
     private int sizeY;
     private final String type;
     
-    public Platform(int x, int y, String family, String type, int sizeY, int sizeX) {
+    public Platform(int x, int y, String type, int sizeY, int sizeX) {
         setPosition(x,y);
-        this.family = family;
         this.type = type;
         setFitWidth(sizeX);
         setFitHeight(sizeY);
