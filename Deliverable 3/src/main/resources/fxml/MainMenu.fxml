@@ -15,11 +15,11 @@
       </Text>
       <VBox alignment="CENTER" layoutX="182.0" layoutY="165.0" prefHeight="191.0" prefWidth="237.0" spacing="20.0">
          <children>
-            <Button alignment="CENTER" mnemonicParsing="false" prefHeight="45.0" prefWidth="120.0" text="Login" textAlignment="CENTER" />
-            <Button alignment="CENTER" mnemonicParsing="false" prefHeight="45.0" prefWidth="120.0" text="Create Account" textAlignment="CENTER" />
-            <Button alignment="CENTER" mnemonicParsing="false" prefHeight="45.0" prefWidth="120.0" text="Settings" textAlignment="CENTER" />
+            <Button fx:id="loginBtn" alignment="CENTER" mnemonicParsing="false" prefHeight="45.0" prefWidth="120.0" text="Login" textAlignment="CENTER" />
+            <Button fx:id="createAccountBtn" alignment="CENTER" mnemonicParsing="false" prefHeight="45.0" prefWidth="120.0" text="Create Account" textAlignment="CENTER" />
+            <Button fx:id="settingsBtn" alignment="CENTER" mnemonicParsing="false" prefHeight="45.0" prefWidth="120.0" text="Settings" textAlignment="CENTER" />
          </children>
       </VBox>
-      <Button layoutX="25.0" layoutY="28.0" mnemonicParsing="false" text="X" />
+      <Button fx:id="exitBtn" layoutX="25.0" layoutY="28.0" mnemonicParsing="false" text="X" />
    </children>
 </Pane>

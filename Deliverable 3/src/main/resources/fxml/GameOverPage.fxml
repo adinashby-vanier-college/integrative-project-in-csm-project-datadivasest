@@ -6,19 +6,18 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Text layoutX="183.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Game Over">
+      <Text layoutX="124.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Game Over" wrappingWidth="352.365234375">
          <font>
-            <Font name="System Bold" size="45.0" />
+            <Font name="System Bold" size="72.0" />
          </font>
       </Text>
       <Button fx:id="exitBtn" layoutX="26.0" layoutY="27.0" mnemonicParsing="false" text="X" />
       <VBox alignment="TOP_CENTER" layoutX="250.0" layoutY="200.0" prefHeight="179.0" prefWidth="100.0" spacing="30.0">
          <children>
-            <Button fx:id="tryagnBtn" mnemonicParsing="false" text="Try Again" />
-            <Button fx:id="titileScreenBtn" mnemonicParsing="false" text="Title Screen" />
-            <Button fx:id="mapBtn" mnemonicParsing="false" text="Map" />
+            <Button fx:id="tryAgnBtn" mnemonicParsing="false" prefHeight="62.0" prefWidth="134.0" text="Try Again" />
+            <Button fx:id="MainMenuBtn" mnemonicParsing="false" prefHeight="70.0" prefWidth="134.0" text="Main Menu" />
          </children>
       </VBox>
    </children>
