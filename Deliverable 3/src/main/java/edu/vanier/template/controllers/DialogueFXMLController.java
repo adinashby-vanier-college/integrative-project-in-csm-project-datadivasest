@@ -20,13 +20,17 @@ public class DialogueFXMLController {
     @FXML
     Button btnNext;
     @FXML
-    Button btnSettings;
-    @FXML
-    Button btnSkip;
+    Button btnBack;
 
     @FXML
     public void initialize() {
         logger.info("Initializing Dialogue Controller...");
+        btnBack.setOnAction(this::handleBack);
+    }
 
+    private void handleBack(Event e) {
+        System.out.println("Going back to...");
+        MainApp.switchScene(MainApp.MAINAPP_SCENE);
+        logger.info("Back button has been clicked...");
     }
 }
