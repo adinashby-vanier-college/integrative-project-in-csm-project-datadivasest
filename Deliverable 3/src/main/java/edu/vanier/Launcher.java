@@ -1,6 +1,7 @@
 package edu.vanier;
 
 import edu.vanier.template.ui.MainApp;
+import edu.vanier.template.ui.MainMenu;
 import edu.vanier.template.tests.*;
 
 /**
@@ -25,7 +26,8 @@ public class Launcher {
 
         //NOTE: Comment out the following line if you would like to execute 
         //      another class' main method.  
-        MainApp.main(args);
+        //MainApp.main(args);
+        MainMenu.main(args);
         //--
         // Uncomment the following line to run the Driver's main method.
         //Driver.main(args);        

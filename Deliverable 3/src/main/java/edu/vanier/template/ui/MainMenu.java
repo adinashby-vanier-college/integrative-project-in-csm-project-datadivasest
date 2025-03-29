@@ -29,7 +29,7 @@ public class MainMenu extends Application {
         // The FXML file name of the secondary scene.
         public static final String SECONDARY_SCENE = "secondary_layout";
         // The FXML file name of the dialogue scene.
-        public static final String DIALOGUE_SCENE = "Dialogue_layout";
+        public static final String DIALOGUE_SCENE = "DialoguePage";
         // The FXML file name of the main menu scene
         public static final String MAINMENU_SCENE = "MainMenu";
         // The FXML file name of the create account scene
@@ -61,6 +61,7 @@ public class MainMenu extends Application {
                 sceneController.addScene(MAINMENU_SCENE, root);
                 primaryStage.setScene(scene);
                 primaryStage.sizeToScene();
+                primaryStage.setTitle("LET'S CHEM");
                 // Request putting this appliation's main window on top of other
                 // already-opened windows upon launching the app.
                 primaryStage.setAlwaysOnTop(true);
@@ -139,6 +140,8 @@ public class MainMenu extends Application {
             }
         }
 
-    public static void main(String[] args) {}
+    public static void main(String[] args) {
+            launch(args);
+    }
 
 }

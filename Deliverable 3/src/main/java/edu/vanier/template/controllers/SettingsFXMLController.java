@@ -1,28 +1,37 @@
 package edu.vanier.template.controllers;
 
+import edu.vanier.template.ui.MainApp;
+import edu.vanier.template.ui.MainMenu;
+import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.awt.*;
+import javafx.scene.control.CheckBox;
+
 
 public class SettingsFXMLController {
     @FXML
-    Checkbox checkBoxThemeSong;
+    CheckBox checkBoxThemeSong;
     @FXML
-    Checkbox checkboxSound;
+    CheckBox checkboxSound;
     @FXML
-    Checkbox checkboxNightMode;
+    CheckBox checkboxNightMode;
     @FXML
     Slider sliderVolume;
     @FXML
     Button btnQuit;
     @FXML
     Button btnBack;
+    private final static Logger logger = LoggerFactory.getLogger(SettingsFXMLController.class);
     @FXML
     public void initialize() {
-        // TODO logger
-        // logger.info("Initializing Dialogue Controller...");
+        logger.info("Initializing SettingsController...");
 
+    }
+    private void loadPrimaryScene(Event e) {
+        MainMenu.switchScene(MainMenu.MAINMENU_SCENE);
+        logger.info("Loaded the primary scene...");
     }
 }
