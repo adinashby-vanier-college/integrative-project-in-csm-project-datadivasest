@@ -1,15 +1,33 @@
 package edu.vanier.template.controllers;
 
 import edu.vanier.template.models.Platform;
+import edu.vanier.template.models.Sprite;
 import edu.vanier.template.ui.MainApp;
+import javafx.animation.AnimationTimer;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
+import javafx.scene.media.AudioClip;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import static edu.vanier.template.ui.MainMenu.scene;
 
 public class GameFXMLController {
     private final static Logger logger = LoggerFactory.getLogger(GameFXMLController.class);
@@ -28,6 +46,11 @@ public class GameFXMLController {
 
     @FXML
     Pane mainPane;
+
+    private int score = 0;
+    private long lastNanoTime = System.nanoTime();
+    private AudioClip itemClip;
+    private AnimationTimer animation;
 
     @FXML
     public void initialize() {
@@ -60,12 +83,108 @@ public class GameFXMLController {
         platform3.setImage(platformFloating);
         platform4.setImage(platformFloating);
 
+        Canvas canvas = new Canvas(400, 600);
+        mainPane.getChildren().add(canvas);
         mainPane.getChildren().addAll(platform1,platform2, platform3, platform4);
-    }
 
+//        this.setOnCloseRequest((event) -> {
+//            // Stop the animation timer upon closing this window.
+//            if (animation != null) {
+//                animation.stop();
+//            }
+//        });
+
+        //-- Create and configure the media player.
+        itemClip = new AudioClip(getClass().getResource("/sounds/item_pickup.wav").toExternalForm());
+
+        List<String> input = new ArrayList<>();
+        scene.setOnKeyPressed((KeyEvent e) -> {
+            String code = e.getCode().toString();
+            if (!input.contains(code)) {
+                input.add(code);
+            }
+        });
+
+        scene.setOnKeyReleased((KeyEvent e) -> {
+            String code = e.getCode().toString();
+            input.remove(code);
+        });
+
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+
+        Font scoreFont = Font.font("Helvetica", FontWeight.BOLD, 24);
+        gc.setFont(scoreFont);
+        gc.setFill(Color.GREEN);
+        gc.setStroke(Color.BLACK);
+        gc.setLineWidth(1);
+
+        Sprite player = new Sprite(20,400, "player");
+        player.setImage(getClass().getResource("/images/player.png").toExternalForm());
+        player.setPosition(200, 0);
+
+        List<Sprite> electronList = new ArrayList<>();
+
+        for (int i = 0; i < 15; i++) {
+            Sprite electron = new Sprite("electron");
+            electron.setImage(getClass().getResource("/images/coin.png").toExternalForm());
+            double px = 350 * Math.random() + 50;
+            double py = 350 * Math.random() + 50;
+            electron.setPosition(px, py);
+            electronList.add(electron);
+        }
+
+        animation = new AnimationTimer() {
+            @Override
+            public void handle(long currentNanoTime) {
+                // calculate time since last update.
+                double elapsedTime = (currentNanoTime - lastNanoTime) / 1000000000.0;
+                lastNanoTime = currentNanoTime;
+
+                // game logic
+                player.setVelocity(0, 0);
+                if (input.contains("LEFT")) {
+                    player.addVelocity(-250, 0);
+                }
+                if (input.contains("RIGHT")) {
+                    player.addVelocity(250, 0);
+                }
+                if (input.contains("UP")) {
+                    player.addVelocity(0, -250);
+                }
+                if (input.contains("DOWN")) {
+                    player.addVelocity(0, 250);
+                }
+                player.update(elapsedTime);
+
+                // collision detection
+                Iterator<Sprite> electronIter = electronList.iterator();
+                while (electronIter.hasNext()) {
+                    Sprite electron = electronIter.next();
+                    if (player.intersects(electron)) {
+                        electronIter.remove();
+                        itemClip.play();
+                        score++;
+                    }
+                }
+
+                // render
+                gc.clearRect(0, 0, 512, 512);
+                player.render(gc);
+
+                for (Sprite moneybag : electronList) {
+                    moneybag.render(gc);
+                }
+
+                String pointsText = "electron: -" + (2 * score);
+                gc.fillText(pointsText, 360, 36);
+                gc.strokeText(pointsText, 360, 36);
+            }
+        };
+        animation.start();
+    }
     private void handleBack(Event e) {
         System.out.println("Going back to...");
-        MainApp.switchScene(MainApp.MAINAPP_SCENE);
+        MainApp.switchScene(MainApp.DIALOGUE_SCENE);
         logger.info("Back button has been clicked...");
     }
 }

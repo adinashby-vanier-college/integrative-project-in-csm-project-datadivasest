@@ -39,7 +39,7 @@ public class MainMenu extends Application {
         // The FXML file name of the settings scene
         public static final String SETTINGS_SCENE = "Settings_layout";
         private final static Logger logger = LoggerFactory.getLogger(edu.vanier.template.ui.MainMenu.class);
-        private static Scene scene;
+        public static Scene scene;
         private static SceneController sceneController;
         public static final String GAME_SCENE = "World_layout";
 
