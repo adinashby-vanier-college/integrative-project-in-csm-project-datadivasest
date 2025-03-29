@@ -3,7 +3,12 @@ package edu.vanier.template.controllers;
 import edu.vanier.template.models.Platform;
 import edu.vanier.template.models.Sprite;
 import edu.vanier.template.ui.MainApp;
+
 import javafx.animation.AnimationTimer;
+
+import edu.vanier.template.ui.MainMenu;
+import javafx.animation.Animation;
+
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
@@ -16,10 +21,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.media.AudioClip;
+
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,6 +63,7 @@ public class GameFXMLController {
     public void initialize() {
         logger.info("Initializing Game Controller...");
         btnBack.setOnAction(this::handleBack);
+        btnSettings.setOnAction(this::handleSettings);
         Image platformFloor = new Image(MainAppFXMLController.class.
                 getResource("/images/PNG/forest_pack_05.png").toString());
 
@@ -86,6 +94,7 @@ public class GameFXMLController {
         Canvas canvas = new Canvas(400, 600);
         mainPane.getChildren().add(canvas);
         mainPane.getChildren().addAll(platform1,platform2, platform3, platform4);
+
 
 //        this.setOnCloseRequest((event) -> {
 //            // Stop the animation timer upon closing this window.
@@ -186,5 +195,10 @@ public class GameFXMLController {
         System.out.println("Going back to...");
         MainApp.switchScene(MainApp.DIALOGUE_SCENE);
         logger.info("Back button has been clicked...");
+    }
+    private void handleSettings(Event e) {
+        System.out.println("Going to settings...");
+        MainMenu.switchScene(MainMenu.SETTINGS_SCENE);
+        logger.info("Settings has been clicked...");
     }
 }
