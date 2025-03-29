@@ -2,6 +2,8 @@ package edu.vanier.template.controllers;
 
 import edu.vanier.template.ui.MainApp;
 import edu.vanier.template.ui.MainMenu;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -28,10 +30,16 @@ public class SettingsFXMLController {
     @FXML
     public void initialize() {
         logger.info("Initializing SettingsController...");
-
+        btnBack.setOnAction(this::loadMainMenu);
+        btnQuit.setOnAction(this::quit);
     }
-    private void loadPrimaryScene(Event e) {
+    private void loadMainMenu(Event e) {
         MainMenu.switchScene(MainMenu.MAINMENU_SCENE);
         logger.info("Loaded the primary scene...");
+    }
+    private void quit(ActionEvent e) {
+        logger.info("Exiting application...");
+        Platform.exit(); // Properly closes JavaFX application
+        System.exit(0); // Ensures JVM exits (optional)
     }
 }

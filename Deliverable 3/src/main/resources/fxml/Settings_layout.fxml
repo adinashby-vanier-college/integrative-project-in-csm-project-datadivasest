@@ -67,7 +67,7 @@
             </HBox>
             <HBox alignment="CENTER" layoutX="10.0" layoutY="220.0" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                <children>
-                  <Button fx:id="btnQuit1" layoutX="197.0" layoutY="20.0" mnemonicParsing="false" text="Back">
+                  <Button fx:id="btnBack" layoutX="197.0" layoutY="20.0" mnemonicParsing="false" text="Back">
                      <font>
                         <Font size="17.0" />
                      </font>

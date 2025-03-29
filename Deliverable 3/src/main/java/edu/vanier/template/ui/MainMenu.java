@@ -29,7 +29,7 @@ public class MainMenu extends Application {
         // The FXML file name of the secondary scene.
         public static final String SECONDARY_SCENE = "secondary_layout";
         // The FXML file name of the dialogue scene.
-        public static final String DIALOGUE_SCENE = "DialoguePage";
+        public static final String DIALOGUE_SCENE = "Dialogue_layout";
         // The FXML file name of the main menu scene
         public static final String MAINMENU_SCENE = "MainMenu";
         // The FXML file name of the create account scene
@@ -41,6 +41,7 @@ public class MainMenu extends Application {
         private final static Logger logger = LoggerFactory.getLogger(edu.vanier.template.ui.MainMenu.class);
         private static Scene scene;
         private static SceneController sceneController;
+        public static final String GAME_SCENE = "World_layout";
 
         @Override
         public void stop() {
@@ -89,7 +90,18 @@ public class MainMenu extends Application {
                     // was already done in the start method.
                     sceneController.activateScene(fxmlFileName);
 
-                } else if (fxmlFileName.equals(DIALOGUE_SCENE)) {
+                } else if (fxmlFileName.equals(GAME_SCENE)) {
+                    if (!sceneController.sceneExists(fxmlFileName)) {
+                        // Instantiate the corresponding FXML controller if the
+                        // specified scene is being loaded for the frist time.
+                        GameFXMLController controller = new GameFXMLController();
+                        Parent root = FxUIHelper.loadFXML(fxmlFileName, controller);
+                        sceneController.addScene(GAME_SCENE, root);
+                    }
+                    // The scene has been previously added, we activate it.
+                    sceneController.activateScene(fxmlFileName);
+                }
+                else if (fxmlFileName.equals(DIALOGUE_SCENE)) {
                     if (!sceneController.sceneExists(fxmlFileName)) {
                         // Instantiate the corresponding FXML controller if the
                         // specified scene is being loaded for the frist time.
@@ -105,7 +117,7 @@ public class MainMenu extends Application {
                         // specified scene is being loaded for the frist time.
                         LoginFXMLController controller = new LoginFXMLController();
                         Parent root = FxUIHelper.loadFXML(fxmlFileName, controller);
-                        sceneController.addScene(DIALOGUE_SCENE, root);
+                        sceneController.addScene(LOGIN_SCENE, root);
                     }
                     // The scene has been previously added, we active it.
                     sceneController.activateScene(fxmlFileName);

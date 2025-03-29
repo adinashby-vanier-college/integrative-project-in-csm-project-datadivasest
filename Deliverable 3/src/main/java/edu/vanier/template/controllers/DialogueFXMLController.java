@@ -1,6 +1,7 @@
 package edu.vanier.template.controllers;
 
 import edu.vanier.template.ui.MainApp;
+import edu.vanier.template.ui.MainMenu;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -20,17 +21,25 @@ public class DialogueFXMLController {
     @FXML
     Button btnNext;
     @FXML
-    Button btnBack;
+    Button btnSkip;
+//    @FXML
+//    Button btnBack;
 
     @FXML
     public void initialize() {
         logger.info("Initializing Dialogue Controller...");
-        btnBack.setOnAction(this::handleBack);
+        //btnBack.setOnAction(this::handleBack);
+        btnSkip.setOnAction(this::handleSkip);
     }
 
     private void handleBack(Event e) {
         System.out.println("Going back to...");
-        MainApp.switchScene(MainApp.MAINAPP_SCENE);
+        MainMenu.switchScene(MainMenu.MAINMENU_SCENE);
+        logger.info("Back button has been clicked...");
+    }
+    private void handleSkip(Event e) {
+        System.out.println("Going back to...");
+        MainMenu.switchScene(MainMenu.GAME_SCENE);
         logger.info("Back button has been clicked...");
     }
 }

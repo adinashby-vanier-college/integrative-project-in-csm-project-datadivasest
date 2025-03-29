@@ -52,7 +52,7 @@ public class LoginFXMLController {
      */
     private void handleLoginBtn(Event e) {
         MainMenu.switchScene(MainMenu.DIALOGUE_SCENE);
-        logger.info("Loaded the settings scene...");
+        logger.info("Loaded the dialogue scene...");
     }
 
     /**
