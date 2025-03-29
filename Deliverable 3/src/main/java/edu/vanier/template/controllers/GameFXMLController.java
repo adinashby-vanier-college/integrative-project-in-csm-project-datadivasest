@@ -2,12 +2,15 @@ package edu.vanier.template.controllers;
 
 import edu.vanier.template.models.Platform;
 import edu.vanier.template.ui.MainApp;
+import edu.vanier.template.ui.MainMenu;
+import javafx.animation.Animation;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.media.AudioClip;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,6 +36,7 @@ public class GameFXMLController {
     public void initialize() {
         logger.info("Initializing Game Controller...");
         btnBack.setOnAction(this::handleBack);
+        btnSettings.setOnAction(this::handleSettings);
         Image platformFloor = new Image(MainAppFXMLController.class.
                 getResource("/images/PNG/forest_pack_05.png").toString());
 
@@ -61,11 +65,17 @@ public class GameFXMLController {
         platform4.setImage(platformFloating);
 
         mainPane.getChildren().addAll(platform1,platform2, platform3, platform4);
+
     }
 
     private void handleBack(Event e) {
         System.out.println("Going back to...");
-        MainApp.switchScene(MainApp.MAINAPP_SCENE);
+        MainMenu.switchScene(MainMenu.MAINMENU_SCENE);
         logger.info("Back button has been clicked...");
+    }
+    private void handleSettings(Event e) {
+        System.out.println("Going to settings...");
+        MainMenu.switchScene(MainMenu.SETTINGS_SCENE);
+        logger.info("Settings has been clicked...");
     }
 }
