@@ -97,7 +97,7 @@ public class MainMenu extends Application {
     }
 
     public static void setMusicVolume(double volume) {
-        if (backgroundMusic != null) {
+        if (isMusicPlaying()) {
             backgroundMusic.stop();
             backgroundMusic.setVolume(volume);
             backgroundMusic.play();
