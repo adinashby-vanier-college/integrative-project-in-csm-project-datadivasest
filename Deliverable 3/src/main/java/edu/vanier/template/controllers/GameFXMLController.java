@@ -91,10 +91,9 @@ public class GameFXMLController {
         platform3.setImage(platformFloating);
         platform4.setImage(platformFloating);
 
-        Canvas canvas = new Canvas(400, 600);
-        mainPane.getChildren().add(canvas);
+        Canvas canvas = new Canvas(100,500);
         mainPane.getChildren().addAll(platform1,platform2, platform3, platform4);
-
+        mainPane.getChildren().add(canvas);
 
 //        this.setOnCloseRequest((event) -> {
 //            // Stop the animation timer upon closing this window.
@@ -127,15 +126,22 @@ public class GameFXMLController {
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(1);
 
-        Sprite player = new Sprite(20,400, "player");
-        player.setImage(getClass().getResource("/images/player.png").toExternalForm());
-        player.setPosition(200, 0);
+        Image playerImg = new Image(MainAppFXMLController.class.
+                getResource("/images/player.png").toString());
+        Sprite player = new Sprite( "player", playerImg);
+        player.setSize(10);
+        player.setImage(playerImg);
+        player.setPosition(50, 50);
 
         List<Sprite> electronList = new ArrayList<>();
 
+        Image electronImg = new Image(MainAppFXMLController.class.
+                getResource("/images/coin.png").toString());
+
         for (int i = 0; i < 15; i++) {
-            Sprite electron = new Sprite("electron");
-            electron.setImage(getClass().getResource("/images/coin.png").toExternalForm());
+            Sprite electron = new Sprite("electron", electronImg);
+            electron.setSize(5);
+            electron.setImage(electronImg);
             double px = 350 * Math.random() + 50;
             double py = 350 * Math.random() + 50;
             electron.setPosition(px, py);
@@ -152,7 +158,7 @@ public class GameFXMLController {
                 // game logic
                 player.setVelocity(0, 0);
                 if (input.contains("LEFT")) {
-                    player.addVelocity(-250, 0);
+                    player.addVelocity(250, 0);
                 }
                 if (input.contains("RIGHT")) {
                     player.addVelocity(250, 0);
@@ -177,11 +183,11 @@ public class GameFXMLController {
                 }
 
                 // render
-                gc.clearRect(0, 0, 512, 512);
+                gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
                 player.render(gc);
 
-                for (Sprite moneybag : electronList) {
-                    moneybag.render(gc);
+                for (Sprite electron : electronList) {
+                    electron.render(gc);
                 }
 
                 String pointsText = "electron: -" + (2 * score);

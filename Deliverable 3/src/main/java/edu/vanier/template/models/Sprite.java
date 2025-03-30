@@ -23,23 +23,26 @@ public class Sprite extends ImageView {
     private double width;
     private double height;
 
-    public Sprite(int x, int y, String type) {
+    public Sprite(int x, int y, String type, Image image) {
         setPosition(x,y);
 
+        this.image = image;
         velocityX = 0;
         velocityY = 0;
 
         this.type = type;
-        setSize(100);
+//        setSize(100);
     }
 
-    public  Sprite(String type) {
+    public  Sprite(String type,Image image) {
+        this.image = image;
+
         positionX = 0;
         positionY = 0;
         velocityX = 0;
         velocityY = 0;
         this.type = type;
-        setSize(100);
+//        setSize(100);
     }
 
 //    public Projectile shootBullet() {
@@ -110,6 +113,7 @@ public class Sprite extends ImageView {
     public void setPosition(double x, double y) {
         positionX = x;
         positionY = y;
+        System.out.println("Position has been set to: (" + x +"," + y + ")");
     }
 
     public void setVelocity(double x, double y) {
