@@ -49,8 +49,6 @@ public class GameFXMLController {
     @FXML
     Button btnBack;
     @FXML
-    ImageView platformFloorImgView;
-    @FXML
     BorderPane borderPane;
 
     @FXML
@@ -71,18 +69,18 @@ public class GameFXMLController {
 
         Image imgPlatformFloating = new Image(MainAppFXMLController.class.
                 getResource("/images/PNG/forest_pack_39.png").toString());
-        // Set the platform floor image
-        platformFloorImgView.setImage(imgPlatformFloor);
-        platformFloorImgView.setPreserveRatio(false);
-        platformFloorImgView.setFitWidth(BaseWindow.sceneWidth);
-        platformFloorImgView.setFitHeight(100);
-
-// Position it at the bottom of the scene
-        platformFloorImgView.setLayoutX(0);
-        platformFloorImgView.setLayoutY(BaseWindow.sceneHeight - platformFloorImgView.getFitHeight());
+//        // Set the platform floor image
+//        platformFloorImgView.setImage(imgPlatformFloor);
+//        platformFloorImgView.setPreserveRatio(false);
+//        platformFloorImgView.setFitWidth(BaseWindow.sceneWidth);
+//        platformFloorImgView.setFitHeight(100);
+//
+//// Position it at the bottom of the scene
+//        platformFloorImgView.setLayoutX(0);
+//        platformFloorImgView.setLayoutY(BaseWindow.sceneHeight - platformFloorImgView.getFitHeight());
 
 // Add the platform floor to the mainPane
-        mainPane.getChildren().add(platformFloorImgView);
+        //mainPane.getChildren().add(platformFloorImgView);
         Image backgroundImg = new Image(MainAppFXMLController.class.
                 getResource("/images/PNG/bg_forest.png").toString());
         BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false);
@@ -92,19 +90,15 @@ public class GameFXMLController {
                 BackgroundRepeat.NO_REPEAT,
                 BackgroundPosition.CENTER,
                 bSize)));
-
-        Platform platform1 = new Platform(300, 100, "floating", 60, 150);
-        Platform platform2 = new Platform(100, 200, "floating", 60, 150);
-        Platform platform3 = new Platform(200, 50, "floating", 60, 60);
-        Platform platform4 = new Platform(20, 250, "floating", 60, 200);
-        platform1.setImage(imgPlatformFloating);
-        platform2.setImage(imgPlatformFloating);
-        platform3.setImage(imgPlatformFloating);
-        platform4.setImage(imgPlatformFloating);
+        Platform platformFloor = new Platform(0, (int)BaseWindow.sceneHeight - 100, "floor", 100, (int)BaseWindow.sceneWidth, imgPlatformFloor);
+        Platform platform1 = new Platform(300, 100, "floating", 60, 150, imgPlatformFloating);
+        Platform platform2 = new Platform(100, 200, "floating", 60, 150, imgPlatformFloating);
+        Platform platform3 = new Platform(200, 50, "floating", 60, 60, imgPlatformFloating);
+        Platform platform4 = new Platform(20, 250, "floating", 60, 200, imgPlatformFloating);
 
         Canvas canvas = new Canvas(BaseWindow.sceneWidth, BaseWindow.sceneHeight);
         logger.info("" + canvas.getWidth() + " " + canvas.getHeight());
-        mainPane.getChildren().addAll(platform1, platform2, platform3, platform4);
+        mainPane.getChildren().addAll(platformFloor, platform1, platform2, platform3, platform4);
         mainPane.getChildren().add(canvas);
 
 //        this.setOnCloseRequest((event) -> {
@@ -186,7 +180,7 @@ public class GameFXMLController {
 
                 // Ensure the player stays within bounds
                 double newX = Math.max(0, Math.min(player.getPositionX(), canvasWidth - playerWidth));
-                double newY = Math.max(0, Math.min(player.getPositionY(), canvasHeight - playerHeight - platformFloorImgView.getFitHeight()));
+                double newY = Math.max(0, Math.min(player.getPositionY(), canvasHeight - playerHeight - platformFloor.getFitHeight()));
 
                 player.setPosition(newX, newY);
 

@@ -31,6 +31,7 @@ public class Sprite extends ImageView {
         velocityY = 0;
 
         this.type = type;
+        setImage(image);
 //        setSize(100);
     }
 

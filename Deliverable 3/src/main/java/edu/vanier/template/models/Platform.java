@@ -7,22 +7,19 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 /**
- * Base class for all sprites
+ * Base class for all platforms
  */
-public class Platform extends ImageView {
+public class Platform extends Sprite {
     private int sizeX;
     private int sizeY;
     private final String type;
     
-    public Platform(int x, int y, String type, int sizeY, int sizeX) {
+    public Platform(int x, int y, String type, int sizeY, int sizeX, Image img) {
+        super(x, y, "platform", img);
         setPosition(x,y);
         this.type = type;
         setFitWidth(sizeX);
         setFitHeight(sizeY);
-    }
-    public void setImage(String filename) {
-        Image i = new Image(filename);
-        setImage(i);
     }
     public void setPosition(double x, double y) {
         setX(Math.abs(x) % 1000);
