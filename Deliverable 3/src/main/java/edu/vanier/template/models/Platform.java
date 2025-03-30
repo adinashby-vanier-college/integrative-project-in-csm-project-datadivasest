@@ -14,15 +14,14 @@ public class Platform extends Sprite {
     private int sizeY;
     private final String type;
     
-    public Platform(int x, int y, String type, int sizeY, int sizeX, Image img) {
-        super(x, y, "platform", img);
-        setPosition(x,y);
+    public Platform(int x, int y, String type, int sizeX, int sizeY, Image img) {
+        super(x, y, "platform", sizeX, sizeY, img);
         this.type = type;
         setFitWidth(sizeX);
         setFitHeight(sizeY);
     }
-    public void setPosition(double x, double y) {
-        setX(Math.abs(x) % 1000);
-        setY(Math.abs(y) % 1000);
-    }
+//    public void setPosition(double x, double y) {
+//        setX(Math.abs(x) % 1000);
+//        setY(Math.abs(y) % 1000);
+//    }
 }

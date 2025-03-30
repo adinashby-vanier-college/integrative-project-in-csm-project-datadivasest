@@ -1,6 +1,7 @@
 package edu.vanier.template.controllers;
 
 import edu.vanier.template.models.Platform;
+import edu.vanier.template.models.Player;
 import edu.vanier.template.models.Sprite;
 import edu.vanier.template.ui.BaseWindow;
 import edu.vanier.template.ui.MainApp;
@@ -90,16 +91,19 @@ public class GameFXMLController {
                 BackgroundRepeat.NO_REPEAT,
                 BackgroundPosition.CENTER,
                 bSize)));
-        Platform platformFloor = new Platform(0, (int)BaseWindow.sceneHeight - 100, "floor", 100, (int)BaseWindow.sceneWidth, imgPlatformFloor);
-        Platform platform1 = new Platform(300, 100, "floating", 60, 150, imgPlatformFloating);
-        Platform platform2 = new Platform(100, 200, "floating", 60, 150, imgPlatformFloating);
-        Platform platform3 = new Platform(200, 50, "floating", 60, 60, imgPlatformFloating);
-        Platform platform4 = new Platform(20, 250, "floating", 60, 200, imgPlatformFloating);
-
+        List<Platform> platformList = new ArrayList<>();
+        Platform platformFloor = new Platform(0, (int)BaseWindow.sceneHeight - 100, "floor", (int)BaseWindow.sceneWidth, 100, imgPlatformFloor);
+        Platform platform1 = new Platform(300, 100, "floating", 150, 30, imgPlatformFloating);
+        Platform platform2 = new Platform(100, 200, "floating", 150, 30, imgPlatformFloating);
+        Platform platform3 = new Platform(200, 50, "floating", 60, 30, imgPlatformFloating);
+        Platform platform4 = new Platform(20, 250, "floating", 200, 30, imgPlatformFloating);
+        platformList.add(platform1);
+        platformList.add(platform2);
+        platformList.add(platform3);
+        platformList.add(platform4);
+        System.out.println(platformList);
         Canvas canvas = new Canvas(BaseWindow.sceneWidth, BaseWindow.sceneHeight);
-        logger.info("" + canvas.getWidth() + " " + canvas.getHeight());
-        mainPane.getChildren().addAll(platformFloor, platform1, platform2, platform3, platform4);
-        mainPane.getChildren().add(canvas);
+        mainPane.getChildren().addAll(canvas, platformFloor);
 
 //        this.setOnCloseRequest((event) -> {
 //            // Stop the animation timer upon closing this window.
@@ -121,11 +125,8 @@ public class GameFXMLController {
 
         Image playerImg = new Image(MainAppFXMLController.class.
                 getResource("/images/player.png").toString());
-        Sprite player = new Sprite("player", playerImg);
-        player.setWidth(50);
-        player.setHeight(70);
-        player.setImage(playerImg);
-        player.setPosition(50, 250);
+        Player player = new Player(500, 250, 50, 70, playerImg);
+        player.setBounds(0,(int) canvas.getWidth(), 0, (int) canvas.getHeight() - (int) platformFloor.getHeight());
 
         List<Sprite> electronList = new ArrayList<>();
 
@@ -143,48 +144,84 @@ public class GameFXMLController {
         }
 
         animation = new AnimationTimer() {
+            private boolean isJumping = false;
+            private boolean isFalling = false;
+            private double gravity = 600; // Gravity force
+            private double jumpStrength = -300; // Jumping force
+            private double velocityY = 0; // Vertical velocity
+            double cnt = 0;
+
             @Override
             public void handle(long currentNanoTime) {
-                // Calculate time since last update
                 double elapsedTime = (currentNanoTime - lastNanoTime) / 1_000_000_000.0;
                 lastNanoTime = currentNanoTime;
 
-                // Canvas dimensions
                 double canvasWidth = canvas.getWidth();
                 double canvasHeight = canvas.getHeight();
                 double playerWidth = player.getWidth();
                 double playerHeight = player.getHeight();
 
-                // Reset velocity
-                player.setVelocity(0, 0);
+                double prevX = player.getPositionX();
+                double prevY = player.getPositionY();
 
-                // Log inputs
-                logger.info(input.toString());
+                // Reset horizontal velocity
+                player.setVelocity(0, velocityY);
 
-                // Movement handling
                 if (input.contains("A")) {
                     player.addVelocity(-250, 0);
                 }
                 if (input.contains("D")) {
                     player.addVelocity(250, 0);
                 }
-                if (input.contains("W")) {
-                    player.addVelocity(0, -250);
+
+                // Jumping logic (double jump)
+                if (input.contains("W") && !isFalling && cnt < 2) {
+                    velocityY = jumpStrength;
+                    cnt++;
+                    input.remove("W");
                 }
-                 if (input.contains("S")) {
-                     player.addVelocity(0, 250);
-                 }
 
-                // Update player position
-                player.update(elapsedTime);
+                // Apply gravity
+                velocityY += gravity * elapsedTime;
+                double nextX = prevX + player.getVelocityX() * elapsedTime;
+                double nextY = prevY + velocityY * elapsedTime;
 
-                // Ensure the player stays within bounds
-                double newX = Math.max(0, Math.min(player.getPositionX(), canvasWidth - playerWidth));
-                double newY = Math.max(0, Math.min(player.getPositionY(), canvasHeight - playerHeight - platformFloor.getFitHeight()));
+                // Collision detection with platforms
+                for (Platform platform : platformList) {
+                    if (player.intersectsAt(nextX, prevY, platform)) {
+                        nextX = prevX;
+                    }
+                    if (player.intersectsAt(prevX, nextY, platform)) {
+                        if (velocityY > 0) { // Falling down
+                            nextY = platform.getPositionY() - playerHeight;
+                            velocityY = 0;
+                        } else if (velocityY < 0) { // Hitting the bottom of a platform
+                            nextY = platform.getPositionY() + platform.getHeight();
+                            velocityY = 0;
+                        }
+                    }
+                }
 
-                player.setPosition(newX, newY);
+                // Keep player within bounds
+                nextX = Math.max(0, Math.min(nextX, canvasWidth - playerWidth));
 
-                // Collision detection
+                if (nextY < 0) {  // Prevent going above the screen
+                    nextY = 0;
+                    velocityY = 0;
+                } else if (nextY >= canvasHeight - playerHeight - platformFloor.getHeight()) { // Ground collision
+                    nextY = canvasHeight - playerHeight - platformFloor.getHeight();
+                    velocityY = 0;
+                }
+
+                if (velocityY > 0) {
+                    isFalling = true;
+                }
+                else isFalling = false;
+                if (velocityY >= 0)
+                    cnt = 0;
+                player.setPosition(nextX, nextY);
+
+                // Electron collection logic
                 Iterator<Sprite> electronIter = electronList.iterator();
                 while (electronIter.hasNext()) {
                     Sprite electron = electronIter.next();
@@ -198,9 +235,11 @@ public class GameFXMLController {
                 // Render
                 gc.clearRect(0, 0, canvasWidth, canvasHeight);
                 player.render(gc);
-
                 for (Sprite electron : electronList) {
                     electron.render(gc);
+                }
+                for (Sprite platform : platformList) {
+                    platform.render(gc);
                 }
 
                 String pointsText = "electron: -" + (2 * score);

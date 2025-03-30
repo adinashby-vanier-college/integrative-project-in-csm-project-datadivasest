@@ -22,13 +22,16 @@ public class Sprite extends ImageView {
     private double positionY;
     private double width;
     private double height;
+    private double x1,x2,y1,y2;
 
-    public Sprite(int x, int y, String type, Image image) {
+    public Sprite(int x, int y, String type, int sizeX, int sizeY, Image image) {
         setPosition(x,y);
 
         this.image = image;
         velocityX = 0;
         velocityY = 0;
+        width = sizeX;
+        height = sizeY;
 
         this.type = type;
         setImage(image);
@@ -75,6 +78,24 @@ public class Sprite extends ImageView {
         height = size;
         setFitHeight(size);
     }
+    public void setBounds(int x1, int x2, int y1, int y2) {
+        this.x1 = x1;
+        this.x2 = x2;
+        this.y1 = y1;
+        this.y2 = y2;
+    }
+
+    /**
+     * Check if position is in bounds
+     *
+     * @param x
+     * @param y
+     * @return true if the new position is in bounds, false otherwise
+     */
+    private boolean inBounds(double x, double y) {
+        return (x >= x1) && (y >= y1) && (x <= x2) && (y <= y2);
+    }
+
 
 
 //    public void setVelocity(double x, double y) {
@@ -131,8 +152,17 @@ public class Sprite extends ImageView {
     public void setPosition(double x, double y) {
         positionX = x;
         positionY = y;
+        setX(x);
+        setY(y);
         System.out.println("Position has been set to: (" + x +"," + y + ")");
     }
+    public void setPositionX(double x) {
+        positionX = x;
+    }
+    public void setPositionY(double Y) {
+        positionY = Y;
+    }
+
 
     public void setVelocity(double x, double y) {
         velocityX = x;
@@ -159,6 +189,18 @@ public class Sprite extends ImageView {
 
     public boolean intersects(Sprite s) {
         return s.getBoundary().intersects(this.getBoundary());
+    }
+    public boolean intersectsAt(double x, double y, Platform platform) {
+        Rectangle2D futureBoundary = new Rectangle2D(x, y, this.getWidth(), this.getHeight());
+        return futureBoundary.intersects(platform.getBoundary());
+    }
+
+    public double getVelocityX() {
+        return velocityX;
+    }
+
+    public double getVelocityY() {
+        return velocityY;
     }
 
     public String toString() {
