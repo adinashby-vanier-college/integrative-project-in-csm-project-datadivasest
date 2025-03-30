@@ -2,6 +2,7 @@ package edu.vanier.template.controllers;
 
 import edu.vanier.template.models.Platform;
 import edu.vanier.template.models.Player;
+import edu.vanier.template.models.Portal;
 import edu.vanier.template.models.Sprite;
 import edu.vanier.template.ui.BaseWindow;
 import edu.vanier.template.ui.MainApp;
@@ -104,6 +105,10 @@ public class GameFXMLController {
         System.out.println(platformList);
         Canvas canvas = new Canvas(BaseWindow.sceneWidth, BaseWindow.sceneHeight);
         mainPane.getChildren().addAll(canvas, platformFloor);
+
+        Image imgPortal = new Image(MainAppFXMLController.class.
+                getResource("/images/PNG/galaxy.png").toString());
+        Portal portal = new Portal((int)BaseWindow.sceneWidth - 30, (int)BaseWindow.sceneHeight - 200 - (int)platformFloor.getHeight(), 30, 200, imgPortal);
 
 //        this.setOnCloseRequest((event) -> {
 //            // Stop the animation timer upon closing this window.
@@ -221,6 +226,8 @@ public class GameFXMLController {
                     cnt = 0;
                 player.setPosition(nextX, nextY);
 
+                if (score >= 0)
+                    portal.unlock();
                 // Electron collection logic
                 Iterator<Sprite> electronIter = electronList.iterator();
                 while (electronIter.hasNext()) {
@@ -231,10 +238,14 @@ public class GameFXMLController {
                         score++;
                     }
                 }
+                if (portal.intersects(player)) {
+                    portal.enter();
+                }
 
                 // Render
                 gc.clearRect(0, 0, canvasWidth, canvasHeight);
                 player.render(gc);
+                portal.render(gc);
                 for (Sprite electron : electronList) {
                     electron.render(gc);
                 }
