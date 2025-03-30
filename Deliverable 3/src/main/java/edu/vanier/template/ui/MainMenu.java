@@ -62,7 +62,7 @@ public class MainMenu extends Application {
     public static final String SETTINGS_SCENE = "Settings_layout";
     private final static Logger logger = LoggerFactory.getLogger(edu.vanier.template.ui.MainMenu.class);
     public static Scene scene;
-    private static SceneController sceneController;
+    public static SceneController sceneController;
     public static final String GAME_SCENE = "World_layout";
     private static AudioClip backgroundMusic;
 
@@ -183,7 +183,7 @@ public class MainMenu extends Application {
                     Parent root = FxUIHelper.loadFXML(fxmlFileName, controller);
                     sceneController.addScene(CREATEACCOUNT_SCENE, root);
                 }
-                // The scene has been previously added, we active it.
+                // The scene has been previously added, we activate it.
                 sceneController.activateScene(fxmlFileName);
             } else if (fxmlFileName.equals(SETTINGS_SCENE)) {
                 if (!sceneController.sceneExists(fxmlFileName)) {

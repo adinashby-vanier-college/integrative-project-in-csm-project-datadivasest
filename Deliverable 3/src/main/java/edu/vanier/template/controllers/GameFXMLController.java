@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import static edu.vanier.template.ui.MainMenu.scene;
+import static edu.vanier.template.ui.MainMenu.*;
 
 public class GameFXMLController {
     private final static Logger logger = LoggerFactory.getLogger(GameFXMLController.class);
@@ -91,7 +91,7 @@ public class GameFXMLController {
         platform3.setImage(platformFloating);
         platform4.setImage(platformFloating);
 
-        Canvas canvas = new Canvas(100,500);
+        Canvas canvas = new Canvas(1200,500);
         mainPane.getChildren().addAll(platform1,platform2, platform3, platform4);
         mainPane.getChildren().add(canvas);
 
@@ -106,6 +106,7 @@ public class GameFXMLController {
         itemClip = new AudioClip(getClass().getResource("/sounds/item_pickup.wav").toExternalForm());
 
         List<String> input = new ArrayList<>();
+//        Scene scene = sceneController.getScene(GAME_SCENE); //TODO: figure out what the correct scene should be here
         scene.setOnKeyPressed((KeyEvent e) -> {
             String code = e.getCode().toString();
             if (!input.contains(code)) {
@@ -129,9 +130,10 @@ public class GameFXMLController {
         Image playerImg = new Image(MainAppFXMLController.class.
                 getResource("/images/player.png").toString());
         Sprite player = new Sprite( "player", playerImg);
-        player.setSize(10);
+        player.setWidth(50);
+        player.setHeight(70);
         player.setImage(playerImg);
-        player.setPosition(50, 50);
+        player.setPosition(50, 250);
 
         List<Sprite> electronList = new ArrayList<>();
 
@@ -140,10 +142,10 @@ public class GameFXMLController {
 
         for (int i = 0; i < 15; i++) {
             Sprite electron = new Sprite("electron", electronImg);
-            electron.setSize(5);
+            electron.setSize(30);
             electron.setImage(electronImg);
-            double px = 350 * Math.random() + 50;
-            double py = 350 * Math.random() + 50;
+            double px = 220 * Math.random() + 50;
+            double py = 220 * Math.random() + 50;
             electron.setPosition(px, py);
             electronList.add(electron);
         }

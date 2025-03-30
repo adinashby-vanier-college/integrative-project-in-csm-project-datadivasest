@@ -15,7 +15,7 @@ import java.util.HashMap;
 public class SceneController {
 
     private final HashMap<String, Parent> scenesMap = new HashMap<>();
-    private final Scene mainScene;
+    public final Scene mainScene;
 
     /**
      * Constructs a SceneController with a given main scene.
@@ -61,6 +61,14 @@ public class SceneController {
     public void activateScene(String sceneName) {
         if (sceneExists(sceneName)) {
             mainScene.setRoot(scenesMap.get(sceneName));
+        } else {
+            throw new IllegalArgumentException("Unable to activate the requested scene, as it is not registered.");
+        }
+    }
+
+    public Scene getScene(String sceneName) {
+        if (sceneExists(sceneName)) {
+            return scenesMap.get(sceneName).getScene();
         } else {
             throw new IllegalArgumentException("Unable to activate the requested scene, as it is not registered.");
         }

@@ -42,7 +42,7 @@ public class Sprite extends ImageView {
         velocityX = 0;
         velocityY = 0;
         this.type = type;
-//        setSize(100);
+//        setSize(10);
     }
 
 //    public Projectile shootBullet() {
@@ -56,9 +56,20 @@ public class Sprite extends ImageView {
 //    }
 
     public void setSize(double size) {
+        setWidth(size);
+        setHeight(size);
+    }
+    public void setWidth(double size) {
         setFitWidth(size);
+        width = size;
+    }
+
+    public void setHeight(double size) {
+        height = size;
         setFitHeight(size);
     }
+
+
 //    public void setVelocity(double x, double y) {
 //        velocityX = x;
 //        velocityY = y;
@@ -132,7 +143,7 @@ public class Sprite extends ImageView {
     }
 
     public void render(GraphicsContext gc) {
-        gc.drawImage(image, positionX, positionY);
+        gc.drawImage(image, positionX, positionY, width, height);
     }
 
     public Rectangle2D getBoundary() {
