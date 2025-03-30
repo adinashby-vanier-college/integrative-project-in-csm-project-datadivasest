@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
  * @author Sofia Martinez
  */
 public class BackpackFXMLController {
-    private final static Logger logger = LoggerFactory.getLogger(DialogueFXMLController.class);
+    private final static Logger logger = LoggerFactory.getLogger(BackpackFXMLController.class);
     @FXML
     Button doneBtn;
     @FXML

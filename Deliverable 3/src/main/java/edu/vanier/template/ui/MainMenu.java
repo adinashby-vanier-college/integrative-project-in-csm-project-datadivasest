@@ -212,29 +212,45 @@ public class MainMenu extends Application {
 
     public static void setUI(BorderPane borderPane, ImageView title, String titleName) {
         //Sets background
+        setBG(borderPane, "Files/png/BG.png");
+
+        //Adds title
         double size;
         if (titleName.equals("title.png")) {
             size = 0.5;
         } else {
             size = 0.3;
         }
-        Image backgroundImg = new Image(MainAppFXMLController.class.
-                getResource("/images/Files/png/BG.png").toString());
-        BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false);
 
-        borderPane.setBackground(new Background(new BackgroundImage(backgroundImg,
-                BackgroundRepeat.REPEAT,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.CENTER,
-                bSize)));
-
-        //Adds title
         Image titleImg = new Image(MainAppFXMLController.class.
                 getResource("/images/" + titleName).toString());
         title.setImage(titleImg);
         title.setPreserveRatio(true);
         title.setFitWidth(BaseWindow.sceneWidth * size);
         title.setFitHeight(BaseWindow.sceneHeight * size);
+    }
+
+    public static void setBG(BorderPane borderPane, String backgroundName) {
+        //Sets background
+        Image backgroundImg = getImage(backgroundName);
+        BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, true);
+
+        borderPane.setBackground(new Background(new BackgroundImage(backgroundImg,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.CENTER,
+                bSize)));
+    }
+
+    public static Image getImage(String imageName) {
+        return new Image(MainAppFXMLController.class.
+                getResource("/images/" + imageName).toString());
+    }
+
+    public static void fixSize(double size, ImageView image) {
+        image.setPreserveRatio(true);
+        image.setFitWidth(BaseWindow.sceneWidth * size);
+        image.setFitHeight(BaseWindow.sceneHeight * size);
     }
     public static void main(String[] args) {
         launch(args);
