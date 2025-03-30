@@ -151,6 +151,7 @@ public class MainMenu extends Application {
                     GameFXMLController controller = new GameFXMLController();
                     Parent root = FxUIHelper.loadFXML(fxmlFileName, controller);
                     sceneController.addScene(GAME_SCENE, root);
+
                 }
                 // The scene has been previously added, we activate it.
                 sceneController.activateScene(fxmlFileName);

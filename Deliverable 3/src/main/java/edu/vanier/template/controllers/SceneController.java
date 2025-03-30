@@ -2,7 +2,14 @@ package edu.vanier.template.controllers;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyEvent;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
+import static edu.vanier.template.ui.MainMenu.GAME_SCENE;
+import static edu.vanier.template.ui.MainMenu.scene;
 
 /**
  * The SceneController class is responsible for managing and switching between
@@ -16,6 +23,7 @@ public class SceneController {
 
     private final HashMap<String, Parent> scenesMap = new HashMap<>();
     public final Scene mainScene;
+    public static List<String> input;
 
     /**
      * Constructs a SceneController with a given main scene.
@@ -24,6 +32,7 @@ public class SceneController {
      */
     public SceneController(Scene scene) {
         this.mainScene = scene;
+        input = new ArrayList<>();
     }
 
     /**
@@ -61,6 +70,19 @@ public class SceneController {
     public void activateScene(String sceneName) {
         if (sceneExists(sceneName)) {
             mainScene.setRoot(scenesMap.get(sceneName));
+            if (sceneName.equals(GAME_SCENE)) {
+                mainScene.setOnKeyPressed((KeyEvent e) -> {
+                    String code = e.getCode().toString();
+                    if (!input.contains(code)) {
+                        input.add(code);
+                    }
+                });
+
+                mainScene.setOnKeyReleased((KeyEvent e) -> {
+                    String code = e.getCode().toString();
+                    input.remove(code);
+                });
+            }
         } else {
             throw new IllegalArgumentException("Unable to activate the requested scene, as it is not registered.");
         }

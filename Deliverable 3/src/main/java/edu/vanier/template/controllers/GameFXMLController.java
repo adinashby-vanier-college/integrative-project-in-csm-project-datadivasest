@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import static edu.vanier.template.controllers.SceneController.input;
 import static edu.vanier.template.ui.MainMenu.*;
 
 public class GameFXMLController {
@@ -105,19 +106,19 @@ public class GameFXMLController {
         //-- Create and configure the media player.
         itemClip = new AudioClip(getClass().getResource("/sounds/item_pickup.wav").toExternalForm());
 
-        List<String> input = new ArrayList<>();
+//        List<String> input = new ArrayList<>();
 //        Scene scene = sceneController.getScene(GAME_SCENE); //TODO: figure out what the correct scene should be here
-        scene.setOnKeyPressed((KeyEvent e) -> {
-            String code = e.getCode().toString();
-            if (!input.contains(code)) {
-                input.add(code);
-            }
-        });
-
-        scene.setOnKeyReleased((KeyEvent e) -> {
-            String code = e.getCode().toString();
-            input.remove(code);
-        });
+//        scene.setOnKeyPressed((KeyEvent e) -> {
+//            String code = e.getCode().toString();
+//            if (!input.contains(code)) {
+//                input.add(code);
+//            }
+//        });
+//
+//        scene.setOnKeyReleased((KeyEvent e) -> {
+//            String code = e.getCode().toString();
+//            input.remove(code);
+//        });
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
@@ -159,16 +160,17 @@ public class GameFXMLController {
 
                 // game logic
                 player.setVelocity(0, 0);
-                if (input.contains("LEFT")) {
+                logger.info(input.toString());
+                if (input.contains("A")) {
+                    player.addVelocity(-250, 0);
+                }
+                if (input.contains("D")) {
                     player.addVelocity(250, 0);
                 }
-                if (input.contains("RIGHT")) {
-                    player.addVelocity(250, 0);
-                }
-                if (input.contains("UP")) {
+                if (input.contains("W")) {
                     player.addVelocity(0, -250);
                 }
-                if (input.contains("DOWN")) {
+                if (input.contains("S")) {
                     player.addVelocity(0, 250);
                 }
                 player.update(elapsedTime);
@@ -201,7 +203,7 @@ public class GameFXMLController {
     }
     private void handleBack(Event e) {
         System.out.println("Going back to...");
-        MainApp.switchScene(MainApp.DIALOGUE_SCENE);
+        MainMenu.switchScene(MainMenu.DIALOGUE_SCENE);
         logger.info("Back button has been clicked...");
     }
     private void handleSettings(Event e) {
