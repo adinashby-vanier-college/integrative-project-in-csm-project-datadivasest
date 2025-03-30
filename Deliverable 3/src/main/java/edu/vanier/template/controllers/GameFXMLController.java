@@ -60,6 +60,7 @@ public class GameFXMLController {
     private long lastNanoTime = System.nanoTime();
     private AudioClip itemClip;
     private AnimationTimer animation;
+    private BackpackFXMLController backpackFXMLController;
 
     @FXML
     public void initialize() {
@@ -207,6 +208,7 @@ public class GameFXMLController {
                     }
                 }
 
+
                 // Keep player within bounds
                 nextX = Math.max(0, Math.min(nextX, canvasWidth - playerWidth));
 
@@ -236,6 +238,9 @@ public class GameFXMLController {
                         electronIter.remove();
                         itemClip.play();
                         score++;
+                        backpackFXMLController.addObject(electron);
+                        //won't the electron need to be removed after it collides with the player
+                        //we'll also need protons but this can be done for deliverable three (the differentiation)
                     }
                 }
                 if (portal.intersects(player)) {
