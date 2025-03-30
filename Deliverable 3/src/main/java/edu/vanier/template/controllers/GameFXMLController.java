@@ -2,6 +2,7 @@ package edu.vanier.template.controllers;
 
 import edu.vanier.template.models.Platform;
 import edu.vanier.template.models.Sprite;
+import edu.vanier.template.ui.BaseWindow;
 import edu.vanier.template.ui.MainApp;
 
 import javafx.animation.AnimationTimer;
@@ -65,14 +66,23 @@ public class GameFXMLController {
         logger.info("Initializing Game Controller...");
         btnBack.setOnAction(this::handleBack);
         btnSettings.setOnAction(this::handleSettings);
-        Image platformFloor = new Image(MainAppFXMLController.class.
+        Image imgPlatformFloor = new Image(MainAppFXMLController.class.
                 getResource("/images/PNG/forest_pack_05.png").toString());
 
-        Image platformFloating = new Image(MainAppFXMLController.class.
+        Image imgPlatformFloating = new Image(MainAppFXMLController.class.
                 getResource("/images/PNG/forest_pack_39.png").toString());
-        platformFloorImgView.setImage(platformFloor);
+        // Set the platform floor image
+        platformFloorImgView.setImage(imgPlatformFloor);
         platformFloorImgView.setPreserveRatio(false);
-        platformFloorImgView.setFitWidth(2000);
+        platformFloorImgView.setFitWidth(BaseWindow.sceneWidth);
+        platformFloorImgView.setFitHeight(100);
+
+// Position it at the bottom of the scene
+        platformFloorImgView.setLayoutX(0);
+        platformFloorImgView.setLayoutY(BaseWindow.sceneHeight - platformFloorImgView.getFitHeight());
+
+// Add the platform floor to the mainPane
+        mainPane.getChildren().add(platformFloorImgView);
         Image backgroundImg = new Image(MainAppFXMLController.class.
                 getResource("/images/PNG/bg_forest.png").toString());
         BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false);
@@ -83,17 +93,18 @@ public class GameFXMLController {
                 BackgroundPosition.CENTER,
                 bSize)));
 
-        Platform platform1 = new Platform(300, 100,"floating", 60, 150 );
-        Platform platform2 = new Platform(100, 200,"floating", 60, 150 );
-        Platform platform3 = new Platform(200, 50,"floating", 60, 60 );
-        Platform platform4 = new Platform(20, 250,"floating", 60, 200 );
-        platform1.setImage(platformFloating);
-        platform2.setImage(platformFloating);
-        platform3.setImage(platformFloating);
-        platform4.setImage(platformFloating);
+        Platform platform1 = new Platform(300, 100, "floating", 60, 150);
+        Platform platform2 = new Platform(100, 200, "floating", 60, 150);
+        Platform platform3 = new Platform(200, 50, "floating", 60, 60);
+        Platform platform4 = new Platform(20, 250, "floating", 60, 200);
+        platform1.setImage(imgPlatformFloating);
+        platform2.setImage(imgPlatformFloating);
+        platform3.setImage(imgPlatformFloating);
+        platform4.setImage(imgPlatformFloating);
 
-        Canvas canvas = new Canvas(1200,500);
-        mainPane.getChildren().addAll(platform1,platform2, platform3, platform4);
+        Canvas canvas = new Canvas(BaseWindow.sceneWidth, BaseWindow.sceneHeight);
+        logger.info("" + canvas.getWidth() + " " + canvas.getHeight());
+        mainPane.getChildren().addAll(platform1, platform2, platform3, platform4);
         mainPane.getChildren().add(canvas);
 
 //        this.setOnCloseRequest((event) -> {
@@ -106,20 +117,6 @@ public class GameFXMLController {
         //-- Create and configure the media player.
         itemClip = new AudioClip(getClass().getResource("/sounds/item_pickup.wav").toExternalForm());
 
-//        List<String> input = new ArrayList<>();
-//        Scene scene = sceneController.getScene(GAME_SCENE); //TODO: figure out what the correct scene should be here
-//        scene.setOnKeyPressed((KeyEvent e) -> {
-//            String code = e.getCode().toString();
-//            if (!input.contains(code)) {
-//                input.add(code);
-//            }
-//        });
-//
-//        scene.setOnKeyReleased((KeyEvent e) -> {
-//            String code = e.getCode().toString();
-//            input.remove(code);
-//        });
-
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
         Font scoreFont = Font.font("Helvetica", FontWeight.BOLD, 24);
@@ -130,7 +127,7 @@ public class GameFXMLController {
 
         Image playerImg = new Image(MainAppFXMLController.class.
                 getResource("/images/player.png").toString());
-        Sprite player = new Sprite( "player", playerImg);
+        Sprite player = new Sprite("player", playerImg);
         player.setWidth(50);
         player.setHeight(70);
         player.setImage(playerImg);
@@ -154,13 +151,23 @@ public class GameFXMLController {
         animation = new AnimationTimer() {
             @Override
             public void handle(long currentNanoTime) {
-                // calculate time since last update.
-                double elapsedTime = (currentNanoTime - lastNanoTime) / 1000000000.0;
+                // Calculate time since last update
+                double elapsedTime = (currentNanoTime - lastNanoTime) / 1_000_000_000.0;
                 lastNanoTime = currentNanoTime;
 
-                // game logic
+                // Canvas dimensions
+                double canvasWidth = canvas.getWidth();
+                double canvasHeight = canvas.getHeight();
+                double playerWidth = player.getWidth();
+                double playerHeight = player.getHeight();
+
+                // Reset velocity
                 player.setVelocity(0, 0);
+
+                // Log inputs
                 logger.info(input.toString());
+
+                // Movement handling
                 if (input.contains("A")) {
                     player.addVelocity(-250, 0);
                 }
@@ -170,12 +177,20 @@ public class GameFXMLController {
                 if (input.contains("W")) {
                     player.addVelocity(0, -250);
                 }
-                if (input.contains("S")) {
-                    player.addVelocity(0, 250);
-                }
+                 if (input.contains("S")) {
+                     player.addVelocity(0, 250);
+                 }
+
+                // Update player position
                 player.update(elapsedTime);
 
-                // collision detection
+                // Ensure the player stays within bounds
+                double newX = Math.max(0, Math.min(player.getPositionX(), canvasWidth - playerWidth));
+                double newY = Math.max(0, Math.min(player.getPositionY(), canvasHeight - playerHeight - platformFloorImgView.getFitHeight()));
+
+                player.setPosition(newX, newY);
+
+                // Collision detection
                 Iterator<Sprite> electronIter = electronList.iterator();
                 while (electronIter.hasNext()) {
                     Sprite electron = electronIter.next();
@@ -186,8 +201,8 @@ public class GameFXMLController {
                     }
                 }
 
-                // render
-                gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+                // Render
+                gc.clearRect(0, 0, canvasWidth, canvasHeight);
                 player.render(gc);
 
                 for (Sprite electron : electronList) {
@@ -201,7 +216,8 @@ public class GameFXMLController {
         };
         animation.start();
     }
-    private void handleBack(Event e) {
+
+        private void handleBack(Event e) {
         System.out.println("Going back to...");
         MainMenu.switchScene(MainMenu.DIALOGUE_SCENE);
         logger.info("Back button has been clicked...");

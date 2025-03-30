@@ -79,7 +79,7 @@ public class MainMenu extends Application {
             logger.info("Bootstrapping the application...");
             // Load the scene of the primary stage.
             Parent root = FxUIHelper.loadFXML(MAINMENU_SCENE, new MainMenuFXMLController());
-            scene = new Scene(root, 640, 480);
+            scene = new Scene(root, BaseWindow.sceneWidth, BaseWindow.sceneHeight);
             // Add the primary scene to the scene-switching controller.
             sceneController = new SceneController(scene);
             sceneController.addScene(MAINMENU_SCENE, root);

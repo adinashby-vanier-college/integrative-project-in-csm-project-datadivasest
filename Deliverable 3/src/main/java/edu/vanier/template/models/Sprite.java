@@ -63,6 +63,12 @@ public class Sprite extends ImageView {
         setFitWidth(size);
         width = size;
     }
+    public double getWidth() {
+        return width;
+    }
+    public double getHeight() {
+        return height;
+    }
 
     public void setHeight(double size) {
         height = size;
@@ -157,5 +163,12 @@ public class Sprite extends ImageView {
     public String toString() {
         return " Position: [" + positionX + "," + positionY + "]"
                 + " Velocity: [" + velocityX + "," + velocityY + "]";
+    }
+
+    public double getPositionY() {
+        return positionY;
+    }
+    public double getPositionX() {
+        return positionX;
     }
 }
