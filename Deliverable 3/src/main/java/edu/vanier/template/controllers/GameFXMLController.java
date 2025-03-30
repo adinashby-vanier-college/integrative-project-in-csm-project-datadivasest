@@ -47,6 +47,8 @@ public class GameFXMLController {
     @FXML
     Button btnHelp;
     @FXML
+    Button btnBackpack;
+    @FXML
     Button btnSettings;
     @FXML
     Button btnBack;
@@ -67,6 +69,7 @@ public class GameFXMLController {
         logger.info("Initializing Game Controller...");
         btnBack.setOnAction(this::handleBack);
         btnSettings.setOnAction(this::handleSettings);
+        btnBackpack.setOnAction(this::handleBackpack);
         Image imgPlatformFloor = new Image(MainAppFXMLController.class.
                 getResource("/images/PNG/forest_pack_05.png").toString());
 
@@ -266,7 +269,7 @@ public class GameFXMLController {
         animation.start();
     }
 
-        private void handleBack(Event e) {
+    private void handleBack(Event e) {
         System.out.println("Going back to...");
         MainMenu.switchScene(MainMenu.DIALOGUE_SCENE);
         logger.info("Back button has been clicked...");
@@ -275,5 +278,11 @@ public class GameFXMLController {
         System.out.println("Going to settings...");
         MainMenu.switchScene(MainMenu.SETTINGS_SCENE);
         logger.info("Settings has been clicked...");
+    }
+
+    private void handleBackpack(Event e) {
+        System.out.println("Going to backpack...");
+        MainMenu.switchScene(MainMenu.BACKPACK_SCENE);
+        logger.info("Backpack has been clicked...");
     }
 }

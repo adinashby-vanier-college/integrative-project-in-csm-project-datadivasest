@@ -5,7 +5,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" >
    <center>
       <Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" />
    </center>
@@ -27,9 +27,10 @@
                   <Button fx:id="btnBack" mnemonicParsing="false" text="&lt;" />
                </children>
             </HBox>
-            <HBox alignment="TOP_RIGHT" prefHeight="26.0" prefWidth="369.0">
+            <HBox alignment="TOP_RIGHT" prefHeight="26.0" prefWidth="417.0">
                <children>
                   <Button fx:id="btnMap" mnemonicParsing="false" text="Map" />
+                  <Button fx:id="btnBackpack" mnemonicParsing="false"  text="Backpack" />
                   <Button fx:id="btnHelp" mnemonicParsing="false" text="Help" />
                   <Button fx:id="btnSettings" mnemonicParsing="false" text="Setting" />
                   <ImageView fitHeight="26.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />

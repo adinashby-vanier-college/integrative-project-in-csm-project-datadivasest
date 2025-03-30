@@ -2,6 +2,7 @@ package edu.vanier.template.controllers;
 
 import edu.vanier.template.models.Sprite;
 import edu.vanier.template.ui.MainApp;
+import edu.vanier.template.ui.MainMenu;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -77,7 +78,9 @@ public class BackpackFXMLController {
     //TODO: find a way show whatever was selected from the backpack and show it in the right area of the
     // current scenes pane, and delete it from the backpack's data and inventory (both graphics and data)
     private void loadLastScene(Event e) {
-        //switch scenes
+        //switch to the last scene
+        //below is a placeholder until I work the actual method
+        MainMenu.switchScene(MainMenu.GAME_SCENE);
         logger.info("Loaded the last scene...");
     }
 }

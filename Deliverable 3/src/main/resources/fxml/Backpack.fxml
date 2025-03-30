@@ -31,8 +31,8 @@
             </AnchorPane>
         </content>
       </ScrollPane>
-      <Button layoutX="43.0" layoutY="39.0" mnemonicParsing="false" text="X" />
-      <Button layoutX="504.0" layoutY="334.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="61.0" text="Done" />
+      <Button fx:id="exitBtn" layoutX="43.0" layoutY="39.0" mnemonicParsing="false" text="X" />
+      <Button layoutX="504.0" layoutY="334.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="61.0" text="Done" fx:id="doneBtn"/>
       <Text layoutX="239.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Backpack">
          <font>
             <Font name="System Bold" size="34.0" />

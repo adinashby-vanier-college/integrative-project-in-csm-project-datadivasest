@@ -62,6 +62,8 @@ public class MainMenu extends Application {
     public static final String LOGIN_SCENE = "Login";
     // The FXML file name of the settings scene
     public static final String SETTINGS_SCENE = "Settings_layout";
+    //The FXML file name of the backpack scene
+    public static final String BACKPACK_SCENE = "Backpack";
     private final static Logger logger = LoggerFactory.getLogger(edu.vanier.template.ui.MainMenu.class);
     public static Scene scene;
     public static SceneController sceneController;
@@ -188,6 +190,7 @@ public class MainMenu extends Application {
                 }
                 // The scene has been previously added, we activate it.
                 sceneController.activateScene(fxmlFileName);
+
             } else if (fxmlFileName.equals(SETTINGS_SCENE)) {
                 if (!sceneController.sceneExists(fxmlFileName)) {
                     // Instantiate the corresponding FXML controller if the
@@ -198,7 +201,17 @@ public class MainMenu extends Application {
                 }
                 // The scene has been previously added, we active it.
                 sceneController.activateScene(fxmlFileName);
-            }
+            } else if(fxmlFileName.equals(BACKPACK_SCENE)) {
+                if (!sceneController.sceneExists(fxmlFileName)) {
+                    // Instantiate the corresponding FXML controller if the
+                     // specified scene is being loaded for the first time.
+                     BackpackFXMLController controller = new BackpackFXMLController();
+                     Parent root = FxUIHelper.loadFXML("Backpack", new BackpackFXMLController());
+                    sceneController.addScene(BACKPACK_SCENE, root);
+                }
+               // The scene has been previously added, we active it.
+                sceneController.activateScene(fxmlFileName);
+                }
                 //TODO: You can register or activate additional scenes here,
                 //      based on the logic used to add the secondary scene (as shown above).
 
