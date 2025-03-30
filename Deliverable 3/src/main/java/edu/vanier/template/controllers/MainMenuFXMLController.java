@@ -46,27 +46,7 @@ public class MainMenuFXMLController {
         loginBtn.setOnAction(this::loadLoginScene);
         createAccountBtn.setOnAction(this::loadCreateAccountScene);
         settingsBtn.setOnAction(this::loadSettingsScene);
-
-        //Sets background
-        Image backgroundImg = new Image(MainAppFXMLController.class.
-                getResource("/images/Files/png/BG.png").toString());
-        BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false);
-
-        borderPane.setBackground(new Background(new BackgroundImage(backgroundImg,
-                BackgroundRepeat.REPEAT,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.CENTER,
-                bSize)));
-
-        //Adds title
-        Image titleImg = new Image(MainAppFXMLController.class.
-                getResource("/images/title.png").toString());
-        titleImgView.setImage(titleImg);
-        titleImgView.setPreserveRatio(true);
-        titleImgView.setFitWidth(BaseWindow.sceneWidth * 0.5);
-        titleImgView.setFitHeight(BaseWindow.sceneHeight * 0.5);
-
-
+        MainMenu.setUI(borderPane, titleImgView, "title.png");
 
     }
 

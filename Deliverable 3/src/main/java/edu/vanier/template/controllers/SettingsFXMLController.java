@@ -7,6 +7,8 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import javafx.scene.control.CheckBox;
@@ -28,10 +30,15 @@ public class SettingsFXMLController {
     Button btnQuit;
     @FXML
     Button btnBack;
+    @FXML
+    BorderPane borderPane;
+    @FXML
+    ImageView settingsImgView;
     private final static Logger logger = LoggerFactory.getLogger(SettingsFXMLController.class);
     @FXML
     public void initialize() {
         logger.info("Initializing SettingsController...");
+        MainMenu.setUI(borderPane, settingsImgView, "settings.png");
         btnBack.setOnAction(this::loadMainMenu);
         btnQuit.setOnAction(this::quit);
 

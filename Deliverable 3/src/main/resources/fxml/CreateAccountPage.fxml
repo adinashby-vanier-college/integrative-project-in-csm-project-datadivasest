@@ -1,45 +1,105 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <!--fixed all the red issues-->
 
-<Pane fx:id="createAccountPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Button fx:id="backBtn" layoutX="26.0" layoutY="24.0" mnemonicParsing="false" text="&lt;" />
-      <Text layoutX="138.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create Account">
-         <font>
-            <Font name="System Bold" size="45.0" />
-         </font>
-      </Text>
-      <VBox layoutX="195.0" layoutY="134.0" prefHeight="150.0" prefWidth="210.0" spacing="10.0">
+<BorderPane fx:id="borderPane" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <VBox fx:id="vBox" alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
-            <VBox prefHeight="56.0" prefWidth="210.0">
+            <ImageView fx:id="signUpImgView" fitHeight="100.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+               <VBox.margin>
+                  <Insets bottom="50.0" />
+               </VBox.margin></ImageView>
+            <VBox prefHeight="150.0" prefWidth="210.0" spacing="10.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Username" />
-                  <TextField fx:id="usernameCAIn" />
+                  <VBox prefHeight="56.0" prefWidth="210.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Username">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="50.0" />
+                           </VBox.margin></Text>
+                        <TextField fx:id="usernameCAIn" prefHeight="100.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font></TextField>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </VBox>
+                  <VBox prefHeight="104.0" prefWidth="210.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="50.0" />
+                           </VBox.margin></Text>
+                        <TextField fx:id="passwordCAIn" prefHeight="100.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font></TextField>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </VBox>
+                  <VBox prefHeight="100.0" prefWidth="100.0">
+                     <children>
+                        <Text fx:id="confirmPasswordBtn" strokeType="OUTSIDE" strokeWidth="0.0" text="Confirm Password">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="50.0" />
+                           </VBox.margin></Text>
+                        <TextField fx:id="confirmPasswordSIIn" prefHeight="100.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font></TextField>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="40.0" />
+                     </VBox.margin>
+                  </VBox>
                </children>
             </VBox>
-            <VBox prefHeight="104.0" prefWidth="210.0">
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="150.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Password" />
-                  <TextField fx:id="passwordCAIn" />
+                  <Button fx:id="loginCABtn" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: pink;" text="Login">
+                     <font>
+                        <Font size="36.0" />
+                     </font></Button>
+                  <Button fx:id="createAccCABtn" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: pink;" text="Create Account">
+                     <font>
+                        <Font size="22.0" />
+                     </font></Button>
                </children>
-            </VBox>
-            <VBox prefHeight="100.0" prefWidth="100.0">
-               <children>
-                  <Text fx:id="confirmPasswordBtn" strokeType="OUTSIDE" strokeWidth="0.0" text="Confirm Password" />
-                  <TextField fx:id="confirmPasswordSIIn" />
-               </children>
-            </VBox>
+            </HBox>
          </children>
       </VBox>
-      <Button fx:id="loginCABtn" layoutX="195.0" layoutY="324.0" mnemonicParsing="false" text="Login" />
-      <Button fx:id="createAccCABtn" layoutX="302.0" layoutY="324.0" mnemonicParsing="false" text="Create Account" />
-   </children>
-</Pane>
+   </center>
+   <top>
+      <Button fx:id="backBtn" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" text="&lt;" textOverrun="CLIP" BorderPane.alignment="TOP_LEFT">
+         <BorderPane.margin>
+            <Insets left="100.0" top="100.0" />
+         </BorderPane.margin>
+         <font>
+            <Font name="System Bold" size="36.0" />
+         </font></Button>
+   </top>
+</BorderPane>

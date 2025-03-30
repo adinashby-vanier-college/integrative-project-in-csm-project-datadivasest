@@ -5,6 +5,9 @@ import edu.vanier.template.helpers.FxUIHelper;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +15,6 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.logging.Level;
 import javafx.scene.media.AudioClip;
-
 
 
 public class MainMenu extends Application {
@@ -208,6 +210,32 @@ public class MainMenu extends Application {
         }
     }
 
+    public static void setUI(BorderPane borderPane, ImageView title, String titleName) {
+        //Sets background
+        double size;
+        if (titleName.equals("title.png")) {
+            size = 0.5;
+        } else {
+            size = 0.3;
+        }
+        Image backgroundImg = new Image(MainAppFXMLController.class.
+                getResource("/images/Files/png/BG.png").toString());
+        BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false);
+
+        borderPane.setBackground(new Background(new BackgroundImage(backgroundImg,
+                BackgroundRepeat.REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.CENTER,
+                bSize)));
+
+        //Adds title
+        Image titleImg = new Image(MainAppFXMLController.class.
+                getResource("/images/" + titleName).toString());
+        title.setImage(titleImg);
+        title.setPreserveRatio(true);
+        title.setFitWidth(BaseWindow.sceneWidth * size);
+        title.setFitHeight(BaseWindow.sceneHeight * size);
+    }
     public static void main(String[] args) {
         launch(args);
     }

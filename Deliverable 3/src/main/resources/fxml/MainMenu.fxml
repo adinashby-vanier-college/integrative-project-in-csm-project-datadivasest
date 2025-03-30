@@ -12,7 +12,7 @@
          <children>
             <ImageView fx:id="titleImgView" fitHeight="100.0" fitWidth="600.0" pickOnBounds="true">
                <VBox.margin>
-                  <Insets bottom="150.0" />
+                  <Insets bottom="50.0" />
                </VBox.margin>
             </ImageView>
             <HBox spacing="100.0">

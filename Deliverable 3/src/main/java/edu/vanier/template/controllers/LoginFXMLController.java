@@ -1,11 +1,15 @@
 package edu.vanier.template.controllers;
 
+import edu.vanier.template.ui.BaseWindow;
 import edu.vanier.template.ui.MainMenu;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.event.Event;
 //import jdk.jfr.Event;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,6 +30,12 @@ public class LoginFXMLController {
     Button loginLBtn;
     @FXML
     Button createAccLBtn;
+    @FXML
+    BorderPane borderPane;
+    @FXML
+    ImageView signInImgView;
+    @FXML
+    VBox vBox;
 
     private final static Logger logger = LoggerFactory.getLogger(MainMenuFXMLController.class);
 
@@ -40,6 +50,8 @@ public class LoginFXMLController {
         loginLBtn.setOnAction(this::handleLoginBtn);
         createAccLBtn.setOnAction(this::handleCreateAccountBtn);
         backBtn.setOnAction(this::handleBackBtn);
+        MainMenu.setUI(borderPane, signInImgView, "signIn.png");
+        vBox.setMaxWidth(BaseWindow.sceneWidth * 0.5);
     }
 
 
