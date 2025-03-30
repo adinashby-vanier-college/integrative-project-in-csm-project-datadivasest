@@ -11,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.RowConstraints;
 import org.kordamp.ikonli.fontawesome5.FontAwesomeRegular;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignA;
@@ -31,7 +32,7 @@ public class BackpackFXMLController {
     @FXML
     ScrollPane scrollPaneBackpack;
 
-    private int numRows = 0;
+    private int numRows = 1;
     private int currentColumn = 0;
 
     /**
@@ -47,6 +48,8 @@ public class BackpackFXMLController {
     }
 
     public void addObject(Sprite sprite) {
+        double gridPaneHeight = itemsGridPane.getHeight();
+        double rowHeight = gridPaneHeight / numRows;
         Image objectImage = sprite.getImage();
         if(sprite.getType().equals("electron") || sprite.getType().equals("proton") || sprite.getType().equals("atom")
                 || sprite.getType().equals("power up") || sprite.getType().equals("coin")) {
@@ -58,7 +61,14 @@ public class BackpackFXMLController {
 
             if (currentColumn == 2) {
                 currentColumn = 0;
-                numRows++;
+                if(numRows < 3) {
+                    RowConstraints newRow = new RowConstraints(rowHeight);
+                    itemsGridPane.getRowConstraints().addAll(newRow);
+                    numRows++;
+                }
+                else {
+                  numRows++;
+                }
             }
         }
     }
