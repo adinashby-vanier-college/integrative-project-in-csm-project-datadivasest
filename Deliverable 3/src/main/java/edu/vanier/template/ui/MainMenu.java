@@ -63,7 +63,7 @@ public class MainMenu extends Application {
     // The FXML file name of the settings scene
     public static final String SETTINGS_SCENE = "Settings_layout";
     //The FXML file name of the backpack scene
-    public static final String BACKPACK_SCENE = "Backpack";
+    public static final String BACKPACK_SCENE = "BackpackScene";
     private final static Logger logger = LoggerFactory.getLogger(edu.vanier.template.ui.MainMenu.class);
     public static Scene scene;
     public static SceneController sceneController;
@@ -167,6 +167,7 @@ public class MainMenu extends Application {
                     DialogueFXMLController controller = new DialogueFXMLController();
                     Parent root = FxUIHelper.loadFXML(fxmlFileName, controller);
                     sceneController.addScene(DIALOGUE_SCENE, root);
+
                 }
                 // The scene has been previously added, we active it.
                 sceneController.activateScene(fxmlFileName);
@@ -190,7 +191,6 @@ public class MainMenu extends Application {
                 }
                 // The scene has been previously added, we activate it.
                 sceneController.activateScene(fxmlFileName);
-
             } else if (fxmlFileName.equals(SETTINGS_SCENE)) {
                 if (!sceneController.sceneExists(fxmlFileName)) {
                     // Instantiate the corresponding FXML controller if the
@@ -206,8 +206,9 @@ public class MainMenu extends Application {
                     // Instantiate the corresponding FXML controller if the
                      // specified scene is being loaded for the first time.
                      BackpackFXMLController controller = new BackpackFXMLController();
-                     Parent root = FxUIHelper.loadFXML("Backpack", new BackpackFXMLController());
+                     Parent root = FxUIHelper.loadFXML(fxmlFileName, controller);
                     sceneController.addScene(BACKPACK_SCENE, root);
+
                 }
                // The scene has been previously added, we active it.
                 sceneController.activateScene(fxmlFileName);

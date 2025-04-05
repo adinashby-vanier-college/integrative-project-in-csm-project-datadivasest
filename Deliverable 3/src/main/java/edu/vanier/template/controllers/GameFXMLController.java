@@ -19,6 +19,9 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -33,9 +36,7 @@ import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 import static edu.vanier.template.controllers.SceneController.input;
 import static edu.vanier.template.ui.MainMenu.*;
@@ -47,7 +48,7 @@ public class GameFXMLController {
     @FXML
     Button btnHelp;
     @FXML
-    Button btnBackpack;
+    ToggleButton toggleBackpack;
     @FXML
     Button btnSettings;
     @FXML
@@ -57,19 +58,28 @@ public class GameFXMLController {
 
     @FXML
     Pane mainPane;
+    @FXML
+    Pane backpackPane;
 
     private int score = 0;
     private long lastNanoTime = System.nanoTime();
     private AudioClip itemClip;
     private AnimationTimer animation;
-    private BackpackFXMLController backpackFXMLController;
+    private int coinNum = 0;
+    private int electronNum = 0;
+    private int protonNum = 0;
+    private int powerUpNum = 0;
+    private int chocholatePowerNum = 0;
+    private Map<String, Integer> elementCollected = new HashMap<>();
+
+
 
     @FXML
     public void initialize() {
         logger.info("Initializing Game Controller...");
         btnBack.setOnAction(this::handleBack);
         btnSettings.setOnAction(this::handleSettings);
-        btnBackpack.setOnAction(this::handleBackpack);
+        toggleBackpack.setOnAction(this::handleToggleBackpack);
         Image imgPlatformFloor = new Image(MainAppFXMLController.class.
                 getResource("/images/PNG/forest_pack_05.png").toString());
 
@@ -211,7 +221,6 @@ public class GameFXMLController {
                     }
                 }
 
-
                 // Keep player within bounds
                 nextX = Math.max(0, Math.min(nextX, canvasWidth - playerWidth));
 
@@ -241,7 +250,10 @@ public class GameFXMLController {
                         electronIter.remove();
                         itemClip.play();
                         score++;
-                        backpackFXMLController.addObject(electron);
+                        electronNum++;
+                        elementCollected.put("electron", electronNum);
+                        //backpackFXMLController.addObject(electron);
+                        //don't necessarily need ot delete the coin
                         //won't the electron need to be removed after it collides with the player
                         //we'll also need protons but this can be done for deliverable three (the differentiation)
                     }
@@ -268,7 +280,67 @@ public class GameFXMLController {
         };
         animation.start();
     }
+/*
+    @FXML
+    public void setUpGridPane() {
+        itemsGridPane.setStyle("-fx-background-color: #fff");
+        itemsGridPane.setPrefWidth(240);
+        itemsGridPane.setPrefHeight(300);
+        Image coinImage = new Image((MainAppFXMLController.class.getResource("/images/player.png").toString()));
+        ImageView coinImageView = new ImageView(coinImage);
+        coinImageView.setFitWidth(50);
+        coinImageView.setFitHeight(50);
+        coinImageView.setPreserveRatio(true);
+        itemsGridPane.add(coinImageView, 0, 0);
+        logger.info("Loading coin image: T/F" + coinImage.isError());
+        coinLabel.setText(" x 0");
+        itemsGridPane.add(coinLabel, 1, 0);
+        Image electronImage = new Image((MainAppFXMLController.class.getResource("/images/player.png").toString()));
+        ImageView electronImageView = new ImageView(electronImage);
+        itemsGridPane.add(electronImageView, 0, 1);
+        electronLabel.setText(" x 0");
+        itemsGridPane.add(electronLabel, 1, 1);
+        Image protonImage = new Image(MainAppFXMLController.class.getResource("/images/player.png").toString());
+        ImageView protonImageView = new ImageView(protonImage);
+        itemsGridPane.add(protonImageView, 0, 2);
+        protonLabel.setText(" x 0");
+        itemsGridPane.add(protonLabel, 1, 2);
+        Image powerUpImage = new Image(MainAppFXMLController.class.getResource("/images/player.png").toString());
+        ImageView powerUpImageView = new ImageView(powerUpImage);
+        itemsGridPane.add(powerUpImageView, 0, 3);
+        powerUpLabel.setText(" x 0");
+        itemsGridPane.add(powerUpLabel, 1, 3);
+        Image chocolatePowerUp = new Image(MainAppFXMLController.class.getResource("/images/player.png").toString());
+        ImageView chocolatePowerUpImageView = new ImageView(chocolatePowerUp);
+        itemsGridPane.add(chocolatePowerUpImageView, 0, 4);
+        chocholatePowerLabel.setText(" x 0");
+        itemsGridPane.add(chocholatePowerLabel, 1, 4);
+        System.out.println("Number of items in the gridpane: " + itemsGridPane.getChildren().size());
+    }
 
+    public void isBackpackEmpty() {
+        if (itemsGridPane.getChildren().isEmpty()) {
+            setUpGridPane();
+            System.out.println("isBackpackEmpty method being used");
+        }
+    }
+
+    //should addToBackpack and removeFromBackpack be one method (updateBackpack)
+    //how can I update the backpack
+
+    public void updateBackpack() {
+        coinLabel.setText(" x " + String.valueOf(coinNum));
+        electronLabel.setText(" x " + String.valueOf(electronNum));
+        protonLabel.setText(" x " + String.valueOf(protonNum));
+        powerUpLabel.setText(" x " + String.valueOf(powerUpNum));
+        chocholatePowerLabel.setText(" x " + String.valueOf(chocholatePowerNum));
+    }
+
+    public void dragElements() {
+
+    }
+
+*/
     private void handleBack(Event e) {
         System.out.println("Going back to...");
         MainMenu.switchScene(MainMenu.DIALOGUE_SCENE);
@@ -279,10 +351,52 @@ public class GameFXMLController {
         MainMenu.switchScene(MainMenu.SETTINGS_SCENE);
         logger.info("Settings has been clicked...");
     }
-
-    private void handleBackpack(Event e) {
-        System.out.println("Going to backpack...");
-        MainMenu.switchScene(MainMenu.BACKPACK_SCENE);
-        logger.info("Backpack has been clicked...");
+/*
+    @FXML
+    private void handleToggleBackpack(Event e) {
+        System.out.println("Showing the backpack");
+        boolean isBackpackVisible = backpackPane.isVisible(); //sets it to a true value//set to false in the FXML file originally
+        if(isBackpackVisible == false) {
+            isBackpackEmpty();
+            backpackPane.setVisible(true); //now sets the backpack to visible
+            backpackPane.setManaged(true); //now sets the backpack to be in the screen of the game
+            borderPane.setRight(backpackPane);
+            isBackpackVisible = true;
+            logger.info("Backpack has been clicked...");
+        }
+        else {
+            isBackpackEmpty();
+            backpackPane.setVisible(false);
+            backpackPane.setManaged(false);
+            isBackpackVisible = false;
+            logger.info("Backpack has been clicked...");
+        }
     }
+/*
+    @FXML
+    private void handleToggleBackpack(Event e) {
+        // Check if the backpack is currently attached to the right region.
+        if (borderPane.getRight() == null) {
+            // Show the backpack: add it to the right region.
+            borderPane.setRight(backpackScrollPane);
+            backpackScrollPane.setVisible(true);
+            backpackScrollPane.setManaged(true);
+            // Optionally initialize its content if necessary.
+            isBackpackEmpty();
+            logger.info("Backpack shown.");
+        } else {
+            // Hide the backpack: remove it from the right region.
+            borderPane.setRight(null);
+            backpackScrollPane.setVisible(false);
+            backpackScrollPane.setManaged(false);
+            logger.info("Backpack hidden.");
+        }
+    }
+
+ */
+
+    public void handleToggleBackpack(Event e) {
+        MainMenu.switchScene(BACKPACK_SCENE);
+    }
+
 }

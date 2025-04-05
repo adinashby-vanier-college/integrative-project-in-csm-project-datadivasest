@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" >
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" />
    </center>
@@ -30,7 +33,7 @@
             <HBox alignment="TOP_RIGHT" prefHeight="26.0" prefWidth="417.0">
                <children>
                   <Button fx:id="btnMap" mnemonicParsing="false" text="Map" />
-                  <Button fx:id="btnBackpack" mnemonicParsing="false"  text="Backpack" />
+                  <ToggleButton fx:id="toggleBackpack" mnemonicParsing="false" text="BackPack" />
                   <Button fx:id="btnHelp" mnemonicParsing="false" text="Help" />
                   <Button fx:id="btnSettings" mnemonicParsing="false" text="Setting" />
                   <ImageView fitHeight="26.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
