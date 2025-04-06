@@ -3,17 +3,18 @@ package edu.vanier.template.controllers;
 import edu.vanier.template.models.Sprite;
 import edu.vanier.template.ui.MainApp;
 import edu.vanier.template.ui.MainMenu;
+import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.geometry.HPos;
+import javafx.geometry.VPos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import org.kordamp.ikonli.fontawesome5.FontAwesomeRegular;
 import org.kordamp.ikonli.javafx.FontIcon;
@@ -47,6 +48,9 @@ public class BackpackFXMLController {
 
     GameFXMLController gameFXMLController;
 
+    private int currentColumn;
+    private int currentRow;
+
     //TODO: when done, do a drag and drop of the items into the game scene
 
     /**
@@ -76,25 +80,66 @@ public class BackpackFXMLController {
     @FXML
     //set up the grid pane first in the table, then add the object then implement the removal
     public void setUpGridPane() {
+//        ObservableList<Node> cells = backpackGridPane.getChildren();
+//        double width;
+//        double height;
+//        for (int i = 0; i < cells.size(); i++) {
+//            Node cell= cells.get(i);
+//            int rowNum = GridPane.getRowIndex(cell);
+//            int colNum = GridPane.getColumnIndex(cell);
+//
+//            width = cell.getBoundsInLocal().getWidth();
+//            height = cell.getBoundsInLocal().getHeight();
+//        }
+
+        ColumnConstraints colConstraint = new ColumnConstraints();
+        colConstraint.setPrefWidth(100); // Fixed width
+        backpackGridPane.getColumnConstraints().add(colConstraint);
+        int columnWidth = backpackGridPane.getColumnConstraints().size();
+        RowConstraints rowConstraint = new RowConstraints();
+        rowConstraint.setPrefHeight(80);
+        backpackGridPane.getRowConstraints().add(rowConstraint);
+        int rowWidth = backpackGridPane.getRowConstraints().size();
+        coinImageView.setFitHeight(columnWidth);
+        coinImageView.setFitWidth(rowWidth);
+
         Image coinImage = new Image(getClass().getResource("/images/coin.png").toExternalForm());
         coinImageView = new ImageView(coinImage);
+        coinImageView.setFitHeight(50);
+        coinImageView.setFitWidth(50);
         System.out.println("is backpack null: " + (backpackGridPane == null));
-        backpackGridPane.getRowConstraints();
         backpackGridPane.add(coinImageView, 0, 0);
+        GridPane.setHalignment(coinImageView, HPos.CENTER);
+        GridPane.setValignment(coinImageView, VPos.CENTER);
+        //coinImageView.setFitHeight(GridPane.getRowIndex(coinImageView));
         logger.info("Loading coin image: T/F" + coinImage.isError());
         Image electronImage = new Image(getClass().getResource("/images/Electron.png").toExternalForm());
         electronImageView = new ImageView(electronImage);
-        electronImageView.setFitWidth(164);
-        electronImageView.setFitHeight(141);
+        electronImageView.setFitWidth(50);
+        electronImageView.setFitHeight(50);
         backpackGridPane.add(electronImageView, 0, 1);
+        GridPane.setHalignment(electronImageView, HPos.CENTER);
+        GridPane.setValignment(electronImageView, VPos.CENTER);
         Image protonImage = new Image((getClass().getResource("/images/Proton.png")).toExternalForm());
         protonImageView = new ImageView(protonImage);
+        protonImageView.setFitWidth(50);
+        protonImageView.setFitHeight(50);
+        GridPane.setHalignment(protonImageView, HPos.CENTER);
+        GridPane.setValignment(protonImageView, VPos.CENTER);
         backpackGridPane.add(protonImageView, 0, 2);
         Image powerUpImage = new Image(getClass().getResource("/images/PowerUp.png").toExternalForm());
         ImageView powerUpImageView = new ImageView(powerUpImage);
+        powerUpImageView.setFitWidth(50);
+        powerUpImageView.setFitHeight(50);
+        GridPane.setHalignment(powerUpImageView, HPos.CENTER);
+        GridPane.setValignment(powerUpImageView, VPos.CENTER);
         backpackGridPane.add(powerUpImageView, 0, 3);
         Image chocolatePowerUp = new Image(getClass().getResource("/images/ChocolatePowerUp.png").toExternalForm());
         ImageView chocolatePowerUpImageView = new ImageView(chocolatePowerUp);
+        chocolatePowerUpImageView.setFitWidth(50);
+        chocolatePowerUpImageView.setFitHeight(50);
+        GridPane.setHalignment(chocolatePowerUpImageView, HPos.CENTER);
+        GridPane.setValignment(chocolatePowerUpImageView, VPos.CENTER);
         backpackGridPane.add(chocolatePowerUpImageView, 0, 4);
     }
 
@@ -152,6 +197,41 @@ public class BackpackFXMLController {
         logger.info("Loaded the last scene...");
     }
 */
+public void addObject(Sprite sprite) {
+    // Get the image from the sprite
+    Image objectImage = sprite.getImage();
+    ImageView objectImageView = new ImageView(objectImage);
+
+    // Constrain the image size so it's not too big
+    objectImageView.setFitWidth(100);  // Adjust to desired width
+    objectImageView.setFitHeight(100); // Adjust to desired height
+    objectImageView.setPreserveRatio(true);
+
+    // Only add the image once (remove redundant addition)
+    // Instead of adding at (0,0) first, directly add at the correct position.
+    if (sprite.getType().equalsIgnoreCase("electron") ||
+            sprite.getType().equalsIgnoreCase("proton") ||
+            sprite.getType().equalsIgnoreCase("atom") ||
+            sprite.getType().equalsIgnoreCase("power up") ||
+            sprite.getType().equalsIgnoreCase("coin")) {
+
+        // Add the image to the grid at the current position
+        backpackGridPane.add(objectImageView, currentColumn, currentRow);
+        currentRow++;
+        logger.info("Adding object: " + sprite.getType() + " to backpack");
+
+        // If currentColumn reaches 2, move to next row
+        if (currentColumn == 1) {
+            currentColumn = 0;
+            // Optionally add a new row constraint if needed
+            RowConstraints newRow = new RowConstraints();
+            // Set row height as a fraction of grid height (or fixed)
+            newRow.setPrefHeight(50);
+            backpackGridPane.getRowConstraints().add(newRow);
+            currentRow++;
+        }
+    }
+}
 
     public void handleDoneBtn (Event event) {
         gameFXMLController.backpackStage.close();
