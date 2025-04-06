@@ -62,9 +62,12 @@ public class BackpackFXMLController {
 
     GameFXMLController gameFXMLController;
 
+    private Label powerUpLabel;
+    private Label chocolatePowerUpLabel;
     private int currentColumn;
     private int currentRow;
     private Map<String, Integer> itemsCount = new HashMap<>();
+    private final Map<String, GridPane> cells = new HashMap<>();
 
     //TODO: when done, do a drag and drop of the items into the game scene
 
@@ -153,7 +156,7 @@ public class BackpackFXMLController {
         powerUpImageView.setFitHeight(50);
         GridPane.setHalignment(powerUpImageView, HPos.CENTER);
         GridPane.setValignment(powerUpImageView, VPos.CENTER);
-        Label powerUpLabel = new Label(" x 0");
+        powerUpLabel = new Label(" x 0");
         backpackGridPane.add(powerUpLabel, 1, 3);
         backpackGridPane.add(powerUpImageView, 0, 3);
         Image chocolatePowerUp = new Image(getClass().getResource("/images/ChocolatePowerUp.png").toExternalForm());
@@ -162,7 +165,7 @@ public class BackpackFXMLController {
         chocolatePowerUpImageView.setFitHeight(50);
         GridPane.setHalignment(chocolatePowerUpImageView, HPos.CENTER);
         GridPane.setValignment(chocolatePowerUpImageView, VPos.CENTER);
-        Label chocolatePowerUpLabel = new Label(" x 0");
+        chocolatePowerUpLabel = new Label(" x 0");
         backpackGridPane.add(chocolatePowerUpLabel, 1, 4);
         backpackGridPane.add(chocolatePowerUpImageView, 0, 4);
         //check how to adjust the font size
@@ -174,6 +177,7 @@ public class BackpackFXMLController {
         objectImageView.setFitHeight(50);
         objectImageView.setPreserveRatio(true);
 
+        //because an item is being collected here should I add the increaseCount() here;
         // Set up drag detection for the coin image.
         objectImageView.setOnDragDetected(event -> {
             // Only allow dragging if there is at least one coin in the count
@@ -198,6 +202,7 @@ public class BackpackFXMLController {
             }
             event.consume();
         });
+        updateCell(sprite.getType(), sprite.getImage(), itemsCount.getOrDefault(sprite.getType().toLowerCase(), 0));
     }
 
     //increase the number of the item available when it is collected/collides with the user's character
@@ -205,6 +210,7 @@ public class BackpackFXMLController {
             int numAvailable = itemsCount.getOrDefault(type.toLowerCase(), 0) + 1;
             itemsCount.put(type.toLowerCase(), numAvailable);
             //then update the cell
+            updateCell(type, image, numAvailable);
         }
 
         //decreases the number of the type of item available whenever an element in the backpack gets dragg and dropped
@@ -215,11 +221,73 @@ public class BackpackFXMLController {
                 numAvailable--;
                 itemsCount.put(type.toLowerCase(), numAvailable);
                 //then update the cell
+                updateCell(type, null, numAvailable);
                 logger.info("Number of available" + type + "is now " + numAvailable);
             }
         }
 
-        private void updateCell() {
+        private void updateCell(String type, Image image, int numAvailable) {
+        GridPane cell = cells.get(type);
+        if (cell == null) {
+            cell = new GridPane();
+            ImageView itemImageView = new ImageView(image);
+            itemImageView.setFitWidth(50);
+            itemImageView.setFitHeight(50);
+            itemImageView.setPreserveRatio(true);
+
+            itemImageView.setOnDragDetected(event -> {
+                if (itemsCount.getOrDefault(type.toLowerCase(), 0) <= 0) {
+                    event.consume();
+                    return;
+                }
+                Dragboard dragboard = itemImageView.startDragAndDrop(TransferMode.MOVE);
+                ClipboardContent clipboardContent = new ClipboardContent();
+                clipboardContent.putString(type.toLowerCase());
+                dragboard.setContent(clipboardContent);
+                dragboard.setDragView(itemImageView.snapshot(null, null));
+                logger.info("Started dragging " + type);
+                event.consume();
+            });
+            coinImageView.setOnDragDone(event -> {
+                if (event.getTransferMode() == TransferMode.MOVE) {
+                    decreaseCount(type.toLowerCase());
+                    logger.info("Dragging done for" + type);
+                }
+                event.consume();
+            });
+
+            Label countLabel = new Label(String.valueOf(numAvailable));
+            cell.getChildren().addAll(itemImageView, countLabel);
+            cells.put(type.toLowerCase(), cell);
+
+            //
+            int rowIndex = cells.size() - 1;
+            backpackGridPane.add(cell, 0, rowIndex);
+        }
+            else {
+                Label countLabel = (Label) cell.getChildren().get(1);
+                countLabel.setText(String.valueOf(numAvailable));
+            }
+            //can I use this instead of countLabel or is count label more efficient
+            switch (type) {
+                case "coin":
+                    coinLabel.setText(Integer.toString(numAvailable));
+                    break;
+                case "electron":
+                    electronLabel.setText(Integer.toString(numAvailable));
+                    break;
+                case "proton":
+                    protonLabel.setText(Integer.toString(numAvailable));
+                    break;
+                case "chocolate":
+                    chocolatePowerUpLabel.setText(Integer.toString(numAvailable));
+                    break;
+                case "powerUp":
+                    powerUpLabel.setText(Integer.toString(numAvailable));
+                    break;
+                default:
+                    break;
+            }
         }
 
 
