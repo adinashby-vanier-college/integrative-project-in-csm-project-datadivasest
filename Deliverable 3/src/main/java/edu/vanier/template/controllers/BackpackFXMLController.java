@@ -10,9 +10,11 @@ import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
+import javafx.stage.Stage;
 import org.kordamp.ikonli.fontawesome5.FontAwesomeRegular;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignA;
@@ -26,14 +28,24 @@ import java.util.Objects;
  */
 public class BackpackFXMLController {
     private final static Logger logger = LoggerFactory.getLogger(BackpackFXMLController.class);
-//    @FXML
-//    Button doneBtn;
-//    @FXML
-//    Button exitBtn;
     @FXML
-    GridPane itemsGridPane;
+    Button doneBtn;
     @FXML
-    public ScrollPane backpackScrollPane;
+    Button exitBtn;
+    @FXML
+    GridPane backpackGridPane;
+    @FXML
+    ScrollPane backpackScrollPane;
+    @FXML
+    Pane backpackPane;
+    @FXML
+    ImageView coinImageView;
+    @FXML
+    ImageView electronImageView;
+    @FXML
+    ImageView protonImageView;
+
+    GameFXMLController gameFXMLController;
 
     //TODO: when done, do a drag and drop of the items into the game scene
 
@@ -42,6 +54,8 @@ public class BackpackFXMLController {
      */
     public void initialize() {
         logger.info("initializing backpack");
+        exitBtn.setOnAction(this::handleExitBtn);
+        doneBtn.setOnAction(this::handleDoneBtn);
         /* both done and exit will lead to the same next Scene, they should both go to the scene they were
         last on. In case the user presses the backpack by accident, they can exit it without having to take anything
         out of the backpack.
@@ -50,30 +64,38 @@ public class BackpackFXMLController {
         //exitBtn.setOnAction(this::loadLastScene);
     }
 
+    public void start(Stage stage) {
+        logger.info("starting backpack");
+    }
     public void isBackpackEmpty() {
-        if (itemsGridPane.getChildren().isEmpty()) {
+        if (backpackGridPane.getChildren().isEmpty()) {
             setUpGridPane();
         }
     }
 
+    @FXML
     //set up the grid pane first in the table, then add the object then implement the removal
     public void setUpGridPane() {
-        Image coinImage = new Image(getClass().getResource("images/coin.png").toExternalForm());
-        ImageView coinImageView = new ImageView(coinImage);
-        itemsGridPane.add(coinImageView, 0, 0);
+        Image coinImage = new Image(getClass().getResource("/images/coin.png").toExternalForm());
+        coinImageView = new ImageView(coinImage);
+        System.out.println("is backpack null: " + (backpackGridPane == null));
+        backpackGridPane.getRowConstraints();
+        backpackGridPane.add(coinImageView, 0, 0);
         logger.info("Loading coin image: T/F" + coinImage.isError());
-        Image electronImage = new Image(getClass().getResource("images/Electron.png").toExternalForm());
-        ImageView electronImageView = new ImageView(electronImage);
-        itemsGridPane.add(electronImageView, 0, 1);
-        Image protonImage = new Image((getClass().getResource("images/Proton.png")).toExternalForm());
-        ImageView protonImageView = new ImageView(protonImage);
-        itemsGridPane.add(protonImageView, 0, 2);
-        Image powerUpImage = new Image(getClass().getResource("images/PowerUp.png").toExternalForm());
+        Image electronImage = new Image(getClass().getResource("/images/Electron.png").toExternalForm());
+        electronImageView = new ImageView(electronImage);
+        electronImageView.setFitWidth(164);
+        electronImageView.setFitHeight(141);
+        backpackGridPane.add(electronImageView, 0, 1);
+        Image protonImage = new Image((getClass().getResource("/images/Proton.png")).toExternalForm());
+        protonImageView = new ImageView(protonImage);
+        backpackGridPane.add(protonImageView, 0, 2);
+        Image powerUpImage = new Image(getClass().getResource("/images/PowerUp.png").toExternalForm());
         ImageView powerUpImageView = new ImageView(powerUpImage);
-        itemsGridPane.add(powerUpImageView, 0, 3);
-        Image chocolatePowerUp = new Image(getClass().getResource("images/ChocolatePowerUp.png").toExternalForm());
+        backpackGridPane.add(powerUpImageView, 0, 3);
+        Image chocolatePowerUp = new Image(getClass().getResource("/images/ChocolatePowerUp.png").toExternalForm());
         ImageView chocolatePowerUpImageView = new ImageView(chocolatePowerUp);
-        itemsGridPane.add(chocolatePowerUpImageView, 0, 4);
+        backpackGridPane.add(chocolatePowerUpImageView, 0, 4);
     }
 
     //changing to a side panel view
@@ -108,6 +130,8 @@ public class BackpackFXMLController {
         }
     }
 
+
+
     */
 
     //instead of taking that image deleting it from the backpack, it'll be drag and dropped in the screen and the number of
@@ -128,5 +152,13 @@ public class BackpackFXMLController {
         logger.info("Loaded the last scene...");
     }
 */
+
+    public void handleDoneBtn (Event event) {
+        gameFXMLController.backpackStage.close();
+    }
+
+    public void handleExitBtn (Event event) {
+        gameFXMLController.backpackStage.close();
+    }
 }
 

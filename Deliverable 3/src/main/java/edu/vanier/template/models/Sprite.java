@@ -35,7 +35,7 @@ public class Sprite extends ImageView {
 
         this.type = type;
         setImage(image);
-//        setSize(100);
+        setSize(100);
     }
 
     public  Sprite(String type,Image image) {

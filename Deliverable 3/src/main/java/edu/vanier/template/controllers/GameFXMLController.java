@@ -419,6 +419,7 @@ public class GameFXMLController {
             backpackStage.setResizable(false);
             backpackStage.setAlwaysOnTop(true);
 
+            backpackFXMLController.setUpGridPane();
             backpackStage.show();
             backpackStage.toFront();
         } catch (Exception exception) {
