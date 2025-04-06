@@ -12,9 +12,12 @@ import javafx.animation.AnimationTimer;
 import edu.vanier.template.ui.MainMenu;
 import javafx.animation.Animation;
 
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -47,8 +50,10 @@ public class GameFXMLController {
     Button btnMap;
     @FXML
     Button btnHelp;
+//    @FXML
+//    ToggleButton toggleBackpack;
     @FXML
-    ToggleButton toggleBackpack;
+    Button backpackBtn;
     @FXML
     Button btnSettings;
     @FXML
@@ -61,6 +66,8 @@ public class GameFXMLController {
     @FXML
     Pane backpackPane;
 
+    public Stage backpackStage;
+
     private int score = 0;
     private long lastNanoTime = System.nanoTime();
     private AudioClip itemClip;
@@ -71,6 +78,7 @@ public class GameFXMLController {
     private int powerUpNum = 0;
     private int chocholatePowerNum = 0;
     private Map<String, Integer> elementCollected = new HashMap<>();
+    BackpackFXMLController backpackFXMLController;
 
 
 
@@ -79,7 +87,7 @@ public class GameFXMLController {
         logger.info("Initializing Game Controller...");
         btnBack.setOnAction(this::handleBack);
         btnSettings.setOnAction(this::handleSettings);
-        toggleBackpack.setOnAction(this::handleToggleBackpack);
+        backpackBtn.setOnAction(this::handleBackpackButton);
         Image imgPlatformFloor = new Image(MainAppFXMLController.class.
                 getResource("/images/PNG/forest_pack_05.png").toString());
 
@@ -395,8 +403,27 @@ public class GameFXMLController {
 
  */
 
-    public void handleToggleBackpack(Event e) {
-        MainMenu.switchScene(BACKPACK_SCENE);
-    }
+    public void handleBackpackButton(Event e) {
+        try {
+            System.out.println("Backpack has been clicked");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/BackpackScene.fxml"));
+            //loader.setController(this);
+            Parent root = loader.load();
+            backpackFXMLController = loader.getController();
+           // backpackFXMLController.setUpGridPane();
 
+            backpackStage = new Stage();
+            backpackStage.setTitle("Backpack");
+            Scene backpackScene = new Scene(root, 460, 574);
+            backpackStage.setScene(backpackScene);
+            backpackStage.setResizable(false);
+            backpackStage.setAlwaysOnTop(true);
+
+            backpackStage.show();
+            backpackStage.toFront();
+        } catch (Exception exception) {
+            System.err.println(exception.getMessage());
+            exception.printStackTrace();
+        }
+    }
 }
