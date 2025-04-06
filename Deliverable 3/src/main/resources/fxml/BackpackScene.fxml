@@ -12,13 +12,15 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <Pane fx:id="backpackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="564.0" prefWidth="470.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.vanier.template.controllers.BackpackFXMLController">
    <children>
       <HBox layoutX="31.0" layoutY="21.0" prefHeight="38.0" prefWidth="332.0">
          <children>
             <Button fx:id="exitBtn" mnemonicParsing="false" prefHeight="49.0" prefWidth="41.0" text="X" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Backpack" translateX="150.0" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Backpack" translateX="100.0">
+               <font>
+                  <Font size="27.0" />
+               </font></Text>
          </children>
       </HBox>
       <ScrollPane fx:id="backpackScrollPane" layoutX="79.0" layoutY="78.0" prefHeight="419.0" prefWidth="324.0">
@@ -39,7 +41,7 @@
                   <ImageView fx:id="protonImageView" fitHeight="132.0" fitWidth="164.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2" />
                   <Label fx:id="coinLabel" prefHeight="72.0" prefWidth="116.0" translateX="20.0" GridPane.columnIndex="1">
                      <font>
-                        <Font size="40.0" />
+                        <Font size="42.0" />
                      </font>
                   </Label>
                   <Label fx:id="electronLabel" prefHeight="72.0" prefWidth="116.0" translateX="20.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
