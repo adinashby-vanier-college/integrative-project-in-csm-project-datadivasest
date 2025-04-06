@@ -16,15 +16,13 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Orientation;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -88,6 +86,7 @@ public class GameFXMLController {
         btnBack.setOnAction(this::handleBack);
         btnSettings.setOnAction(this::handleSettings);
         backpackBtn.setOnAction(this::handleBackpackButton);
+        btnHelp.setOnAction(this::handleHelpButton);
         Image imgPlatformFloor = new Image(MainAppFXMLController.class.
                 getResource("/images/PNG/forest_pack_05.png").toString());
 
@@ -426,5 +425,17 @@ public class GameFXMLController {
             System.err.println(exception.getMessage());
             exception.printStackTrace();
         }
+    }
+
+    public void handleHelpButton(Event e){
+        Stage helpStage = new Stage();
+        Label testing = new Label("Testing");
+        ScrollBar scrollBar = new ScrollBar();
+        scrollBar.setOrientation(Orientation.VERTICAL);
+        scrollBar.setMinHeight(600);
+        VBox helpVbox = new VBox(scrollBar);
+        Scene helpScene = new Scene(helpVbox, 300, 1000);
+        helpStage.setScene(helpScene);
+        helpStage.show();
     }
 }
