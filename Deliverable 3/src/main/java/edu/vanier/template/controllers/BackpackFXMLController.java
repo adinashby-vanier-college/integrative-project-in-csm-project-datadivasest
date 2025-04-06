@@ -10,6 +10,7 @@ import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -45,6 +46,13 @@ public class BackpackFXMLController {
     ImageView electronImageView;
     @FXML
     ImageView protonImageView;
+
+    @FXML
+    public Label coinLabel;
+    @FXML
+    public Label electronLabel;
+    @FXML
+    public Label protonLabel;
 
     GameFXMLController gameFXMLController;
 
@@ -100,8 +108,6 @@ public class BackpackFXMLController {
         rowConstraint.setPrefHeight(80);
         backpackGridPane.getRowConstraints().add(rowConstraint);
         int rowWidth = backpackGridPane.getRowConstraints().size();
-        coinImageView.setFitHeight(columnWidth);
-        coinImageView.setFitWidth(rowWidth);
 
         Image coinImage = new Image(getClass().getResource("/images/coin.png").toExternalForm());
         coinImageView = new ImageView(coinImage);
@@ -111,8 +117,11 @@ public class BackpackFXMLController {
         backpackGridPane.add(coinImageView, 0, 0);
         GridPane.setHalignment(coinImageView, HPos.CENTER);
         GridPane.setValignment(coinImageView, VPos.CENTER);
+        coinLabel = new Label(" x 0");
+        backpackGridPane.add(coinLabel, 1, 0);
         //coinImageView.setFitHeight(GridPane.getRowIndex(coinImageView));
         logger.info("Loading coin image: T/F" + coinImage.isError());
+
         Image electronImage = new Image(getClass().getResource("/images/Electron.png").toExternalForm());
         electronImageView = new ImageView(electronImage);
         electronImageView.setFitWidth(50);
@@ -120,12 +129,16 @@ public class BackpackFXMLController {
         backpackGridPane.add(electronImageView, 0, 1);
         GridPane.setHalignment(electronImageView, HPos.CENTER);
         GridPane.setValignment(electronImageView, VPos.CENTER);
+        electronLabel = new Label(" x 0");
+        backpackGridPane.add(electronLabel, 1, 1);
         Image protonImage = new Image((getClass().getResource("/images/Proton.png")).toExternalForm());
         protonImageView = new ImageView(protonImage);
         protonImageView.setFitWidth(50);
         protonImageView.setFitHeight(50);
         GridPane.setHalignment(protonImageView, HPos.CENTER);
         GridPane.setValignment(protonImageView, VPos.CENTER);
+        protonLabel = new Label(" x 0");
+        backpackGridPane.add(protonLabel, 1, 2);
         backpackGridPane.add(protonImageView, 0, 2);
         Image powerUpImage = new Image(getClass().getResource("/images/PowerUp.png").toExternalForm());
         ImageView powerUpImageView = new ImageView(powerUpImage);
@@ -133,6 +146,8 @@ public class BackpackFXMLController {
         powerUpImageView.setFitHeight(50);
         GridPane.setHalignment(powerUpImageView, HPos.CENTER);
         GridPane.setValignment(powerUpImageView, VPos.CENTER);
+        Label powerUpLabel = new Label(" x 0");
+        backpackGridPane.add(powerUpLabel, 1, 3);
         backpackGridPane.add(powerUpImageView, 0, 3);
         Image chocolatePowerUp = new Image(getClass().getResource("/images/ChocolatePowerUp.png").toExternalForm());
         ImageView chocolatePowerUpImageView = new ImageView(chocolatePowerUp);
@@ -140,6 +155,8 @@ public class BackpackFXMLController {
         chocolatePowerUpImageView.setFitHeight(50);
         GridPane.setHalignment(chocolatePowerUpImageView, HPos.CENTER);
         GridPane.setValignment(chocolatePowerUpImageView, VPos.CENTER);
+        Label chocolatePowerUpLabel = new Label(" x 0");
+        backpackGridPane.add(chocolatePowerUpLabel, 1, 4);
         backpackGridPane.add(chocolatePowerUpImageView, 0, 4);
     }
 
