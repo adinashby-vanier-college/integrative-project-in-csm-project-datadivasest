@@ -25,7 +25,9 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.Dragboard;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
 import javafx.scene.media.AudioClip;
 
@@ -401,6 +403,56 @@ public class GameFXMLController {
     }
 
  */
+
+    private void setupDropTarget() {
+        mainPane.setOnDragOver(event -> {
+            if (event.getGestureSource() != mainPane && event.getDragboard().hasString()) {
+                event.acceptTransferModes(TransferMode.MOVE);
+            }
+            event.consume();
+        });
+        mainPane.setOnDragDropped(event -> {
+            Dragboard db = event.getDragboard();
+            boolean success = false;
+            if (db.hasString()) {
+                String itemType = db.getString();
+                logger.info("Dropped coin of type: " + itemType);
+                ImageView droppedCoin = createItemImageView(itemType);
+                droppedCoin.setLayoutX(event.getX());
+                droppedCoin.setLayoutY(event.getY());
+                mainPane.getChildren().add(droppedCoin);
+                success = true;
+            }
+            event.setDropCompleted(success);
+            event.consume();
+        });
+    }
+
+    private ImageView createItemImageView(String itemType) {
+        String imagePath;
+        if ("electron".equalsIgnoreCase(itemType)) {
+            imagePath = "/images/Electron.png";
+        } else if ("proton".equalsIgnoreCase(itemType)) {
+            imagePath = "/images/Proton.png";
+        } else if ("coin".equalsIgnoreCase(itemType)) {
+            imagePath = "/images/coin.png";
+        }
+        else if ("powerUp".equalsIgnoreCase(itemType)) {
+            imagePath = "/images/PowerUp.png";
+        }
+        else if("chocolatePowerUp".equalsIgnoreCase(itemType)) {
+            imagePath = "/images/ChocolatePowerUp.png";
+        }
+        else {
+            imagePath = "/images/default.png";
+        }
+        Image image = new Image(getClass().getResourceAsStream(imagePath));
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(50);
+        imageView.setFitHeight(50);
+        imageView.setPreserveRatio(true);
+        return imageView;
+    }
 
     public void handleBackpackButton(Event e) {
         try {
