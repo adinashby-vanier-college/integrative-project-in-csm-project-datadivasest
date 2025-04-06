@@ -15,6 +15,10 @@ import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import org.kordamp.ikonli.fontawesome5.FontAwesomeRegular;
@@ -23,6 +27,8 @@ import org.kordamp.ikonli.materialdesign2.MaterialDesignA;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -58,6 +64,7 @@ public class BackpackFXMLController {
 
     private int currentColumn;
     private int currentRow;
+    private Map<String, Integer> itemsCount = new HashMap<>();
 
     //TODO: when done, do a drag and drop of the items into the game scene
 
@@ -158,7 +165,63 @@ public class BackpackFXMLController {
         Label chocolatePowerUpLabel = new Label(" x 0");
         backpackGridPane.add(chocolatePowerUpLabel, 1, 4);
         backpackGridPane.add(chocolatePowerUpImageView, 0, 4);
+        //check how to adjust the font size
     }
+
+    public void addItem(Sprite sprite) {
+        ImageView objectImageView = new ImageView(sprite.getImage());
+        objectImageView.setFitWidth(50);
+        objectImageView.setFitHeight(50);
+        objectImageView.setPreserveRatio(true);
+
+        // Set up drag detection for the coin image.
+        objectImageView.setOnDragDetected(event -> {
+            // Only allow dragging if there is at least one coin in the count
+            if (itemsCount.getOrDefault(sprite.getType().toLowerCase(), 0) <= 0) {
+                event.consume();
+                return;
+            }
+
+            Dragboard dragboard = objectImageView.startDragAndDrop(TransferMode.MOVE);
+            ClipboardContent clipboardContent = new ClipboardContent();
+            clipboardContent.putString(sprite.getType());
+            dragboard.setContent(clipboardContent);
+            dragboard.setDragView(objectImageView.snapshot(null, null));
+            logger.info("Started dragging " + sprite.getType());
+            event.consume();
+        });
+
+        objectImageView.setOnDragDone(event -> {
+            if (event.getTransferMode() == TransferMode.MOVE) {
+                decreaseCount(sprite.getType().toLowerCase());
+                logger.info("Dragging done for" + sprite.getType());
+            }
+            event.consume();
+        });
+    }
+
+    //increase the number of the item available when it is collected/collides with the user's character
+        public void increaseCount(String type, Image image) {
+            int numAvailable = itemsCount.getOrDefault(type.toLowerCase(), 0) + 1;
+            itemsCount.put(type.toLowerCase(), numAvailable);
+            //then update the cell
+        }
+
+        //decreases the number of the type of item available whenever an element in the backpack gets dragg and dropped
+        //in the specified drop zone successfully
+        public void decreaseCount(String type) {
+            int numAvailable = itemsCount.getOrDefault(type.toLowerCase(), 0);
+            if (numAvailable > 0) {
+                numAvailable--;
+                itemsCount.put(type.toLowerCase(), numAvailable);
+                //then update the cell
+                logger.info("Number of available" + type + "is now " + numAvailable);
+            }
+        }
+
+        private void updateCell() {
+        }
+
 
     //changing to a side panel view
     //instead of taking that image deleting it from the backpack, it'll be drag and dropped in the screen and the number of
@@ -214,6 +277,7 @@ public class BackpackFXMLController {
         logger.info("Loaded the last scene...");
     }
 */
+        /*
 public void addObject(Sprite sprite) {
     // Get the image from the sprite
     Image objectImage = sprite.getImage();
@@ -248,7 +312,8 @@ public void addObject(Sprite sprite) {
             currentRow++;
         }
     }
-}
+
+*/
 
     public void handleDoneBtn (Event event) {
         gameFXMLController.backpackStage.close();
