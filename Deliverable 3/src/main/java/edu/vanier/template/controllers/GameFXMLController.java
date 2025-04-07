@@ -161,7 +161,7 @@ public class GameFXMLController {
         List<Sprite> electronList = new ArrayList<>();
 
         Image electronImg = new Image(MainAppFXMLController.class.
-                getResource("/images/coin.png").toString());
+                getResource("/images/Electron.png").toString());
 
         for (int i = 0; i < 15; i++) {
             Sprite electron = new Sprite("electron", electronImg);
@@ -205,7 +205,15 @@ public class GameFXMLController {
                 }
 
                 // Jumping logic (double jump)
+                /*
                 if (input.contains("W") && !isFalling && cnt < 2) {
+                    velocityY = jumpStrength;
+                    cnt++;
+                    input.remove("W");
+                }
+                 */
+
+                if (input.contains("W")) {
                     velocityY = jumpStrength;
                     cnt++;
                     input.remove("W");
@@ -263,6 +271,8 @@ public class GameFXMLController {
                         score++;
                         electronNum++;
                         elementCollected.put("electron", electronNum);
+                        backpackFXMLController.setupCoinDrag(electron);
+                        backpackFXMLController.increaseCount(electron);
                         //backpackFXMLController.addObject(electron);
                         //don't necessarily need ot delete the coin
                         //won't the electron need to be removed after it collides with the player
@@ -406,6 +416,7 @@ public class GameFXMLController {
 
  */
 
+    //where should I use this
     private void setupDropTarget() {
         mainPane.setOnDragOver(event -> {
             if (event.getGestureSource() != mainPane && event.getDragboard().hasString()) {
