@@ -79,6 +79,7 @@ public class GameFXMLController {
     private int chocholatePowerNum = 0;
     private Map<String, Integer> elementCollected = new HashMap<>();
     BackpackFXMLController backpackFXMLController;
+    MapFXMLController mapFXMLController;
 
 
 
@@ -89,6 +90,7 @@ public class GameFXMLController {
         btnSettings.setOnAction(this::handleSettings);
         backpackBtn.setOnAction(this::handleBackpackButton);
         btnHelp.setOnAction(this::handleHelpButton);
+        btnMap.setOnAction(this::handleMapButton);
         Image imgPlatformFloor = new Image(MainAppFXMLController.class.
                 getResource("/images/PNG/forest_pack_05.png").toString());
 
@@ -479,6 +481,31 @@ public class GameFXMLController {
         }
     }
 
+    public void handleMapButton(Event e) {
+        try {
+            System.out.println("Map has been clicked");
+
+            // Load FXML and controller
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Map_layout.fxml"));
+            Parent root = loader.load();
+            mapFXMLController = loader.getController();
+
+            // Create a new stage
+            Stage mapStage = new Stage();
+            mapStage.setTitle("Map");
+            mapStage.setScene(new Scene(root, BaseWindow.sceneWidth * 0.6,BaseWindow.sceneHeight * 0.6));
+            mapStage.setResizable(false);
+            mapStage.setAlwaysOnTop(true);
+
+            // Show the new window on top of the current one
+            mapStage.show();
+            mapStage.toFront();
+
+        } catch (Exception exception) {
+            System.err.println("Error opening map window: " + exception.getMessage());
+            exception.printStackTrace();
+        }
+    }
     public void handleHelpButton(Event e){
         Stage helpStage = new Stage();
         Label testing = new Label("Testing");
@@ -486,7 +513,7 @@ public class GameFXMLController {
         scrollBar.setOrientation(Orientation.VERTICAL);
         scrollBar.setMinHeight(600);
         VBox helpVbox = new VBox(scrollBar);
-        Scene helpScene = new Scene(helpVbox, 300, 1000);
+        Scene helpScene = new Scene(helpVbox, BaseWindow.sceneWidth *0.6,BaseWindow.sceneHeight *0.6);
         helpStage.setScene(helpScene);
         helpStage.show();
     }

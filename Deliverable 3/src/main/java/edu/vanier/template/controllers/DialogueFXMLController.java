@@ -22,6 +22,7 @@ public class DialogueFXMLController {
 
     @FXML private Button btnSkip;
     @FXML private Button btnSettings;
+    @FXML private Button btnPlay;
     @FXML private ImageView character1ImgView;
     @FXML private ImageView character2ImgView;
     @FXML private Text characterNameText;
@@ -47,6 +48,7 @@ public class DialogueFXMLController {
         // Set button actions
         btnSettings.setOnAction(this::loadSettingsScene);
         btnSkip.setOnAction(this::handleSkip);
+        btnPlay.setOnAction(this::handlePlay);
 
         // Initialize sample dialogue (replace with actual dialogue)
         initializeDialogue();
@@ -113,6 +115,10 @@ public class DialogueFXMLController {
         showCurrentLine();
     }
 
+    private void handlePlay(Event e) {
+        currentLineIndex++;
+        showCurrentLine();
+    }
     private void handleSkip(Event e) {
         MainMenu.switchScene(MainMenu.GAME_SCENE);
         logger.info("Skip button clicked");
