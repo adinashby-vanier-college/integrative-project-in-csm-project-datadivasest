@@ -31,7 +31,6 @@ public class MapFXMLController {
     }
     @FXML
     public void initialize() {
-
         logger.info("Initializing MainAppController...");
 
         vBox.setPrefHeight(BaseWindow.sceneHeight * 0.5);
