@@ -72,8 +72,14 @@ public class DialogueFXMLController {
 
     private void initializeDialogue() {
         // Add your dialogue lines here
-        dialogueLines.add(new DialogueLine("Sayeri", "\"Make a funny voice!\"", "character1.png", null));
-        dialogueLines.add(new DialogueLine("Name", "Dialogue: blah blah blah blah blah", null, "character2.png"));
+        dialogueLines.add(new DialogueLine("Sayeri", "A villain (Professor Enthropy) kidnaps the user into a different dimension and the user must escape.. ", "character1.png", null));
+        dialogueLines.add(new DialogueLine("Yuri", " The user discovers that the villain has booby traps in case he tries to leave.", null, "character2.png"));
+        dialogueLines.add(new DialogueLine("Sayeri", "The booby traps are all chemistry questions (Oh no!).", "character1.png", null));
+        dialogueLines.add(new DialogueLine("Yuri", "But wait, the user just learned this stuff in class, can the user remember enough to escape.\n", null, "character2.png"));
+        dialogueLines.add(new DialogueLine("Sayeri", "The villain leaves the world to get fresh vegetables from a local beet farm.\n", "character1.png", null));
+        dialogueLines.add(new DialogueLine("Yuri", "The user takes his chance but first he has to get through the obstacles.\n", null, "character2.png"));
+
+
         // Add more lines as needed
     }
 
