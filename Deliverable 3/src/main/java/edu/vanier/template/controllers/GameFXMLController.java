@@ -1,6 +1,9 @@
 package edu.vanier.template.controllers;
 
-import edu.vanier.template.models.*;
+import edu.vanier.template.models.Platform;
+import edu.vanier.template.models.Player;
+import edu.vanier.template.models.Portal;
+import edu.vanier.template.models.Sprite;
 import edu.vanier.template.ui.BaseWindow;
 import edu.vanier.template.ui.MainApp;
 
@@ -74,55 +77,12 @@ public class GameFXMLController {
     private int protonNum = 0;
     private int powerUpNum = 0;
     private int chocholatePowerNum = 0;
-    private Family currentFamily;
     private Map<String, Integer> elementCollected = new HashMap<>();
     BackpackFXMLController backpackFXMLController;
     MapFXMLController mapFXMLController;
-    public void addPlatforms(List<Platform> platformList) {
-        Image imgPlatformFloating = new Image(MainAppFXMLController.class.
-                getResource("/images/" +currentFamily.getName()+ "/platform.png").toString());
 
-        int[] nbPlatforms = currentFamily.getPlatformSprites();
-        int smallPlatform = nbPlatforms[0];
-        int mediumPlatform = nbPlatforms[1];
-        int largePlatform = nbPlatforms[2];
-        int xLargePlatform = nbPlatforms[3];
-        int width = (int) (BaseWindow.sceneWidth * 0.9);
-        int height = (int) (BaseWindow.sceneHeight * 0.9);
 
-        for (int x = 1; x <=xLargePlatform; x++) {
-            Platform platform = new Platform((int) (width *  Math.random() + 50),
-                    (int) (height *  Math.random() + 50), "floating", 1000, 30, imgPlatformFloating);
-            platform.setHeight(70);
-            platform.setWidth(300);
-            platformList.add(platform);
-        }
-        for (int x = 1; x <=largePlatform; x++) {
-            Platform platform = new Platform((int) (width *  Math.random() + 50),
-                    (int) (height *  Math.random() + 50), "floating", 700, 30, imgPlatformFloating);
-            platform.setHeight(60);
-            platform.setWidth(200);
-            platformList.add(platform);
-        }
-        for (int x = 1; x <=mediumPlatform; x++) {
-            Platform platform = new Platform((int) (width *  Math.random() + 50),
-                    (int) (height *  Math.random() + 50), "floating", 500, 30, imgPlatformFloating);
-            platform.setHeight(50);
-            platform.setWidth(100);
 
-            platformList.add(platform);
-        }
-        for (int x = 1; x <=smallPlatform; x++) {
-            Platform platform = new Platform((int) (width *  Math.random() + 50),
-                    (int) (height *  Math.random() + 50), "floating", 300, 30, imgPlatformFloating);
-            platform.setHeight(30);
-            platform.setWidth(50);
-
-            platformList.add(platform);
-        }
-        System.out.println(platformList);
-
-    }
     @FXML
     public void initialize() {
         logger.info("Initializing Game Controller...");
@@ -131,11 +91,11 @@ public class GameFXMLController {
         backpackBtn.setOnAction(this::handleBackpackButton);
         btnHelp.setOnAction(this::handleHelpButton);
         btnMap.setOnAction(this::handleMapButton);
-        currentFamily = Family.NOFAMILY;
-
         Image imgPlatformFloor = new Image(MainAppFXMLController.class.
                 getResource("/images/PNG/forest_pack_05.png").toString());
 
+        Image imgPlatformFloating = new Image(MainAppFXMLController.class.
+                getResource("/images/PNG/forest_pack_39.png").toString());
 //        // Set the platform floor image
 //        platformFloorImgView.setImage(imgPlatformFloor);
 //        platformFloorImgView.setPreserveRatio(false);
@@ -149,8 +109,8 @@ public class GameFXMLController {
 // Add the platform floor to the mainPane
         //mainPane.getChildren().add(platformFloorImgView);
         Image backgroundImg = new Image(MainAppFXMLController.class.
-                getResource("/images/"+currentFamily+"/background.png").toString());
-        BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, true);
+                getResource("/images/PNG/bg_forest.png").toString());
+        BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false);
 
         borderPane.setBackground(new Background(new BackgroundImage(backgroundImg,
                 BackgroundRepeat.REPEAT,
@@ -158,9 +118,16 @@ public class GameFXMLController {
                 BackgroundPosition.CENTER,
                 bSize)));
         List<Platform> platformList = new ArrayList<>();
-        addPlatforms(platformList);
-
         Platform platformFloor = new Platform(0, (int)BaseWindow.sceneHeight - 100, "floor", (int)BaseWindow.sceneWidth, 100, imgPlatformFloor);
+        Platform platform1 = new Platform(300, 100, "floating", 150, 30, imgPlatformFloating);
+        Platform platform2 = new Platform(100, 200, "floating", 150, 30, imgPlatformFloating);
+        Platform platform3 = new Platform(200, 50, "floating", 60, 30, imgPlatformFloating);
+        Platform platform4 = new Platform(20, 250, "floating", 200, 30, imgPlatformFloating);
+        platformList.add(platform1);
+        platformList.add(platform2);
+        platformList.add(platform3);
+        platformList.add(platform4);
+        System.out.println(platformList);
         Canvas canvas = new Canvas(BaseWindow.sceneWidth, BaseWindow.sceneHeight);
         mainPane.getChildren().addAll(canvas, platformFloor);
 
@@ -192,28 +159,18 @@ public class GameFXMLController {
         player.setBounds(0,(int) canvas.getWidth(), 0, (int) canvas.getHeight() - (int) platformFloor.getHeight());
 
         List<Sprite> electronList = new ArrayList<>();
-        List<Sprite> protonList = new ArrayList<>();
 
         Image electronImg = new Image(MainAppFXMLController.class.
                 getResource("/images/Electron.png").toString());
-        Image protonImg = new Image(MainAppFXMLController.class.
-                getResource("/images/Proton.png").toString());
 
         for (int i = 0; i < 15; i++) {
             Sprite electron = new Sprite("electron", electronImg);
             electron.setSize(30);
             electron.setImage(electronImg);
-            double px1 = BaseWindow.sceneWidth * 0.7 * Math.random() + 50;
-            double py1 = BaseWindow.sceneHeight * 0.7 * Math.random() + 50;
-            electron.setPosition(px1, py1);
+            double px = 220 * Math.random() + 50;
+            double py = 220 * Math.random() + 50;
+            electron.setPosition(px, py);
             electronList.add(electron);
-            Sprite proton = new Sprite("proton", protonImg);
-            proton.setSize(30);
-            proton.setImage(protonImg );
-            double px = BaseWindow.sceneWidth * 0.7 * Math.random() + 50;
-            double py = BaseWindow.sceneHeight * 0.7 * Math.random() + 50;
-            proton.setPosition(px, py);
-            protonList.add(proton);
         }
 
         animation = new AnimationTimer() {
@@ -322,22 +279,6 @@ public class GameFXMLController {
                         //we'll also need protons but this can be done for deliverable three (the differentiation)
                     }
                 }
-                Iterator<Sprite> protonIter = protonList.iterator();
-                while (protonIter.hasNext()) {
-                    Sprite proton = protonIter.next();
-                    if (player.intersects(proton)) {
-                        protonIter.remove();
-                        itemClip.play();
-                        score++;
-                        protonNum++;
-                        elementCollected.put("proton", protonNum);
-                        //backpackFXMLController.addObject(electron);
-                        //don't necessarily need ot delete the coin
-                        //won't the electron need to be removed after it collides with the player
-                        //we'll also need protons but this can be done for deliverable three (the differentiation)
-                    }
-                }
-
                 if (portal.intersects(player)) {
                     portal.enter();
                 }
@@ -348,9 +289,6 @@ public class GameFXMLController {
                 portal.render(gc);
                 for (Sprite electron : electronList) {
                     electron.render(gc);
-                }
-                for (Sprite proton : protonList) {
-                    proton.render(gc);
                 }
                 for (Sprite platform : platformList) {
                     platform.render(gc);

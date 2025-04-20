@@ -47,11 +47,11 @@ public class BackpackFXMLController {
     @FXML
     Pane backpackPane;
     @FXML
-    ImageView coinImageView;
+    ImageView coin;
     @FXML
-    ImageView electronImageView;
+    ImageView electron;
     @FXML
-    ImageView protonImageView;
+    ImageView proton;
 
     @FXML
     public Label coinLabel;
@@ -73,6 +73,7 @@ public class BackpackFXMLController {
     private int protonCounter;
     private int powerUpCounter;
     private int chocolatePowerUpCounter;
+    private int numRows;
 
     //TODO: when done, do a drag and drop of the items into the game scene
 
@@ -125,13 +126,14 @@ public class BackpackFXMLController {
         int rowWidth = backpackGridPane.getRowConstraints().size();
 
         Image coinImage = new Image(getClass().getResource("/images/coin.png").toExternalForm());
-        coinImageView = new ImageView(coinImage);
-        coinImageView.setFitHeight(50);
-        coinImageView.setFitWidth(50);
+        coin = new ImageView(coinImage);
+        coin.setFitHeight(50);
+        coin.setFitWidth(50);
         System.out.println("is backpack null: " + (backpackGridPane == null));
-        backpackGridPane.add(coinImageView, 0, 0);
-        GridPane.setHalignment(coinImageView, HPos.CENTER);
-        GridPane.setValignment(coinImageView, VPos.CENTER);
+        coin.setId("coin");
+        backpackGridPane.add(coin, 0, 0);
+        GridPane.setHalignment(coin, HPos.CENTER);
+        GridPane.setValignment(coin, VPos.CENTER);
         coinCounter = 0;
         coinLabel = new Label(" x " + 0 );
         backpackGridPane.add(coinLabel, 1, 0);
@@ -141,54 +143,58 @@ public class BackpackFXMLController {
         logger.info("Loading coin image: T/F" + coinImage.isError());
 
         Image electronImage = new Image(getClass().getResource("/images/Electron.png").toExternalForm());
-        electronImageView = new ImageView(electronImage);
-        electronImageView.setFitWidth(50);
-        electronImageView.setFitHeight(50);
-        backpackGridPane.add(electronImageView, 0, 1);
-        GridPane.setHalignment(electronImageView, HPos.CENTER);
-        GridPane.setValignment(electronImageView, VPos.CENTER);
+        electron = new ImageView(electronImage);
+        electron.setFitWidth(50);
+        electron.setFitHeight(50);
+        electron.setId("electron");
+        backpackGridPane.add(electron, 0, 1);
+        GridPane.setHalignment(electron, HPos.CENTER);
+        GridPane.setValignment(electron, VPos.CENTER);
         electronCounter = 0;
         electronLabel = new Label(" x " + 0);
         backpackGridPane.add(electronLabel, 1, 1);
-        itemsCount.put("electron", 2);
+        itemsCount.put("electron", electronCounter);
         itemLabels.put("electron", electronLabel);
 
         Image protonImage = new Image((getClass().getResource("/images/Proton.png")).toExternalForm());
-        protonImageView = new ImageView(protonImage);
-        protonImageView.setFitWidth(50);
-        protonImageView.setFitHeight(50);
-        GridPane.setHalignment(protonImageView, HPos.CENTER);
-        GridPane.setValignment(protonImageView, VPos.CENTER);
+        proton = new ImageView(protonImage);
+        proton.setFitWidth(50);
+        proton.setFitHeight(50);
+        GridPane.setHalignment(proton, HPos.CENTER);
+        GridPane.setValignment(proton, VPos.CENTER);
         protonCounter = 0;
         protonLabel = new Label(" x " + 0);
         backpackGridPane.add(protonLabel, 1, 2);
-        backpackGridPane.add(protonImageView, 0, 2);
+        proton.setId("proton");
+        backpackGridPane.add(proton, 0, 2);
         itemsCount.put("proton", protonCounter);
         itemLabels.put("proton", protonLabel);
 
         Image powerUpImage = new Image(getClass().getResource("/images/PowerUp.png").toExternalForm());
-        ImageView powerUpImageView = new ImageView(powerUpImage);
-        powerUpImageView.setFitWidth(50);
-        powerUpImageView.setFitHeight(50);
-        GridPane.setHalignment(powerUpImageView, HPos.CENTER);
-        GridPane.setValignment(powerUpImageView, VPos.CENTER);
+        ImageView powerUp = new ImageView(powerUpImage);
+        powerUp.setFitWidth(50);
+        powerUp.setFitHeight(50);
+        GridPane.setHalignment(powerUp, HPos.CENTER);
+        GridPane.setValignment(powerUp, VPos.CENTER);
         powerUpCounter = 0;
         powerUpLabel = new Label(" x " + 0);
         backpackGridPane.add(powerUpLabel, 1, 3);
-        backpackGridPane.add(powerUpImageView, 0, 3);
+        powerUp.setId("powerUp");
+        backpackGridPane.add(powerUp, 0, 3);
         itemsCount.put("powerUp", powerUpCounter);
         itemLabels.put("powerUp", powerUpLabel);
 
-        Image chocolatePowerUp = new Image(getClass().getResource("/images/ChocolatePowerUp.png").toExternalForm());
-        ImageView chocolatePowerUpImageView = new ImageView(chocolatePowerUp);
-        chocolatePowerUpImageView.setFitWidth(50);
-        chocolatePowerUpImageView.setFitHeight(50);
-        GridPane.setHalignment(chocolatePowerUpImageView, HPos.CENTER);
-        GridPane.setValignment(chocolatePowerUpImageView, VPos.CENTER);
+        Image chocolatePowerUpImage= new Image(getClass().getResource("/images/ChocolatePowerUp.png").toExternalForm());
+        ImageView chocolatePowerUp = new ImageView(chocolatePowerUpImage);
+        chocolatePowerUp.setFitWidth(50);
+        chocolatePowerUp.setFitHeight(50);
+        GridPane.setHalignment(chocolatePowerUp, HPos.CENTER);
+        GridPane.setValignment(chocolatePowerUp, VPos.CENTER);
         chocolatePowerUpCounter = 0;
         chocolatePowerUpLabel = new Label(" x " + 0);
         backpackGridPane.add(chocolatePowerUpLabel, 1, 4);
-        backpackGridPane.add(chocolatePowerUpImageView, 0, 4);
+        chocolatePowerUp.setId("chocolatePowerUp");
+        backpackGridPane.add(chocolatePowerUp, 0, 4);
         itemsCount.put("chocolatePowerUp", chocolatePowerUpCounter);
         itemLabels.put("chocolatePowerUp", chocolatePowerUpLabel);
         //check how to adjust the font size
@@ -211,13 +217,13 @@ public class BackpackFXMLController {
             content.putString(type);
             dragboard.setContent(content);
             // Set a drag view (a "ghost" image) so the original remains fixed.
-            dragboard.setDragView(coinImageView.snapshot(null, null));
+            dragboard.setDragView(coin.snapshot(null, null));
             logger.info("Started dragging " + type);
             event.consume();
         });
 
         // When the drag is complete, update the coin count.
-        coinImageView.setOnDragDone(event -> {
+        coin.setOnDragDone(event -> {
             // Check if the drop was successful (i.e. TransferMode.MOVE).
             if (event.getTransferMode() == TransferMode.MOVE) {
                 decreaseCount(sprite);
@@ -266,14 +272,57 @@ public class BackpackFXMLController {
     }
     //increase the number of the item available when it is collected/collides with the user's character
         public void increaseCount(Sprite sprite) {
-        String type = sprite.getType().toLowerCase();
+            String type = sprite.getType().toLowerCase();
 
-        if(itemsCount.containsKey(type)) {
-            int updatedCountOfItem = itemsCount.get(type) + 1;
-            itemsCount.put(type, updatedCountOfItem);
+            if (itemsCount.containsKey(type)) {
+                int updatedCountOfItem = itemsCount.get(type) + 1;
+                itemsCount.put(type, updatedCountOfItem);
+
+                Label itemLabel = itemLabels.get(type);
+                itemLabel.setText("x " + updatedCountOfItem);
+            }
+        }
+
+
+        public void addNewItem(Sprite sprite) {
+            String type = sprite.getType().toLowerCase();
+
+            int currentNum = itemsCount.get(type);
+            currentNum++;
+            itemsCount.put(type, currentNum);
 
             Label itemLabel = itemLabels.get(type);
-            itemLabel.setText("x " + updatedCountOfItem);
+            itemLabel.setText("x " + currentNum);
+
+        }
+
+        public void increaseNum(Sprite sprite) {
+            String type = sprite.getType().toLowerCase();
+
+            for(Node node : backpackGridPane.getChildren()){
+                int columnIndex1 = 0;
+                if(columnIndex1 == 0) {
+                    for(int i = 0; i <= numRows; i++) {
+                        if (getNode(backpackGridPane, 0, i).getId().equals(sprite.getId())) {
+                            Node labelNode = getNode(backpackGridPane, 1, 0);
+                            backpackGridPane.getChildren().remove(labelNode);
+                            //backpackGridPane.getChildren().add((electronCounter + 1);
+                        }
+                    }
+                }
+            }
+        }
+
+        public Node getNode(GridPane gridPane, int column, int row) {
+            for (Node node : gridPane.getChildren()) {
+                int columnIndex = gridPane.getColumnIndex(node);
+                int rowIndex = gridPane.getRowIndex(node);
+
+                if (column == columnIndex && row == rowIndex) {
+                    return node;
+                }
+            }
+            return null;
         }
         /*
             switch (sprite.getType()) {
@@ -308,8 +357,9 @@ public class BackpackFXMLController {
             //then update the cell
            // updateCell(type, image, numAvailable);
 
-         */
         }
+         */
+
 
         //decreases the number of the type of item available whenever an element in the backpack gets dragg and dropped
         //in the specified drop zone successfully
@@ -424,11 +474,14 @@ public void addObject(Sprite sprite) {
 */
 
     public void handleDoneBtn (Event event) {
+
+       // MainMenu.switchScene(MainMenu.GAME_OVER_SCENE);
         gameFXMLController.backpackStage.close();
     }
 
     public void handleExitBtn (Event event) {
         gameFXMLController.backpackStage.close();
     }
+
 }
 
