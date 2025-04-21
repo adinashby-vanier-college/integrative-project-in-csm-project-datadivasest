@@ -3,15 +3,15 @@ package edu.vanier.template.models;
 import javafx.scene.media.AudioClip;
 
 public enum Family {
-    ALKALIMETAL("alkaliMetal", 0, new int[] {1,2,3,4}),
-    ALKALINEEARTHMETALS("alkaliEarthMetal", 0, new int[] {1,2,3,4}),
-    TRANSITIONMETAL3("transitionMetal3", 0, new int[] {1,2,3,4}),
-    TRANSITIONMETAL4("transitionMetal4", 0, new int[] {1,2,3,4}),
-    TRANSITIONMETAL5("transitionMetal5", 0, new int[] {1,2,3,4}),
-    TRANSITIONMETAL6("transitionMetal6", 0, new int[] {1,2,3,4}),
-    HALOGENS("halogens", 0, new int[] {1,2,3,4}),
-    NOBLEGAS("nobleGas", 0, new int[] {1,2,3,4}),
-    NOFAMILY("noFamily", 0, new int[] {1,2,3,4});
+    ALKALIMETAL("alkaliMetal", 0, new int[] {1,2,3,4}, "A"),
+    ALKALINEEARTHMETALS("alkalineEarthMetal", 0, new int[] {1,2,3,4}, "B"),
+    TRANSITIONMETAL3("transitionMetal3", 0, new int[] {1,2,3,4}, "C"),
+    TRANSITIONMETAL4("transitionMetal4", 0, new int[] {1,2,3,4}, "A"),
+    TRANSITIONMETAL5("transitionMetal5", 0, new int[] {1,2,3,4}, "B"),
+    TRANSITIONMETAL6("transitionMetal6", 0, new int[] {1,2,3,4}, "C"),
+    HALOGENS("halogens", 0, new int[] {1,2,3,4}, "A"),
+    NOBLEGAS("nobleGas", 0, new int[] {1,2,3,4}, "B"),
+    NOFAMILY("noFamily", 0, new int[] {1,2,3,4}, "C");
 
     private final int enemyCount; //spawning invaders
     private final int[] platformSprites; //decides how much of each sprite to choose
@@ -19,14 +19,16 @@ public enum Family {
     //  1 TypeAInvader, 2 TypeBInvader, 0 TypeCInvader, 0 TypeDInvader, 0TypeEInvader, 0 Boss
     private final String name;
     private final String platformImage;
+    private final String layoutType;
 //    private final AudioClip music;
 //    private final AudioClip explosionSound;
 
-    Family(String name, int enemyCount, int[] platformSprites) {
+    Family(String name, int enemyCount, int[] platformSprites, String layoutType) {
         this.name = name;
         this.enemyCount = enemyCount;
         this.platformSprites = platformSprites;
         this.platformImage = "/images/" + name + "/platform.png";
+        this.layoutType = layoutType;
 //        this.music = new AudioClip((getClass().getResource
 //                ("/audio/"+ name +".mp3").toExternalForm()));
 //        music.setVolume(50);
@@ -41,6 +43,9 @@ public enum Family {
         return platformSprites;
     }
 
+    public String getLayoutType() {
+        return layoutType;
+    }
     public String getName() {
         return name;
     }

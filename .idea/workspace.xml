@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6dbba0c6-7aed-42ff-8fd6-81491a57f3fc" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Deliverable 3/src/main/java/edu/vanier/template/models/Family.java" beforeDir="false" afterPath="$PROJECT_DIR$/Deliverable 3/src/main/java/edu/vanier/template/models/Family.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Deliverable 3/src/main/java/edu/vanier/template/models/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/Deliverable 3/src/main/java/edu/vanier/template/models/World.java" afterDir="false" />
-    </list>
+    <list default="true" id="6dbba0c6-7aed-42ff-8fd6-81491a57f3fc" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -50,6 +46,7 @@
       <updated>1743979677897</updated>
       <workItem from="1743979682824" duration="17000" />
       <workItem from="1743981347647" duration="206000" />
+      <workItem from="1745169978153" duration="16000" />
     </task>
     <servers />
   </component>
