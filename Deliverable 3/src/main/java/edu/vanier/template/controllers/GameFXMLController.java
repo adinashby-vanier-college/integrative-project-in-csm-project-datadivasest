@@ -272,7 +272,6 @@ public class GameFXMLController {
                         electronNum++;
                         elementCollected.put("electron", electronNum);
                         //backpackFXMLController.setupCoinDrag(electron);
-                        backpackFXMLController.isBackpackEmpty();
                         backpackFXMLController.increaseCount(electron);
                         //backpackFXMLController.addObject(electron);
                         //don't necessarily need ot delete the coin
