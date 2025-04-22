@@ -9,6 +9,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class QuestionLevelOne extends Application {
+    private GameFXMLController gameFXMLController;
 
     public static void main(String[] arg){
         launch(arg);
@@ -32,6 +33,11 @@ public class QuestionLevelOne extends Application {
                 resultLabel.setText("That's not quite right, try again!");
             }
         });
+
+//        helpButton.setOnAction(event -> {
+//            gameFXMLController.handleBackpackButton(event);
+//
+//        });
 
         HBox buttons = new HBox(helpButton, checkButton);
         VBox elements = new VBox(questionLabel, answerText, resultLabel, buttons);
