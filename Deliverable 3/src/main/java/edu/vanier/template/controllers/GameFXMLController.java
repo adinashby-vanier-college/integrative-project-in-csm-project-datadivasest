@@ -91,6 +91,16 @@ public class GameFXMLController {
             Platform.setPlatformsTypeB(currentFamily, platformList);
         } else if (currentFamily.getLayoutType().equals("C")) {
             Platform.setPlatformsTypeC(currentFamily, platformList);
+        } else if (currentFamily.getLayoutType().equals("1.1")) {
+            Platform.setPlatformsType11(currentFamily, platformList);
+        } else if (currentFamily.getLayoutType().equals("1.2")) {
+            Platform.setPlatformsType12(currentFamily, platformList);
+        } else if (currentFamily.getLayoutType().equals("2")) {
+            Platform.setPlatformsType2(currentFamily, platformList);
+        } else if (currentFamily.getLayoutType().equals("3.1")) {
+            Platform.setPlatformsType31(currentFamily, platformList);
+        } else if (currentFamily.getLayoutType().equals("3.2")) {
+            Platform.setPlatformsType32(currentFamily, platformList);
         }
 
     }
@@ -107,36 +117,13 @@ public class GameFXMLController {
         backpackBtn.setOnAction(this::handleBackpackButton);
         btnHelp.setOnAction(this::handleHelpButton);
         btnMap.setOnAction(this::handleMapButton);
-        currentFamily = Family.NOBLEGAS;
-//        // Set the platform floor image
-//        platformFloorImgView.setImage(imgPlatformFloor);
-//        platformFloorImgView.setPreserveRatio(false);
-//        platformFloorImgView.setFitWidth(BaseWindow.sceneWidth);
-//        platformFloorImgView.setFitHeight(100);
-//
-//// Position it at the bottom of the scene
-//        platformFloorImgView.setLayoutX(0);
-//        platformFloorImgView.setLayoutY(BaseWindow.sceneHeight - platformFloorImgView.getFitHeight());
-
-// Add the platform floor to the mainPane
-        //mainPane.getChildren().add(platformFloorImgView);
-
-//        this.setOnCloseRequest((event) -> {
-//            // Stop the animation timer upon closing this window.
-//            if (animation != null) {
-//                animation.stop();
-//            }
-//        });
-
+        currentFamily = Family.LEVEL31;
 
         Image imgPlatformFloor = new Image(MainAppFXMLController.class.
                 getResource("/images/PNG/forest_pack_05.png").toString());
 
-        Image imgPlatformFloating = new Image(MainAppFXMLController.class.
-                getResource("/images/PNG/forest_pack_39.png").toString());
-
         Image backgroundImg = new Image(MainAppFXMLController.class.
-                getResource("/images/"+currentFamily+"/background.png").toString());
+                getResource("/images/"+currentFamily.getName()+"/background.png").toString());
         BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, true);
 
         borderPane.setBackground(new Background(new BackgroundImage(backgroundImg,
@@ -290,7 +277,7 @@ public class GameFXMLController {
                     if (player.intersects(electron)) {
                         electronIter.remove();
                         itemClip.play();
-                        score++;
+                        score--;
                         electronNum++;
                         elementCollected.put("electron", electronNum);
                         //backpackFXMLController.setupCoinDrag(electron);
@@ -336,7 +323,7 @@ public class GameFXMLController {
                     platform.render(gc);
                 }
 
-                String pointsText = "electron: -" + (2 * score);
+                String pointsText = "charge: " + (2 * score);
                 gc.fillText(pointsText, 360, 36);
                 gc.strokeText(pointsText, 360, 36);
             }

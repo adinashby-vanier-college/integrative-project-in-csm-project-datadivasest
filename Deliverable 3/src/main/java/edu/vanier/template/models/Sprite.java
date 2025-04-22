@@ -154,7 +154,6 @@ public class Sprite extends ImageView {
         positionY = y;
         setX(x);
         setY(y);
-        System.out.println("Position has been set to: (" + x +"," + y + ")");
     }
     public void setPositionX(double x) {
         positionX = x;

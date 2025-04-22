@@ -11,7 +11,12 @@ public enum Family {
     TRANSITIONMETAL6("transitionMetal6", 0, new int[] {1,2,3,4}, "C"),
     HALOGENS("halogens", 0, new int[] {1,2,3,4}, "A"),
     NOBLEGAS("nobleGas", 0, new int[] {1,2,3,4}, "B"),
-    NOFAMILY("noFamily", 0, new int[] {1,2,3,4}, "C");
+    LEVEL11("noFamily", 0, new int[] {1,2,3,4}, "1.1"),
+    LEVEL12("noFamily", 0, new int[] {1,2,3,4}, "1.2"),
+    LEVEL2("noFamily", 0, new int[] {1,2,3,4}, "2"),
+    LEVEL31("noFamily", 0, new int[] {1,2,3,4}, "3.1"),
+    LEVEL32("noFamily", 0, new int[] {1,2,3,4}, "3.2");
+
 
     private final int enemyCount; //spawning invaders
     private final int[] platformSprites; //decides how much of each sprite to choose
