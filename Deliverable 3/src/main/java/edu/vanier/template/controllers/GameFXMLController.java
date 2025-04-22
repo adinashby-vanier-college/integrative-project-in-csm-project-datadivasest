@@ -80,6 +80,9 @@ public class GameFXMLController {
     private int protonNum = 0;
     private int powerUpNum = 0;
     private int chocholatePowerNum = 0;
+    private Sprite electron;
+    private Sprite proton;
+    private Sprite powerUp;
     private Map<String, Integer> elementCollected = new HashMap<>();
     BackpackFXMLController backpackFXMLController;
     MapFXMLController mapFXMLController;
@@ -270,6 +273,7 @@ public class GameFXMLController {
 
                 if (score >= 0)
                     portal.unlock();
+
                 // Electron collection logic
                 Iterator<Sprite> electronIter = electronList.iterator();
                 while (electronIter.hasNext()) {
@@ -277,11 +281,16 @@ public class GameFXMLController {
                     if (player.intersects(electron)) {
                         electronIter.remove();
                         itemClip.play();
+                        System.out.println("interacting with a sprite");
                         score--;
                         electronNum++;
                         elementCollected.put("electron", electronNum);
+                        mainPane.getChildren().remove(electron);
                         //backpackFXMLController.setupCoinDrag(electron);
-                        backpackFXMLController.increaseCount(electron);
+                        if(backpackFXMLController != null) {
+                            backpackFXMLController.increaseCount(electron);
+                            System.out.println("backpack is not null");
+                        }
                         //backpackFXMLController.addObject(electron);
                         //don't necessarily need ot delete the coin
                         //won't the electron need to be removed after it collides with the player
@@ -359,15 +368,28 @@ public class GameFXMLController {
                 }
 
                 if (sprite != null) {
-                    ImageView spriteImageView = new ImageView(sprite);
-                    spriteImageView.setFitWidth(30);
-                    spriteImageView.setFitHeight(30);
-                    spriteImageView.setLayoutX(event.getX());
-                    spriteImageView.setLayoutY(event.getY());
-                    mainPane.getChildren().add(spriteImageView);
+                    Sprite reuploadedSprite = new Sprite(spriteType, sprite);
+                    reuploadedSprite.setImage(sprite);
+                    reuploadedSprite.setSize(30);
+                    reuploadedSprite.setPreserveRatio(true);
+
+                    double positionX  = event.getX();
+                    double positionY = event.getY();
+                    reuploadedSprite.setPosition(positionX, positionY);
+
+                    switch (spriteType) {
+                        case "electron":
+                            electronList.add(reuploadedSprite);
+                            break;
+                        case "proton":
+                            protonList.add(reuploadedSprite);
+                            break;
+                    }
+                    mainPane.getChildren().add(reuploadedSprite);
                 }
                 success = true;
             }
+
             event.setDropCompleted(success);
             System.out.println("Dropped: " + dragboard.getString());
             event.consume();
