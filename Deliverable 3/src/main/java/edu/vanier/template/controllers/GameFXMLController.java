@@ -297,6 +297,7 @@ public class GameFXMLController {
                         score++;
                         protonNum++;
                         elementCollected.put("proton", protonNum);
+                        backpackFXMLController.increaseCount(proton);
                         //backpackFXMLController.addObject(electron);
                         //don't necessarily need ot delete the coin
                         //won't the electron need to be removed after it collides with the player
@@ -329,6 +330,48 @@ public class GameFXMLController {
             }
         };
         animation.start();
+
+        mainPane.setOnDragOver(event -> {
+            if (event.getGestureSource() != mainPane && event.getDragboard().hasString()) {
+                event.acceptTransferModes(TransferMode.COPY);
+            }
+            event.consume();
+
+            System.out.println();
+        });
+
+        mainPane.setOnDragDropped(event -> {
+            Dragboard dragboard = event.getDragboard();
+            boolean success = false;
+
+            if (dragboard.hasString()) {
+                String spriteType = dragboard.getString().toLowerCase();
+
+                Image sprite = null;
+
+                switch (spriteType) {
+                    case "electron":
+                        sprite = new Image(getClass().getResource("/images/Electron.png").toExternalForm());
+                        break;
+                    case "proton":
+                        sprite = new Image(getClass().getResource("/images/Proton.png").toExternalForm());
+                        break;
+                }
+
+                if (sprite != null) {
+                    ImageView spriteImageView = new ImageView(sprite);
+                    spriteImageView.setFitWidth(30);
+                    spriteImageView.setFitHeight(30);
+                    spriteImageView.setLayoutX(event.getX());
+                    spriteImageView.setLayoutY(event.getY());
+                    mainPane.getChildren().add(spriteImageView);
+                }
+                success = true;
+            }
+            event.setDropCompleted(success);
+            System.out.println("Dropped: " + dragboard.getString());
+            event.consume();
+        });
     }
 /*
     @FXML
@@ -446,29 +489,7 @@ public class GameFXMLController {
  */
 
     //where should I use this
-    private void setupDropTarget() {
-        mainPane.setOnDragOver(event -> {
-            if (event.getGestureSource() != mainPane && event.getDragboard().hasString()) {
-                event.acceptTransferModes(TransferMode.MOVE);
-            }
-            event.consume();
-        });
-        mainPane.setOnDragDropped(event -> {
-            Dragboard db = event.getDragboard();
-            boolean success = false;
-            if (db.hasString()) {
-                String itemType = db.getString();
-                logger.info("Dropped coin of type: " + itemType);
-                ImageView droppedCoin = createItemImageView(itemType);
-                droppedCoin.setLayoutX(event.getX());
-                droppedCoin.setLayoutY(event.getY());
-                mainPane.getChildren().add(droppedCoin);
-                success = true;
-            }
-            event.setDropCompleted(success);
-            event.consume();
-        });
-    }
+
 
     private ImageView createItemImageView(String itemType) {
         String imagePath;
