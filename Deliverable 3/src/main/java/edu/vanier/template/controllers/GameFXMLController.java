@@ -152,7 +152,7 @@ public class GameFXMLController {
 
         Image imgPortal = new Image(MainAppFXMLController.class.
                 getResource("/images/PNG/galaxy.png").toString());
-        Portal portal = new Portal((int)BaseWindow.sceneWidth - 30, (int)BaseWindow.sceneHeight - 200 - (int)platformFloor.getHeight(), 30, 200, imgPortal);
+        Portal portal = new Portal((int)BaseWindow.sceneWidth - 30, (int)BaseWindow.sceneHeight - 200 - (int)platformFloor.getHeight(), 30, 200, imgPortal, QUESTIONEX1_SCENE);
         //-- Create and configure the media player.
         itemClip = new AudioClip(getClass().getResource("/sounds/item_pickup.wav").toExternalForm());
 

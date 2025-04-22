@@ -32,6 +32,7 @@ public class MainApp extends Application {
     public static final String SECONDARY_SCENE = "secondary_layout";
     // The FXML file name of the dialogue scene.
     public static final String DIALOGUE_SCENE = "DialoguePage";
+    public static final String PERIODICTABLE_SCENE = "PeriodicTable_layout";
     public static final String GAME_SCENE = "World_layout";
     private final static Logger logger = LoggerFactory.getLogger(MainApp.class);
     private static Scene scene;
@@ -89,10 +90,20 @@ public class MainApp extends Application {
             } else if (fxmlFileName.equals(DIALOGUE_SCENE)) {
                 if (!sceneController.sceneExists(fxmlFileName)) {
                     // Instantiate the corresponding FXML controller if the 
-                    // specified scene is being loaded for the frist time.
+                    // specified scene is being loaded for the first time.
                     DialogueFXMLController controller = new DialogueFXMLController();
                     Parent root = FxUIHelper.loadFXML(fxmlFileName, controller);
                     sceneController.addScene(DIALOGUE_SCENE, root);
+                }
+                // The scene has been previously added, we activate it.
+                sceneController.activateScene(fxmlFileName);
+            } else if (fxmlFileName.equals(PERIODICTABLE_SCENE)) {
+                if (!sceneController.sceneExists(fxmlFileName)) {
+                    // Instantiate the corresponding FXML controller if the
+                    // specified scene is being loaded for the first time.
+                    PeriodicTableFXMLController controller = new PeriodicTableFXMLController();
+                    Parent root = FxUIHelper.loadFXML(fxmlFileName, controller);
+                    sceneController.addScene(PERIODICTABLE_SCENE, root);
                 }
                 // The scene has been previously added, we activate it.
                 sceneController.activateScene(fxmlFileName);

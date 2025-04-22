@@ -6,11 +6,12 @@ import javafx.scene.image.Image;
 public class Portal extends Sprite{
     private boolean isOpen;
     private String destination;
-    public Portal(int x, int y, int sizeX, int sizeY, Image image) {
+    public Portal(int x, int y, int sizeX, int sizeY, Image image, String destination) {
         super(x, y, "portal", sizeX, sizeY, image);
         setFitWidth(sizeX);
         setFitHeight(sizeY);
         isOpen = false;
+        this.destination = destination;
     }
     public void unlock() {
         isOpen = true;
@@ -18,7 +19,8 @@ public class Portal extends Sprite{
     public void enter() {
         if (isOpen) {
             System.out.println("Going back to...");
-            MainMenu.switchScene(MainMenu.SETTINGS_SCENE);
+            MainMenu.switchScene(destination);
         }
     }
+
 }

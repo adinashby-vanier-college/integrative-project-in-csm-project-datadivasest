@@ -56,6 +56,10 @@ public class MainMenu extends Application {
     public static final String DIALOGUE_SCENE = "Dialogue_layout";
     // The FXML file name of the main menu scene
     public static final String MAINMENU_SCENE = "MainMenu";
+    // The FXML file name of the Periodic Table scene
+    public static final String PERIODICTABLE_SCENE = "PeriodicTable_layout";
+    // The FXML file name of the QuestionEx1 scene
+    public static final String QUESTIONEX1_SCENE = "QuestionEx1";
     // The FXML file name of the create account scene
     public static final String CREATEACCOUNT_SCENE = "CreateAccountPage";
     // The FXML file name of the login scene
@@ -151,10 +155,32 @@ public class MainMenu extends Application {
             } else if (fxmlFileName.equals(GAME_SCENE)) {
                 if (!sceneController.sceneExists(fxmlFileName)) {
                     // Instantiate the corresponding FXML controller if the
-                    // specified scene is being loaded for the frist time.
+                    // specified scene is being loaded for the first time.
                     GameFXMLController controller = new GameFXMLController();
                     Parent root = FxUIHelper.loadFXML(fxmlFileName, controller);
                     sceneController.addScene(GAME_SCENE, root);
+
+                }
+                // The scene has been previously added, we activate it.
+                sceneController.activateScene(fxmlFileName);
+            } else if (fxmlFileName.equals(PERIODICTABLE_SCENE)) {
+                if (!sceneController.sceneExists(fxmlFileName)) {
+                    // Instantiate the corresponding FXML controller if the
+                    // specified scene is being loaded for the first time.
+                    PeriodicTableFXMLController controller = new PeriodicTableFXMLController();
+                    Parent root = FxUIHelper.loadFXML(fxmlFileName, controller);
+                    sceneController.addScene(PERIODICTABLE_SCENE, root);
+
+                }
+                // The scene has been previously added, we activate it.
+                sceneController.activateScene(fxmlFileName);
+            } else if (fxmlFileName.equals(QUESTIONEX1_SCENE)) {
+                if (!sceneController.sceneExists(fxmlFileName)) {
+                    // Instantiate the corresponding FXML controller if the
+                    // specified scene is being loaded for the first time.
+                    QuestionEx1FXMLController controller = new QuestionEx1FXMLController();
+                    Parent root = FxUIHelper.loadFXML(fxmlFileName, controller);
+                    sceneController.addScene(QUESTIONEX1_SCENE, root);
 
                 }
                 // The scene has been previously added, we activate it.
