@@ -68,7 +68,11 @@ public class QuestionEx1FXMLController {
 //        MainMenu.switchScene(MainMenu.GAME_SCENE);
         logger.info("Check button clicked");
         if(number == currentElement.getAtomicNumber()){
+
             lblQuestion.setText(currentQuestion + "\n\n\t\t\t\tThat's correct, good Job!");
+            btnCheck.setText("Next");
+
+           btnCheck.setOnAction(event ->  MainMenu.switchScene(MainMenu.QUESTIONEX2_SCENE));
         }
         else {
             lblQuestion.setText(currentQuestion + "\n\n\t\t\t\tThat's not quite right.. try again!");
