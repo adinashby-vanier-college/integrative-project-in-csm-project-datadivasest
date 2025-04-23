@@ -126,7 +126,7 @@ public class DialogueFXMLController {
         showCurrentLine();
     }
     private void handleSkip(Event e) {
-        MainMenu.switchScene(MainMenu.GAME_SCENE);
+        MainMenu.switchScene(MainMenu.QUESTIONEX1_SCENE);
         logger.info("Skip button clicked");
     }
 

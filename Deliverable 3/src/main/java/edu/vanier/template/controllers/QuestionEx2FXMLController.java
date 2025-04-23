@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,10 +23,20 @@ public class QuestionEx2FXMLController {
     @FXML private Label lblLeft;
     @FXML private TextField txtRight;
     @FXML private Label lblRight;
+    @FXML private BorderPane borderPane;
 
     @FXML
     public void initialize() {
-        logger.info("Initializing Dialogue Controller...");
+        logger.info("Initializing Question 2 Controller...");
+        Image backgroundImg = new Image(MainAppFXMLController.class.
+                getResource("/images/Files/png/BG.png").toString());
+        BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, true, true, false, true);
+
+        borderPane.setBackground(new Background(new BackgroundImage(backgroundImg,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.CENTER,
+                bSize)));
 
         // Set button actions
         btnBack.setOnAction(this::handleBack);

@@ -1,21 +1,30 @@
 package edu.vanier.template.controllers;
 
+import edu.vanier.template.models.Family;
 import edu.vanier.template.ui.MainMenu;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import static edu.vanier.template.ui.MainMenu.GAME_SCENE;
+import static edu.vanier.template.ui.MainMenu.sceneController;
 
 public class QuestionEx1FXMLController {
     private final static Logger logger = LoggerFactory.getLogger(QuestionEx1FXMLController.class);
@@ -27,6 +36,7 @@ public class QuestionEx1FXMLController {
     @FXML private Button btnPeriodicTable;
     @FXML private Label lblAnswer;
     @FXML private Label lblQuestion;
+    @FXML private BorderPane borderPane;
     private int number;
 
     private final List<Elements> elements = new ArrayList<>();
@@ -37,7 +47,16 @@ public class QuestionEx1FXMLController {
 
     @FXML
     public void initialize() {
-        logger.info("Initializing Dialogue Controller...");
+        logger.info("Initializing Question 1 Controller...");
+        Image backgroundImg = new Image(MainAppFXMLController.class.
+                getResource("/images/Files/png/BG.png").toString());
+        BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, true, true, false, true);
+
+        borderPane.setBackground(new Background(new BackgroundImage(backgroundImg,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.CENTER,
+                bSize)));
 
         // Set button actions
         btnBack.setOnAction(this::loadSettingsScene);
@@ -72,13 +91,17 @@ public class QuestionEx1FXMLController {
             lblQuestion.setText(currentQuestion + "\n\n\t\t\t\tThat's correct, good Job!");
             btnCheck.setText("Next");
 
-           btnCheck.setOnAction(event ->  MainMenu.switchScene(MainMenu.QUESTIONEX2_SCENE));
+           btnCheck.setOnAction(this::handleNext);
         }
         else {
             lblQuestion.setText(currentQuestion + "\n\n\t\t\t\tThat's not quite right.. try again!");
         }
     }
 
+    private void handleNext(ActionEvent actionEvent) {
+        MainMenu.switchScene(GAME_SCENE);
+        logger.info("Skip button clicked");
+    }
     private void loadSettingsScene(Event e) {
         MainMenu.switchScene(MainMenu.SETTINGS_SCENE);
         logger.info("Settings button clicked");

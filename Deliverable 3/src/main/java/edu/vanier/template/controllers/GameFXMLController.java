@@ -67,7 +67,7 @@ public class GameFXMLController {
     Pane mainPane;
     @FXML
     Pane backpackPane;
-    private Family currentFamily;
+    public Family currentFamily;
 
     public Stage backpackStage;
 
@@ -105,8 +105,8 @@ public class GameFXMLController {
 
     }
 
-    public void setWorld() {
-
+    public void setCurrentFamily(Family family) {
+        currentFamily = family;
     }
 
     @FXML
@@ -117,7 +117,7 @@ public class GameFXMLController {
         backpackBtn.setOnAction(this::handleBackpackButton);
         btnHelp.setOnAction(this::handleHelpButton);
         btnMap.setOnAction(this::handleMapButton);
-        currentFamily = Family.LEVEL12;
+        currentFamily = Family.LEVEL11;
 
         Image imgPlatformFloor = new Image(MainAppFXMLController.class.
                 getResource("/images/PNG/forest_pack_05.png").toString());
@@ -139,7 +139,7 @@ public class GameFXMLController {
 
         Image imgPortal = new Image(MainAppFXMLController.class.
                 getResource("/images/PNG/galaxy.png").toString());
-        Portal portal = new Portal((int)BaseWindow.sceneWidth - 30, (int)BaseWindow.sceneHeight - 200 - (int)platformFloor.getHeight(), 30, 200, imgPortal, QUESTIONEX1_SCENE);
+        Portal portal = new Portal((int)BaseWindow.sceneWidth - 150, (int)BaseWindow.sceneHeight - 100 - (int)platformFloor.getHeight(), 200, 300, imgPortal, QUESTIONEX2_SCENE);
         //-- Create and configure the media player.
         itemClip = new AudioClip(getClass().getResource("/sounds/item_pickup.wav").toExternalForm());
 
