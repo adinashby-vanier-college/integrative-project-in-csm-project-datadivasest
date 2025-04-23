@@ -37,7 +37,7 @@ public class HelpFXMLController {
             this.practiceLink = practiceLink;
         }
     }
-    private final static Logger logger = LoggerFactory.getLogger(MapFXMLController.class);
+    private final static Logger logger = LoggerFactory.getLogger(HelpFXMLController.class);
     private final Map<Button, HelpContent> helpContents = new HashMap<>();
     @FXML private ImageView contentImage;
     @FXML private TextFlow contentTextFlow;
@@ -69,7 +69,7 @@ public class HelpFXMLController {
         borderPane.setPrefWidth(BaseWindow.sceneWidth *0.8);
 
         Image backgroundImg = new Image(MainAppFXMLController.class.
-                getResource("/images/noFamily/background.png").toString());
+                getResource("/images/Files/png/BG.png").toString());
         BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, true, true, false, true);
 
         borderPaneBg.setBackground(new Background(new BackgroundImage(backgroundImg,

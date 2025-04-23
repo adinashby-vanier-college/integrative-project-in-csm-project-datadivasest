@@ -63,8 +63,8 @@ public class LoginFXMLController {
      * @author Sofia Martinez
      */
     private void handleLoginBtn(Event e) {
-        MainMenu.switchScene(MainMenu.DIALOGUE_SCENE);
-        logger.info("Loaded the dialogue scene...");
+        MainMenu.switchScene(MainMenu.INSTRUCTIONS_SCENE);
+        logger.info("Loaded the instruction scene...");
     }
 
     /**
