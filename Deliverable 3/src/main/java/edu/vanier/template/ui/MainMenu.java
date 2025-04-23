@@ -70,6 +70,7 @@ public class MainMenu extends Application {
     public static final String SETTINGS_SCENE = "Settings_layout";
     //The FXML file name of the backpack scene
     public static final String BACKPACK_SCENE = "BackpackScene";
+    public static final String HELP_SCENE = "Help_layout";
     private final static Logger logger = LoggerFactory.getLogger(edu.vanier.template.ui.MainMenu.class);
     public static Scene scene;
     public static SceneController sceneController;
@@ -161,7 +162,6 @@ public class MainMenu extends Application {
                     GameFXMLController controller = new GameFXMLController();
                     Parent root = FxUIHelper.loadFXML(fxmlFileName, controller);
                     sceneController.addScene(GAME_SCENE, root);
-
                 }
                 // The scene has been previously added, we activate it.
                 sceneController.activateScene(fxmlFileName);
@@ -172,7 +172,6 @@ public class MainMenu extends Application {
                     PeriodicTableFXMLController controller = new PeriodicTableFXMLController();
                     Parent root = FxUIHelper.loadFXML(fxmlFileName, controller);
                     sceneController.addScene(PERIODICTABLE_SCENE, root);
-
                 }
                 // The scene has been previously added, we activate it.
                 sceneController.activateScene(fxmlFileName);
@@ -183,7 +182,6 @@ public class MainMenu extends Application {
                     QuestionEx1FXMLController controller = new QuestionEx1FXMLController();
                     Parent root = FxUIHelper.loadFXML(fxmlFileName, controller);
                     sceneController.addScene(QUESTIONEX1_SCENE, root);
-
                 }
                 // The scene has been previously added, we activate it.
                 sceneController.activateScene(fxmlFileName);
@@ -194,7 +192,6 @@ public class MainMenu extends Application {
                     QuestionEx2FXMLController controller = new QuestionEx2FXMLController();
                     Parent root = FxUIHelper.loadFXML(fxmlFileName, controller);
                     sceneController.addScene(QUESTIONEX2_SCENE, root);
-
                 }
                 // The scene has been previously added, we activate it.
                 sceneController.activateScene(fxmlFileName);
@@ -206,9 +203,8 @@ public class MainMenu extends Application {
                     DialogueFXMLController controller = new DialogueFXMLController();
                     Parent root = FxUIHelper.loadFXML(fxmlFileName, controller);
                     sceneController.addScene(DIALOGUE_SCENE, root);
-
                 }
-                // The scene has been previously added, we active it.
+                // The scene has been previously added, we activate it.
                 sceneController.activateScene(fxmlFileName);
             } else if (fxmlFileName.equals(LOGIN_SCENE)) {
                 if (!sceneController.sceneExists(fxmlFileName)) {
@@ -218,7 +214,7 @@ public class MainMenu extends Application {
                     Parent root = FxUIHelper.loadFXML(fxmlFileName, controller);
                     sceneController.addScene(LOGIN_SCENE, root);
                 }
-                // The scene has been previously added, we active it.
+                // The scene has been previously added, we activate it.
                 sceneController.activateScene(fxmlFileName);
             } else if (fxmlFileName.equals(CREATEACCOUNT_SCENE)) {
                 if (!sceneController.sceneExists(fxmlFileName)) {
@@ -238,7 +234,7 @@ public class MainMenu extends Application {
                     Parent root = FxUIHelper.loadFXML(fxmlFileName, controller);
                     sceneController.addScene(SETTINGS_SCENE, root);
                 }
-                // The scene has been previously added, we active it.
+                // The scene has been previously added, we activate it.
                 sceneController.activateScene(fxmlFileName);
             } else if(fxmlFileName.equals(BACKPACK_SCENE)) {
                 if (!sceneController.sceneExists(fxmlFileName)) {
@@ -249,9 +245,19 @@ public class MainMenu extends Application {
                     sceneController.addScene(BACKPACK_SCENE, root);
 
                 }
-               // The scene has been previously added, we active it.
+               // The scene has been previously added, we activate it.
                 sceneController.activateScene(fxmlFileName);
+            }else if(fxmlFileName.equals(HELP_SCENE)) {
+                if (!sceneController.sceneExists(fxmlFileName)) {
+                    // Instantiate the corresponding FXML controller if the
+                     // specified scene is being loaded for the first time.
+                    HelpFXMLController controller = new HelpFXMLController();
+                     Parent root = FxUIHelper.loadFXML(fxmlFileName, controller);
+                    sceneController.addScene(HELP_SCENE, root);
                 }
+               // The scene has been previously added, we activate it.
+                sceneController.activateScene(fxmlFileName);
+            }
                 //TODO: You can register or activate additional scenes here,
                 //      based on the logic used to add the secondary scene (as shown above).
 

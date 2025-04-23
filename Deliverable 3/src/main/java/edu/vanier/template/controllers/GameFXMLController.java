@@ -117,7 +117,7 @@ public class GameFXMLController {
         backpackBtn.setOnAction(this::handleBackpackButton);
         btnHelp.setOnAction(this::handleHelpButton);
         btnMap.setOnAction(this::handleMapButton);
-        currentFamily = Family.LEVEL31;
+        currentFamily = Family.LEVEL12;
 
         Image imgPlatformFloor = new Image(MainAppFXMLController.class.
                 getResource("/images/PNG/forest_pack_05.png").toString());
@@ -396,6 +396,11 @@ public class GameFXMLController {
         MainMenu.switchScene(MainMenu.DIALOGUE_SCENE);
         logger.info("Back button has been clicked...");
     }
+    private void handleHelpButton(Event e) {
+        System.out.println("Going to get help...");
+        MainMenu.switchScene(HELP_SCENE);
+        logger.info("Help button has been clicked...");
+    }
     private void handleSettings(Event e) {
         System.out.println("Going to settings...");
         MainMenu.switchScene(MainMenu.SETTINGS_SCENE);
@@ -549,15 +554,5 @@ public class GameFXMLController {
             exception.printStackTrace();
         }
     }
-    public void handleHelpButton(Event e){
-        Stage helpStage = new Stage();
-        Label testing = new Label("Testing");
-        ScrollBar scrollBar = new ScrollBar();
-        scrollBar.setOrientation(Orientation.VERTICAL);
-        scrollBar.setMinHeight(600);
-        VBox helpVbox = new VBox(scrollBar);
-        Scene helpScene = new Scene(helpVbox, BaseWindow.sceneWidth *0.6,BaseWindow.sceneHeight *0.6);
-        helpStage.setScene(helpScene);
-        helpStage.show();
-    }
+
 }

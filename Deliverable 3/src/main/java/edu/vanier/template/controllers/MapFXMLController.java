@@ -2,6 +2,7 @@ package edu.vanier.template.controllers;
 
 import edu.vanier.template.ui.BaseWindow;
 import edu.vanier.template.ui.MainApp;
+import edu.vanier.template.ui.MainMenu;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -84,5 +85,12 @@ public class MapFXMLController {
     private void loadLastScene(Event e) {
         MainApp.switchScene(MainApp.MAINAPP_SCENE);
         logger.info("Loaded the primary scene...");
+    }
+
+    //TODO: change between scenes for periods
+    private void handleSettings(Event e) {
+        System.out.println("Going to settings...");
+        MainMenu.switchScene(MainMenu.SETTINGS_SCENE);
+        logger.info("Settings has been clicked...");
     }
 }
