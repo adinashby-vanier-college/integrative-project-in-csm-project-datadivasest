@@ -75,15 +75,12 @@ public class GameFXMLController {
     private long lastNanoTime = System.nanoTime();
     private AudioClip itemClip;
     private AnimationTimer animation;
-    private int coinNum = 0;
+    private final int coinNum = 0;
     private int electronNum = 0;
     private int protonNum = 0;
-    private int powerUpNum = 0;
-    private int chocholatePowerNum = 0;
-    private Sprite electron;
-    private Sprite proton;
-    private Sprite powerUp;
-    private Map<String, Integer> elementCollected = new HashMap<>();
+    private final int powerUpNum = 0;
+    private final int chocholatePowerNum = 0;
+    private final Map<String, Integer> elementCollected = new HashMap<>();
     BackpackFXMLController backpackFXMLController;
     MapFXMLController mapFXMLController;
 
@@ -186,10 +183,10 @@ public class GameFXMLController {
         }
 
         animation = new AnimationTimer() {
-            private boolean isJumping = false;
+            private final boolean isJumping = false;
             private boolean isFalling = false;
-            private double gravity = 600; // Gravity force
-            private double jumpStrength = -300; // Jumping force
+            private final double gravity = 600; // Gravity force
+            private final double jumpStrength = -300; // Jumping force
             private double velocityY = 0; // Vertical velocity
             double cnt = 0;
 
@@ -263,10 +260,7 @@ public class GameFXMLController {
                     velocityY = 0;
                 }
 
-                if (velocityY > 0) {
-                    isFalling = true;
-                }
-                else isFalling = false;
+                isFalling = velocityY > 0;
                 if (velocityY >= 0)
                     cnt = 0;
                 player.setPosition(nextX, nextY);
@@ -285,12 +279,8 @@ public class GameFXMLController {
                         score--;
                         electronNum++;
                         elementCollected.put("electron", electronNum);
-                        mainPane.getChildren().remove(electron);
                         //backpackFXMLController.setupCoinDrag(electron);
-                        if(backpackFXMLController != null) {
-                            backpackFXMLController.increaseCount(electron);
-                            System.out.println("backpack is not null");
-                        }
+                        backpackFXMLController.increaseCount(electron);
                         //backpackFXMLController.addObject(electron);
                         //don't necessarily need ot delete the coin
                         //won't the electron need to be removed after it collides with the player
@@ -306,7 +296,6 @@ public class GameFXMLController {
                         score++;
                         protonNum++;
                         elementCollected.put("proton", protonNum);
-                        backpackFXMLController.increaseCount(proton);
                         //backpackFXMLController.addObject(electron);
                         //don't necessarily need ot delete the coin
                         //won't the electron need to be removed after it collides with the player
@@ -347,52 +336,6 @@ public class GameFXMLController {
             event.consume();
 
             System.out.println();
-        });
-
-        mainPane.setOnDragDropped(event -> {
-            Dragboard dragboard = event.getDragboard();
-            boolean success = false;
-
-            if (dragboard.hasString()) {
-                String spriteType = dragboard.getString().toLowerCase();
-
-                Image sprite = null;
-
-                switch (spriteType) {
-                    case "electron":
-                        sprite = new Image(getClass().getResource("/images/Electron.png").toExternalForm());
-                        break;
-                    case "proton":
-                        sprite = new Image(getClass().getResource("/images/Proton.png").toExternalForm());
-                        break;
-                }
-
-                if (sprite != null) {
-                    Sprite reuploadedSprite = new Sprite(spriteType, sprite);
-                    reuploadedSprite.setImage(sprite);
-                    reuploadedSprite.setSize(30);
-                    reuploadedSprite.setPreserveRatio(true);
-
-                    double positionX  = event.getX();
-                    double positionY = event.getY();
-                    reuploadedSprite.setPosition(positionX, positionY);
-
-                    switch (spriteType) {
-                        case "electron":
-                            electronList.add(reuploadedSprite);
-                            break;
-                        case "proton":
-                            protonList.add(reuploadedSprite);
-                            break;
-                    }
-                    mainPane.getChildren().add(reuploadedSprite);
-                }
-                success = true;
-            }
-
-            event.setDropCompleted(success);
-            System.out.println("Dropped: " + dragboard.getString());
-            event.consume();
         });
     }
 /*
@@ -516,6 +459,29 @@ public class GameFXMLController {
  */
 
     //where should I use this
+    private void setupDropTarget() {
+        mainPane.setOnDragOver(event -> {
+            if (event.getGestureSource() != mainPane && event.getDragboard().hasString()) {
+                event.acceptTransferModes(TransferMode.MOVE);
+            }
+            event.consume();
+        });
+        mainPane.setOnDragDropped(event -> {
+            Dragboard db = event.getDragboard();
+            boolean success = false;
+            if (db.hasString()) {
+                String itemType = db.getString();
+                logger.info("Dropped coin of type: " + itemType);
+                ImageView droppedCoin = createItemImageView(itemType);
+                droppedCoin.setLayoutX(event.getX());
+                droppedCoin.setLayoutY(event.getY());
+                mainPane.getChildren().add(droppedCoin);
+                success = true;
+            }
+            event.setDropCompleted(success);
+            event.consume();
+        });
+    }
 
 
     private ImageView createItemImageView(String itemType) {

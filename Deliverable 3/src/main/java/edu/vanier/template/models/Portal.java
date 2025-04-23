@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 
 public class Portal extends Sprite{
     private boolean isOpen;
-    private String destination;
+    private final String destination;
     public Portal(int x, int y, int sizeX, int sizeY, Image image, String destination) {
         super(x, y, "portal", sizeX, sizeY, image);
         setFitWidth(sizeX);

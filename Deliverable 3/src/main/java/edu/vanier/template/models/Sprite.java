@@ -17,7 +17,7 @@ public class Sprite extends ImageView {
     private final String type;
     private double velocityX;
     private double velocityY;
-    private Image image;
+    private final Image image;
     private double positionX;
     private double positionY;
     private double width;
