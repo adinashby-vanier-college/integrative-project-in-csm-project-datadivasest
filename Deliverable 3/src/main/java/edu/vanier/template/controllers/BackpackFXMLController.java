@@ -229,6 +229,9 @@ public class BackpackFXMLController {
                 itemLabel.setText(" x " + itemsCount.get("electron"));
                  */
                 System.out.println("drag done");
+
+                //NEXT TASK: MAKE IT SO THAT THE BACKPACK IS SET UP WITHOUT HAVING THE CLICK THE BACKPACK BUTTON SO THAT WHEN THE USER COLLECTS ITEMS THEY DON'T NEED TO FIRST CLICK THE BACKPACK TO COLLECT ITEMS IN THEIR BACKPACK
+                //THE USERE SHOULD ALREADY HAVE THEIR "BAKCPACK OPEN" WITHOUT HAVING TO OPEN THEIR BACKPACK FIRST
             }
         });
     }
