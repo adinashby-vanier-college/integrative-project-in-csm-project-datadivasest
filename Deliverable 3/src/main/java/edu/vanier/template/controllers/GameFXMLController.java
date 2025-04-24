@@ -67,7 +67,7 @@ public class GameFXMLController {
     Pane mainPane;
     @FXML
     Pane backpackPane;
-    public Family currentFamily;
+    private Family currentFamily;
 
     public Stage backpackStage;
 
@@ -75,12 +75,15 @@ public class GameFXMLController {
     private long lastNanoTime = System.nanoTime();
     private AudioClip itemClip;
     private AnimationTimer animation;
-    private final int coinNum = 0;
+    private int coinNum = 0;
     private int electronNum = 0;
     private int protonNum = 0;
-    private final int powerUpNum = 0;
-    private final int chocholatePowerNum = 0;
-    private final Map<String, Integer> elementCollected = new HashMap<>();
+    private int powerUpNum = 0;
+    private int chocholatePowerNum = 0;
+    private Sprite electron;
+    private Sprite proton;
+    private Sprite powerUp;
+    private Map<String, Integer> elementCollected = new HashMap<>();
     BackpackFXMLController backpackFXMLController;
     MapFXMLController mapFXMLController;
 
@@ -105,8 +108,8 @@ public class GameFXMLController {
 
     }
 
-    public void setCurrentFamily(Family family) {
-        currentFamily = family;
+    public void setWorld() {
+
     }
 
     @FXML
@@ -117,7 +120,7 @@ public class GameFXMLController {
         backpackBtn.setOnAction(this::handleBackpackButton);
         btnHelp.setOnAction(this::handleHelpButton);
         btnMap.setOnAction(this::handleMapButton);
-        currentFamily = Family.LEVEL11;
+        currentFamily = Family.LEVEL31;
 
         Image imgPlatformFloor = new Image(MainAppFXMLController.class.
                 getResource("/images/PNG/forest_pack_05.png").toString());
@@ -139,7 +142,7 @@ public class GameFXMLController {
 
         Image imgPortal = new Image(MainAppFXMLController.class.
                 getResource("/images/PNG/galaxy.png").toString());
-        Portal portal = new Portal((int)BaseWindow.sceneWidth - 150, (int)BaseWindow.sceneHeight - 100 - (int)platformFloor.getHeight(), 200, 300, imgPortal, QUESTIONEX2_SCENE);
+        Portal portal = new Portal((int)BaseWindow.sceneWidth - 30, (int)BaseWindow.sceneHeight - 200 - (int)platformFloor.getHeight(), 30, 200, imgPortal, QUESTIONEX1_SCENE);
         //-- Create and configure the media player.
         itemClip = new AudioClip(getClass().getResource("/sounds/item_pickup.wav").toExternalForm());
 
@@ -183,10 +186,10 @@ public class GameFXMLController {
         }
 
         animation = new AnimationTimer() {
-            private final boolean isJumping = false;
+            private boolean isJumping = false;
             private boolean isFalling = false;
-            private final double gravity = 600; // Gravity force
-            private final double jumpStrength = -300; // Jumping force
+            private double gravity = 600; // Gravity force
+            private double jumpStrength = -300; // Jumping force
             private double velocityY = 0; // Vertical velocity
             double cnt = 0;
 
@@ -260,7 +263,10 @@ public class GameFXMLController {
                     velocityY = 0;
                 }
 
-                isFalling = velocityY > 0;
+                if (velocityY > 0) {
+                    isFalling = true;
+                }
+                else isFalling = false;
                 if (velocityY >= 0)
                     cnt = 0;
                 player.setPosition(nextX, nextY);
@@ -279,8 +285,12 @@ public class GameFXMLController {
                         score--;
                         electronNum++;
                         elementCollected.put("electron", electronNum);
+                        mainPane.getChildren().remove(electron);
                         //backpackFXMLController.setupCoinDrag(electron);
-                        backpackFXMLController.increaseCount(electron);
+                        if(backpackFXMLController != null) {
+                            backpackFXMLController.increaseCount(electron);
+                            System.out.println("backpack is not null");
+                        }
                         //backpackFXMLController.addObject(electron);
                         //don't necessarily need ot delete the coin
                         //won't the electron need to be removed after it collides with the player
@@ -296,6 +306,7 @@ public class GameFXMLController {
                         score++;
                         protonNum++;
                         elementCollected.put("proton", protonNum);
+                        backpackFXMLController.increaseCount(proton);
                         //backpackFXMLController.addObject(electron);
                         //don't necessarily need ot delete the coin
                         //won't the electron need to be removed after it collides with the player
@@ -336,6 +347,52 @@ public class GameFXMLController {
             event.consume();
 
             System.out.println();
+        });
+
+        mainPane.setOnDragDropped(event -> {
+            Dragboard dragboard = event.getDragboard();
+            boolean success = false;
+
+            if (dragboard.hasString()) {
+                String spriteType = dragboard.getString().toLowerCase();
+
+                Image sprite = null;
+
+                switch (spriteType) {
+                    case "electron":
+                        sprite = new Image(getClass().getResource("/images/Electron.png").toExternalForm());
+                        break;
+                    case "proton":
+                        sprite = new Image(getClass().getResource("/images/Proton.png").toExternalForm());
+                        break;
+                }
+
+                if (sprite != null) {
+                    Sprite reuploadedSprite = new Sprite(spriteType, sprite);
+                    reuploadedSprite.setImage(sprite);
+                    reuploadedSprite.setSize(30);
+                    reuploadedSprite.setPreserveRatio(true);
+
+                    double positionX  = event.getX();
+                    double positionY = event.getY();
+                    reuploadedSprite.setPosition(positionX, positionY);
+
+                    switch (spriteType) {
+                        case "electron":
+                            electronList.add(reuploadedSprite);
+                            break;
+                        case "proton":
+                            protonList.add(reuploadedSprite);
+                            break;
+                    }
+                    mainPane.getChildren().add(reuploadedSprite);
+                }
+                success = true;
+            }
+
+            event.setDropCompleted(success);
+            System.out.println("Dropped: " + dragboard.getString());
+            event.consume();
         });
     }
 /*
@@ -404,11 +461,6 @@ public class GameFXMLController {
         MainMenu.switchScene(MainMenu.DIALOGUE_SCENE);
         logger.info("Back button has been clicked...");
     }
-    private void handleHelpButton(Event e) {
-        System.out.println("Going to get help...");
-        MainMenu.switchScene(HELP_SCENE);
-        logger.info("Help button has been clicked...");
-    }
     private void handleSettings(Event e) {
         System.out.println("Going to settings...");
         MainMenu.switchScene(MainMenu.SETTINGS_SCENE);
@@ -459,29 +511,6 @@ public class GameFXMLController {
  */
 
     //where should I use this
-    private void setupDropTarget() {
-        mainPane.setOnDragOver(event -> {
-            if (event.getGestureSource() != mainPane && event.getDragboard().hasString()) {
-                event.acceptTransferModes(TransferMode.MOVE);
-            }
-            event.consume();
-        });
-        mainPane.setOnDragDropped(event -> {
-            Dragboard db = event.getDragboard();
-            boolean success = false;
-            if (db.hasString()) {
-                String itemType = db.getString();
-                logger.info("Dropped coin of type: " + itemType);
-                ImageView droppedCoin = createItemImageView(itemType);
-                droppedCoin.setLayoutX(event.getX());
-                droppedCoin.setLayoutY(event.getY());
-                mainPane.getChildren().add(droppedCoin);
-                success = true;
-            }
-            event.setDropCompleted(success);
-            event.consume();
-        });
-    }
 
 
     private ImageView createItemImageView(String itemType) {
@@ -563,5 +592,15 @@ public class GameFXMLController {
             exception.printStackTrace();
         }
     }
-
+    public void handleHelpButton(Event e){
+        Stage helpStage = new Stage();
+        Label testing = new Label("Testing");
+        ScrollBar scrollBar = new ScrollBar();
+        scrollBar.setOrientation(Orientation.VERTICAL);
+        scrollBar.setMinHeight(600);
+        VBox helpVbox = new VBox(scrollBar);
+        Scene helpScene = new Scene(helpVbox, BaseWindow.sceneWidth *0.6,BaseWindow.sceneHeight *0.6);
+        helpStage.setScene(helpScene);
+        helpStage.show();
+    }
 }

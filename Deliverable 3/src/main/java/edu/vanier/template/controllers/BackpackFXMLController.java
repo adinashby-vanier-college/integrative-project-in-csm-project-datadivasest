@@ -66,8 +66,8 @@ public class BackpackFXMLController {
     private Label chocolatePowerUpLabel;
     private int currentColumn;
     private int currentRow;
-    private final Map<String, Integer> itemsCount = new HashMap<>();
-    private final Map<String, Label> itemLabels = new HashMap<>();
+    private Map<String, Integer> itemsCount = new HashMap<>();
+    private Map<String, Label> itemLabels = new HashMap<>();
     private int coinCounter;
     private int electronCounter;
     private int protonCounter;
@@ -137,7 +137,7 @@ public class BackpackFXMLController {
         GridPane.setHalignment(coin, HPos.CENTER);
         GridPane.setValignment(coin, VPos.CENTER);
         coinCounter = 0;
-        coinLabel = new Label(" x " + 0);
+        coinLabel = new Label(" x " + 0 );
         backpackGridPane.add(coinLabel, 1, 0);
         itemsCount.put("coin", coinCounter);
         itemLabels.put("coin", coinLabel);
@@ -186,7 +186,7 @@ public class BackpackFXMLController {
         itemsCount.put("powerUp", powerUpCounter);
         itemLabels.put("powerUp", powerUpLabel);
 
-        Image chocolatePowerUpImage = new Image(getClass().getResource("/images/ChocolatePowerUp.png").toExternalForm());
+        Image chocolatePowerUpImage= new Image(getClass().getResource("/images/ChocolatePowerUp.png").toExternalForm());
         ImageView chocolatePowerUp = new ImageView(chocolatePowerUpImage);
         chocolatePowerUp.setFitWidth(50);
         chocolatePowerUp.setFitHeight(50);
@@ -199,37 +199,36 @@ public class BackpackFXMLController {
         backpackGridPane.add(chocolatePowerUp, 0, 4);
         itemsCount.put("chocolatePowerUp", chocolatePowerUpCounter);
         itemLabels.put("chocolatePowerUp", chocolatePowerUpLabel);
-    }
         //check how to adjust the font size
-        public void setupCoinDrag(Sprite sprite) {
-            // Start the drag when the user initiates a drag gesture.
-            String type = sprite.getType();
-            ImageView itemImage = new ImageView(sprite.getImage());
-            itemImage.setOnDragDetected(event -> {
-                // Only allow dragging if there is at least one coin available.
-                if (itemsCount.getOrDefault(type, 0) <= 0) {
-                    event.consume();
-                    return;
-                }
-                // Begin the drag-and-drop operation using MOVE mode.
-                Dragboard dragboard = itemImage.startDragAndDrop(TransferMode.MOVE);
+        System.out.println("method is being executed/");
+
+        electron.setOnDragDetected(event -> {
+            if(itemsCount.getOrDefault("electron", 0) > 0) {
+                Dragboard dragboard = electron.startDragAndDrop(TransferMode.COPY);
+
                 ClipboardContent content = new ClipboardContent();
-                // Put the coin type as a string into the dragboard.
-                content.putString(type);
+                content.putString("electron");
                 dragboard.setContent(content);
-                // Set a drag view (a "ghost" image) so the original remains fixed.
-                dragboard.setDragView(coin.snapshot(null, null));
-                logger.info("Started dragging " + type);
-                event.consume();
-            });
-        }
 
+                //showing a ghost image of the item in this case electron being dragged onto the screen
+                dragboard.setDragView(electron.snapshot(null, null));
+            }
+            event.consume();
+            System.out.println("drag being detected, mouse clicked");
+        });
 
+        electron.setOnDragDone(event -> {
+            if(TransferMode.COPY == event.getTransferMode()) {
+                electronCounter--;
+                itemsCount.put("electron", electronCounter);
 
+                Label itemLabel = itemLabels.get("electron");
+                itemLabel.setText(" x " + itemsCount.get("electron"));
+                System.out.println("drag done");
+            }
+        });
+    }
 
-        public void updateGrid() {
-
-        }
     //increase the number of the item available when it is collected/collides with the user's character
         public void increaseCount(Sprite sprite) {
             String type = sprite.getType().toLowerCase();
@@ -276,8 +275,8 @@ public class BackpackFXMLController {
 
         public Node getNode(GridPane gridPane, int column, int row) {
             for (Node node : gridPane.getChildren()) {
-                int columnIndex = GridPane.getColumnIndex(node);
-                int rowIndex = GridPane.getRowIndex(node);
+                int columnIndex = gridPane.getColumnIndex(node);
+                int rowIndex = gridPane.getRowIndex(node);
 
                 if (column == columnIndex && row == rowIndex) {
                     return node;
@@ -285,41 +284,6 @@ public class BackpackFXMLController {
             }
             return null;
         }
-        /*
-            switch (sprite.getType()) {
-                case "coin":
-                    coinCounter++;
-                    coinLabel.setText("x " + coinCounter);
-                    itemsCount.put(sprite.getType().toLowerCase(), coinCounter);
-                    break;
-                case "electron":
-                    electronCounter++;
-                    electronLabel.setText("x " + electronCounter);
-                    itemsCount.put(sprite.getType().toLowerCase(), electronCounter);
-                    break;
-                case "proton":
-                    protonCounter++;
-                    protonLabel.setText("x " + protonCounter);
-                    itemsCount.put(sprite.getType().toLowerCase(), protonCounter);
-                    break;
-                case "powerUp":
-                    powerUpCounter++;
-                    powerUpLabel.setText("x " + powerUpCounter);
-                    itemsCount.put(sprite.getType().toLowerCase(), powerUpCounter);
-                    break;
-                case "chocolatePowerUp":
-                    chocolatePowerUpCounter++;
-                    chocolatePowerUpLabel.setText("x " + chocolatePowerUpCounter);
-                    itemsCount.put(sprite.getType().toLowerCase(), chocolatePowerUpCounter);
-                    break;
-                default:
-                    break;
-            }
-            //then update the cell
-           // updateCell(type, image, numAvailable);
-
-        }
-         */
 
         //decreases the number of the type of item available whenever an element in the backpack gets dragg and dropped
         //in the specified drop zone successfully
@@ -344,91 +308,12 @@ public class BackpackFXMLController {
     //changing to a side panel view
     //instead of taking that image deleting it from the backpack, it'll be drag and dropped in the screen and the number of
     //those items will change
-   /*  public void addObject(Sprite sprite) {
-        double gridPaneHeight = itemsGridPane.getHeight();
-        double rowHeight = gridPaneHeight / numRows;
-        Image objectImage = sprite.getImage();
-        ImageView objectImageView = new ImageView(objectImage);
-        itemsGridPane.add(objectImageView, 0, 0);
-        //will this actually store the sprite if it's the image
-        if(sprite.getType().equals("electron") || sprite.getType().equals("proton") || sprite.getType().equals("atom")
-                || sprite.getType().equals("power up") || sprite.getType().equals("coin")) {
-            //ImageView objectImageView = new ImageView(objectImage);
 
-            itemsGridPane.add(objectImageView, currentColumn, numRows);
-            currentColumn++;
-            logger.info("Adding object: " + sprite.getType() + " to backpack");
-
-            if (currentColumn == 2) {
-                currentColumn = 0;
-                if(numRows < 3) {
-                    RowConstraints newRow = new RowConstraints(rowHeight);
-                    itemsGridPane.getRowConstraints().addAll(newRow);
-                    numRows++;
-                }
-                else {
-                  numRows++;
-                }
-            }
-        }
-    }
-
-    */
     //instead of taking that image deleting it from the backpack, it'll be drag and dropped in the screen and the number of
     //those items will change
     //we could either remove the image or make it invisible
     //to remove the you can just remove then sprite since the spring and image are related
-    public void removeObject(Sprite sprite) {
 
-    }
-    /*
-        //TODO: find a way to know what the last scene was in order to go back to it -->Hashmap?
-        //TODO: find a way show whatever was selected from the backpack and show it in the right area of the
-        // current scenes pane, and delete it from the backpack's data and inventory (both graphics and data)
-        private void loadLastScene(Event e) {
-            //switch to the last scene
-            //below is a placeholder until I work the actual method
-            MainMenu.switchScene(MainMenu.GAME_SCENE);
-            logger.info("Loaded the last scene...");
-        }
-    */
-        /*
-public void addObject(Sprite sprite) {
-    // Get the image from the sprite
-    Image objectImage = sprite.getImage();
-    ImageView objectImageView = new ImageView(objectImage);
-
-    // Constrain the image size so it's not too big
-    objectImageView.setFitWidth(100);  // Adjust to desired width
-    objectImageView.setFitHeight(100); // Adjust to desired height
-    objectImageView.setPreserveRatio(true);
-
-    // Only add the image once (remove redundant addition)
-    // Instead of adding at (0,0) first, directly add at the correct position.
-    if (sprite.getType().equalsIgnoreCase("electron") ||
-            sprite.getType().equalsIgnoreCase("proton") ||
-            sprite.getType().equalsIgnoreCase("atom") ||
-            sprite.getType().equalsIgnoreCase("power up") ||
-            sprite.getType().equalsIgnoreCase("coin")) {
-
-        // Add the image to the grid at the current position
-        backpackGridPane.add(objectImageView, currentColumn, currentRow);
-        currentRow++;
-        logger.info("Adding object: " + sprite.getType() + " to backpack");
-
-        // If currentColumn reaches 2, move to next row
-        if (currentColumn == 1) {
-            currentColumn = 0;
-            // Optionally add a new row constraint if needed
-            RowConstraints newRow = new RowConstraints();
-            // Set row height as a fraction of grid height (or fixed)
-            newRow.setPrefHeight(50);
-            backpackGridPane.getRowConstraints().add(newRow);
-            currentRow++;
-        }
-    }
-
-*/
     public void handleDoneBtn (Event event) {
 
        // MainMenu.switchScene(MainMenu.GAME_OVER_SCENE);

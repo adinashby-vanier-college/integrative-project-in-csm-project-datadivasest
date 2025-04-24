@@ -63,7 +63,9 @@ public class LoginFXMLController {
      * @author Sofia Martinez
      */
     private void handleLoginBtn(Event e) {
-        MainMenu.switchScene(MainMenu.INSTRUCTIONS_SCENE);
+        MainMenu.switchScene(MainMenu.GAME_SCENE);
+        //commented out temporarily to test the game functionality, the line below caused problems to run the program
+        //MainMenu.switchScene(MainMenu.INSTRUCTIONS_SCENE);
         logger.info("Loaded the instruction scene...");
     }
 

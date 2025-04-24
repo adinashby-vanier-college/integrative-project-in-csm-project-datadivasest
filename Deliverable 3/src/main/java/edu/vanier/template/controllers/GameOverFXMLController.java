@@ -26,7 +26,8 @@ public class GameOverFXMLController {
     }
 
     public void handleTryAgnBtn(Event e) {
-        //TODO: switch scees to the first Game Scene
+        //TODO: switch scees to the first Game Scene\
+        MainMenu.switchScene(MainMenu.MAINMENU_SCENE);
         logger.info("try again button has been clicked");
     }
 

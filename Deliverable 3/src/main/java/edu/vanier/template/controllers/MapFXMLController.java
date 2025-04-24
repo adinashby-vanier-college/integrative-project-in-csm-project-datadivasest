@@ -107,12 +107,14 @@ public class MapFXMLController {
         MainApp.switchScene(MainApp.MAINAPP_SCENE);
         logger.info("Loaded the primary scene...");
     }
+
     private void alkaliMetalWorld(Event e) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Game_layout.fxml"));
             Parent root = loader.load();
             GameFXMLController controller = loader.getController();
-            controller.setCurrentFamily(Family.ALKALIMETAL); // ✅ pass the family
+            //line below was commented for a test
+            //controller.setCurrentFamily(Family.ALKALIMETAL); // ✅ pass the family
 
             sceneController.removeScene(GAME_SCENE); // clear any previous version
             sceneController.addScene(GAME_SCENE, root); // preload the new scene
