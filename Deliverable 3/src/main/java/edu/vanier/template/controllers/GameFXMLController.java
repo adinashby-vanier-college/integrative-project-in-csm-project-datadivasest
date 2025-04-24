@@ -40,6 +40,7 @@ import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.util.*;
 
 import static edu.vanier.template.controllers.SceneController.input;
@@ -121,6 +122,23 @@ public class GameFXMLController {
         btnHelp.setOnAction(this::handleHelpButton);
         btnMap.setOnAction(this::handleMapButton);
         currentFamily = Family.LEVEL31;
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/BackpackScene.fxml"));
+            //loader.setController(this);
+            Parent root = loader.load();
+            backpackFXMLController = loader.getController();
+            backpackFXMLController.setUpGridPane();
+            backpackStage = new Stage();
+            backpackStage.setTitle("Backpack");
+            Scene backpackScene = new Scene(root, 460, 574);
+            backpackStage.setScene(backpackScene);
+            backpackStage.setResizable(false);
+            backpackStage.setAlwaysOnTop(true);
+        }
+        catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
 
         Image imgPlatformFloor = new Image(MainAppFXMLController.class.
                 getResource("/images/PNG/forest_pack_05.png").toString());
@@ -543,24 +561,13 @@ public class GameFXMLController {
         try {
             System.out.println("Backpack has been clicked");
 
-            if(backpackStage == null) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/BackpackScene.fxml"));
-                //loader.setController(this);
-                Parent root = loader.load();
-                backpackFXMLController = loader.getController();
-                // backpackFXMLController.setUpGridPane();
-
-                backpackStage = new Stage();
-                backpackStage.setTitle("Backpack");
-                Scene backpackScene = new Scene(root, 460, 574);
-                backpackStage.setScene(backpackScene);
-                backpackStage.setResizable(false);
-                backpackStage.setAlwaysOnTop(true);
-
-                backpackFXMLController.setUpGridPane();
+            if(backpackStage != null && !backpackStage.isShowing()) {
+                backpackStage.show();
+                backpackStage.toFront();
+                //backpackFXMLController.setUpGridPane();
             }
-            backpackStage.show();
-            backpackStage.toFront();
+
+
         } catch (Exception exception) {
             System.err.println(exception.getMessage());
             exception.printStackTrace();
