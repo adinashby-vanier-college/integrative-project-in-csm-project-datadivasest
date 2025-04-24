@@ -219,11 +219,15 @@ public class BackpackFXMLController {
 
         electron.setOnDragDone(event -> {
             if(TransferMode.COPY == event.getTransferMode()) {
-                electronCounter--;
+                Sprite electron = new Sprite("electron", electronImage);
+                decreaseCount(electron);
+                //commented out lines below are not necessary can be deleted, decrease count is much more efficient and works well
+                /*electronCounter--;
                 itemsCount.put("electron", electronCounter);
 
                 Label itemLabel = itemLabels.get("electron");
                 itemLabel.setText(" x " + itemsCount.get("electron"));
+                 */
                 System.out.println("drag done");
             }
         });
@@ -256,34 +260,6 @@ public class BackpackFXMLController {
 
         }
 
-        public void increaseNum(Sprite sprite) {
-            String type = sprite.getType().toLowerCase();
-
-            for(Node node : backpackGridPane.getChildren()){
-                int columnIndex1 = 0;
-                if(columnIndex1 == 0) {
-                    for(int i = 0; i <= numRows; i++) {
-                        if (getNode(backpackGridPane, 0, i).getId().equals(sprite.getId())) {
-                            Node labelNode = getNode(backpackGridPane, 1, 0);
-                            backpackGridPane.getChildren().remove(labelNode);
-                            //backpackGridPane.getChildren().add((electronCounter + 1);
-                        }
-                    }
-                }
-            }
-        }
-
-        public Node getNode(GridPane gridPane, int column, int row) {
-            for (Node node : gridPane.getChildren()) {
-                int columnIndex = gridPane.getColumnIndex(node);
-                int rowIndex = gridPane.getRowIndex(node);
-
-                if (column == columnIndex && row == rowIndex) {
-                    return node;
-                }
-            }
-            return null;
-        }
 
         //decreases the number of the type of item available whenever an element in the backpack gets dragg and dropped
         //in the specified drop zone successfully
@@ -293,10 +269,10 @@ public class BackpackFXMLController {
             if (numAvailable > 0) {
                 numAvailable--;
                 itemsCount.put(type.toLowerCase(), numAvailable);
-                //then update the cell
 
+                //then update the cell
                 if(itemLabels.containsKey(type)){
-                    itemLabels.get(type).setText("x" + numAvailable);
+                    itemLabels.get(type).setText("x " + numAvailable);
                 }
                 logger.info("Number of available" + type + "is now " + numAvailable);
             }
