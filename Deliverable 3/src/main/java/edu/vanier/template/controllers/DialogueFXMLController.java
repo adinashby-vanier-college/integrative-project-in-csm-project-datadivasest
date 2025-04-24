@@ -102,7 +102,7 @@ public class DialogueFXMLController {
             }
         } else {
             // Dialogue ended
-            MainMenu.switchScene(MainMenu.GAME_SCENE);
+            MainMenu.switchScene(MainMenu.QUESTIONEX1_SCENE);
         }
     }
 

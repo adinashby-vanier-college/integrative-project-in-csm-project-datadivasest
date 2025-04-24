@@ -600,14 +600,28 @@ public class GameFXMLController {
         }
     }
     public void handleHelpButton(Event e){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Help_layout.fxml"));
+
+        Parent helpRoot = null;
+        try {
+            helpRoot = loader.load();
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
         Stage helpStage = new Stage();
-        Label testing = new Label("Testing");
-        ScrollBar scrollBar = new ScrollBar();
-        scrollBar.setOrientation(Orientation.VERTICAL);
-        scrollBar.setMinHeight(600);
-        VBox helpVbox = new VBox(scrollBar);
-        Scene helpScene = new Scene(helpVbox, BaseWindow.sceneWidth *0.6,BaseWindow.sceneHeight *0.6);
-        helpStage.setScene(helpScene);
+        helpStage.setTitle("Help");
+        helpStage.setScene(new Scene(helpRoot, BaseWindow.sceneWidth * 0.6, BaseWindow.sceneHeight * 0.6));
+
+        helpStage.initOwner(borderPane.getScene().getWindow());
         helpStage.show();
+//        Stage helpStage = new Stage();
+//        Label testing = new Label("Testing");
+//        ScrollBar scrollBar = new ScrollBar();
+//        scrollBar.setOrientation(Orientation.VERTICAL);
+//        scrollBar.setMinHeight(600);
+//        VBox helpVbox = new VBox(scrollBar);
+//        Scene helpScene = new Scene(helpVbox, BaseWindow.sceneWidth *0.6,BaseWindow.sceneHeight *0.6);
+//        helpStage.setScene(helpScene);
+//        helpStage.show();
     }
 }
