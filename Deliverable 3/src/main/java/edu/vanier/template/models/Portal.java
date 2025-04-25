@@ -18,7 +18,6 @@ public class Portal extends Sprite{
     }
     public void enter() {
         if (isOpen) {
-            System.out.println("Going back to...");
             MainMenu.switchScene(destination);
         }
     }
