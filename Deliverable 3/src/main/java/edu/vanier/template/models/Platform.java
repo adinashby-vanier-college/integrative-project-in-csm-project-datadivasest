@@ -99,14 +99,16 @@ public class Platform extends Sprite {
 //        addPlatform(currentFamily, platformList, 0.97, 0.65, 100,300);
 //        addPlatform(currentFamily, platformList, 0.97, 0.65, 100,300);
     }
-    private static void addPlatform(Family currentFamily, List<Platform> platformList, double posX, double posY, int height, int width) {
+    private static void addPlatform(Family currentFamily, List<Platform> platformList, double posX, double posY, double height, double width) {
         Image imgPlatformFloating = new Image(MainAppFXMLController.class.
                 getResource("/images/" +currentFamily.getName()+ "/platform.png").toString());
 
         Platform platform = new Platform((int) (widthScreen *  posX),
-                (int) (heightScreen * posY), "floating", 500, 30, imgPlatformFloating);
-        platform.setHeight(height);
-        platform.setWidth(width);
+                (int) (heightScreen * posY), "floating",
+                500 * widthScreen /2560, 30 * heightScreen / 1440,
+                imgPlatformFloating);
+        platform.setHeight(height * heightScreen / 1440); //dynamic sizing based on screen size
+        platform.setWidth(width * widthScreen /2560);
         platformList.add(platform);
     }
 
@@ -115,7 +117,9 @@ public class Platform extends Sprite {
                 getResource("/images/acidPlatform.png").toString());
 
         Platform platform = new Platform((int) (widthScreen *  posX),
-                (int)BaseWindow.sceneHeight - 100, "floor", 500, 100, imgPlatformFloating);
+                (int)BaseWindow.sceneHeight - 100, "floor",
+                500 * widthScreen/2560, 100 * heightScreen/1440,
+                imgPlatformFloating);
         platform.setWidth(widthScreen * width);
         platformList.add(platform);
         //TODO add the acid to the top layer so we can see it

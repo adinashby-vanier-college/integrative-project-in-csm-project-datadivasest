@@ -6,19 +6,14 @@ import edu.vanier.template.models.Player;
 import edu.vanier.template.models.Portal;
 import edu.vanier.template.models.Sprite;
 import edu.vanier.template.ui.BaseWindow;
-import edu.vanier.template.ui.MainApp;
 
 import javafx.animation.AnimationTimer;
 
 import edu.vanier.template.ui.MainMenu;
-import javafx.animation.Animation;
 
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Orientation;
-import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -27,7 +22,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.Dragboard;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
 import javafx.scene.media.AudioClip;
@@ -45,7 +39,6 @@ import java.util.*;
 
 import static edu.vanier.template.controllers.SceneController.input;
 import static edu.vanier.template.ui.MainMenu.*;
-import edu.vanier.template.models.*;
 
 public class GameFXMLController {
     private final static Logger logger = LoggerFactory.getLogger(GameFXMLController.class);
@@ -80,7 +73,7 @@ public class GameFXMLController {
     private int electronNum = 0;
     private int protonNum = 0;
     private int powerUpNum = 0;
-    private int chocholatePowerNum = 0;
+    private int chocolatePowerNum = 0;
     private Sprite electron;
     private Sprite proton;
     private Sprite powerUp;
@@ -121,7 +114,7 @@ public class GameFXMLController {
         backpackBtn.setOnAction(this::handleBackpackButton);
         btnHelp.setOnAction(this::handleHelpButton);
         btnMap.setOnAction(this::handleMapButton);
-        currentFamily = Family.LEVEL31;
+        currentFamily = Family.LEVEL11;
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/BackpackScene.fxml"));
@@ -174,7 +167,7 @@ public class GameFXMLController {
 
         Image playerImg = new Image(MainAppFXMLController.class.
                 getResource("/images/player.png").toString());
-        Player player = new Player(500, 250, 50, 70, playerImg);
+        Player player = new Player(500, 250, (int) (50 * BaseWindow.sceneWidth/2560), (int) (70 * BaseWindow.sceneHeight/1440), playerImg);
         player.setBounds(0,(int) canvas.getWidth(), 0, (int) canvas.getHeight() - (int) platformFloor.getHeight());
 
         List<Sprite> electronList = new ArrayList<>();
@@ -187,15 +180,15 @@ public class GameFXMLController {
 
         for (int i = 0; i < 15; i++) {
             Sprite electron = new Sprite("electron", electronImg);
-            electron.setSize(30);
+            electron.setSize(30 * BaseWindow.sceneHeight / 770);
             electron.setImage(electronImg);
             double px1 = BaseWindow.sceneWidth * 0.7 * Math.random() + 50;
             double py1 = BaseWindow.sceneHeight * 0.7 * Math.random() + 50;
             electron.setPosition(px1, py1);
             electronList.add(electron);
             Sprite proton = new Sprite("proton", protonImg);
-            proton.setSize(30);
-            proton.setImage(protonImg );
+            proton.setSize(30 * BaseWindow.sceneHeight / 770);
+            proton.setImage(protonImg);
             double px = BaseWindow.sceneWidth * 0.7 * Math.random() + 50;
             double py = BaseWindow.sceneHeight * 0.7 * Math.random() + 50;
             proton.setPosition(px, py);
@@ -207,7 +200,7 @@ public class GameFXMLController {
             private boolean isJumping = false;
             private boolean isFalling = false;
             private double gravity = 600; // Gravity force
-            private double jumpStrength = -300; // Jumping force
+            private double jumpStrength = -300; // Jumping to force
             private double velocityY = 0; // Vertical velocity
             double cnt = 0;
 
@@ -396,12 +389,8 @@ public class GameFXMLController {
                     reuploadedSprite.setPosition(positionX, positionY);
 
                     switch (spriteType) {
-                        case "electron":
-                            electronList.add(reuploadedSprite);
-                            break;
-                        case "proton":
-                            protonList.add(reuploadedSprite);
-                            break;
+                        case "electron" -> electronList.add(reuploadedSprite);
+                        case "proton" -> protonList.add(reuploadedSprite);
                     }
                     mainPane.getChildren().add(reuploadedSprite);
                 }
@@ -446,9 +435,9 @@ public class GameFXMLController {
         Image chocolatePowerUp = new Image(MainAppFXMLController.class.getResource("/images/player.png").toString());
         ImageView chocolatePowerUpImageView = new ImageView(chocolatePowerUp);
         itemsGridPane.add(chocolatePowerUpImageView, 0, 4);
-        chocholatePowerLabel.setText(" x 0");
-        itemsGridPane.add(chocholatePowerLabel, 1, 4);
-        System.out.println("Number of items in the gridpane: " + itemsGridPane.getChildren().size());
+        chocolatePowerLabel.setText(" x 0");
+        itemsGridPane.add(chocolatePowerLabel, 1, 4);
+        System.out.println("Number of items in the gridPane: " + itemsGridPane.getChildren().size());
     }
 
     public void isBackpackEmpty() {
@@ -466,7 +455,7 @@ public class GameFXMLController {
         electronLabel.setText(" x " + String.valueOf(electronNum));
         protonLabel.setText(" x " + String.valueOf(protonNum));
         powerUpLabel.setText(" x " + String.valueOf(powerUpNum));
-        chocholatePowerLabel.setText(" x " + String.valueOf(chocholatePowerNum));
+        chocolatePowerLabel.setText(" x " + String.valueOf(chocolatePowerNum));
     }
 
     public void dragElements() {
@@ -586,7 +575,7 @@ public class GameFXMLController {
             // Create a new stage
             Stage mapStage = new Stage();
             mapStage.setTitle("Map");
-            mapStage.setScene(new Scene(root, BaseWindow.sceneWidth * 0.6,BaseWindow.sceneHeight * 0.6));
+            mapStage.setScene(new Scene(root, BaseWindow.sceneWidth * 0.8,BaseWindow.sceneHeight * 0.8));
             mapStage.setResizable(false);
             mapStage.setAlwaysOnTop(true);
 
@@ -610,18 +599,9 @@ public class GameFXMLController {
         }
         Stage helpStage = new Stage();
         helpStage.setTitle("Help");
-        helpStage.setScene(new Scene(helpRoot, BaseWindow.sceneWidth * 0.6, BaseWindow.sceneHeight * 0.6));
+        helpStage.setScene(new Scene(helpRoot, BaseWindow.sceneWidth * 0.8, BaseWindow.sceneHeight * 0.8));
 
         helpStage.initOwner(borderPane.getScene().getWindow());
         helpStage.show();
-//        Stage helpStage = new Stage();
-//        Label testing = new Label("Testing");
-//        ScrollBar scrollBar = new ScrollBar();
-//        scrollBar.setOrientation(Orientation.VERTICAL);
-//        scrollBar.setMinHeight(600);
-//        VBox helpVbox = new VBox(scrollBar);
-//        Scene helpScene = new Scene(helpVbox, BaseWindow.sceneWidth *0.6,BaseWindow.sceneHeight *0.6);
-//        helpStage.setScene(helpScene);
-//        helpStage.show();
     }
 }
