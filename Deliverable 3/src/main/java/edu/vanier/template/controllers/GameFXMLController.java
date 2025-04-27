@@ -256,7 +256,7 @@ public class GameFXMLController {
                 if (input.contains("W")) {
                     velocityY = jumpStrength;
                     cnt++;
-                    input.remove("W");4
+                    input.remove("W");
                     if(!jumpClip.isPlaying()){
                         jumpClip.play();
                     }
