@@ -282,8 +282,6 @@ public class BackpackFXMLController {
         }
 
 
-
-
     //changing to a side panel view
     //instead of taking that image deleting it from the backpack, it'll be drag and dropped in the screen and the number of
     //those items will change
