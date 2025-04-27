@@ -3,7 +3,7 @@ package edu.vanier.template.models;
 import java.util.ArrayList;
 
 /**
- * World class
+ * World-class
  *
  * @author Eliza Toma
  */

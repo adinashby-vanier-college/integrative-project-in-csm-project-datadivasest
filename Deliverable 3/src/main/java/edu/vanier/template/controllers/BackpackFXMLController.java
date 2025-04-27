@@ -291,7 +291,7 @@ public class BackpackFXMLController {
     //instead of taking that image deleting it from the backpack, it'll be drag and dropped in the screen and the number of
     //those items will change
     //we could either remove the image or make it invisible
-    //to remove the you can just remove then sprite since the spring and image are related
+    //to remove the can just remove then sprite since the spring and image are related
 
     public void handleDoneBtn (Event event) {
 

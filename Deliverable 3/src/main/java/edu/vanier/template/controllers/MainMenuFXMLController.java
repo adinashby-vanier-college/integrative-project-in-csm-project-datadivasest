@@ -77,5 +77,7 @@ public class MainMenuFXMLController {
         logger.info("Loaded the settings scene...");
     }
 
-    //do I need to make an exit button, can't they just use the regular x button on the windows to stop the application
+    //TODO:
+    // do I need to make an exit button,
+    // can't they just use the regular x button on the windows to stop the application
 }
