@@ -1,24 +1,33 @@
 package edu.vanier.template.controllers;
 
 import edu.vanier.template.models.Elements;
+import edu.vanier.template.models.Family;
 import edu.vanier.template.ui.MainMenu;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
+import javafx.scene.text.Text;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import static edu.vanier.template.ui.MainMenu.GAME_SCENE;
+import static edu.vanier.template.ui.MainMenu.sceneController;
 
 public class QuestionEx1FXMLController {
     private final static Logger logger = LoggerFactory.getLogger(QuestionEx1FXMLController.class);
@@ -35,9 +44,18 @@ public class QuestionEx1FXMLController {
 
     private int number;
 
-    private final List<Elements> elements = new ArrayList<>();
+    public static final List<Elements> elements = new ArrayList<>();
     private final Random rnd = new Random();
-    private Elements currentElement;
+    public static Elements currentElement;
+
+    public static Elements getCurrentElement() {
+        return currentElement;
+    }
+
+    public static void setCurrentElement(Elements currentElement) {
+        QuestionEx1FXMLController.currentElement = currentElement;
+    }
+
     private String currentQuestion;
 
     @FXML
@@ -77,6 +95,9 @@ public class QuestionEx1FXMLController {
 //            number--;
 //        lblAnswer.setText("" + number);
 //    }
+
+
+
 
     private void handleCheck(Event e) {
 //        MainMenu.switchScene(MainMenu.QUESTIONEX2_SCENE);
@@ -147,7 +168,7 @@ public class QuestionEx1FXMLController {
 //        elements.add(new Elements( 34,4,16, "Selenium",     "Se"));
 //        elements.add(new Elements( 35,4,17, "Bromine",      "Br"));
 //        elements.add(new Elements( 36,4,18, "Krypton",      "Kr"));
-
+//
 //        elements.add(new Elements( 37,5, 1, "Rubidium",     "Rb"));
 //        elements.add(new Elements( 38,5, 2, "Strontium",    "Sr"));
 //        elements.add(new Elements( 39,5, 3, "Yttrium",      "Y"));
