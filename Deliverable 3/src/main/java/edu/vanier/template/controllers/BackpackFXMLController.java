@@ -200,7 +200,7 @@ public class BackpackFXMLController {
         itemsCount.put("chocolatePowerUp", chocolatePowerUpCounter);
         itemLabels.put("chocolatePowerUp", chocolatePowerUpLabel);
         //check how to adjust the font size
-        System.out.println("method is being executed/");
+//        System.out.println("method is being executed/");
 
         electron.setOnDragDetected(event -> {
             if(itemsCount.getOrDefault("electron", 0) > 0) {

@@ -1,32 +1,24 @@
 package edu.vanier.template.controllers;
 
-import edu.vanier.template.models.Family;
+import edu.vanier.template.models.Elements;
 import edu.vanier.template.ui.MainMenu;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
-import javafx.scene.text.Text;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import static edu.vanier.template.ui.MainMenu.GAME_SCENE;
-import static edu.vanier.template.ui.MainMenu.sceneController;
 
 public class QuestionEx1FXMLController {
     private final static Logger logger = LoggerFactory.getLogger(QuestionEx1FXMLController.class);
@@ -46,7 +38,6 @@ public class QuestionEx1FXMLController {
     private final List<Elements> elements = new ArrayList<>();
     private final Random rnd = new Random();
     private Elements currentElement;
-
     private String currentQuestion;
 
     @FXML
@@ -86,9 +77,6 @@ public class QuestionEx1FXMLController {
 //            number--;
 //        lblAnswer.setText("" + number);
 //    }
-
-
-
 
     private void handleCheck(Event e) {
 //        MainMenu.switchScene(MainMenu.QUESTIONEX2_SCENE);
@@ -131,35 +119,35 @@ public class QuestionEx1FXMLController {
         elements.add(new Elements(  8,2,16, "Oxygen",       "O"));
         elements.add(new Elements(  9,2,17, "Fluorine",     "F"));
         elements.add(new Elements( 10,2,18, "Neon",         "Ne"));
-//
-//        elements.add(new Elements( 11,3, 1, "Sodium",       "Na"));
-//        elements.add(new Elements( 12,3, 2, "Magnesium",    "Mg"));
-//        elements.add(new Elements( 13,3,13, "Aluminium",    "Al"));
-//        elements.add(new Elements( 14,3,14, "Silicon",      "Si"));
-//        elements.add(new Elements( 15,3,15, "Phosphorus",   "P"));
-//        elements.add(new Elements( 16,3,16, "Sulfur",       "S"));
-//        elements.add(new Elements( 17,3,17, "Chlorine",     "Cl"));
-//        elements.add(new Elements( 18,3,18, "Argon",        "Ar"));
-//
-//        elements.add(new Elements( 19,4, 1, "Potassium",    "K"));
-//        elements.add(new Elements( 20,4, 2, "Calcium",      "Ca"));
-//        elements.add(new Elements( 21,4, 3, "Scandium",     "Sc"));
-//        elements.add(new Elements( 22,4, 4, "Titanium",     "Ti"));
-//        elements.add(new Elements( 23,4, 5, "Vanadium",     "V"));
-//        elements.add(new Elements( 24,4, 6, "Chromium",     "Cr"));
-//        elements.add(new Elements( 25,4, 7, "Manganese",    "Mn"));
-//        elements.add(new Elements( 26,4, 8, "Iron",         "Fe"));
-//        elements.add(new Elements( 27,4, 9, "Cobalt",       "Co"));
-//        elements.add(new Elements( 28,4,10, "Nickel",       "Ni"));
-//        elements.add(new Elements( 29,4,11, "Copper",       "Cu"));
-//        elements.add(new Elements( 30,4,12, "Zinc",         "Zn"));
-//        elements.add(new Elements( 31,4,13, "Gallium",      "Ga"));
-//        elements.add(new Elements( 32,4,14, "Germanium",    "Ge"));
-//        elements.add(new Elements( 33,4,15, "Arsenic",      "As"));
-//        elements.add(new Elements( 34,4,16, "Selenium",     "Se"));
-//        elements.add(new Elements( 35,4,17, "Bromine",      "Br"));
-//        elements.add(new Elements( 36,4,18, "Krypton",      "Kr"));
-//
+
+        elements.add(new Elements( 11,3, 1, "Sodium",       "Na"));
+        elements.add(new Elements( 12,3, 2, "Magnesium",    "Mg"));
+        elements.add(new Elements( 13,3,13, "Aluminium",    "Al"));
+        elements.add(new Elements( 14,3,14, "Silicon",      "Si"));
+        elements.add(new Elements( 15,3,15, "Phosphorus",   "P"));
+        elements.add(new Elements( 16,3,16, "Sulfur",       "S"));
+        elements.add(new Elements( 17,3,17, "Chlorine",     "Cl"));
+        elements.add(new Elements( 18,3,18, "Argon",        "Ar"));
+
+        elements.add(new Elements( 19,4, 1, "Potassium",    "K"));
+        elements.add(new Elements( 20,4, 2, "Calcium",      "Ca"));
+        elements.add(new Elements( 21,4, 3, "Scandium",     "Sc"));
+        elements.add(new Elements( 22,4, 4, "Titanium",     "Ti"));
+        elements.add(new Elements( 23,4, 5, "Vanadium",     "V"));
+        elements.add(new Elements( 24,4, 6, "Chromium",     "Cr"));
+        elements.add(new Elements( 25,4, 7, "Manganese",    "Mn"));
+        elements.add(new Elements( 26,4, 8, "Iron",         "Fe"));
+        elements.add(new Elements( 27,4, 9, "Cobalt",       "Co"));
+        elements.add(new Elements( 28,4,10, "Nickel",       "Ni"));
+        elements.add(new Elements( 29,4,11, "Copper",       "Cu"));
+        elements.add(new Elements( 30,4,12, "Zinc",         "Zn"));
+        elements.add(new Elements( 31,4,13, "Gallium",      "Ga"));
+        elements.add(new Elements( 32,4,14, "Germanium",    "Ge"));
+        elements.add(new Elements( 33,4,15, "Arsenic",      "As"));
+        elements.add(new Elements( 34,4,16, "Selenium",     "Se"));
+        elements.add(new Elements( 35,4,17, "Bromine",      "Br"));
+        elements.add(new Elements( 36,4,18, "Krypton",      "Kr"));
+
 //        elements.add(new Elements( 37,5, 1, "Rubidium",     "Rb"));
 //        elements.add(new Elements( 38,5, 2, "Strontium",    "Sr"));
 //        elements.add(new Elements( 39,5, 3, "Yttrium",      "Y"));

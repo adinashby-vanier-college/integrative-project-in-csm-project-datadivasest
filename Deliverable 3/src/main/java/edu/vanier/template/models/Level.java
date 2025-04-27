@@ -6,6 +6,7 @@ import java.util.ArrayList;
  * Level class
  *
  * @author Eliza Toma
+ * TODO: remove if not used
  */
 public class Level {
     private int levelNumber;

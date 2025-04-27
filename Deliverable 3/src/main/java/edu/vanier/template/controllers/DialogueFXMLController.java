@@ -17,6 +17,10 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Tabasuum
+ * TODO: fix up variable names, code, etc.
+ */
 public class DialogueFXMLController {
     private final static Logger logger = LoggerFactory.getLogger(DialogueFXMLController.class);
 
@@ -37,15 +41,15 @@ public class DialogueFXMLController {
     public void initialize() {
         logger.info("Initializing Dialogue Controller...");
 
-        // Set background
+        //Set background
         MainMenu.setBG(borderPane, "dialogueBG.png");
 
-        // Set character images
+        //Set character images
         character1ImgView.setImage(MainMenu.getImage("character1.png"));
         character2ImgView.setImage(MainMenu.getImage("character2.png"));
         dialogueBoxImgView.setImage(MainMenu.getImage("dialogueBox.png"));
 
-        // Set button actions
+        //Set button actions
         btnSettings.setOnAction(this::loadSettingsScene);
         btnSkip.setOnAction(this::handleSkip);
         btnPlay.setOnAction(this::handlePlay);

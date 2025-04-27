@@ -1,4 +1,4 @@
-package edu.vanier.template.controllers;
+package edu.vanier.template.models;
 
 public class Elements {
 

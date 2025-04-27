@@ -21,13 +21,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author Tabasuum
+ * Class for users to access help
+ * TODO: finish documentation
+ */
 public class HelpFXMLController {
+    /**
+     * Stores Help and resource content
+     */
     private static class HelpContent {
         String title;
-        String htmlText;
+        String htmlText; //explanation
         String imagePath;
-        List<String> examples;
-        String practiceLink;
+        List<String> examples; //extra examples to understand
+        String practiceLink; //link to helpful content
 
         HelpContent(String title, String htmlText, String imagePath, List<String> examples, String practiceLink) {
             this.title = title;
@@ -156,7 +164,7 @@ public class HelpFXMLController {
         if (content.imagePath != null) {
             Image img = new Image(getClass().getResource(content.imagePath).toString());
             contentImage.setImage(img);
-            contentImage.setFitWidth(BaseWindow.sceneWidth * 0.7);
+            contentImage.setFitWidth(BaseWindow.sceneWidth * 0.5);
             contentImage.setFitHeight(BaseWindow.sceneHeight * 0.4);
             contentImage.setOpacity(1.0);
         }
@@ -186,21 +194,38 @@ public class HelpFXMLController {
         });
     }
 
+    /**
+     * Makes images proportional to screen size
+     * @param imageView different images
+     */
     private void setSizeImg(ImageView imageView) {
         imageView.setFitWidth(BaseWindow.sceneWidth * 0.25);
         imageView.setFitHeight(BaseWindow.sceneHeight * 0.25);
     }
 
+    /**
+     * Makes buttons proportional to screen size
+     * @param button
+     */
     private void setSizeBtn(Button button) {
         button.setMinSize(BaseWindow.sceneWidth * 0.20, BaseWindow.sceneHeight * 0.05);
         button.setMaxSize(BaseWindow.sceneWidth * 0.20, BaseWindow.sceneHeight * 0.05);
     }
+
+    /**
+     * Brings back to settings scene
+     * @param e
+     */
     private void handleSettings(Event e) {
         System.out.println("Going to settings...");
         MainMenu.switchScene(MainMenu.SETTINGS_SCENE);
         logger.info("Settings has been clicked...");
     }
 
+    /**
+     * If command is clicked no science explanation should be visible
+     * @param e
+     */
     private void handleCommands(Event e) {
         titleText.setText("How to Play");
         commandsVBox.setVisible(true);

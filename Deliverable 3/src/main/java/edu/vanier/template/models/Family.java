@@ -2,6 +2,10 @@ package edu.vanier.template.models;
 
 import javafx.scene.media.AudioClip;
 
+/**
+ * author Tabasuum
+ * TODO: finish documentation
+ */
 public enum Family {
     ALKALIMETAL("alkaliMetal", 0, new int[] {1,2,3,4}, "A"),
     ALKALINEEARTHMETALS("alkalineEarthMetal", 0, new int[] {1,2,3,4}, "B"),

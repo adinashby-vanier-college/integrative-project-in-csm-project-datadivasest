@@ -9,6 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 /**
+ * @author Tabasuum and Eliza
  * Base class for all sprites
  */
 public class Sprite extends ImageView {

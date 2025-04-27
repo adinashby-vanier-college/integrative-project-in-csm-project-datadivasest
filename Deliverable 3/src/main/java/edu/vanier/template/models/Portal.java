@@ -3,6 +3,9 @@ package edu.vanier.template.models;
 import edu.vanier.template.ui.MainMenu;
 import javafx.scene.image.Image;
 
+/**
+ * @author Eliza
+ */
 public class Portal extends Sprite{
     private boolean isOpen;
     private final String destination;

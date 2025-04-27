@@ -21,6 +21,10 @@ import java.io.IOException;
 import static edu.vanier.template.ui.MainMenu.GAME_SCENE;
 import static edu.vanier.template.ui.MainMenu.sceneController;
 
+/**
+ * @author Tabasuum
+ * TODO: finish documentation
+ */
 public class MapFXMLController {
     private final static Logger logger = LoggerFactory.getLogger(MapFXMLController.class);
     @FXML private ImageView alkaliMetalImgView;
@@ -34,8 +38,6 @@ public class MapFXMLController {
     @FXML private VBox vBox;
     @FXML private BorderPane borderPaneBg;
     @FXML private BorderPane borderPane;
-
-
 
     @FXML
     public void initialize() {
@@ -126,8 +128,6 @@ public class MapFXMLController {
             logger.error("Failed to load Game scene from map.", ex);
         }
     }
-
-
 
     //TODO: change between scenes for periods
     private void handleSettings(Event e) {

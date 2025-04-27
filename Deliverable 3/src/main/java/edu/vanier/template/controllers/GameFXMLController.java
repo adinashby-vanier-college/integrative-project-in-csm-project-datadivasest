@@ -77,6 +77,7 @@ public class GameFXMLController {
     private Sprite electron;
     private Sprite proton;
     private Sprite powerUp;
+    private boolean facingLeft = false;
     private Map<String, Integer> elementCollected = new HashMap<>();
     BackpackFXMLController backpackFXMLController;
     MapFXMLController mapFXMLController;
@@ -114,7 +115,7 @@ public class GameFXMLController {
         backpackBtn.setOnAction(this::handleBackpackButton);
         btnHelp.setOnAction(this::handleHelpButton);
         btnMap.setOnAction(this::handleMapButton);
-        currentFamily = Family.LEVEL11;
+        currentFamily = Family.LEVEL12;
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/BackpackScene.fxml"));
@@ -167,8 +168,13 @@ public class GameFXMLController {
 
         Image playerImg = new Image(MainAppFXMLController.class.
                 getResource("/images/player.png").toString());
-        Player player = new Player(500, 250, (int) (50 * BaseWindow.sceneWidth/2560), (int) (70 * BaseWindow.sceneHeight/1440), playerImg);
-        player.setBounds(0,(int) canvas.getWidth(), 0, (int) canvas.getHeight() - (int) platformFloor.getHeight());
+        Image playerFlippedImg = new Image(MainAppFXMLController.class.
+                getResource("/images/playerFlipped.png").toString());
+        Player player = new Player(500, 250,
+                (int) (50 * BaseWindow.sceneWidth/2560),
+                (int) (70 * BaseWindow.sceneHeight/1440), playerImg);
+        player.setBounds(0,(int) canvas.getWidth(), 0,
+                (int) canvas.getHeight() - (int) platformFloor.getHeight());
 
         List<Sprite> electronList = new ArrayList<>();
         List<Sprite> protonList = new ArrayList<>();
@@ -222,9 +228,18 @@ public class GameFXMLController {
 
                 if (input.contains("A")) {
                     player.addVelocity(-250, 0);
-                }
-                if (input.contains("D")) {
+                    if (!facingLeft) {
+                        player.setImage(playerFlippedImg);
+                        facingLeft = true;
+                        System.out.println("facing left");
+                    }
+                } else if (input.contains("D")) {
                     player.addVelocity(250, 0);
+                    if (facingLeft) {
+                        player.setImage(playerImg);
+                        facingLeft = false;
+                        System.out.println("facing right");
+                    }
                 }
 
                 // Jumping logic (double jump)
