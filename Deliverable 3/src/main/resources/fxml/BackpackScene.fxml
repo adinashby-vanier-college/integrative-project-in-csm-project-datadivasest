@@ -16,7 +16,6 @@
    <children>
       <HBox layoutX="31.0" layoutY="21.0" prefHeight="38.0" prefWidth="332.0">
          <children>
-            <Button fx:id="exitBtn" mnemonicParsing="false" prefHeight="49.0" prefWidth="41.0" text="X" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Backpack" translateX="100.0">
                <font>
                   <Font size="27.0" />

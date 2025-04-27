@@ -39,8 +39,6 @@ public class BackpackFXMLController {
     @FXML
     Button doneBtn;
     @FXML
-    Button exitBtn;
-    @FXML
     GridPane backpackGridPane;
     @FXML
     ScrollPane backpackScrollPane;
@@ -82,7 +80,6 @@ public class BackpackFXMLController {
      */
     public void initialize() {
         logger.info("initializing backpack");
-        exitBtn.setOnAction(this::handleExitBtn);
         doneBtn.setOnAction(this::handleDoneBtn);
 
 
@@ -294,10 +291,6 @@ public class BackpackFXMLController {
     public void handleDoneBtn (Event event) {
 
        // MainMenu.switchScene(MainMenu.GAME_OVER_SCENE);
-        gameFXMLController.backpackStage.close();
-    }
-
-    public void handleExitBtn (Event event) {
         gameFXMLController.backpackStage.close();
     }
 
