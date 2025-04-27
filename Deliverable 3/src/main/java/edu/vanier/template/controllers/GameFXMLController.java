@@ -238,9 +238,11 @@ public class GameFXMLController {
                 //@author Tabasuum
                 //continues animation of gif to simulate movement
                 if (input.contains("A") && !input.contains("D")) {
+                    player.addVelocity(-250, 0);
                     if (!player.getImgStr().equals(strPlayerFlippedImg))
                         player.setImage(strPlayerFlippedImg);
                 } else if (input.contains("D") && !input.contains("A")) {
+                    player.addVelocity(250, 0);
                     if (!player.getImgStr().equals(strPlayerImg))
                         player.setImage(strPlayerImg);
                 }
