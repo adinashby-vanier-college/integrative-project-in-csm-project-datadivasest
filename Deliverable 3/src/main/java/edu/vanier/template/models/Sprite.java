@@ -18,11 +18,12 @@ public class Sprite extends ImageView {
     private final String type;
     private double velocityX;
     private double velocityY;
-    private final Image image;
+    private Image image;
     private double positionX;
     private double positionY;
     private double width;
     private double height;
+    private String imgStr;
     private double x1,x2,y1,y2;
 
     public Sprite(int x, int y, String type, int sizeX, int sizeY, Image image) {
@@ -97,8 +98,6 @@ public class Sprite extends ImageView {
         return (x >= x1) && (y >= y1) && (x <= x2) && (y <= y2);
     }
 
-
-
 //    public void setVelocity(double x, double y) {
 //        velocityX = x;
 //        velocityY = y;
@@ -146,8 +145,14 @@ public class Sprite extends ImageView {
     }
 
     public void setImage(String filename) {
+        this.imgStr = filename;
         Image i = new Image(filename);
+        this.image = i;
         setImage(i);
+    }
+
+    public String getImgStr() {
+        return imgStr;
     }
 
     public void setPosition(double x, double y) {

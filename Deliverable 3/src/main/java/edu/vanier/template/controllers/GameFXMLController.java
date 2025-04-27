@@ -68,6 +68,7 @@ public class GameFXMLController {
     private int score = 0;
     private long lastNanoTime = System.nanoTime();
     private AudioClip itemClip;
+    private AudioClip jumpClip;
     private AnimationTimer animation;
     private int coinNum = 0;
     private int electronNum = 0;
@@ -155,8 +156,13 @@ public class GameFXMLController {
         Image imgPortal = new Image(MainAppFXMLController.class.
                 getResource("/images/PNG/galaxy.png").toString());
         Portal portal = new Portal((int)BaseWindow.sceneWidth - 30, (int)BaseWindow.sceneHeight - 200 - (int)platformFloor.getHeight(), 30, 200, imgPortal, QUESTIONEX2_SCENE);
+
+        //@author Tabasuum
         //-- Create and configure the media player.
         itemClip = new AudioClip(getClass().getResource("/sounds/item_pickup.wav").toExternalForm());
+        itemClip.setVolume(0.40);
+        jumpClip = new AudioClip(getClass().getResource("/sounds/jump.wav").toExternalForm());
+        jumpClip.setVolume(0.40);
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
@@ -166,13 +172,16 @@ public class GameFXMLController {
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(1);
 
-        Image playerImg = new Image(MainAppFXMLController.class.
-                getResource("/images/player.png").toString());
-        Image playerFlippedImg = new Image(MainAppFXMLController.class.
-                getResource("/images/playerFlipped.png").toString());
+        //@author Tabasuum
+        //allows to flip character while moving to simulate animation
+        String strPlayerImg = MainAppFXMLController.class.
+                getResource("/images/player.gif").toString();
+        String strPlayerFlippedImg = MainAppFXMLController.class.
+                getResource("/images/playerFlipped.gif").toString();
         Player player = new Player(500, 250,
                 (int) (50 * BaseWindow.sceneWidth/2560),
-                (int) (70 * BaseWindow.sceneHeight/1440), playerImg);
+                (int) (70 * BaseWindow.sceneHeight/1440), new Image(strPlayerImg));
+        player.setImage(strPlayerImg);
         player.setBounds(0,(int) canvas.getWidth(), 0,
                 (int) canvas.getHeight() - (int) platformFloor.getHeight());
 
@@ -226,20 +235,16 @@ public class GameFXMLController {
                 // Reset horizontal velocity
                 player.setVelocity(0, velocityY);
 
-                if (input.contains("A")) {
+                //@author Tabasuum
+                //continues animation of gif to simulate movement
+                if (input.contains("A") && !input.contains("D")) {
                     player.addVelocity(-250, 0);
-                    if (!facingLeft) {
-                        player.setImage(playerFlippedImg);
-                        facingLeft = true;
-                        System.out.println("facing left");
-                    }
-                } else if (input.contains("D")) {
+                    if (!player.getImgStr().equals(strPlayerFlippedImg))
+                        player.setImage(strPlayerFlippedImg);
+                } else if (input.contains("D") && !input.contains("A")) {
                     player.addVelocity(250, 0);
-                    if (facingLeft) {
-                        player.setImage(playerImg);
-                        facingLeft = false;
-                        System.out.println("facing right");
-                    }
+                    if (!player.getImgStr().equals(strPlayerImg))
+                        player.setImage(strPlayerImg);
                 }
 
                 // Jumping logic (double jump)
@@ -254,6 +259,9 @@ public class GameFXMLController {
                 if (input.contains("W")) {
                     velocityY = jumpStrength;
                     cnt++;
+                    if(!jumpClip.isPlaying()){
+                        jumpClip.play();
+                    }
                     input.remove("W");
                 }
 
