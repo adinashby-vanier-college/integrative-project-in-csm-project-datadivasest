@@ -68,6 +68,7 @@ public class GameFXMLController {
     private int score = 0;
     private long lastNanoTime = System.nanoTime();
     private AudioClip itemClip;
+    private AudioClip jumpClip;
     private AnimationTimer animation;
     private int coinNum = 0;
     private int electronNum = 0;
@@ -77,6 +78,7 @@ public class GameFXMLController {
     private Sprite electron;
     private Sprite proton;
     private Sprite powerUp;
+    private boolean facingLeft = false;
     private Map<String, Integer> elementCollected = new HashMap<>();
     BackpackFXMLController backpackFXMLController;
     MapFXMLController mapFXMLController;
@@ -114,7 +116,7 @@ public class GameFXMLController {
         backpackBtn.setOnAction(this::handleBackpackButton);
         btnHelp.setOnAction(this::handleHelpButton);
         btnMap.setOnAction(this::handleMapButton);
-        currentFamily = Family.LEVEL11;
+        currentFamily = Family.LEVEL12;
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/BackpackScene.fxml"));
@@ -158,6 +160,9 @@ public class GameFXMLController {
        // Portal portal = new Portal((int)BaseWindow.sceneWidth - 30, (int)BaseWindow.sceneHeight - 200 - (int)platformFloor.getHeight(), 30, 200, imgPortal, QUESTION1BUILDATOM);
         //-- Create and configure the media player.
         itemClip = new AudioClip(getClass().getResource("/sounds/item_pickup.wav").toExternalForm());
+        itemClip.setVolume(0.40);
+        jumpClip = new AudioClip(getClass().getResource("/sounds/jump.wav").toExternalForm());
+        jumpClip.setVolume(0.40);
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
@@ -167,10 +172,18 @@ public class GameFXMLController {
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(1);
 
-        Image playerImg = new Image(MainAppFXMLController.class.
-                getResource("/images/player.png").toString());
-        Player player = new Player(500, 250, (int) (50 * BaseWindow.sceneWidth/2560), (int) (70 * BaseWindow.sceneHeight/1440), playerImg);
-        player.setBounds(0,(int) canvas.getWidth(), 0, (int) canvas.getHeight() - (int) platformFloor.getHeight());
+        //@author Tabasuum
+        //allows to flip character while moving to simulate animation
+        String strPlayerImg = MainAppFXMLController.class.
+                getResource("/images/player.gif").toString();
+        String strPlayerFlippedImg = MainAppFXMLController.class.
+                getResource("/images/playerFlipped.gif").toString();
+        Player player = new Player(500, 250,
+                (int) (50 * BaseWindow.sceneWidth/2560),
+                (int) (70 * BaseWindow.sceneHeight/1440), new Image(strPlayerImg));
+        player.setImage(strPlayerImg);
+        player.setBounds(0,(int) canvas.getWidth(), 0,
+                (int) canvas.getHeight() - (int) platformFloor.getHeight());
 
         List<Sprite> electronList = new ArrayList<>();
         List<Sprite> protonList = new ArrayList<>();
@@ -222,14 +235,16 @@ public class GameFXMLController {
                 // Reset horizontal velocity
                 player.setVelocity(0, velocityY);
 
-                if (input.contains("A")) {
-                    player.addVelocity(-250, 0);
+                //@author Tabasuum
+                //continues animation of gif to simulate movement
+                if (input.contains("A") && !input.contains("D")) {
+                    if (!player.getImgStr().equals(strPlayerFlippedImg))
+                        player.setImage(strPlayerFlippedImg);
+                } else if (input.contains("D") && !input.contains("A")) {
+                    if (!player.getImgStr().equals(strPlayerImg))
+                        player.setImage(strPlayerImg);
                 }
-                if (input.contains("D")) {
-                    player.addVelocity(250, 0);
-                }
-
-                // Jumping logic (double jump)
+                    // Jumping logic (double jump)
                 /*
                 if (input.contains("W") && !isFalling && cnt < 2) {
                     velocityY = jumpStrength;
@@ -241,7 +256,10 @@ public class GameFXMLController {
                 if (input.contains("W")) {
                     velocityY = jumpStrength;
                     cnt++;
-                    input.remove("W");
+                    input.remove("W");4
+                    if(!jumpClip.isPlaying()){
+                        jumpClip.play();
+                    }
                 }
 
                 // Apply gravity
