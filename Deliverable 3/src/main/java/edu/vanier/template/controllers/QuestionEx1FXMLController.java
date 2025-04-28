@@ -100,19 +100,23 @@ public class QuestionEx1FXMLController {
 
 
     private void handleCheck(Event e) {
+        try {
 //        MainMenu.switchScene(MainMenu.QUESTIONEX2_SCENE);
 //        MainMenu.switchScene(MainMenu.GAME_SCENE);
-        logger.info("Check button clicked");
-        number = (int) Double.parseDouble(inputField.getText());
-        if(number == currentElement.getAtomicNumber()){
+            logger.info("Check button clicked");
+            number = (int) Double.parseDouble(inputField.getText());
+            if (number == currentElement.getAtomicNumber()) {
 
-            lblQuestion.setText(currentQuestion + "\n\n\t\t\t\tThat's correct, good Job!");
-            btnCheck.setText("Next");
+                lblQuestion.setText(currentQuestion + "\n\n\t\t\t\tThat's correct, good Job!");
+                btnCheck.setText("Next");
 
-           btnCheck.setOnAction(this::handleNext);
+                btnCheck.setOnAction(this::handleNext);
+            } else {
+                lblQuestion.setText(currentQuestion + "\n\n\t\t\t\tThat's not quite right.. try again!");
+            }
         }
-        else {
-            lblQuestion.setText(currentQuestion + "\n\n\t\t\t\tThat's not quite right.. try again!");
+        catch (NumberFormatException ex){
+            lblQuestion.setText(currentQuestion + "\n\n\t\t\t\t\tI think you should put numbers...");
         }
     }
 

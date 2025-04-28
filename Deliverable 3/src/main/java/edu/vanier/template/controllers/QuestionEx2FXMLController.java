@@ -1,18 +1,24 @@
 package edu.vanier.template.controllers;
 
+import edu.vanier.template.ui.BaseWindow;
 import edu.vanier.template.ui.MainMenu;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
+import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
@@ -66,7 +72,7 @@ public class QuestionEx2FXMLController {
     private void loadMolarMasses() {
         try (InputStream is = getClass().getResourceAsStream("/database/periodicTable.csv");
              BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
-            String header = br.readLine(); // skip header
+//            String header = br.readLine(); // skip header
             String line;
             while ((line = br.readLine()) != null) {
                 String[] f = line.split(",");
@@ -145,7 +151,7 @@ public class QuestionEx2FXMLController {
     private List<StoichProblem> problems = new ArrayList<>();
 
     private void handleCheck(Event e) {
-        MainMenu.switchScene(MainMenu.GAME_SCENE);
+//        MainMenu.switchScene(MainMenu.GAME_SCENE);
         logger.info("Check button clicked");
         try {
             // 1) Parse inputs
@@ -198,14 +204,20 @@ public class QuestionEx2FXMLController {
             String line = br.readLine(); // skip header
 
             while ((line = br.readLine()) != null) {
-                String[] f = line.split(",");
+                String[] formula = line.split(",");
 
-                String[] reactants = f[2].split(";");
-                String[] reactantCoeffs = f[3].split(";");
-                String[] productCoeffs = f[5].split(";");
-                String product = f[4]; // e.g., H2O
+//                String productsCell = formula[2];
+//                productsCell = productsCell.replace(";", " + ");
 
-                if (reactantCoeffs.length < 2 || reactants.length < 2 || productCoeffs.length < 1) continue;
+                String[] reactants = formula[2].split(";");
+                String[] reactantCoeffs = formula[3].split(";");
+                if (reactants.length < 2 || reactantCoeffs.length < 2) continue;
+
+                String rawProducts = formula[4];
+                String[] productCoeffs = formula[5].split(";");
+                if (productCoeffs.length < 1) continue;
+
+                String product = rawProducts.replace(";", " + ");
 
                 int a = Integer.parseInt(reactantCoeffs[0].trim());
                 int b = Integer.parseInt(reactantCoeffs[1].trim());
@@ -229,6 +241,20 @@ public class QuestionEx2FXMLController {
 
 
     private void handleHelp(Event e) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Help_layout.fxml"));
+
+        Parent helpRoot = null;
+        try {
+            helpRoot = loader.load();
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+        Stage helpStage = new Stage();
+        helpStage.setTitle("Help");
+        helpStage.setScene(new Scene(helpRoot, BaseWindow.sceneWidth * 0.8, BaseWindow.sceneHeight * 0.8));
+
+        helpStage.initOwner(borderPane.getScene().getWindow());
+        helpStage.show();
         logger.info("Help button clicked");
     }
 }
