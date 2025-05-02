@@ -116,7 +116,7 @@ public class GameFXMLController {
         backpackBtn.setOnAction(this::handleBackpackButton);
         btnHelp.setOnAction(this::handleHelpButton);
         btnMap.setOnAction(this::handleMapButton);
-        currentFamily = Family.LEVEL12;
+        currentFamily = Family.LEVEL11;
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/BackpackScene.fxml"));
@@ -135,12 +135,23 @@ public class GameFXMLController {
             System.out.println(e.getMessage());
         }
 
+        //Images for the game
         Image imgPlatformFloor = new Image(MainAppFXMLController.class.
                 getResource("/images/PNG/forest_pack_05.png").toString());
-
         Image backgroundImg = new Image(MainAppFXMLController.class.
                 getResource("/images/"+currentFamily.getName()+"/background.png").toString());
         BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, true);
+        Image imgPortal = new Image(MainAppFXMLController.class.
+                getResource("/images/PNG/galaxy.png").toString());
+        String strPlayerImg = MainAppFXMLController.class.
+                getResource("/images/player.gif").toString();
+        String strPlayerFlippedImg = MainAppFXMLController.class.
+                getResource("/images/playerFlipped.gif").toString();
+        Image electronImg = new Image(MainAppFXMLController.class.
+                getResource("/images/Electron.png").toString());
+        Image protonImg = new Image(MainAppFXMLController.class.
+                getResource("/images/Proton.png").toString());
+
 
         borderPane.setBackground(new Background(new BackgroundImage(backgroundImg,
                 BackgroundRepeat.REPEAT,
@@ -153,8 +164,6 @@ public class GameFXMLController {
         mainPane.getChildren().addAll(canvas, platformFloor);
         addPlatforms(platformList);
 
-        Image imgPortal = new Image(MainAppFXMLController.class.
-                getResource("/images/PNG/galaxy.png").toString());
         Portal portal = new Portal((int)BaseWindow.sceneWidth - 30, (int)BaseWindow.sceneHeight - 200 - (int)platformFloor.getHeight(), 30, 200, imgPortal, QUESTIONEX2_SCENE);
         //user should first build the atom, below line directs them to build atom after collecting electrons and protons from the game scene
        // Portal portal = new Portal((int)BaseWindow.sceneWidth - 30, (int)BaseWindow.sceneHeight - 200 - (int)platformFloor.getHeight(), 30, 200, imgPortal, QUESTION1BUILDATOM);
@@ -174,10 +183,6 @@ public class GameFXMLController {
 
         //@author Tabasuum
         //allows to flip character while moving to simulate animation
-        String strPlayerImg = MainAppFXMLController.class.
-                getResource("/images/player.gif").toString();
-        String strPlayerFlippedImg = MainAppFXMLController.class.
-                getResource("/images/playerFlipped.gif").toString();
         Player player = new Player(500, 250,
                 (int) (50 * BaseWindow.sceneWidth/2560),
                 (int) (70 * BaseWindow.sceneHeight/1440), new Image(strPlayerImg));
@@ -187,11 +192,6 @@ public class GameFXMLController {
 
         List<Sprite> electronList = new ArrayList<>();
         List<Sprite> protonList = new ArrayList<>();
-
-        Image electronImg = new Image(MainAppFXMLController.class.
-                getResource("/images/Electron.png").toString());
-        Image protonImg = new Image(MainAppFXMLController.class.
-                getResource("/images/Proton.png").toString());
 
         for (int i = 0; i < 15; i++) {
             Sprite electron = new Sprite("electron", electronImg);
@@ -247,14 +247,17 @@ public class GameFXMLController {
                         player.setImage(strPlayerImg);
                 }
                     // Jumping logic (double jump)
-                /*
-                if (input.contains("W") && !isFalling && cnt < 2) {
+
+                if (input.contains("W") && !isFalling && cnt < 3) {
                     velocityY = jumpStrength;
                     cnt++;
                     input.remove("W");
+                    if(!jumpClip.isPlaying()){
+                        jumpClip.play();
+                    }
                 }
-                 */
 
+                /*
                 if (input.contains("W")) {
                     velocityY = jumpStrength;
                     cnt++;
@@ -263,6 +266,7 @@ public class GameFXMLController {
                         jumpClip.play();
                     }
                 }
+                */
 
                 // Apply gravity
                 velocityY += gravity * elapsedTime;
@@ -371,6 +375,7 @@ public class GameFXMLController {
                 gc.strokeText(pointsText, 360, 36);
             }
         };
+
         animation.start();
 
         mainPane.setOnDragOver(event -> {

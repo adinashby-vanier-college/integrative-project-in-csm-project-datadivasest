@@ -134,7 +134,7 @@ public class QuestionEx1FXMLController {
     }
 
     private void loadElements(){
-        elements.add(new Elements(  1,1, 1, "Hydrogen",     "H"));
+        elements.add(new Elements(  1,1, 1, "Hydrogen",     "H") );
         elements.add(new Elements(  2,1,18, "Helium",       "He"));
         elements.add(new Elements(  3,2, 1, "Lithium",      "Li"));
         elements.add(new Elements(  4,2, 2, "Beryllium",    "Be"));
