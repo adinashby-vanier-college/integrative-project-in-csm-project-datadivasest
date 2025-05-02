@@ -11,8 +11,7 @@ import javafx.scene.layout.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static edu.vanier.template.ui.MainMenu.setBackground;
-import static edu.vanier.template.ui.MainMenu.setSizeImg;
+import static edu.vanier.template.ui.MainMenu.*;
 
 /**
  * @author Tabasuum
@@ -61,7 +60,9 @@ public class InstructionFXMLController {
         setSizeImg(nextDialogueImgView);
 
         //sets size proportionally to user's screen
-        nextBtn.setMinSize(BaseWindow.sceneWidth * 0.10, BaseWindow.sceneHeight * 0.05);
+        setSizeBtn1(nextBtn);
+        setButton(nextBtn, "next", 5, 5);
+        //nextBtn.setMinSize(BaseWindow.sceneWidth * 0.10, BaseWindow.sceneHeight * 0.05);
     }
 
     /**

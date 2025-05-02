@@ -62,14 +62,26 @@ public class QuestionEx1FXMLController {
         logger.info("Initializing Question 1 Controller...");
         setBackground(borderPane);
 
+        setButton(btnCheck, "Button_confirm",5 ,5);
+        setButton(btnPeriodicTable, "Button_big",5,20);
+        setButton(btnIncrease, "Button_80",2,2);
+        setButton(btnDecrease, "Button_96", 2, 2);
+        setButton(btnBack, "back", 5 ,5);
+
         // Set button actions
         btnBack.setOnAction(this::loadSettingsScene);
         btnCheck.setOnAction(this::handleCheck);
         btnPeriodicTable.setOnAction(this::loadPeriodicTableScene);
-//        number = 1;
-//        lblAnswer.setText("" + number);
-//        btnIncrease.setOnAction(this::handleIncrease);
-//        btnDecrease.setOnAction(this::handleDecrease);
+
+        if (inputField.getText().isEmpty()) {
+            number = 1;
+        } else
+        number = (int) Double.parseDouble(inputField.getText());
+        inputField.setText("" + number);
+
+        btnIncrease.setOnAction(this::handleIncrease);
+        btnDecrease.setOnAction(this::handleDecrease);
+
         loadElements();
         currentElement = elements.get(rnd.nextInt(elements.size()));
         currentQuestion = "What is the atomic number of the element in group " + currentElement.getGroup() + " "
@@ -77,15 +89,21 @@ public class QuestionEx1FXMLController {
         lblQuestion.setText(currentQuestion);
     }
 
-//    private void handleIncrease(Event e) {
-//        number++;
-//        lblAnswer.setText("" + number);
-//    }
-//    private void handleDecrease(Event e) {
-//        if (number > 1)
-//            number--;
-//        lblAnswer.setText("" + number);
-//    }
+    private void handleIncrease(Event e) {
+        if (!inputField.getText().isEmpty()) {
+            number = (int) Double.parseDouble(inputField.getText());
+        }
+        number++;
+        inputField.setText("" + number);
+    }
+    private void handleDecrease(Event e) {
+        if (!inputField.getText().isEmpty()) {
+            number = (int) Double.parseDouble(inputField.getText());
+        }
+        if (number > 1)
+            number--;
+        inputField.setText("" + number);
+    }
 
     private void handleCheck(Event e) {
         try {
@@ -95,16 +113,16 @@ public class QuestionEx1FXMLController {
             number = (int) Double.parseDouble(inputField.getText());
             if (number == currentElement.getAtomicNumber()) {
 
-                lblQuestion.setText(currentQuestion + "\n\n\t\t\t\tThat's correct, good Job!");
-                btnCheck.setText("Next");
+                lblQuestion.setText(currentQuestion + "\n\nThat's correct, good Job!");
+                setButton(btnCheck, "next",5,5);
 
                 btnCheck.setOnAction(this::handleNext);
             } else {
-                lblQuestion.setText(currentQuestion + "\n\n\t\t\t\tThat's not quite right.. try again!");
+                lblQuestion.setText(currentQuestion + "\n\nThat's not quite right.. try again!");
             }
         }
-        catch (NumberFormatException ex){
-            lblQuestion.setText(currentQuestion + "\n\n\t\t\t\t\tI think you should put numbers...");
+        catch (NumberFormatException ex) {
+            lblQuestion.setText(currentQuestion + "\n\nI think you should put numbers...");
         }
     }
 

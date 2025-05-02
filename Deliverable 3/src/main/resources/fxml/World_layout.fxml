@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" />
    </center>
@@ -19,26 +19,35 @@
       </Pane>
    </bottom>
    <top>
-      <HBox alignment="CENTER" BorderPane.alignment="TOP_LEFT">
-         <BorderPane.margin>
-            <Insets left="20.0" top="20.0" />
-         </BorderPane.margin>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox prefHeight="26.0" prefWidth="213.0">
+            <HBox prefHeight="26.0" prefWidth="27.0">
                <children>
-                  <Button fx:id="btnBack" mnemonicParsing="false" text="&lt;" />
+                  <Button fx:id="btnBack" mnemonicParsing="false" text="&lt;">
+                     <HBox.margin>
+                        <Insets left="100.0" />
+                     </HBox.margin>
+                  </Button>
                </children>
+               <padding>
+                  <Insets left="100.0" />
+               </padding>
             </HBox>
-            <HBox alignment="TOP_RIGHT" prefHeight="26.0" prefWidth="417.0">
+            <HBox alignment="TOP_RIGHT" nodeOrientation="LEFT_TO_RIGHT" spacing="30.0">
                <children>
                   <Button fx:id="btnMap" mnemonicParsing="false" text="Map" />
                   <Button fx:id="backpackBtn" mnemonicParsing="false" text="Backpack" />
                   <Button fx:id="btnHelp" mnemonicParsing="false" text="Help" />
                   <Button fx:id="btnSettings" mnemonicParsing="false" text="Setting" />
-                  <ImageView fitHeight="26.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                </children>
+               <padding>
+                  <Insets right="100.0" />
+               </padding>
             </HBox>
          </children>
+         <padding>
+            <Insets top="100.0" />
+         </padding>
       </HBox>
    </top>
 </BorderPane>

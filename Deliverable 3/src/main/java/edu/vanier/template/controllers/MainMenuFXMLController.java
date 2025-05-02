@@ -23,8 +23,6 @@ public class MainMenuFXMLController {
 
     SceneController sceneController;
     @FXML
-    Button exitBtn;
-    @FXML
     Button loginBtn;
     @FXML
     Button createAccountBtn;

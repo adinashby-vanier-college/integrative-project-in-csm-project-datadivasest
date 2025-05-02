@@ -16,6 +16,9 @@ import org.slf4j.LoggerFactory;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
+import static edu.vanier.template.ui.MainMenu.setButton;
+import static edu.vanier.template.ui.MainMenu.setSizeBtn1;
+
 /**
  * @author Sofia Martinez
  */
@@ -47,6 +50,9 @@ public class LoginFXMLController {
     @FXML
     public void initialize() {
         logger.info("Initializing LoginController...");
+
+        setButton(backBtn, "back", 5 , 5);
+        setSizeBtn1(backBtn);
         loginLBtn.setOnAction(this::handleLoginBtn);
         createAccLBtn.setOnAction(this::handleCreateAccountBtn);
         backBtn.setOnAction(this::handleBackBtn);

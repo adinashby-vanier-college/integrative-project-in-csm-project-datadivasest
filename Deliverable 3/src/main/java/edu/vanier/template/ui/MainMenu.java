@@ -361,16 +361,25 @@ public class MainMenu extends Application {
     }
 
     /**
+     * Makes buttons proportional to screen size
+     * @param button
+     */
+    public static void setSizeBtn1(Button button) {
+        button.setMinSize(BaseWindow.sceneWidth * 0.01, BaseWindow.sceneHeight * 0.01);
+        button.setMaxSize(BaseWindow.sceneWidth * 0.01, BaseWindow.sceneHeight * 0.01);
+    }
+    /**
      * Sets background to buttons
      * @param button
      * @param string
      */
-    private void setButton(Button button, String string) {
-        Image image = new Image(getClass().getResource("/images/buttons/" + string +".png").toExternalForm());
+    public static void setButton(Button button, String string, int height, int width) {
+        Image image = new Image(MainAppFXMLController.class.
+                getResource("/images/buttons/" + string +".png").toExternalForm());
         ImageView imageView = new ImageView(image);
 
-        imageView.setFitWidth(BaseWindow.sceneWidth * 0.1);  // adjust size as needed
-        imageView.setFitHeight(BaseWindow.sceneWidth * 0.1);
+        imageView.setFitWidth(BaseWindow.sceneWidth * width / 100);  // adjust size as needed
+        imageView.setFitHeight(BaseWindow.sceneWidth * height / 100);
 
         button.setGraphic(imageView);
         button.setStyle("-fx-background-color: transparent; -fx-border-color: transparent;");

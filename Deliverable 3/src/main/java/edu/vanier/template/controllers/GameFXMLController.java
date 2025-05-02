@@ -110,6 +110,13 @@ public class GameFXMLController {
     @FXML
     public void initialize() {
         logger.info("Initializing Game Controller...");
+
+        setButton(btnMap, "Button_132",3 ,3);
+        setButton(btnHelp, "Button_help",3 ,3);
+        setButton(backpackBtn, "backpack",3 ,3);
+        setButton(btnSettings, "Button_settings", 3 ,3);
+        setButton(btnBack, "back", 3 ,3);
+
         btnBack.setOnAction(this::handleBack);
         btnSettings.setOnAction(this::handleSettings);
         backpackBtn.setOnAction(this::handleBackpackButton);
@@ -163,7 +170,7 @@ public class GameFXMLController {
         mainPane.getChildren().addAll(canvas, platformFloor);
         setWorldSprites(platformList);
 
-        Portal portal = new Portal((int)BaseWindow.sceneWidth - 30, (int)BaseWindow.sceneHeight - 200 - (int)platformFloor.getHeight(), 30, 200, imgPortal, QUESTIONEX2_SCENE);
+        Portal portal = new Portal((int)BaseWindow.sceneWidth - 100, (int)BaseWindow.sceneHeight - 100 - (int)platformFloor.getHeight(), 30, 200, imgPortal, QUESTIONEX2_SCENE);
         //user should first build the atom, below line directs them to build atom after collecting electrons and protons from the game scene
        // Portal portal = new Portal((int)BaseWindow.sceneWidth - 30, (int)BaseWindow.sceneHeight - 200 - (int)platformFloor.getHeight(), 30, 200, imgPortal, QUESTION1BUILDATOM);
         //-- Create and configure the media player.
