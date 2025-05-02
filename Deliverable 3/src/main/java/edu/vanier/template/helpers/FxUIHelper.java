@@ -1,8 +1,15 @@
 package edu.vanier.template.helpers;
 
 import java.io.IOException;
+import java.util.logging.Logger;
+
+import edu.vanier.template.ui.BaseWindow;
+import edu.vanier.template.ui.MainMenu;
+import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 
 /**
  *
@@ -49,4 +56,23 @@ public class FxUIHelper {
         }
         return fxmlLoader.load();
     }
+
+    /**
+     * Makes images proportional to screen size
+     * @param imageView different images
+     */
+    public static void setSizeImg(ImageView imageView) {
+        imageView.setFitWidth(BaseWindow.sceneWidth * 0.25);
+        imageView.setFitHeight(BaseWindow.sceneHeight * 0.25);
+    }
+
+    /**
+     * Makes buttons proportional to screen size
+     * @param button
+     */
+    public static void setSizeBtn(Button button) {
+        button.setMinSize(BaseWindow.sceneWidth * 0.20, BaseWindow.sceneHeight * 0.05);
+        button.setMaxSize(BaseWindow.sceneWidth * 0.20, BaseWindow.sceneHeight * 0.05);
+    }
+
 }

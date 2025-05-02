@@ -56,7 +56,7 @@ public class InstructionFXMLController {
         setSizeImg(leftImgView);
 
         Image rightImg = new Image(MainAppFXMLController.class.
-                getResource("/images/commands/s.png").toString());
+                getResource("/images/commands/d.png").toString());
         rightImgView.setImage(rightImg);
         setSizeImg(rightImgView);
 
