@@ -22,7 +22,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static edu.vanier.template.helpers.FxUIHelper.setSizeBtn;
+import static edu.vanier.template.ui.MainMenu.setSizeBtn;
+import static edu.vanier.template.ui.MainMenu.setSizeImg;
 
 /**
  * @author Tabasuum
@@ -145,17 +146,17 @@ public class HelpFXMLController {
         Image jumpImg = new Image(MainAppFXMLController.class.
                 getResource("/images/commands/w.png").toString());
         jumpImgView.setImage(jumpImg);
-        FxUIHelper.setSizeImg(jumpImgView);
+        setSizeImg(jumpImgView);
 
         Image leftImg = new Image(MainAppFXMLController.class.
                 getResource("/images/commands/a.png").toString());
         leftImgView.setImage(leftImg);
-        FxUIHelper.setSizeImg(leftImgView);
+        setSizeImg(leftImgView);
 
         Image rightImg = new Image(MainAppFXMLController.class.
                 getResource("/images/commands/d.png").toString());
         rightImgView.setImage(rightImg);
-        FxUIHelper.setSizeImg(rightImgView);
+        setSizeImg(rightImgView);
 
         Button[] buttons = {commandsBtn,periodsBtn, electronsBtn,stoichiometryBtn,neutralizationBtn, photosynthesisBtn, settingBtn};
         for (Button btn : buttons) {

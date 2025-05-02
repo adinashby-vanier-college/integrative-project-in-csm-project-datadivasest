@@ -11,6 +11,9 @@ import javafx.scene.layout.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static edu.vanier.template.ui.MainMenu.setBackground;
+import static edu.vanier.template.ui.MainMenu.setSizeImg;
+
 /**
  * @author Tabasuum
  * basic instructions on how to play game with game controls
@@ -34,15 +37,7 @@ public class InstructionFXMLController {
         borderPane.setPrefHeight(BaseWindow.sceneHeight * 0.8);
         borderPane.setPrefWidth(BaseWindow.sceneWidth *0.8);
 
-        Image backgroundImg = new Image(MainAppFXMLController.class.
-                getResource("/images/Files/png/BG.png").toString());
-        BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, true, true, false, true);
-
-        borderPaneBg.setBackground(new Background(new BackgroundImage(backgroundImg,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.CENTER,
-                bSize)));
+        setBackground(borderPaneBg);
 
         //images and setting of each control
         Image jumpImg = new Image(MainAppFXMLController.class.
@@ -67,15 +62,6 @@ public class InstructionFXMLController {
 
         //sets size proportionally to user's screen
         nextBtn.setMinSize(BaseWindow.sceneWidth * 0.10, BaseWindow.sceneHeight * 0.05);
-    }
-
-    /**
-     * Ensures the size of the images are proportional to user's screen
-     * @param imageView the image to resize
-     */
-    private void setSizeImg(javafx.scene.image.ImageView imageView) {
-        imageView.setFitWidth(BaseWindow.sceneWidth * 0.25);
-        imageView.setFitHeight(BaseWindow.sceneHeight * 0.25);
     }
 
     /**

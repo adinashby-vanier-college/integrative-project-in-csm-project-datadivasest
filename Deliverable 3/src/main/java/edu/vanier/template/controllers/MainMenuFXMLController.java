@@ -53,17 +53,6 @@ public class MainMenuFXMLController {
 //        setButton(settingsBtn, "settings");
     }
 
-    private void setButton(Button button, String string) {
-        Image image = new Image(getClass().getResource("/images/buttons/" + string +".png").toExternalForm());
-        ImageView imageView = new ImageView(image);
-
-        imageView.setFitWidth(BaseWindow.sceneWidth * 0.1);  // adjust size as needed
-        imageView.setFitHeight(BaseWindow.sceneWidth * 0.1);
-
-        button.setGraphic(imageView);
-        button.setStyle("-fx-background-color: transparent; -fx-border-color: transparent;");
-        button.setText(null);
-    }
     /**
      * switches to the login scene/page
      * @param e is the action of clicking the login button, directing the user to the login page

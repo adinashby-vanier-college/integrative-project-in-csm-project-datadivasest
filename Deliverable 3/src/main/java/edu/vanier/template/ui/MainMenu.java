@@ -5,6 +5,7 @@ import edu.vanier.template.helpers.FxUIHelper;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -77,6 +78,9 @@ public class MainMenu extends Application {
     public static SceneController sceneController;
     public static final String GAME_SCENE = "World_layout";
     private static AudioClip backgroundMusic;
+    public static Image backgroundImg = new Image(MainAppFXMLController.class.
+            getResource("/images/Files/png/BG.png").toString());
+
 
     @Override
     public void stop() {
@@ -282,7 +286,7 @@ public class MainMenu extends Application {
 
     public static void setUI(BorderPane borderPane, ImageView title, String titleName) {
         //Sets background
-        setBG(borderPane, "Files/png/BG.png");
+        setBackground(borderPane);
 
         //Adds title
         double size;
@@ -300,7 +304,7 @@ public class MainMenu extends Application {
         title.setFitHeight(BaseWindow.sceneHeight * size);
     }
 
-    public static void setBG(BorderPane borderPane, String backgroundName) {
+    public static void setBackground(BorderPane borderPane, String backgroundName) {
         //Sets background
         Image backgroundImg = getImage(backgroundName);
         BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, true);
@@ -312,6 +316,21 @@ public class MainMenu extends Application {
                 bSize)));
     }
 
+    /**
+     * Sets the background of the image of the background to pink one
+     * @param borderPane
+     */
+    public static void setBackground(Pane borderPane) {
+        Image backgroundImg = new Image(MainAppFXMLController.class.
+                getResource("/images/Files/png/BG.png").toString());
+        BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, true, true, false, true);
+
+        borderPane.setBackground(new Background(new BackgroundImage(backgroundImg,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.CENTER,
+                bSize)));
+    }
     public static Image getImage(String imageName) {
         return new Image(MainAppFXMLController.class.
                 getResource("/images/" + imageName).toString());
@@ -321,6 +340,41 @@ public class MainMenu extends Application {
         image.setPreserveRatio(true);
         image.setFitWidth(BaseWindow.sceneWidth * size);
         image.setFitHeight(BaseWindow.sceneHeight * size);
+    }
+
+    /**
+     * Makes images proportional to screen size
+     * @param imageView different images
+     */
+    public static void setSizeImg(ImageView imageView) {
+        imageView.setFitWidth(BaseWindow.sceneWidth * 0.25);
+        imageView.setFitHeight(BaseWindow.sceneHeight * 0.25);
+    }
+
+    /**
+     * Makes buttons proportional to screen size
+     * @param button
+     */
+    public static void setSizeBtn(Button button) {
+        button.setMinSize(BaseWindow.sceneWidth * 0.20, BaseWindow.sceneHeight * 0.05);
+        button.setMaxSize(BaseWindow.sceneWidth * 0.20, BaseWindow.sceneHeight * 0.05);
+    }
+
+    /**
+     * Sets background to buttons
+     * @param button
+     * @param string
+     */
+    private void setButton(Button button, String string) {
+        Image image = new Image(getClass().getResource("/images/buttons/" + string +".png").toExternalForm());
+        ImageView imageView = new ImageView(image);
+
+        imageView.setFitWidth(BaseWindow.sceneWidth * 0.1);  // adjust size as needed
+        imageView.setFitHeight(BaseWindow.sceneWidth * 0.1);
+
+        button.setGraphic(imageView);
+        button.setStyle("-fx-background-color: transparent; -fx-border-color: transparent;");
+        button.setText(null);
     }
     public static void main(String[] args) {
         launch(args);

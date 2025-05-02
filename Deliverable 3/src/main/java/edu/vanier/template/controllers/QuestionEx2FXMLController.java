@@ -26,6 +26,8 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static edu.vanier.template.ui.MainMenu.setBackground;
+
 
 public class QuestionEx2FXMLController {
     private final static Logger logger = LoggerFactory.getLogger(QuestionEx2FXMLController.class);
@@ -44,23 +46,14 @@ public class QuestionEx2FXMLController {
     private static final Pattern ELEMENT_PATTERN = Pattern.compile("([A-Z][a-z]*)(\\d*)");
 
 
-
-
     @FXML
     public void initialize() {
-        loadMolarMasses();
         logger.info("Initializing Question 2 Controller...");
-        Image backgroundImg = new Image(MainAppFXMLController.class.
-                getResource("/images/Files/png/BG.png").toString());
-        BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, true, true, false, true);
+        setBackground(borderPane);
 
         loadCsvProblems();
         pickAndShowProblem();
-        borderPane.setBackground(new Background(new BackgroundImage(backgroundImg,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.CENTER,
-                bSize)));
+        loadMolarMasses();
 
         // Set button actions
         btnBack.setOnAction(this::handleBack);

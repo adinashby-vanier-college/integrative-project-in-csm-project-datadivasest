@@ -26,8 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static edu.vanier.template.ui.MainMenu.GAME_SCENE;
-import static edu.vanier.template.ui.MainMenu.sceneController;
+import static edu.vanier.template.ui.MainMenu.*;
 
 public class QuestionEx1FXMLController {
     private final static Logger logger = LoggerFactory.getLogger(QuestionEx1FXMLController.class);
@@ -61,15 +60,7 @@ public class QuestionEx1FXMLController {
     @FXML
     public void initialize() {
         logger.info("Initializing Question 1 Controller...");
-        Image backgroundImg = new Image(MainAppFXMLController.class.
-                getResource("/images/Files/png/BG.png").toString());
-        BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, true, true, false, true);
-
-        borderPane.setBackground(new Background(new BackgroundImage(backgroundImg,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.CENTER,
-                bSize)));
+        setBackground(borderPane);
 
         // Set button actions
         btnBack.setOnAction(this::loadSettingsScene);
@@ -95,9 +86,6 @@ public class QuestionEx1FXMLController {
 //            number--;
 //        lblAnswer.setText("" + number);
 //    }
-
-
-
 
     private void handleCheck(Event e) {
         try {

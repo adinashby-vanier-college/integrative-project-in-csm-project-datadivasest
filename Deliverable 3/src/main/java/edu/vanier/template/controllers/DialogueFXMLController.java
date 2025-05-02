@@ -42,7 +42,7 @@ public class DialogueFXMLController {
         logger.info("Initializing Dialogue Controller...");
 
         //Set background
-        MainMenu.setBG(borderPane, "dialogueBG.png");
+        MainMenu.setBackground(borderPane, "dialogueBG.png");
 
         //Set character images
         character1ImgView.setImage(MainMenu.getImage("character1.png"));

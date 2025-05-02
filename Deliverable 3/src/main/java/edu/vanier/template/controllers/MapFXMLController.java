@@ -18,8 +18,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-import static edu.vanier.template.ui.MainMenu.GAME_SCENE;
-import static edu.vanier.template.ui.MainMenu.sceneController;
+import static edu.vanier.template.ui.MainMenu.*;
 
 /**
  * @author Tabasuum
@@ -45,15 +44,7 @@ public class MapFXMLController {
         borderPane.setPrefHeight(BaseWindow.sceneHeight * 0.8);
         borderPane.setPrefWidth(BaseWindow.sceneWidth * 0.8);
 
-        Image backgroundImg = new Image(MainAppFXMLController.class.
-                getResource("/images/Files/png/BG.png").toString());
-        BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, true, true, false, true);
-
-        borderPaneBg.setBackground(new Background(new BackgroundImage(backgroundImg,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.CENTER,
-                bSize)));
+        setBackground(borderPaneBg);
 
         vBox.setPrefHeight(BaseWindow.sceneHeight * 0.75);
         vBox.setPrefWidth(BaseWindow.sceneWidth * 0.60);
@@ -68,40 +59,17 @@ public class MapFXMLController {
                 BackgroundPosition.CENTER,
                 bGSize)));
 
-        Image alkaliMetalImg = new Image(MainAppFXMLController.class.
-                getResource("/images/alkaliMetal/icon.png").toString());
-        alkaliMetalImgView.setImage(alkaliMetalImg);
-
-        Image alkalineEarthMetalImg = new Image(MainAppFXMLController.class.
-                getResource("/images/alkalineEarthMetal/icon.png").toString());
-        alkalineEarthMetalImgView.setImage(alkalineEarthMetalImg);
-
-        Image transitionMetal3Img = new Image(MainAppFXMLController.class.
-                getResource("/images/transitionMetal3/icon.png").toString());
-        transitionMetal3ImgView.setImage(transitionMetal3Img);
-
-        Image transitionMetal4Img = new Image(MainAppFXMLController.class.
-                getResource("/images/transitionMetal4/icon.png").toString());
-        transitionMetal4ImgView.setImage(transitionMetal4Img);
-
-        Image transitionMetal5Img = new Image(MainAppFXMLController.class.
-                getResource("/images/transitionMetal5/icon.png").toString());
-        transitionMetal5ImgView.setImage(transitionMetal5Img);
-
-        Image transitionMetal6Img = new Image(MainAppFXMLController.class.
-                getResource("/images/transitionMetal6/icon.png").toString());
-        transitionMetal6ImgView.setImage(transitionMetal6Img);
-
-        Image halogensImg = new Image(MainAppFXMLController.class.
-                getResource("/images/halogens/icon.png").toString());
-        halogensImgView.setImage(halogensImg);
-
-        Image nobleGasImg = new Image(MainAppFXMLController.class.
-                getResource("/images/nobleGas/icon.png").toString());
-        nobleGasImgView.setImage(nobleGasImg);
+        //set images
+        alkaliMetalImgView.setImage(getImage("alkaliMetal"));
+        alkalineEarthMetalImgView.setImage(getImage("alkalineEarthMetal"));
+        transitionMetal3ImgView.setImage(getImage("transitionMetal3"));
+        transitionMetal4ImgView.setImage(getImage("transitionMetal4"));
+        transitionMetal5ImgView.setImage(getImage("transitionMetal5"));
+        transitionMetal6ImgView.setImage(getImage("transitionMetal6"));
+        halogensImgView.setImage(getImage("halogens"));
+        nobleGasImgView.setImage(getImage("nobleGas"));
 
         alkaliMetalImgView.setOnMouseClicked(this::alkaliMetalWorld);
-
     }
 
     //TODO: find a way to know what the last scene was in order to go back to it
@@ -110,6 +78,10 @@ public class MapFXMLController {
         logger.info("Loaded the primary scene...");
     }
 
+    private Image getImage(String string) {
+        return new Image(MainAppFXMLController.class.
+                getResource("/images/" + string + "/icon.png").toString());
+    }
     private void alkaliMetalWorld(Event e) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Game_layout.fxml"));
