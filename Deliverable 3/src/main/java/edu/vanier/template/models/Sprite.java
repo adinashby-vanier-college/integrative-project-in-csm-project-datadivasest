@@ -163,9 +163,11 @@ public class Sprite extends ImageView {
     }
     public void setPositionX(double x) {
         positionX = x;
+        setX(x);
     }
     public void setPositionY(double Y) {
         positionY = Y;
+        setY(Y);
     }
 
 
@@ -185,6 +187,8 @@ public class Sprite extends ImageView {
     }
 
     public void render(GraphicsContext gc) {
+        if (getOpacity() == 0)
+            return;
         gc.drawImage(image, positionX, positionY, width, height);
     }
 
