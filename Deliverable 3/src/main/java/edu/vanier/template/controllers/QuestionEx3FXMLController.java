@@ -31,11 +31,11 @@ import static edu.vanier.template.ui.MainMenu.*;
 public class QuestionEx3FXMLController {
     private final static Logger logger = LoggerFactory.getLogger(QuestionEx3FXMLController.class);
     @FXML
+
     private Button btnBack;
 
     @FXML private Button btnCheck;
     @FXML private Button btnHelp;
-    @FXML private Label lblAnswer;
     @FXML private Label lblQuestion;
     @FXML private BorderPane borderPane;
     @FXML private TextField inputField;
@@ -46,6 +46,7 @@ public class QuestionEx3FXMLController {
     private final List<NeutraReactions> reactions = new ArrayList<>();
 
     private double correctAnswer;
+    private String currentQst;
 
     private final DecimalFormat format = new DecimalFormat("0.00");
 
@@ -60,11 +61,24 @@ public class QuestionEx3FXMLController {
         btnHelp.setOnAction(this::handleHelp);
         getReactionProbs();
         generateNeutralizationProblems();
+        lblQuestion.setText(currentQst);
     }
     private void handleCheck(Event e) {
+        try {
+            double ans = Double.parseDouble(inputField.getText().trim());
+            if (Math.abs(ans - correctAnswer) <= 0.10) {
+                lblQuestion.setText(
+                        "That's right! Excellent job :)"
+                );
+                btnCheck.setText("Next");
 
 
-
+            } else {
+                lblQuestion.setText(currentQst + "\n\n\t\t\tMmm! I don't think that's quite right :(");
+            }
+        } catch (NumberFormatException ex) {
+            lblQuestion.setText(currentQst + "\n\n\t\t\tI think putting a number would be a place to start..");
+        }
     }
 
     public void generateNeutralizationProblems(){
@@ -80,9 +94,9 @@ public class QuestionEx3FXMLController {
         double volBase = (molesH / (concBase * baseEq)) * 1000;
         correctAnswer = Double.parseDouble(format.format(volBase));
 
-        lblQuestion.setText(String.format(
-                "A student has %s mL of %.3f M %s.%n" +
-                        "What volume (mL) of %.3f M %s is needed to neutralize it?%n%n" +
+        currentQst = (String.format(
+                "A student has %s mL of %.3f mol/liter %s.%n" +
+                        "What volume (mL) of %.3f mol/liter %s is needed to neutralize it?%n%n" +
                         "Balanced equation:%n%s",
                 format.format(volAcid), concAcid, neutraReaction.acidFormula,
                 concBase,      neutraReaction.baseFormula,
@@ -111,7 +125,7 @@ public class QuestionEx3FXMLController {
         try (InputStream is = getClass().getResourceAsStream(CSV_PATH);
              BufferedReader br = new BufferedReader(new InputStreamReader(is)))
         {
-            String line = br.readLine(); // skip header
+            String line = br.readLine();
             while ((line = br.readLine()) != null) {
                 String[] p = line.split(",");
                 if ("Strong".equalsIgnoreCase(p[4]) &&
