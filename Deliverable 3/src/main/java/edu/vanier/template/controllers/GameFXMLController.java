@@ -115,7 +115,10 @@ public class GameFXMLController {
             Platform.setPlatformsTypeC(currentFamily, platformList);
         } else if (currentFamily.getLayoutType().equals("1.1")) {
             Platform.setPlatformsType11(currentFamily, platformList);
+            portal.setPositionX(BaseWindow.sceneWidth - 50);
             portal.setDestination(GAME_SCENE);
+            portal.setLevel(1);
+            portal.setHeight(BaseWindow.sceneHeight);
         } else if (currentFamily.getLayoutType().equals("1.2")) {
             Platform.setPlatformsType12(currentFamily, platformList);
         } else if (currentFamily.getLayoutType().equals("2")) {
@@ -123,8 +126,17 @@ public class GameFXMLController {
         } else if (currentFamily.getLayoutType().equals("3.1")) {
             Platform.setPlatformsType31(currentFamily, platformList);
             portal.setDestination(GAME_SCENE);
+            portal.setPositionX(BaseWindow.sceneWidth - 50);
+            portal.setLevel(3);
+            portal.setHeight(BaseWindow.sceneHeight);
+
         } else if (currentFamily.getLayoutType().equals("3.2")) {
             Platform.setPlatformsType32(currentFamily, platformList);
+        }
+    }
+    public void setPortalDestination() {
+        switch (currentFamily) {
+            case LEVEL11 -> portal.setDestination(GAME_SCENE);
         }
     }
 
@@ -210,7 +222,7 @@ public class GameFXMLController {
 
         //@author Tabasuum
         //allows to flip character while moving to simulate animation
-        Player player = new Player(500, 250,
+        Player player = new Player(0, 7000,
                 (int) (50 * BaseWindow.sceneWidth/2560),
                 (int) (70 * BaseWindow.sceneHeight/1440), new Image(strPlayerImg));
         player.setImage(strPlayerImg);
