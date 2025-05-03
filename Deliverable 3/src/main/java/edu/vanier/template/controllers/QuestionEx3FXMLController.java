@@ -26,8 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static edu.vanier.template.ui.MainMenu.GAME_SCENE;
-import static edu.vanier.template.ui.MainMenu.sceneController;
+import static edu.vanier.template.ui.MainMenu.*;
 
 public class QuestionEx3FXMLController {
     private final static Logger logger = LoggerFactory.getLogger(QuestionEx3FXMLController.class);
@@ -43,7 +42,12 @@ public class QuestionEx3FXMLController {
 
 
     @FXML
-    public void initialize() {}
-    private void handleCheck(Event e) {}
+    public void initialize() {
+        logger.info("Initializing Question 1 Controller...");
+        setBackground(borderPane);
+    }
+    private void handleCheck(Event e) {
+
+    }
 
 }

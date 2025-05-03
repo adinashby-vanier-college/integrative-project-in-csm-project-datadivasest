@@ -226,7 +226,19 @@ public class MainMenu extends Application {
                 }
                 // The scene has been previously added, we activate it.
                 sceneController.activateScene(fxmlFileName);
+
+            }else if (fxmlFileName.equals(QUESTIONEX3_SCENE)) {
+                if (!sceneController.sceneExists(fxmlFileName)) {
+                    // Instantiate the corresponding FXML controller if the
+                    // specified scene is being loaded for the first time.
+                    QuestionEx3FXMLController controller = new QuestionEx3FXMLController();
+                    Parent root = FxUIHelper.loadFXML(fxmlFileName, controller);
+                    sceneController.addScene(QUESTIONEX3_SCENE, root);
+                }
+                // The scene has been previously added, we activate it.
+                sceneController.activateScene(fxmlFileName);
             }
+
             else if (fxmlFileName.equals(DIALOGUE_SCENE)) {
                 if (!sceneController.sceneExists(fxmlFileName)) {
                     // Instantiate the corresponding FXML controller if the
