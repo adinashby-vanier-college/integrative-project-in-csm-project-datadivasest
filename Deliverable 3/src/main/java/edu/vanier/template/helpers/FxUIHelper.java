@@ -1,12 +1,22 @@
 package edu.vanier.template.helpers;
 
 import java.io.IOException;
+import java.util.logging.Logger;
+
+import edu.vanier.template.controllers.MainAppFXMLController;
+import edu.vanier.template.ui.BaseWindow;
+import edu.vanier.template.ui.MainMenu;
+import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 
 /**
  *
- * @author frostybee
+ * @author frostybee, Tabasuum
  */
 public class FxUIHelper {
 

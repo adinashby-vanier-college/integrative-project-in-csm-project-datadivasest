@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-import static edu.vanier.template.ui.MainMenu.GAME_SCENE;
+import static edu.vanier.template.ui.MainMenu.*;
 
 public class Question1BuildAtomController {
     private final static Logger logger = LoggerFactory.getLogger(Question1BuildAtomController.class);
@@ -63,15 +63,7 @@ public class Question1BuildAtomController {
     public void initialize() {
         logger.info("Initializing the building atom controller");
 
-        Image backgroundImg = new Image(MainAppFXMLController.class.
-                getResource("/images/Files/png/chemlab.png").toString());
-        BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, true, true, false, true);
-
-        borderPane.setBackground(new Background(new BackgroundImage(backgroundImg,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.CENTER,
-                bSize)));
+        setBackground(borderPane);
 
         //Buttons
         btnBack.setOnAction(this::handleBack);
@@ -87,29 +79,16 @@ public class Question1BuildAtomController {
         System.out.println(QuestionEx1FXMLController.currentElement.getName());
 
         //setting up the image
-        Image baseAtomImage = null;
-        switch (QuestionEx1FXMLController.currentElement.getPeriod()) {
-            case 1:
-                baseAtomImage = new Image(getClass().getResource("/images/atoms/shell1.png").toExternalForm());
-                break;
-            case 2:
-                baseAtomImage = new Image(getClass().getResource("/images/atoms/shell2.png").toExternalForm());
-                break;
-            case 3:
-                baseAtomImage = new Image(getClass().getResource("/images/atoms/shell3.png").toExternalForm());
-                break;
-            case 4:
-                baseAtomImage = new Image(getClass().getResource("/images/atoms/shell4.png").toExternalForm());
-                break;
-            case 5:
-                baseAtomImage = new Image(getClass().getResource("/images/atoms/shell5.png").toExternalForm());
-                break;
-            case 6:
-                baseAtomImage = new Image(getClass().getResource("/images/atoms/shell6.png").toExternalForm());
-                break;
-            case 7:
-                baseAtomImage = new Image(getClass().getResource("/images/atoms/shell7.png").toExternalForm());
-        }
+        Image baseAtomImage = switch (QuestionEx1FXMLController.currentElement.getPeriod()) {
+            case 1 -> new Image(getClass().getResource("/images/atoms/shell1.png").toExternalForm());
+            case 2 -> new Image(getClass().getResource("/images/atoms/shell2.png").toExternalForm());
+            case 3 -> new Image(getClass().getResource("/images/atoms/shell3.png").toExternalForm());
+            case 4 -> new Image(getClass().getResource("/images/atoms/shell4.png").toExternalForm());
+            case 5 -> new Image(getClass().getResource("/images/atoms/shell5.png").toExternalForm());
+            case 6 -> new Image(getClass().getResource("/images/atoms/shell6.png").toExternalForm());
+            case 7 -> new Image(getClass().getResource("/images/atoms/shell7.png").toExternalForm());
+            default -> null;
+        };
 
         if(baseAtomImage != null) {
             atomImg.setImage(baseAtomImage);

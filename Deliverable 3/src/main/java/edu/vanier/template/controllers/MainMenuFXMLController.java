@@ -23,8 +23,6 @@ public class MainMenuFXMLController {
 
     SceneController sceneController;
     @FXML
-    Button exitBtn;
-    @FXML
     Button loginBtn;
     @FXML
     Button createAccountBtn;
@@ -48,6 +46,9 @@ public class MainMenuFXMLController {
         settingsBtn.setOnAction(this::loadSettingsScene);
         MainMenu.setUI(borderPane, titleImgView, "title.png");
 
+//        setButton(loginBtn, "login");
+//        setButton(createAccountBtn, "createAcc");
+//        setButton(settingsBtn, "settings");
     }
 
     /**

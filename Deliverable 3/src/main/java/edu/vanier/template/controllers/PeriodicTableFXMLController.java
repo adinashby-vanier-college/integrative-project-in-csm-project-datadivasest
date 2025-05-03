@@ -8,6 +8,8 @@ import javafx.scene.layout.GridPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static edu.vanier.template.ui.MainMenu.*;
+
 public class PeriodicTableFXMLController {
     private final static Logger logger = LoggerFactory.getLogger(PeriodicTableFXMLController.class);
     @FXML
@@ -16,7 +18,10 @@ public class PeriodicTableFXMLController {
     GridPane gridPane;
     @FXML
     public void initialize() {
+        setBackground(gridPane);
         btnBack.setOnAction(this::handleBack);
+        setButton(btnBack, "back", 5, 5);
+        setSizeBtn1(btnBack);
     }
     private void handleBack(Event e) {
         MainMenu.switchScene(MainMenu.QUESTIONEX1_SCENE);

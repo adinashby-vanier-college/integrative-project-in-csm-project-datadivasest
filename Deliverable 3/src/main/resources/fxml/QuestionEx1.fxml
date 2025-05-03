@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <!--<?xml version="1.0" encoding="UTF-8"?>-->
 <!--<?import javafx.scene.control.Button?>-->
@@ -21,29 +25,36 @@
 <!--   </children>-->
 <!--</Pane>-->
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
     <!-- Back Arrow Button -->
     <top>
         <Button fx:id="btnBack" layoutX="10" layoutY="10" text="←">
             <BorderPane.margin>
-                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                <Insets left="100.0" right="20.0" top="100.0" />
             </BorderPane.margin></Button>
     </top>
     <center>
         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" BorderPane.alignment="CENTER">
             <children>
-                <Label fx:id="lblQuestion" text="Question">
+                <Label fx:id="lblQuestion" alignment="TOP_CENTER" contentDisplay="CENTER" text="Question" textAlignment="CENTER">
                     <font>
-                        <Font size="24.0" />
+                        <Font size="36.0" />
                     </font>
                 </Label>
 
                 <!-- Main layout container -->
                 <HBox alignment="CENTER" spacing="20">
-                    <TextField fx:id="inputField"/>
+                    <TextField fx:id="inputField">
+                  <font>
+                     <Font size="22.0" />
+                  </font></TextField>
 
                     <!-- Period/Group Input -->
-                    <VBox alignment="CENTER" spacing="10" />
+                    <VBox alignment="CENTER" spacing="10">
+                  <children>
+                     <Button fx:id="btnIncrease" mnemonicParsing="false" text="Button" />
+                     <Button fx:id="btnDecrease" mnemonicParsing="false" text="Button" />
+                  </children></VBox>
 
                 </HBox>
             </children>
@@ -58,6 +69,9 @@
                 <!-- Check Button -->
                 <Button fx:id="btnCheck" alignment="BOTTOM_RIGHT" text="Check" textAlignment="CENTER" />
             </children>
+         <BorderPane.margin>
+            <Insets bottom="100.0" />
+         </BorderPane.margin>
         </HBox>
     </bottom>
 </BorderPane>

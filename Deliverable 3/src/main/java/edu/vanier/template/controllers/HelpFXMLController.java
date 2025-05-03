@@ -1,5 +1,6 @@
 package edu.vanier.template.controllers;
 
+import edu.vanier.template.helpers.FxUIHelper;
 import edu.vanier.template.ui.BaseWindow;
 import edu.vanier.template.ui.MainApp;
 import edu.vanier.template.ui.MainMenu;
@@ -20,6 +21,9 @@ import org.slf4j.LoggerFactory;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static edu.vanier.template.ui.MainMenu.setSizeBtn;
+import static edu.vanier.template.ui.MainMenu.setSizeImg;
 
 /**
  * @author Tabasuum
@@ -150,7 +154,7 @@ public class HelpFXMLController {
         setSizeImg(leftImgView);
 
         Image rightImg = new Image(MainAppFXMLController.class.
-                getResource("/images/commands/s.png").toString());
+                getResource("/images/commands/d.png").toString());
         rightImgView.setImage(rightImg);
         setSizeImg(rightImgView);
 
@@ -195,28 +199,10 @@ public class HelpFXMLController {
     }
 
     /**
-     * Makes images proportional to screen size
-     * @param imageView different images
-     */
-    private void setSizeImg(ImageView imageView) {
-        imageView.setFitWidth(BaseWindow.sceneWidth * 0.25);
-        imageView.setFitHeight(BaseWindow.sceneHeight * 0.25);
-    }
-
-    /**
-     * Makes buttons proportional to screen size
-     * @param button
-     */
-    private void setSizeBtn(Button button) {
-        button.setMinSize(BaseWindow.sceneWidth * 0.20, BaseWindow.sceneHeight * 0.05);
-        button.setMaxSize(BaseWindow.sceneWidth * 0.20, BaseWindow.sceneHeight * 0.05);
-    }
-
-    /**
      * Brings back to settings scene
      * @param e
      */
-    private void handleSettings(Event e) {
+    public void handleSettings(Event e) {
         System.out.println("Going to settings...");
         MainMenu.switchScene(MainMenu.SETTINGS_SCENE);
         logger.info("Settings has been clicked...");

@@ -31,6 +31,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import static edu.vanier.template.ui.MainMenu.setBackground;
+
 /**
  * @author Sofia Martinez
  */
@@ -81,7 +83,8 @@ public class BackpackFXMLController {
     public void initialize() {
         logger.info("initializing backpack");
         doneBtn.setOnAction(this::handleDoneBtn);
-
+        setBackground(backpackGridPane);
+        setBackground(backpackPane);
 
         /* both done and exit will lead to the same next Scene, they should both go to the scene they were
         last on. In case the user presses the backpack by accident, they can exit it without having to take anything

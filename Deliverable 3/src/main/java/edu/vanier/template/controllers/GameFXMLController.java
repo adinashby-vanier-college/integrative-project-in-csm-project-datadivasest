@@ -83,7 +83,7 @@ public class GameFXMLController {
     BackpackFXMLController backpackFXMLController;
     MapFXMLController mapFXMLController;
 
-    public void addPlatforms(List<Platform> platformList) {
+    public void setWorldSprites(List<Platform> platformList) {
         if (currentFamily.getLayoutType().equals("A")) {
             Platform.setPlatformsTypeA(currentFamily, platformList);
         } else if (currentFamily.getLayoutType().equals("B")) {
@@ -101,7 +101,6 @@ public class GameFXMLController {
         } else if (currentFamily.getLayoutType().equals("3.2")) {
             Platform.setPlatformsType32(currentFamily, platformList);
         }
-
     }
 
     public void setWorld() {
@@ -111,12 +110,19 @@ public class GameFXMLController {
     @FXML
     public void initialize() {
         logger.info("Initializing Game Controller...");
+
+        setButton(btnMap, "Button_132",3 ,3);
+        setButton(btnHelp, "Button_help",3 ,3);
+        setButton(backpackBtn, "backpack",3 ,3);
+        setButton(btnSettings, "Button_settings", 3 ,3);
+        setButton(btnBack, "back", 3 ,3);
+
         btnBack.setOnAction(this::handleBack);
         btnSettings.setOnAction(this::handleSettings);
         backpackBtn.setOnAction(this::handleBackpackButton);
         btnHelp.setOnAction(this::handleHelpButton);
         btnMap.setOnAction(this::handleMapButton);
-        currentFamily = Family.LEVEL12;
+        currentFamily = Family.LEVEL11;
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/BackpackScene.fxml"));
@@ -135,12 +141,23 @@ public class GameFXMLController {
             System.out.println(e.getMessage());
         }
 
+        //Images for the game
         Image imgPlatformFloor = new Image(MainAppFXMLController.class.
                 getResource("/images/PNG/forest_pack_05.png").toString());
-
         Image backgroundImg = new Image(MainAppFXMLController.class.
                 getResource("/images/"+currentFamily.getName()+"/background.png").toString());
         BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, true);
+        Image imgPortal = new Image(MainAppFXMLController.class.
+                getResource("/images/PNG/galaxy.png").toString());
+        String strPlayerImg = MainAppFXMLController.class.
+                getResource("/images/player.gif").toString();
+        String strPlayerFlippedImg = MainAppFXMLController.class.
+                getResource("/images/playerFlipped.gif").toString();
+        Image electronImg = new Image(MainAppFXMLController.class.
+                getResource("/images/Electron.png").toString());
+        Image protonImg = new Image(MainAppFXMLController.class.
+                getResource("/images/Proton.png").toString());
+
 
         borderPane.setBackground(new Background(new BackgroundImage(backgroundImg,
                 BackgroundRepeat.REPEAT,
@@ -151,11 +168,9 @@ public class GameFXMLController {
         Platform platformFloor = new Platform(0, (int)BaseWindow.sceneHeight - 100, "floor", (int)BaseWindow.sceneWidth, 100, imgPlatformFloor);
         Canvas canvas = new Canvas(BaseWindow.sceneWidth, BaseWindow.sceneHeight);
         mainPane.getChildren().addAll(canvas, platformFloor);
-        addPlatforms(platformList);
+        setWorldSprites(platformList);
 
-        Image imgPortal = new Image(MainAppFXMLController.class.
-                getResource("/images/PNG/galaxy.png").toString());
-        Portal portal = new Portal((int)BaseWindow.sceneWidth - 30, (int)BaseWindow.sceneHeight - 200 - (int)platformFloor.getHeight(), 30, 200, imgPortal, QUESTIONEX2_SCENE);
+        Portal portal = new Portal((int)BaseWindow.sceneWidth - 100, (int)BaseWindow.sceneHeight - 100 - (int)platformFloor.getHeight(), 30, 200, imgPortal, QUESTIONEX2_SCENE);
         //user should first build the atom, below line directs them to build atom after collecting electrons and protons from the game scene
        // Portal portal = new Portal((int)BaseWindow.sceneWidth - 30, (int)BaseWindow.sceneHeight - 200 - (int)platformFloor.getHeight(), 30, 200, imgPortal, QUESTION1BUILDATOM);
         //-- Create and configure the media player.
@@ -174,10 +189,6 @@ public class GameFXMLController {
 
         //@author Tabasuum
         //allows to flip character while moving to simulate animation
-        String strPlayerImg = MainAppFXMLController.class.
-                getResource("/images/player.gif").toString();
-        String strPlayerFlippedImg = MainAppFXMLController.class.
-                getResource("/images/playerFlipped.gif").toString();
         Player player = new Player(500, 250,
                 (int) (50 * BaseWindow.sceneWidth/2560),
                 (int) (70 * BaseWindow.sceneHeight/1440), new Image(strPlayerImg));
@@ -185,30 +196,30 @@ public class GameFXMLController {
         player.setBounds(0,(int) canvas.getWidth(), 0,
                 (int) canvas.getHeight() - (int) platformFloor.getHeight());
 
-        List<Sprite> electronList = new ArrayList<>();
-        List<Sprite> protonList = new ArrayList<>();
-
-        Image electronImg = new Image(MainAppFXMLController.class.
-                getResource("/images/Electron.png").toString());
-        Image protonImg = new Image(MainAppFXMLController.class.
-                getResource("/images/Proton.png").toString());
+        //TODO: Generalize this code from being electrons and protons to being any sprite
+        List<Sprite> sprite1List = new ArrayList<>();
+        List<Sprite> sprite2List = new ArrayList<>();
 
         for (int i = 0; i < 15; i++) {
+            //TODO: generalize
             Sprite electron = new Sprite("electron", electronImg);
+            Sprite proton = new Sprite("proton", protonImg);
             electron.setSize(30 * BaseWindow.sceneHeight / 770);
+            proton.setSize(30 * BaseWindow.sceneHeight / 770);
             electron.setImage(electronImg);
+            proton.setImage(protonImg);
+
+            //position should be set with  the rest of the platforms
             double px1 = BaseWindow.sceneWidth * 0.7 * Math.random() + 50;
             double py1 = BaseWindow.sceneHeight * 0.7 * Math.random() + 50;
-            electron.setPosition(px1, py1);
-            electronList.add(electron);
-            Sprite proton = new Sprite("proton", protonImg);
-            proton.setSize(30 * BaseWindow.sceneHeight / 770);
-            proton.setImage(protonImg);
+
             double px = BaseWindow.sceneWidth * 0.7 * Math.random() + 50;
             double py = BaseWindow.sceneHeight * 0.7 * Math.random() + 50;
-            proton.setPosition(px, py);
-            protonList.add(proton);
 
+            electron.setPosition(px1, py1);
+            proton.setPosition(px, py);
+            sprite2List.add(proton);
+            sprite1List.add(electron);
         }
 
         animation = new AnimationTimer() {
@@ -247,14 +258,17 @@ public class GameFXMLController {
                         player.setImage(strPlayerImg);
                 }
                     // Jumping logic (double jump)
-                /*
-                if (input.contains("W") && !isFalling && cnt < 2) {
+
+                if (input.contains("W") && !isFalling && cnt < 3) {
                     velocityY = jumpStrength;
                     cnt++;
                     input.remove("W");
+                    if(!jumpClip.isPlaying()){
+                        jumpClip.play();
+                    }
                 }
-                 */
 
+                /*
                 if (input.contains("W")) {
                     velocityY = jumpStrength;
                     cnt++;
@@ -263,6 +277,7 @@ public class GameFXMLController {
                         jumpClip.play();
                     }
                 }
+                */
 
                 // Apply gravity
                 velocityY += gravity * elapsedTime;
@@ -308,11 +323,12 @@ public class GameFXMLController {
                     portal.unlock();
 
                 // Electron collection logic
-                Iterator<Sprite> electronIter = electronList.iterator();
-                while (electronIter.hasNext()) {
-                    Sprite electron = electronIter.next();
+                Iterator<Sprite> sprite1Iter = sprite1List.iterator();
+                while (sprite1Iter.hasNext()) {
+                    //TODO for logic of electron check if name is electron
+                    Sprite electron = sprite1Iter.next();
                     if (player.intersects(electron)) {
-                        electronIter.remove();
+                        sprite1Iter.remove();
                         itemClip.play();
                         System.out.println("interacting with a sprite");
                         score--;
@@ -330,11 +346,11 @@ public class GameFXMLController {
                         //we'll also need protons but this can be done for deliverable three (the differentiation)
                     }
                 }
-                Iterator<Sprite> protonIter = protonList.iterator();
-                while (protonIter.hasNext()) {
-                    Sprite proton = protonIter.next();
+                Iterator<Sprite> sprite2Iter = sprite2List.iterator();
+                while (sprite2Iter.hasNext()) {
+                    Sprite proton = sprite2Iter.next();
                     if (player.intersects(proton)) {
-                        protonIter.remove();
+                        sprite2Iter.remove();
                         itemClip.play();
                         score++;
                         protonNum++;
@@ -355,10 +371,10 @@ public class GameFXMLController {
                 gc.clearRect(0, 0, canvasWidth, canvasHeight);
                 player.render(gc);
                 portal.render(gc);
-                for (Sprite electron : electronList) {
+                for (Sprite electron : sprite1List) {
                     electron.render(gc);
                 }
-                for (Sprite proton : protonList) {
+                for (Sprite proton : sprite2List) {
                     proton.render(gc);
                 }
 
@@ -371,6 +387,7 @@ public class GameFXMLController {
                 gc.strokeText(pointsText, 360, 36);
             }
         };
+
         animation.start();
 
         mainPane.setOnDragOver(event -> {
@@ -411,8 +428,8 @@ public class GameFXMLController {
                     reuploadedSprite.setPosition(positionX, positionY);
 
                     switch (spriteType) {
-                        case "electron" -> electronList.add(reuploadedSprite);
-                        case "proton" -> protonList.add(reuploadedSprite);
+                        case "electron" -> sprite1List.add(reuploadedSprite);
+                        case "proton" -> sprite2List.add(reuploadedSprite);
                     }
                     mainPane.getChildren().add(reuploadedSprite);
                 }
