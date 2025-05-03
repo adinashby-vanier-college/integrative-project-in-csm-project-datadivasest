@@ -2,6 +2,8 @@ package edu.vanier.template.ui;
 
 import edu.vanier.template.controllers.*;
 import edu.vanier.template.helpers.FxUIHelper;
+import edu.vanier.template.models.Family;
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -81,6 +83,7 @@ public class MainMenu extends Application {
     private static AudioClip backgroundMusic;
     public static Image backgroundImg = new Image(MainAppFXMLController.class.
             getResource("/images/Files/png/BG.png").toString());
+    private static GameFXMLController gameController;
 
 
     @Override
@@ -88,6 +91,11 @@ public class MainMenu extends Application {
         // TODO:
         // Here, we need to perform teardown operations such as stopping running
         // animation, etc.
+        if (gameController != null) {
+            AnimationTimer animationTimer = gameController.getAnimation();
+            if (animationTimer != null)
+                animationTimer.stop();
+        }
     }
 
     @Override
@@ -141,8 +149,25 @@ public class MainMenu extends Application {
         }
     }
 
+
     public static boolean isMusicPlaying() {
         return backgroundMusic != null && backgroundMusic.isPlaying();
+    }
+
+    public static void setGameController(GameFXMLController gameController) {
+        MainMenu.gameController = gameController;
+    }
+
+    public static GameFXMLController getGameController() {
+        return gameController;
+    }
+
+    public static SceneController getSceneController() {
+        return sceneController;
+    }
+
+    public static void setSceneController(SceneController sceneController) {
+        MainMenu.sceneController = sceneController;
     }
 
     /**
@@ -165,8 +190,8 @@ public class MainMenu extends Application {
                 if (!sceneController.sceneExists(fxmlFileName)) {
                     // Instantiate the corresponding FXML controller if the
                     // specified scene is being loaded for the first time.
-                    GameFXMLController controller = new GameFXMLController();
-                    Parent root = FxUIHelper.loadFXML(fxmlFileName, controller);
+                    gameController = new GameFXMLController(Family.LEVEL11);
+                    Parent root = FxUIHelper.loadFXML(fxmlFileName, gameController);
                     sceneController.addScene(GAME_SCENE, root);
                 }
                 // The scene has been previously added, we activate it.
@@ -285,6 +310,26 @@ public class MainMenu extends Application {
         }
     }
 
+    public static void switchScene(String fxmlFileName, Family family) {
+        try {
+            if (fxmlFileName.equals(GAME_SCENE)) {
+                if (!sceneController.sceneExists(fxmlFileName)) {
+                    // Instantiate the corresponding FXML controller if the
+                    // specified scene is being loaded for the first time.
+                    gameController = new GameFXMLController(family);
+                    Parent root = FxUIHelper.loadFXML(fxmlFileName, gameController);
+                    sceneController.addScene(GAME_SCENE, root);
+                }
+                // The scene has been previously added, we activate it.
+                sceneController.activateScene(fxmlFileName);
+            }
+        }
+        catch(IOException e){
+            logger.error(e.getMessage(), e);
+            java.util.logging.Logger.getLogger(edu.vanier.template.ui.MainMenu.class.getName()).log(Level.SEVERE, null, e);
+            throw new RuntimeException();
+        }
+    }
     public static void setUI(BorderPane borderPane, ImageView title, String titleName) {
         //Sets background
         setBackground(borderPane);

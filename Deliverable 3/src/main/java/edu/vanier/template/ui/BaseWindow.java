@@ -12,7 +12,7 @@ public abstract class BaseWindow {
     private static final Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
 
     // Calculate the scene size as a percentage of the screen size
-    public static double sceneWidth = screenBounds.getWidth();
+    public static double sceneWidth = screenBounds.getWidth() * 0.9;
 
-    public static double sceneHeight = screenBounds.getHeight();
+    public static double sceneHeight = screenBounds.getHeight() * 0.9;
 }

@@ -25,6 +25,8 @@ public class Platform extends Sprite {
     public Platform(int x, int y, String type, int sizeX, int sizeY, Image img) {
         super(x, y, "platform", sizeX, sizeY, img);
         this.type = type;
+        setHeight(sizeY);
+        setWidth(sizeX);
         setFitWidth(sizeX);
         setFitHeight(sizeY);
     }

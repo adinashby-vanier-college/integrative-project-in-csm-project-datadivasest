@@ -82,6 +82,29 @@ public class GameFXMLController {
     private Map<String, Integer> elementCollected = new HashMap<>();
     BackpackFXMLController backpackFXMLController;
     MapFXMLController mapFXMLController;
+    private Portal portal;
+    private Canvas canvas;
+    private String strPlayerImg;
+    private Sprite platformFloor;
+    private Image electronImg;
+    private Image protonImg;
+    private String strPlayerFlippedImg;
+    private ArrayList<Platform> platformList;
+    private Image imgPlatformFloor;
+    private BackgroundSize bSize;
+    private Image imgPortal;
+
+    public GameFXMLController(Family currentFamily) {
+        this.currentFamily = currentFamily;
+    }
+
+    public AnimationTimer getAnimation() {
+        return animation;
+    }
+
+    public void setAnimation(AnimationTimer animation) {
+        this.animation = animation;
+    }
 
     public void setWorldSprites(List<Platform> platformList) {
         if (currentFamily.getLayoutType().equals("A")) {
@@ -92,19 +115,47 @@ public class GameFXMLController {
             Platform.setPlatformsTypeC(currentFamily, platformList);
         } else if (currentFamily.getLayoutType().equals("1.1")) {
             Platform.setPlatformsType11(currentFamily, platformList);
+            portal.setDestination(GAME_SCENE);
         } else if (currentFamily.getLayoutType().equals("1.2")) {
             Platform.setPlatformsType12(currentFamily, platformList);
         } else if (currentFamily.getLayoutType().equals("2")) {
             Platform.setPlatformsType2(currentFamily, platformList);
         } else if (currentFamily.getLayoutType().equals("3.1")) {
             Platform.setPlatformsType31(currentFamily, platformList);
+            portal.setDestination(GAME_SCENE);
         } else if (currentFamily.getLayoutType().equals("3.2")) {
             Platform.setPlatformsType32(currentFamily, platformList);
         }
     }
 
     public void setWorld() {
-
+        //Images for the game
+        imgPlatformFloor = new Image(MainAppFXMLController.class.
+                getResource("/images/PNG/forest_pack_05.png").toString());
+        backgroundImg = new Image(MainAppFXMLController.class.
+                getResource("/images/"+currentFamily.getName()+"/background.png").toString());
+        bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, true);
+        imgPortal = new Image(MainAppFXMLController.class.
+                getResource("/images/PNG/galaxy.png").toString());
+        strPlayerImg = MainAppFXMLController.class.
+                getResource("/images/player.gif").toString();
+        strPlayerFlippedImg = MainAppFXMLController.class.
+                getResource("/images/playerFlipped.gif").toString();
+        electronImg = new Image(MainAppFXMLController.class.
+                getResource("/images/Electron.png").toString());
+        protonImg = new Image(MainAppFXMLController.class.
+                getResource("/images/Proton.png").toString());
+        borderPane.setBackground(new Background(new BackgroundImage(backgroundImg,
+                BackgroundRepeat.REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.CENTER,
+                bSize)));
+        platformList = new ArrayList<>();
+        platformFloor = new Platform(0, (int)BaseWindow.sceneHeight - 200, "floor", (int)BaseWindow.sceneWidth, 200, imgPlatformFloor);
+        canvas = new Canvas(BaseWindow.sceneWidth, BaseWindow.sceneHeight);
+        mainPane.getChildren().addAll(canvas, platformFloor);
+        portal = new Portal((int)BaseWindow.sceneWidth - 100, (int)BaseWindow.sceneHeight - 100 - (int)platformFloor.getHeight(), 30, 100, imgPortal, QUESTIONEX2_SCENE);
+        setWorldSprites(platformList);
     }
 
     @FXML
@@ -122,7 +173,6 @@ public class GameFXMLController {
         backpackBtn.setOnAction(this::handleBackpackButton);
         btnHelp.setOnAction(this::handleHelpButton);
         btnMap.setOnAction(this::handleMapButton);
-        currentFamily = Family.LEVEL11;
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/BackpackScene.fxml"));
@@ -141,36 +191,7 @@ public class GameFXMLController {
             System.out.println(e.getMessage());
         }
 
-        //Images for the game
-        Image imgPlatformFloor = new Image(MainAppFXMLController.class.
-                getResource("/images/PNG/forest_pack_05.png").toString());
-        Image backgroundImg = new Image(MainAppFXMLController.class.
-                getResource("/images/"+currentFamily.getName()+"/background.png").toString());
-        BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, true);
-        Image imgPortal = new Image(MainAppFXMLController.class.
-                getResource("/images/PNG/galaxy.png").toString());
-        String strPlayerImg = MainAppFXMLController.class.
-                getResource("/images/player.gif").toString();
-        String strPlayerFlippedImg = MainAppFXMLController.class.
-                getResource("/images/playerFlipped.gif").toString();
-        Image electronImg = new Image(MainAppFXMLController.class.
-                getResource("/images/Electron.png").toString());
-        Image protonImg = new Image(MainAppFXMLController.class.
-                getResource("/images/Proton.png").toString());
-
-
-        borderPane.setBackground(new Background(new BackgroundImage(backgroundImg,
-                BackgroundRepeat.REPEAT,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.CENTER,
-                bSize)));
-        List<Platform> platformList = new ArrayList<>();
-        Platform platformFloor = new Platform(0, (int)BaseWindow.sceneHeight - 100, "floor", (int)BaseWindow.sceneWidth, 100, imgPlatformFloor);
-        Canvas canvas = new Canvas(BaseWindow.sceneWidth, BaseWindow.sceneHeight);
-        mainPane.getChildren().addAll(canvas, platformFloor);
-        setWorldSprites(platformList);
-
-        Portal portal = new Portal((int)BaseWindow.sceneWidth - 100, (int)BaseWindow.sceneHeight - 100 - (int)platformFloor.getHeight(), 30, 200, imgPortal, QUESTIONEX2_SCENE);
+        setWorld();
         //user should first build the atom, below line directs them to build atom after collecting electrons and protons from the game scene
        // Portal portal = new Portal((int)BaseWindow.sceneWidth - 30, (int)BaseWindow.sceneHeight - 200 - (int)platformFloor.getHeight(), 30, 200, imgPortal, QUESTION1BUILDATOM);
         //-- Create and configure the media player.
@@ -257,9 +278,8 @@ public class GameFXMLController {
                     if (!player.getImgStr().equals(strPlayerImg))
                         player.setImage(strPlayerImg);
                 }
-                    // Jumping logic (double jump)
-
-                if (input.contains("W") && !isFalling && cnt < 3) {
+                // Jumping logic (double jump)
+                if (input.contains("W") && cnt < 5) {
                     velocityY = jumpStrength;
                     cnt++;
                     input.remove("W");
@@ -315,7 +335,7 @@ public class GameFXMLController {
                     isFalling = true;
                 }
                 else isFalling = false;
-                if (velocityY >= 0)
+                if (velocityY == 0)
                     cnt = 0;
                 player.setPosition(nextX, nextY);
 

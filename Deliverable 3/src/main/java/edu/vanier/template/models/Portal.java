@@ -8,7 +8,7 @@ import javafx.scene.image.Image;
  */
 public class Portal extends Sprite{
     private boolean isOpen;
-    private final String destination;
+    private String destination;
     public Portal(int x, int y, int sizeX, int sizeY, Image image, String destination) {
         super(x, y, "portal", sizeX, sizeY, image);
         setFitWidth(sizeX);
@@ -16,6 +16,11 @@ public class Portal extends Sprite{
         isOpen = false;
         this.destination = destination;
     }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+
     public void unlock() {
         isOpen = true;
     }

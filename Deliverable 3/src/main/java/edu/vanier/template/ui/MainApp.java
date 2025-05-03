@@ -5,6 +5,7 @@ import edu.vanier.template.helpers.FxUIHelper;
 import java.io.IOException;
 import java.util.logging.Level;
 
+import edu.vanier.template.models.Family;
 import javafx.animation.*;
 import javafx.application.Application;
 import javafx.scene.Parent;
@@ -111,7 +112,7 @@ public class MainApp extends Application {
                 if (!sceneController.sceneExists(fxmlFileName)) {
                     // Instantiate the corresponding FXML controller if the
                     // specified scene is being loaded for the frist time.
-                    GameFXMLController controller = new GameFXMLController();
+                    GameFXMLController controller = new GameFXMLController(Family.LEVEL11);
                     Parent root = FxUIHelper.loadFXML(fxmlFileName, controller);
                     sceneController.addScene(GAME_SCENE, root);
                 }

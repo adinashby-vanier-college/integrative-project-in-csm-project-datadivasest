@@ -4,6 +4,7 @@ import edu.vanier.template.models.Family;
 import edu.vanier.template.ui.BaseWindow;
 import edu.vanier.template.ui.MainApp;
 import edu.vanier.template.ui.MainMenu;
+import javafx.animation.AnimationTimer;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -70,6 +71,13 @@ public class MapFXMLController {
         nobleGasImgView.setImage(getImage("nobleGas"));
 
         alkaliMetalImgView.setOnMouseClicked(this::alkaliMetalWorld);
+        alkalineEarthMetalImgView.setOnMouseClicked(this::alkalineEarthMetalWorld);
+        transitionMetal3ImgView.setOnMouseClicked(this::transitionMetal3World);
+        transitionMetal4ImgView.setOnMouseClicked(this::transitionMetal4World);
+        transitionMetal5ImgView.setOnMouseClicked(this::transitionMetal5World);
+        transitionMetal6ImgView.setOnMouseClicked(this::transitionMetal6World);
+        halogensImgView.setOnMouseClicked(this::halogensWorld);
+        nobleGasImgView.setOnMouseClicked(this::nobleGasWorld);
     }
 
     //TODO: find a way to know what the last scene was in order to go back to it
@@ -83,22 +91,82 @@ public class MapFXMLController {
                 getResource("/images/" + string + "/icon.png").toString());
     }
     private void alkaliMetalWorld(Event e) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Game_layout.fxml"));
-            Parent root = loader.load();
-            GameFXMLController controller = loader.getController();
+//        try {
+//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Game_layout.fxml"));
+//            Parent root = loader.load();
+//            GameFXMLController controller = loader.getController();
             //line below was commented for a test
-            //controller.setCurrentFamily(Family.ALKALIMETAL); // ✅ pass the family
+            MainMenu.getSceneController().removeScene(GAME_SCENE);
+            AnimationTimer animationTimer = MainMenu.getGameController().getAnimation();
+            if (animationTimer != null)
+                animationTimer.stop();
+            MainMenu.switchScene(GAME_SCENE, Family.ALKALIMETAL); // switch to it
+            //MainMenu.getGameController().setWorld(Family.ALKALIMETAL); // ✅ pass the family
 
-            sceneController.removeScene(GAME_SCENE); // clear any previous version
-            sceneController.addScene(GAME_SCENE, root); // preload the new scene
-            MainMenu.switchScene(GAME_SCENE); // switch to it
 
+            //sceneController.removeScene(GAME_SCENE); // clear any previous version
+            //sceneController.addScene(GAME_SCENE, root); // preload the new scene
             logger.info("Alkali Metals has been clicked...");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            logger.error("Failed to load Game scene from map.", ex);
-        }
+//        } catch (IOException ex) {
+//            ex.printStackTrace();
+//            logger.error("Failed to load Game scene from map.", ex);
+//        }
+    }
+    private void alkalineEarthMetalWorld(Event e) {
+        MainMenu.getSceneController().removeScene(GAME_SCENE);
+        AnimationTimer animationTimer = MainMenu.getGameController().getAnimation();
+        if (animationTimer != null)
+            animationTimer.stop();
+        MainMenu.switchScene(GAME_SCENE, Family.ALKALINEEARTHMETALS); // switch to it
+        logger.info("Alkaline Earth Metals has been clicked...");
+    }
+    private void transitionMetal3World(Event e) {
+        MainMenu.getSceneController().removeScene(GAME_SCENE);
+        AnimationTimer animationTimer = MainMenu.getGameController().getAnimation();
+        if (animationTimer != null)
+            animationTimer.stop();
+        MainMenu.switchScene(GAME_SCENE, Family.TRANSITIONMETAL3); // switch to it
+        logger.info("Transition Metal 3 has been clicked...");
+    }
+    private void transitionMetal4World(Event e) {
+        MainMenu.getSceneController().removeScene(GAME_SCENE);
+        AnimationTimer animationTimer = MainMenu.getGameController().getAnimation();
+        if (animationTimer != null)
+            animationTimer.stop();
+        MainMenu.switchScene(GAME_SCENE, Family.TRANSITIONMETAL4); // switch to it
+        logger.info("Transition Metal 4 has been clicked...");
+    }
+    private void transitionMetal5World(Event e) {
+        MainMenu.getSceneController().removeScene(GAME_SCENE);
+        AnimationTimer animationTimer = MainMenu.getGameController().getAnimation();
+        if (animationTimer != null)
+            animationTimer.stop();
+        MainMenu.switchScene(GAME_SCENE, Family.TRANSITIONMETAL5); // switch to it
+        logger.info("Transition Metal 5 has been clicked...");
+    }
+    private void transitionMetal6World(Event e) {
+        MainMenu.getSceneController().removeScene(GAME_SCENE);
+        AnimationTimer animationTimer = MainMenu.getGameController().getAnimation();
+        if (animationTimer != null)
+            animationTimer.stop();
+        MainMenu.switchScene(GAME_SCENE, Family.TRANSITIONMETAL6); // switch to it
+        logger.info("Transition Metal 6 has been clicked...");
+    }
+    private void halogensWorld(Event e) {
+        MainMenu.getSceneController().removeScene(GAME_SCENE);
+        AnimationTimer animationTimer = MainMenu.getGameController().getAnimation();
+        if (animationTimer != null)
+            animationTimer.stop();
+        MainMenu.switchScene(GAME_SCENE, Family.HALOGENS); // switch to it
+        logger.info("Halogens has been clicked...");
+    }
+    private void nobleGasWorld(Event e) {
+        MainMenu.getSceneController().removeScene(GAME_SCENE);
+        AnimationTimer animationTimer = MainMenu.getGameController().getAnimation();
+        if (animationTimer != null)
+            animationTimer.stop();
+        MainMenu.switchScene(GAME_SCENE, Family.NOBLEGAS); // switch to it
+        logger.info("Noble Gas has been clicked...");
     }
 
     //TODO: change between scenes for periods
