@@ -5,6 +5,7 @@ build/
 **/build/
 **/**/build/
 log/
+credentials.txt
 
 # IntelliJ run configuration
 !.run/*

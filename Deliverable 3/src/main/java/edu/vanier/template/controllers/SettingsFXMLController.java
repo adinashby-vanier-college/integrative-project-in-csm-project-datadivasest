@@ -14,6 +14,9 @@ import org.slf4j.LoggerFactory;
 import javafx.scene.control.CheckBox;
 import javafx.application.Platform;
 
+import static edu.vanier.template.ui.MainMenu.setButton;
+import static edu.vanier.template.ui.MainMenu.setSizeBtn1;
+
 
 public class SettingsFXMLController {
     @FXML
@@ -38,6 +41,9 @@ public class SettingsFXMLController {
     @FXML
     public void initialize() {
         logger.info("Initializing SettingsController...");
+
+        setButton(btnBack, "back", 5 , 5);
+        setSizeBtn1(btnBack);
         MainMenu.setUI(borderPane, settingsImgView, "settings.png");
         btnBack.setOnAction(this::loadMainMenu);
         btnQuit.setOnAction(this::quit);

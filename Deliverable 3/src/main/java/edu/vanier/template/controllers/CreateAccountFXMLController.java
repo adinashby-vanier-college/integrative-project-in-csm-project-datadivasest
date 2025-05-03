@@ -5,12 +5,19 @@ import edu.vanier.template.ui.MainMenu;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+
+import static edu.vanier.template.ui.MainMenu.setButton;
+import static edu.vanier.template.ui.MainMenu.setSizeBtn1;
 
 /**
  * @author Sofia Martinez
@@ -21,11 +28,9 @@ public class CreateAccountFXMLController {
     @FXML
     private TextField usernameCAIn;
     @FXML
-    private TextField passwordCAIn;
+    private PasswordField passwordCAIn;
     @FXML
     private TextField confirmPasswordSIIn;
-    @FXML
-    Button loginCABtn;
     @FXML
     Button createAccCABtn;
     @FXML
@@ -34,6 +39,8 @@ public class CreateAccountFXMLController {
     ImageView signUpImgView;
     @FXML
     VBox vBox;
+    @FXML
+    Label messageLbl;
     private final static Logger logger = LoggerFactory.getLogger(MainMenuFXMLController.class);
 
     /**
@@ -44,23 +51,12 @@ public class CreateAccountFXMLController {
     @FXML
     public void initialize() {
         logger.info("Initializing CreateAccountController...");
-        loginCABtn.setOnAction(this::handleLoginBtn);
+        setButton(backBtn, "back", 5 , 5);
+        setSizeBtn1(backBtn);
         createAccCABtn.setOnAction(this::handleCreateAccountBtn);
         backBtn.setOnAction(this::handleBackBtn);
-        MainMenu.setUI(borderPane, signUpImgView, "signUp.png");
+        //MainMenu.setUI(borderPane, signUpImgView, "signUp.png");
         vBox.setMaxWidth(BaseWindow.sceneWidth * 0.5);
-    }
-
-    /**
-     * checks login information is correct,
-     * if correct, switches to the dialogue scene
-     * otherwise shows a message to reenter username/password and empties the textfields
-     * @param e is the action event of clicking the login button on the Login Scene
-     * @author Sofia Martinez
-     */
-    private void handleLoginBtn(Event e) {
-        MainMenu.switchScene(MainMenu.LOGIN_SCENE);
-        logger.info("Loaded the settings scene...");
     }
 
     /**
@@ -68,13 +64,27 @@ public class CreateAccountFXMLController {
      * @param e is the event if the user clicks on the create account button
      */
     private void handleCreateAccountBtn(Event e) {
-        //TODO: call method to check if account is valid
-        MainMenu.switchScene(MainMenu.DIALOGUE_SCENE);
-        logger.info("Loaded the create account scene...");
+        messageLbl.setText("");
+        String user = usernameCAIn.getText();
+        String pass = passwordCAIn.getText();
+        if (user.isEmpty() || pass.isEmpty()) {
+            messageLbl.setText("Fill both fields.");
+        } else {
+            try {
+                if (LoginFXMLController.registerUser(user, pass)) {
+                    messageLbl.setText("Registration successful.");
+                    usernameCAIn.setText("");
+                    passwordCAIn.setText("");
+                    MainMenu.switchScene(MainMenu.LOGIN_SCENE);
+                    logger.info("Loaded the create account scene...");
+                } else {
+                    messageLbl.setText("User already exists.");
+                }
+            } catch (IOException ex) {
+                messageLbl.setText("Error saving user.");
+            }
+        }
     }
-
-    //TODO: create a method to check that there are no existing users with this username and
-    // check if the password meets all the requirements
 
     /**
      * returns to the main menu page
@@ -82,6 +92,8 @@ public class CreateAccountFXMLController {
      * @author Sofia Martinez
      */
     private void handleBackBtn(Event e) {
+        usernameCAIn.setText("");
+        passwordCAIn.setText("");
         MainMenu.switchScene(MainMenu.MAINMENU_SCENE);
         logger.info("Loaded the main menu scene...");
     }
