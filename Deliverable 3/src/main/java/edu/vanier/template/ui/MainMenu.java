@@ -62,6 +62,7 @@ public class MainMenu extends Application {
     public static final String QUESTIONEX1_SCENE = "QuestionEx1";
     // The FXML file name of the QuestionEx2 scene
     public static final String QUESTIONEX2_SCENE = "QuestionEx2";
+    public static final String QUESTIONEX3_SCENE = "QuestionEx3";
     // The FXML file name of the create account scene
     public static final String CREATEACCOUNT_SCENE = "CreateAccountPage";
     // The FXML file name of the login scene

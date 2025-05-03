@@ -34,6 +34,8 @@ public class QuestionEx2FXMLController {
     @FXML private Button btnCheck;
     @FXML private Button btnHelp;
     @FXML private Label lblQuestion;
+
+    private Label lblReview;
     @FXML private TextField txtLeft;
     @FXML private Label lblLeft;
     @FXML private TextField txtRight;
@@ -179,16 +181,18 @@ public class QuestionEx2FXMLController {
                 lblQuestion.setText("Yes! Congrats! That is the correct answer :)");
                 // … proceed to next problem …
             } else {
+                pickAndShowProblem();
                 lblQuestion.setText("Mmm at least one of these is wrong... why don't you try again?");
             }
         } catch (NumberFormatException ex) {
+
             lblQuestion.setText("I think you should put numbers...");
         }
 
     }
 
     private void handleBack(Event e) {
-        MainMenu.switchScene(MainMenu.QUESTIONEX1_SCENE);
+        MainMenu.switchScene(MainMenu.GAME_SCENE);
         logger.info("Back button clicked");
 
     }
