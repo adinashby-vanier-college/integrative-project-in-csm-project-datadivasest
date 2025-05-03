@@ -141,16 +141,16 @@ public class QuestionEx1FXMLController {
 
     private void loadElements(){
         elements.add(new Elements(  1,1, 1, "Hydrogen",     "H") );
-        elements.add(new Elements(  2,1,18, "Helium",       "He"));
-        elements.add(new Elements(  3,2, 1, "Lithium",      "Li"));
-        elements.add(new Elements(  4,2, 2, "Beryllium",    "Be"));
-        elements.add(new Elements(  5,2,13, "Boron",        "B"));
-        elements.add(new Elements(  6,2,14, "Carbon",       "C"));
-        elements.add(new Elements(  7,2,15, "Nitrogen",     "N"));
-        elements.add(new Elements(  8,2,16, "Oxygen",       "O"));
-        elements.add(new Elements(  9,2,17, "Fluorine",     "F"));
-        elements.add(new Elements( 10,2,18, "Neon",         "Ne"));
-//
+//        elements.add(new Elements(  2,1,18, "Helium",       "He"));
+//        elements.add(new Elements(  3,2, 1, "Lithium",      "Li"));
+//        elements.add(new Elements(  4,2, 2, "Beryllium",    "Be"));
+//        elements.add(new Elements(  5,2,13, "Boron",        "B"));
+//        elements.add(new Elements(  6,2,14, "Carbon",       "C"));
+//        elements.add(new Elements(  7,2,15, "Nitrogen",     "N"));
+//        elements.add(new Elements(  8,2,16, "Oxygen",       "O"));
+//        elements.add(new Elements(  9,2,17, "Fluorine",     "F"));
+//        elements.add(new Elements( 10,2,18, "Neon",         "Ne"));
+////
 //        elements.add(new Elements( 11,3, 1, "Sodium",       "Na"));
 //        elements.add(new Elements( 12,3, 2, "Magnesium",    "Mg"));
 //        elements.add(new Elements( 13,3,13, "Aluminium",    "Al"));
