@@ -82,7 +82,7 @@ public class MapFXMLController {
 
     //TODO: find a way to know what the last scene was in order to go back to it
     private void loadLastScene(Event e) {
-        MainApp.switchScene(MainApp.MAINAPP_SCENE);
+        MainMenu.goBack();
         logger.info("Loaded the primary scene...");
     }
 

@@ -35,19 +35,33 @@ public class Portal extends Sprite{
     public void enter() {
         if (isOpen) {
             if (destination.equals(MainMenu.GAME_SCENE)) {
-                if (level == 1) {
+                if (level == 11) {
                     MainMenu.getSceneController().removeScene(GAME_SCENE);
                     AnimationTimer animationTimer = MainMenu.getGameController().getAnimation();
                     if (animationTimer != null)
                         animationTimer.stop();
                     MainMenu.switchScene(GAME_SCENE, Family.LEVEL12); // switch to it
                 }
-                else {
+                else if (level == 31) {
                     MainMenu.getSceneController().removeScene(GAME_SCENE);
                     AnimationTimer animationTimer = MainMenu.getGameController().getAnimation();
                     if (animationTimer != null)
                         animationTimer.stop();
                     MainMenu.switchScene(GAME_SCENE, Family.LEVEL32); // switch to it
+                }
+                else if (level == 12) {
+                    MainMenu.getSceneController().removeScene(GAME_SCENE);
+                    AnimationTimer animationTimer = MainMenu.getGameController().getAnimation();
+                    if (animationTimer != null)
+                        animationTimer.stop();
+                    MainMenu.switchScene(GAME_SCENE, Family.LEVEL11); // switch to it
+                }
+                else if (level == 32) {
+                    MainMenu.getSceneController().removeScene(GAME_SCENE);
+                    AnimationTimer animationTimer = MainMenu.getGameController().getAnimation();
+                    if (animationTimer != null)
+                        animationTimer.stop();
+                    MainMenu.switchScene(GAME_SCENE, Family.LEVEL31); // switch to it
                 }
             }
             else

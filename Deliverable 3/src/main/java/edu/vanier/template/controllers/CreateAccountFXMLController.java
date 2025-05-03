@@ -95,7 +95,7 @@ public class CreateAccountFXMLController {
     private void handleBackBtn(Event e) {
         usernameCAIn.setText("");
         passwordCAIn.setText("");
-        MainMenu.switchScene(MainMenu.MAINMENU_SCENE);
+        MainMenu.goBack();
         logger.info("Loaded the main menu scene...");
     }
 }

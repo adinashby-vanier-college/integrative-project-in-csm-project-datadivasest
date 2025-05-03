@@ -1,6 +1,7 @@
 package edu.vanier.template.controllers;
 
 import edu.vanier.template.ui.BaseWindow;
+import edu.vanier.template.ui.MainMenu;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -59,9 +60,14 @@ public class QuestionEx3FXMLController {
         setButton(btnCheck, "Button_confirm", 5, 5);
         btnCheck.setOnAction(this::handleCheck);
         btnHelp.setOnAction(this::handleHelp);
+        btnBack.setOnAction(this::handleBack);
         getReactionProbs();
         generateNeutralizationProblems();
         lblQuestion.setText(currentQst);
+    }
+    private void handleBack(Event e) {
+        MainMenu.goBack();
+        logger.info("Back button clicked");
     }
     private void handleCheck(Event e) {
         try {

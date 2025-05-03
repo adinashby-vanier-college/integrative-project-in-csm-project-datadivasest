@@ -1,6 +1,5 @@
 package edu.vanier.template.controllers;
 
-import edu.vanier.template.ui.MainApp;
 import edu.vanier.template.ui.MainMenu;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -45,7 +44,7 @@ public class SettingsFXMLController {
         setButton(btnBack, "back", 5 , 5);
         setSizeBtn1(btnBack);
         MainMenu.setUI(borderPane, settingsImgView, "titles/settings.png");
-        btnBack.setOnAction(this::loadMainMenu);
+        btnBack.setOnAction(this::handleBack);
         btnQuit.setOnAction(this::quit);
 
         checkBoxThemeSong.setSelected(MainMenu.isMusicPlaying());
@@ -57,9 +56,9 @@ public class SettingsFXMLController {
             MainMenu.setMusicVolume(volume);
         });
     }
-    private void loadMainMenu(Event e) {
-        MainMenu.switchScene(MainMenu.MAINMENU_SCENE);
-        logger.info("Loaded the primary scene...");
+    private void handleBack(Event e) {
+        MainMenu.goBack();
+        logger.info("Going back...");
 
     }
     private void quit(ActionEvent e) {

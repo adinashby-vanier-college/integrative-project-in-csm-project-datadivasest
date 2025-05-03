@@ -25,8 +25,6 @@ public class World {
     static int widthScreen = (int) (BaseWindow.sceneWidth * 0.9);
     static int heightScreen = (int) (BaseWindow.sceneHeight * 0.9);
 
-    public void generateElements() {
-    }
     public static void generateElements(Family currentFamily, List<Platform> platformList, Portal portal) {
         if (currentFamily.getLayoutType().equals("A")) {
             setPlatformsTypeA(currentFamily, platformList);
@@ -38,7 +36,7 @@ public class World {
             setPlatformsType11(currentFamily, platformList);
             portal.setPositionX(BaseWindow.sceneWidth - 50);
             portal.setDestination(GAME_SCENE);
-            portal.setLevel(1);
+            portal.setLevel(11);
             portal.setHeight(BaseWindow.sceneHeight);
         } else if (currentFamily.getLayoutType().equals("1.2")) {
             setPlatformsType12(currentFamily, platformList);
@@ -48,7 +46,7 @@ public class World {
             setPlatformsType31(currentFamily, platformList);
             portal.setDestination(GAME_SCENE);
             portal.setPositionX(BaseWindow.sceneWidth - 50);
-            portal.setLevel(3);
+            portal.setLevel(31);
             portal.setHeight(BaseWindow.sceneHeight);
 
         } else if (currentFamily.getLayoutType().equals("3.2")) {

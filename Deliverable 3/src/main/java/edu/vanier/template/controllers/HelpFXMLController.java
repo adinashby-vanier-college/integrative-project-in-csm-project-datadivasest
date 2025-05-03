@@ -204,7 +204,8 @@ public class HelpFXMLController {
      */
     public void handleSettings(Event e) {
         System.out.println("Going to settings...");
-        MainMenu.switchScene(MainMenu.SETTINGS_SCENE);
+//        MainMenu.switchScene(MainMenu.SETTINGS_SCENE);
+        MainMenu.goBack();
         logger.info("Settings has been clicked...");
     }
 

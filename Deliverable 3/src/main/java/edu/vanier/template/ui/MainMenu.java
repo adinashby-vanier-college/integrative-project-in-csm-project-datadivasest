@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.ArrayDeque;
 import java.util.logging.Level;
 import javafx.scene.media.AudioClip;
 
@@ -84,6 +85,7 @@ public class MainMenu extends Application {
     public static Image backgroundImg = new Image(MainAppFXMLController.class.
             getResource("/images/Files/png/BG.png").toString());
     private static GameFXMLController gameController;
+    private static ArrayDeque<String> appFlow;
 
 
     @Override
@@ -105,9 +107,11 @@ public class MainMenu extends Application {
             // Load the scene of the primary stage.
             Parent root = FxUIHelper.loadFXML(MAINMENU_SCENE, new MainMenuFXMLController());
             scene = new Scene(root, BaseWindow.sceneWidth, BaseWindow.sceneHeight);
+            appFlow = new ArrayDeque<>();
             // Add the primary scene to the scene-switching controller.
             sceneController = new SceneController(scene);
             sceneController.addScene(MAINMENU_SCENE, root);
+            appFlow.add(MAINMENU_SCENE);
             primaryStage.setScene(scene);
             primaryStage.sizeToScene();
             primaryStage.setTitle("LET'S CHEM");
@@ -168,6 +172,13 @@ public class MainMenu extends Application {
 
     public static void setSceneController(SceneController sceneController) {
         MainMenu.sceneController = sceneController;
+    }
+    public static void goBack() {
+        if (appFlow.size() >= 2) {
+            appFlow.removeLast();
+            sceneController.activateScene(appFlow.getLast());
+            logger.info("Going back to" + appFlow.getLast());
+        }
     }
 
     /**
@@ -311,9 +322,7 @@ public class MainMenu extends Application {
                // The scene has been previously added, we activate it.
                 sceneController.activateScene(fxmlFileName);
             }
-                //TODO: You can register or activate additional scenes here,
-                //      based on the logic used to add the secondary scene (as shown above).
-
+            appFlow.add(fxmlFileName);
         }
         catch(IOException e){
             logger.error(e.getMessage(), e);
@@ -334,6 +343,7 @@ public class MainMenu extends Application {
                 }
                 // The scene has been previously added, we activate it.
                 sceneController.activateScene(fxmlFileName);
+                appFlow.add(fxmlFileName);
             }
         }
         catch(IOException e){

@@ -24,7 +24,7 @@ public class PeriodicTableFXMLController {
         setSizeBtn1(btnBack);
     }
     private void handleBack(Event e) {
-        MainMenu.switchScene(MainMenu.QUESTIONEX1_SCENE);
+        MainMenu.goBack();
         logger.info("Back button clicked");
     }
 }

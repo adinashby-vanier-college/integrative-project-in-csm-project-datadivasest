@@ -185,9 +185,8 @@ public class QuestionEx2FXMLController {
     }
 
     private void handleBack(Event e) {
-        MainMenu.switchScene(MainMenu.GAME_SCENE);
+        MainMenu.goBack();
         logger.info("Back button clicked");
-
     }
 
     private void loadCsvProblems() {

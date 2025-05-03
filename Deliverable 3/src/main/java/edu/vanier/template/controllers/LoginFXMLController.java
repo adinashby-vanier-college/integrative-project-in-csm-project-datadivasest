@@ -111,8 +111,8 @@ public class LoginFXMLController {
     private void handleBackBtn(Event e) {
         usernameLBtn.setText("");
         passwordLBtn.setText("");
-        MainMenu.switchScene(MainMenu.MAINMENU_SCENE);
-        logger.info("Loaded the main menu scene...");
+        MainMenu.goBack();
+        logger.info("Going back...");
     }
 
     /**

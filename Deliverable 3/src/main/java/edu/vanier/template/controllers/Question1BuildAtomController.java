@@ -126,7 +126,7 @@ public class Question1BuildAtomController {
 
     private void handleBack(Event e) {
         System.out.println("Going back to...");
-        MainMenu.switchScene(MainMenu.DIALOGUE_SCENE);
+        MainMenu.goBack();
         logger.info("Back button has been clicked...");
     }
     private void handleSettings(Event e) {

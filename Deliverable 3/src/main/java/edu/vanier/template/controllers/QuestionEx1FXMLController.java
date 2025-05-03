@@ -1,27 +1,18 @@
 package edu.vanier.template.controllers;
 
 import edu.vanier.template.models.Elements;
-import edu.vanier.template.models.Family;
 import edu.vanier.template.ui.MainMenu;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
-import javafx.scene.text.Text;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -69,7 +60,7 @@ public class QuestionEx1FXMLController {
         setButton(btnBack, "back", 5 ,5);
 
         // Set button actions
-        btnBack.setOnAction(this::loadSettingsScene);
+        btnBack.setOnAction(this::handleBack);
         btnCheck.setOnAction(this::handleCheck);
         btnPeriodicTable.setOnAction(this::loadPeriodicTableScene);
 
@@ -130,8 +121,8 @@ public class QuestionEx1FXMLController {
         MainMenu.switchScene(GAME_SCENE);
         logger.info("Skip button clicked");
     }
-    private void loadSettingsScene(Event e) {
-        MainMenu.switchScene(MainMenu.SETTINGS_SCENE);
+    private void handleBack(Event e) {
+        MainMenu.goBack();
         logger.info("Settings button clicked");
     }
     private void loadPeriodicTableScene(Event e) {

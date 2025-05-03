@@ -83,6 +83,7 @@ public class GameFXMLController {
     BackpackFXMLController backpackFXMLController;
     MapFXMLController mapFXMLController;
     private Portal portal;
+//    private Portal portalBack;
     private Canvas canvas;
     private String strPlayerImg;
     private Sprite platformFloor;
@@ -141,6 +142,14 @@ public class GameFXMLController {
         portal = new Portal((int)BaseWindow.sceneWidth - 100, (int)BaseWindow.sceneHeight - 100 - (int)platformFloor.getHeight(), 30, 100, imgPortal, QUESTIONEX2_SCENE);
         World.generateElements(currentFamily, platformList, portal);
     }
+//    void setPortalBack() {
+//        portalBack = new Portal(50, (int)BaseWindow.sceneHeight - 100 - (int)platformFloor.getHeight(), 30, 100, imgPortal, GAME_SCENE);
+//        if (currentFamily.equals(Family.LEVEL12))
+//            portalBack.setLevel(12);
+//        else
+//            portalBack.setLevel(32);
+//        portalBack.setHeight(BaseWindow.sceneHeight);
+//    }
 
     @FXML
     public void initialize() {
@@ -176,6 +185,8 @@ public class GameFXMLController {
         }
 
         setWorld();
+//        if (currentFamily.equals(Family.LEVEL12) || currentFamily.equals(Family.LEVEL32))
+//            setPortalBack();
         //user should first build the atom, below line directs them to build atom after collecting electrons and protons from the game scene
        // Portal portal = new Portal((int)BaseWindow.sceneWidth - 30, (int)BaseWindow.sceneHeight - 200 - (int)platformFloor.getHeight(), 30, 200, imgPortal, QUESTION1BUILDATOM);
         //-- Create and configure the media player.
@@ -375,6 +386,7 @@ public class GameFXMLController {
                 gc.clearRect(0, 0, canvasWidth, canvasHeight);
                 player.render(gc);
                 portal.render(gc);
+//                portalBack.render(gc);
                 for (Sprite electron : sprite1List) {
                     electron.render(gc);
                 }
@@ -508,7 +520,7 @@ public class GameFXMLController {
 */
     private void handleBack(Event e) {
         System.out.println("Going back to...");
-        MainMenu.switchScene(MainMenu.DIALOGUE_SCENE);
+        MainMenu.goBack();
         logger.info("Back button has been clicked...");
     }
     private void handleSettings(Event e) {
