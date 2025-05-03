@@ -16,8 +16,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-import static edu.vanier.template.ui.MainMenu.setButton;
-import static edu.vanier.template.ui.MainMenu.setSizeBtn1;
+import static edu.vanier.template.ui.MainMenu.*;
 
 /**
  * @author Sofia Martinez
@@ -53,6 +52,8 @@ public class CreateAccountFXMLController {
         logger.info("Initializing CreateAccountController...");
         setButton(backBtn, "back", 5 , 5);
         setSizeBtn1(backBtn);
+        setBackground(borderPane);
+        MainMenu.setUI(borderPane, signUpImgView, "titles/signUp.png");
         createAccCABtn.setOnAction(this::handleCreateAccountBtn);
         backBtn.setOnAction(this::handleBackBtn);
         //MainMenu.setUI(borderPane, signUpImgView, "signUp.png");

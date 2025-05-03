@@ -44,7 +44,7 @@ public class MainMenuFXMLController {
         loginBtn.setOnAction(this::loadLoginScene);
         createAccountBtn.setOnAction(this::loadCreateAccountScene);
         settingsBtn.setOnAction(this::loadSettingsScene);
-        MainMenu.setUI(borderPane, titleImgView, "title.png");
+        MainMenu.setUI(borderPane, titleImgView, "titles/title.png");
 
 //        setButton(loginBtn, "login");
 //        setButton(createAccountBtn, "createAcc");

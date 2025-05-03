@@ -66,7 +66,7 @@ public class LoginFXMLController {
         loginLBtn.setOnAction(this::handleLoginBtn);
         createAccLBtn.setOnAction(this::handleCreateAccountBtn);
         backBtn.setOnAction(this::handleBackBtn);
-        MainMenu.setUI(borderPane, signInImgView, "signIn.png");
+        MainMenu.setUI(borderPane, signInImgView, "titles/signIn.png");
         vBox.setMaxWidth(BaseWindow.sceneWidth * 0.5);
     }
 

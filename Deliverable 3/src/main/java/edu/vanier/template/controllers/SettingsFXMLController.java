@@ -44,7 +44,7 @@ public class SettingsFXMLController {
 
         setButton(btnBack, "back", 5 , 5);
         setSizeBtn1(btnBack);
-        MainMenu.setUI(borderPane, settingsImgView, "settings.png");
+        MainMenu.setUI(borderPane, settingsImgView, "titles/settings.png");
         btnBack.setOnAction(this::loadMainMenu);
         btnQuit.setOnAction(this::quit);
 
