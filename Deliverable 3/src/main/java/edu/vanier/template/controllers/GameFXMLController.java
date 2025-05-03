@@ -106,34 +106,6 @@ public class GameFXMLController {
         this.animation = animation;
     }
 
-    public void setWorldSprites(List<Platform> platformList) {
-        if (currentFamily.getLayoutType().equals("A")) {
-            Platform.setPlatformsTypeA(currentFamily, platformList);
-        } else if (currentFamily.getLayoutType().equals("B")) {
-            Platform.setPlatformsTypeB(currentFamily, platformList);
-        } else if (currentFamily.getLayoutType().equals("C")) {
-            Platform.setPlatformsTypeC(currentFamily, platformList);
-        } else if (currentFamily.getLayoutType().equals("1.1")) {
-            Platform.setPlatformsType11(currentFamily, platformList);
-            portal.setPositionX(BaseWindow.sceneWidth - 50);
-            portal.setDestination(GAME_SCENE);
-            portal.setLevel(1);
-            portal.setHeight(BaseWindow.sceneHeight);
-        } else if (currentFamily.getLayoutType().equals("1.2")) {
-            Platform.setPlatformsType12(currentFamily, platformList);
-        } else if (currentFamily.getLayoutType().equals("2")) {
-            Platform.setPlatformsType2(currentFamily, platformList);
-        } else if (currentFamily.getLayoutType().equals("3.1")) {
-            Platform.setPlatformsType31(currentFamily, platformList);
-            portal.setDestination(GAME_SCENE);
-            portal.setPositionX(BaseWindow.sceneWidth - 50);
-            portal.setLevel(3);
-            portal.setHeight(BaseWindow.sceneHeight);
-
-        } else if (currentFamily.getLayoutType().equals("3.2")) {
-            Platform.setPlatformsType32(currentFamily, platformList);
-        }
-    }
     public void setPortalDestination() {
         switch (currentFamily) {
             case LEVEL11 -> portal.setDestination(GAME_SCENE);
@@ -167,7 +139,7 @@ public class GameFXMLController {
         canvas = new Canvas(BaseWindow.sceneWidth, BaseWindow.sceneHeight);
         mainPane.getChildren().addAll(canvas, platformFloor);
         portal = new Portal((int)BaseWindow.sceneWidth - 100, (int)BaseWindow.sceneHeight - 100 - (int)platformFloor.getHeight(), 30, 100, imgPortal, QUESTIONEX2_SCENE);
-        setWorldSprites(platformList);
+        World.generateElements(currentFamily, platformList, portal);
     }
 
     @FXML
