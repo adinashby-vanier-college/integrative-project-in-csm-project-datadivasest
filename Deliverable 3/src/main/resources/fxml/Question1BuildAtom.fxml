@@ -5,6 +5,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
@@ -12,8 +13,11 @@
    <center>
       <VBox alignment="CENTER" prefHeight="323.0" prefWidth="600.0">
          <children>
-            <Text fx:id="questionTxt" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-            <ImageView fx:id="atomImg" fitHeight="500.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true" translateX="50.0" translateY="50.0" />
+            <Text fx:id="questionTxt" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" translateY="-20.0">
+               <font>
+                  <Font name="System Bold" size="30.0" />
+               </font></Text>
+            <ImageView fx:id="atomImg" fitHeight="495.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true" translateX="35.0" />
             <Button fx:id="checkBtn" mnemonicParsing="false" text="Check" />
          </children>
       </VBox>
@@ -22,18 +26,17 @@
    <top>
       <HBox alignment="CENTER">
          <children>
-            <HBox alignment="CENTER_RIGHT">
+            <HBox alignment="CENTER_RIGHT" translateX="-50.0">
                <children>
-                  <Button fx:id="btnBack" mnemonicParsing="false" text="&lt;" />
+                  <Button fx:id="btnBack" mnemonicParsing="false" prefHeight="43.0" prefWidth="43.0" text="&lt;" />
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="441.0">
+            <HBox fx:id="menuHBox" alignment="CENTER" prefHeight="100.0" prefWidth="441.0" spacing="25.0">
                <children>
-                  <Button fx:id="btnMap" mnemonicParsing="false" text="Map" />
-                  <Button fx:id="backpackBtn" mnemonicParsing="false" text="Backpack" />
-                  <Button fx:id="btnHelp" mnemonicParsing="false" text="Help" />
-                  <Button fx:id="btnSettings" mnemonicParsing="false" text="Setting" />
-                  <ImageView fitHeight="26.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                  <Button fx:id="btnMap" mnemonicParsing="false" prefHeight="40.0" prefWidth="69.0" text="Map" />
+                  <Button fx:id="backpackBtn" mnemonicParsing="false" prefHeight="40.0" prefWidth="87.0" text="Backpack" />
+                  <Button fx:id="btnHelp" mnemonicParsing="false" prefHeight="40.0" prefWidth="59.0" text="Help" />
+                  <Button fx:id="btnSettings" mnemonicParsing="false" prefHeight="41.0" prefWidth="69.0" text="Setting" />
                </children>
             </HBox>
          </children>
