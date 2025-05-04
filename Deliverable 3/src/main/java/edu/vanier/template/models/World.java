@@ -23,6 +23,7 @@ public class World {
     private String chemistryTheme;
     private ArrayList <String> obstacles;
     private ArrayList <String> portals;
+
     private static Image electronImg = getImage("Electron.png");
     private static Image protonImg= getImage("Proton.png");
 
@@ -31,37 +32,30 @@ public class World {
     static int heightScreen = (int) (BaseWindow.sceneHeight * 0.9);
 
     public static void generateElements(Family currentFamily, List<Platform> platformList, Portal portal) {
-        if (currentFamily.getLayoutType().equals("A")) {
-            setPlatformsTypeA(currentFamily, platformList);
-        } else if (currentFamily.getLayoutType().equals("B")) {
-            setPlatformsTypeB(currentFamily, platformList);
-        } else if (currentFamily.getLayoutType().equals("C")) {
-            setPlatformsTypeC(currentFamily, platformList);
-        } else if (currentFamily.getLayoutType().equals("1.1")) {
-            setPlatformsType11(currentFamily, platformList);
-            portal.setPositionX(BaseWindow.sceneWidth - 50);
-            portal.setDestination(GAME_SCENE);
-            portal.setLevel(11);
-            portal.setHeight(BaseWindow.sceneHeight);
-        } else if (currentFamily.getLayoutType().equals("1.2")) {
-            setPlatformsType12(currentFamily, platformList);
-        } else if (currentFamily.getLayoutType().equals("2")) {
-            setPlatformsType2(currentFamily, platformList);
-        } else if (currentFamily.getLayoutType().equals("3.1")) {
-            setPlatformsType31(currentFamily, platformList);
-            portal.setDestination(GAME_SCENE);
-            portal.setPositionX(BaseWindow.sceneWidth - 50);
-            portal.setLevel(31);
-            portal.setHeight(BaseWindow.sceneHeight);
-
-        } else if (currentFamily.getLayoutType().equals("3.2")) {
-            setPlatformsType32(currentFamily, platformList);
+        switch (currentFamily.getLayoutType()) {
+            case "A" -> setPlatformsTypeA(currentFamily, platformList);
+            case "B" -> setPlatformsTypeB(currentFamily, platformList);
+            case "C" -> setPlatformsTypeC(currentFamily, platformList);
+            case "1.1" -> {
+                setPlatformsType11(currentFamily, platformList);
+                portal.setPositionX(BaseWindow.sceneWidth - 50);
+                portal.setDestination(GAME_SCENE);
+                portal.setLevel(11);
+                portal.setHeight(BaseWindow.sceneHeight);
+            }
+            case "1.2" -> setPlatformsType12(currentFamily, platformList);
+            case "2" -> setPlatformsType2(currentFamily, platformList);
+            case "3.1" -> {
+                setPlatformsType31(currentFamily, platformList);
+                portal.setDestination(GAME_SCENE);
+                portal.setPositionX(BaseWindow.sceneWidth - 50);
+                portal.setLevel(31);
+                portal.setHeight(BaseWindow.sceneHeight);
+            }
+            case "3.2" -> setPlatformsType32(currentFamily, platformList);
         }
     }
 
-    public void displayInfo() {
-
-    }
     /**
      * Sets size and location for platforms of type A
      */
@@ -223,13 +217,54 @@ public class World {
         //TODO add the acid to the top layer so we can see it
     }
 
-    public static void setSprites() {
-        for (int i = 0; i < 15; i++) {
-            initSprite("electron", electronImg, sprite1, sprite1List);
-            initSprite("proton", protonImg, sprite2, sprite2List);
+    public static void setSprites(Family currentFamily,
+                                  Sprite sprite1, Sprite sprite2, Sprite sprite3, Sprite sprite4,
+                                  List<Sprite> sprite1List, List<Sprite> sprite2List,
+                                  List<Sprite> sprite3List, List<Sprite> sprite4List) {
+        switch (currentFamily.getName()) {
+            case "alkaliMetal" -> setAlkaliSprites();
+            case "alkalineEarthMetal" -> setAlkalineEMSprites();
+            case "transitionMetal3" -> setTM3Sprites();
+            case "transitionMetal4" -> setTM4Sprites();
+            case "transitionMetal5" -> setTM5Sprites();
+            case "transitionMetal6" -> setTM6Sprites();
+            case "halogens" -> setHalogensSprites();
+            case "nobleGas" -> setNobleGasSprites();
+            case "noFamily" -> setLevelSprites(sprite1, sprite2, sprite1List, sprite2List);
         }
     }
 
+    public static void setAlkaliSprites() {
+
+    }
+    public static void setAlkalineEMSprites() {
+
+    }
+    public static void setTM3Sprites() {
+
+    }
+    public static void setTM4Sprites() {
+
+    }
+    public static void setTM5Sprites() {
+
+    }
+    public static void setTM6Sprites() {
+
+    }
+
+    public static void setHalogensSprites() {
+
+    }
+    public static void setNobleGasSprites() {
+
+    }
+    public static void setLevelSprites(Sprite sprite1, Sprite sprite2, List<Sprite> sprite1List, List<Sprite> sprite2List) {
+        for (int i = 0; i < 15; i++) {
+            initSprite("electron", electronImg, sprite1, sprite1List);
+            initSprite("proton", protonImg, sprite2,  sprite2List);
+        }
+    }
     private static void initSprite(String type, Image image, Sprite sprite, List<Sprite> spriteList) {
         sprite = new Sprite(type, image);
         sprite.setImage(image);

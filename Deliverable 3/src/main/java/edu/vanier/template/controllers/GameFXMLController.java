@@ -95,14 +95,14 @@ public class GameFXMLController {
     private Image imgPortal;
     private double volume;
     private boolean isSound;
-    public static List<Sprite> sprite1List = new ArrayList<>();
-    public static List<Sprite> sprite2List = new ArrayList<>();
-    public static List<Sprite> sprite3List = new ArrayList<>();
-    public static List<Sprite> sprite4List = new ArrayList<>();
-    public static Sprite sprite1;
-    public static Sprite sprite2;
-    public static Sprite sprite3;
-    public static Sprite sprite4;
+    public List<Sprite> sprite1List = new ArrayList<>();
+    public List<Sprite> sprite2List = new ArrayList<>();
+    public List<Sprite> sprite3List = new ArrayList<>();
+    public List<Sprite> sprite4List = new ArrayList<>();
+    public Sprite sprite1;
+    public Sprite sprite2;
+    public Sprite sprite3;
+    public Sprite sprite4;
 
     public GameFXMLController(Family currentFamily) {
         this.currentFamily = currentFamily;
@@ -201,6 +201,7 @@ public class GameFXMLController {
             proton.render(gc);
         }
     }
+
     @FXML
     public void initialize() {
         logger.info("Initializing Game Controller...");
@@ -262,7 +263,7 @@ public class GameFXMLController {
         player.setBounds(0,(int) canvas.getWidth(), 0,
                 (int) canvas.getHeight() - (int) platformFloor.getHeight());
 
-        setSprites();
+        setSprites(currentFamily, sprite1, sprite2, sprite3, sprite4, sprite1List, sprite2List, sprite3List , sprite4List);
 
         animation = new AnimationTimer() {
             private boolean isJumping = false;
@@ -441,6 +442,7 @@ public class GameFXMLController {
             event.consume();
         });
     }
+
     /*
         @FXML
         public void setUpGridPane() {
