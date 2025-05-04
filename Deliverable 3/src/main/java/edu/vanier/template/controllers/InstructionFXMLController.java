@@ -65,6 +65,9 @@ public class InstructionFXMLController {
         //nextBtn.setMinSize(BaseWindow.sceneWidth * 0.10, BaseWindow.sceneHeight * 0.05);
     }
 
+    public void setUI() {
+        setBackground(borderPaneBg);
+    }
     /**
      * Brings users to the proper next scene
      * @param e

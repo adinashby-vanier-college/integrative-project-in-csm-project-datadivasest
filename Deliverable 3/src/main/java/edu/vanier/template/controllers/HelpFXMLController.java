@@ -22,8 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static edu.vanier.template.ui.MainMenu.setSizeBtn;
-import static edu.vanier.template.ui.MainMenu.setSizeImg;
+import static edu.vanier.template.ui.MainMenu.*;
 
 /**
  * @author Tabasuum
@@ -82,13 +81,14 @@ public class HelpFXMLController {
 
         Image backgroundImg = new Image(MainAppFXMLController.class.
                 getResource("/images/Files/png/BG.png").toString());
-        BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, true, true, false, true);
-
-        borderPaneBg.setBackground(new Background(new BackgroundImage(backgroundImg,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.CENTER,
-                bSize)));
+        setBackground(borderPaneBg);
+//        BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, true, true, false, true);
+//
+//        borderPaneBg.setBackground(new Background(new BackgroundImage(backgroundImg,
+//                BackgroundRepeat.NO_REPEAT,
+//                BackgroundRepeat.NO_REPEAT,
+//                BackgroundPosition.CENTER,
+//                bSize)));
         helpContents.put(periodsBtn, new HelpContent( "Periods and Families",
                 "What Are Periods?\n\nPeriods are horizontal rows in the periodic table. Each element in a period has the same number of atomic orbitals.\n\n" +
                         "**Periods vs Families**:\n- Periods = Rows → number of shells\n- Families = Columns → number of valence electrons\n\n" +
@@ -162,6 +162,9 @@ public class HelpFXMLController {
         for (Button btn : buttons) {
             setSizeBtn(btn);
         }
+    }
+    public void setUI() {
+        setBackground(borderPaneBg);
     }
 
     private void showHelpContent(HelpContent content) {

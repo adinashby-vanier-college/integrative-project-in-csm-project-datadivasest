@@ -60,6 +60,9 @@ public class CreateAccountFXMLController {
         vBox.setMaxWidth(BaseWindow.sceneWidth * 0.5);
     }
 
+    public void setUI() {
+        setBackground(borderPane);
+    }
     /**
      * directs user to the diologue page
      * @param e is the event if the user clicks on the create account button

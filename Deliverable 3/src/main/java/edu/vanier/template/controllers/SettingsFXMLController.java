@@ -1,6 +1,5 @@
 package edu.vanier.template.controllers;
 
-import com.sun.tools.javac.Main;
 import edu.vanier.template.ui.MainMenu;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -23,9 +22,8 @@ public class SettingsFXMLController {
     CheckBox checkBoxThemeSong;
     @FXML
     CheckBox checkBoxSound;
-    // TODO: NightMode
     @FXML
-    CheckBox checkboxNightMode;
+    CheckBox checkBoxNightMode;
     @FXML
     Slider sliderVolume;
     @FXML
@@ -47,6 +45,8 @@ public class SettingsFXMLController {
         btnBack.setOnAction(this::handleBack);
         btnQuit.setOnAction(this::quit);
 
+        checkBoxNightMode.setSelected(false);
+        checkBoxNightMode.setOnAction(this::toggleNightMode);
         checkBoxThemeSong.setSelected(MainMenu.isMusicPlaying());
         checkBoxThemeSong.setOnAction(this::toggleThemeSong);
 
@@ -60,6 +60,9 @@ public class SettingsFXMLController {
             if (MainMenu.getGameController() != null)
                 MainMenu.getGameController().setVolume(volume);
         });
+    }
+    public void setUI() {
+        MainMenu.setBackground(borderPane);
     }
     private void handleBack(Event e) {
         MainMenu.goBack();
@@ -80,6 +83,11 @@ public class SettingsFXMLController {
         boolean play = checkBoxSound.isSelected();
         MainMenu.toggleSound(play);
         logger.info("In game sound: " + (play ? "Playing" : "Stopped"));
+    }
+    private void toggleNightMode(ActionEvent e) {
+        boolean play = checkBoxNightMode.isSelected();
+        MainMenu.toggleNightMode(play);
+        logger.info("In game background: " + (play ? "Playing" : "Stopped"));
     }
 
 }

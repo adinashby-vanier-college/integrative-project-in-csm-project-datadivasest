@@ -79,6 +79,9 @@ public class QuestionEx1FXMLController {
                 + "and in period " + currentElement.getPeriod();
         lblQuestion.setText(currentQuestion);
     }
+    public void setUI(){
+        setBackground(borderPane);
+    }
 
     private void handleIncrease(Event e) {
         if (!inputField.getText().isEmpty()) {

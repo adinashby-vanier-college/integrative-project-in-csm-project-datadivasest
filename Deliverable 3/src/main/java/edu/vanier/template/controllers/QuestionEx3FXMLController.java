@@ -65,6 +65,9 @@ public class QuestionEx3FXMLController {
         generateNeutralizationProblems();
         lblQuestion.setText(currentQst);
     }
+    public void setUI() {
+        setBackground(borderPane);
+    }
     private void handleBack(Event e) {
         MainMenu.goBack();
         logger.info("Back button clicked");

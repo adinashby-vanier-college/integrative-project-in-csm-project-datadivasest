@@ -77,6 +77,9 @@ public class MainMenuFXMLController {
         MainMenu.switchScene(MainMenu.SETTINGS_SCENE);
         logger.info("Loaded the settings scene...");
     }
+    public void setUI() {
+        MainMenu.setUI(borderPane, titleImgView, "titles/title.png");
+    }
 
     //TODO:
     // do I need to make an exit button,

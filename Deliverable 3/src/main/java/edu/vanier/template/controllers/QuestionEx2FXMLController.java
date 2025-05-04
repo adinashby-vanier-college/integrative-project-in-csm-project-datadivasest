@@ -63,7 +63,9 @@ public class QuestionEx2FXMLController {
         btnHelp.setOnAction(this::handleHelp);
 
     }
-
+    public void setUI() {
+        setBackground(borderPane);
+    }
     private void loadMolarMasses() {
         try (InputStream is = getClass().getResourceAsStream("/database/periodicTable.csv");
              BufferedReader br = new BufferedReader(new InputStreamReader(is))) {

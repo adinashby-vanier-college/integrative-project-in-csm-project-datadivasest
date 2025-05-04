@@ -103,6 +103,10 @@ public class BackpackFXMLController {
         }
     }
 
+    public void setUI() {
+        setBackground(backpackGridPane);
+        setBackground(backpackPane);
+    }
     @FXML
     //set up the grid pane first in the table, then add the object then implement the removal
     public void setUpGridPane() {

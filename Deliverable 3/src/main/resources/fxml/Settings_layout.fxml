@@ -39,7 +39,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                <children>
-                  <Label text="Sound">
+                  <Label text="In-game Sounds">
                      <font>
                         <Font size="20.0" />
                      </font>

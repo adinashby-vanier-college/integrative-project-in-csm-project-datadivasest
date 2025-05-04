@@ -69,7 +69,9 @@ public class LoginFXMLController {
         MainMenu.setUI(borderPane, signInImgView, "titles/signIn.png");
         vBox.setMaxWidth(BaseWindow.sceneWidth * 0.5);
     }
-
+    public void setUI() {
+        MainMenu.setBackground(borderPane);
+    }
 
     /**
      * checks login information is correct,

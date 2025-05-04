@@ -60,6 +60,10 @@ public class SceneController {
         }
     }
 
+    public HashMap<String, Parent> getScenesMap() {
+        return scenesMap;
+    }
+
     /**
      * Activates a scene by changing the root of the main scene to the specified
      * scene's root.

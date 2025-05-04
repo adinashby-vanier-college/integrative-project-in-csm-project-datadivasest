@@ -39,4 +39,7 @@ public class PeriodicTableFXMLController {
         MainMenu.goBack();
         logger.info("Back button clicked");
     }
+    public void setUI() {
+        setBackground(borderPane);
+    }
 }
