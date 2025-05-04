@@ -38,6 +38,7 @@ import java.io.IOException;
 import java.util.*;
 
 import static edu.vanier.template.controllers.SceneController.input;
+import static edu.vanier.template.models.World.setSprites;
 import static edu.vanier.template.ui.MainMenu.*;
 
 public class GameFXMLController {
@@ -87,8 +88,6 @@ public class GameFXMLController {
     private Canvas canvas;
     private String strPlayerImg;
     private Sprite platformFloor;
-    private Image electronImg;
-    private Image protonImg;
     private String strPlayerFlippedImg;
     private ArrayList<Platform> platformList;
     private Image imgPlatformFloor;
@@ -96,9 +95,14 @@ public class GameFXMLController {
     private Image imgPortal;
     private double volume;
     private boolean isSound;
-    List<Sprite> sprite1List = new ArrayList<>();
-    List<Sprite> sprite2List = new ArrayList<>();
-
+    public static List<Sprite> sprite1List = new ArrayList<>();
+    public static List<Sprite> sprite2List = new ArrayList<>();
+    public static List<Sprite> sprite3List = new ArrayList<>();
+    public static List<Sprite> sprite4List = new ArrayList<>();
+    public static Sprite sprite1;
+    public static Sprite sprite2;
+    public static Sprite sprite3;
+    public static Sprite sprite4;
 
     public GameFXMLController(Family currentFamily) {
         this.currentFamily = currentFamily;
@@ -135,8 +139,6 @@ public class GameFXMLController {
                 getResource("/images/player.gif").toString();
         strPlayerFlippedImg = MainAppFXMLController.class.
                 getResource("/images/playerFlipped.gif").toString();
-        electronImg = getImage("Electron.png");
-        protonImg = getImage("Proton.png");
         setBackground(borderPane, currentFamily.getName()+"/background.png");
 
         platformList = new ArrayList<>();
@@ -154,30 +156,6 @@ public class GameFXMLController {
 //            portalBack.setLevel(32);
 //        portalBack.setHeight(BaseWindow.sceneHeight);
 //    }
-public void setSprites() {
-    //TODO: Generalize this code from being electrons and protons to being any sprite
-    for (int i = 0; i < 15; i++) {
-        //TODO: generalize
-        Sprite electron = new Sprite("electron", electronImg);
-        Sprite proton = new Sprite("proton", protonImg);
-        electron.setSize(30 * BaseWindow.sceneHeight / 770);
-        proton.setSize(30 * BaseWindow.sceneHeight / 770);
-        electron.setImage(electronImg);
-        proton.setImage(protonImg);
-
-        //position should be set with  the rest of the platforms
-        double px1 = BaseWindow.sceneWidth * 0.7 * Math.random() + 50;
-        double py1 = BaseWindow.sceneHeight * 0.7 * Math.random() + 50;
-
-        double px = BaseWindow.sceneWidth * 0.7 * Math.random() + 50;
-        double py = BaseWindow.sceneHeight * 0.7 * Math.random() + 50;
-
-        electron.setPosition(px1, py1);
-        proton.setPosition(px, py);
-        sprite2List.add(proton);
-        sprite1List.add(electron);
-    }
-}
 
     public void renderSprites(Player player, GraphicsContext gc) {
         Iterator<Sprite> sprite1Iter = sprite1List.iterator();
@@ -285,7 +263,7 @@ public void setSprites() {
                 (int) canvas.getHeight() - (int) platformFloor.getHeight());
 
         setSprites();
-d
+
         animation = new AnimationTimer() {
             private boolean isJumping = false;
             private boolean isFalling = false;

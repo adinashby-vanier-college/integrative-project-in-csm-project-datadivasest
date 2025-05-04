@@ -8,7 +8,9 @@ import javax.sound.sampled.Port;
 import java.util.ArrayList;
 import java.util.List;
 
+import static edu.vanier.template.controllers.GameFXMLController.*;
 import static edu.vanier.template.ui.MainMenu.GAME_SCENE;
+import static edu.vanier.template.ui.MainMenu.getImage;
 
 /**
  * World-class
@@ -21,6 +23,9 @@ public class World {
     private String chemistryTheme;
     private ArrayList <String> obstacles;
     private ArrayList <String> portals;
+    private static Image electronImg = getImage("Electron.png");
+    private static Image protonImg= getImage("Proton.png");
+
     //ensures there is proper white space
     static int widthScreen = (int) (BaseWindow.sceneWidth * 0.9);
     static int heightScreen = (int) (BaseWindow.sceneHeight * 0.9);
@@ -60,7 +65,7 @@ public class World {
     /**
      * Sets size and location for platforms of type A
      */
-    public static void setPlatformsTypeA(Family currentFamily, List<Platform> platformList) {
+    private static void setPlatformsTypeA(Family currentFamily, List<Platform> platformList) {
         addPlatform(currentFamily, platformList, 0.0, 0.40, 800,400);
         addPlatform(currentFamily, platformList, 0.2, 0.70, 500,600);
         addPlatform(currentFamily, platformList, 0.25, 0.50, 80,400);
@@ -73,7 +78,7 @@ public class World {
     /**
      * Sets size and location for platforms of type B
      */
-    public static void setPlatformsTypeB(Family currentFamily, List<Platform> platformList) {
+    private static void setPlatformsTypeB(Family currentFamily, List<Platform> platformList) {
         addPlatform(currentFamily, platformList, 0.10, 0.80, 150,400);
         addPlatform(currentFamily, platformList, 0.50, 0.70, 100,500);
         addPlatform(currentFamily, platformList, 0.30, 0.45, 80,300);
@@ -85,7 +90,7 @@ public class World {
     /**
      * Sets size and location for platforms of type C
      */
-    public static void setPlatformsTypeC(Family currentFamily, List<Platform> platformList) {
+    private static void setPlatformsTypeC(Family currentFamily, List<Platform> platformList) {
         addPlatform(currentFamily, platformList, 0.05, 0.90, 100,300);
         addPlatform(currentFamily, platformList, 0.45, 0.35, 100,200);
         addPlatform(currentFamily, platformList, 0.65, 0.30, 100,250);
@@ -99,7 +104,7 @@ public class World {
     /**
      * Sets size and location for platforms for first part of Level 1
      */
-    public static void setPlatformsType11(Family currentFamily, List<Platform> platformList) {
+    private static void setPlatformsType11(Family currentFamily, List<Platform> platformList) {
         addPlatform(currentFamily, platformList, 0.0, 0.30, 80,400);
         addPlatform(currentFamily, platformList, 0.20, 0.50, 80,600);
         addPlatform(currentFamily, platformList, 0.60, 0.70, 80,400);
@@ -111,7 +116,7 @@ public class World {
     /**
      * Sets size and location for platforms for second part of Level 1
      */
-    public static void setPlatformsType12(Family currentFamily, List<Platform> platformList) {
+    private static void setPlatformsType12(Family currentFamily, List<Platform> platformList) {
         addPlatform(currentFamily, platformList, 0.05, 0.60, 80,400);
         addPlatform(currentFamily, platformList, 0.70, 0.60, 80,500);
         addPlatform(currentFamily, platformList, 0.40, 0.45, 50,400);
@@ -124,7 +129,7 @@ public class World {
     /**
      * Sets size and location for platforms for Level 2
      */
-    public static void setPlatformsType2(Family currentFamily, List<Platform> platformList) {
+    private static void setPlatformsType2(Family currentFamily, List<Platform> platformList) {
         addPlatform(currentFamily, platformList, 0.1, 0.85, 100,700);
         addPlatform(currentFamily, platformList, 0.3, 0.80, 200,200);
         addPlatform(currentFamily, platformList, 0.15, 0.50, 80,500);
@@ -150,7 +155,7 @@ public class World {
      * Sets size and location for platforms for first part of Level 3
      * Neutralization
      */
-    public static void setPlatformsType31(Family currentFamily, List<Platform> platformList) {
+    private static void setPlatformsType31(Family currentFamily, List<Platform> platformList) {
         addPlatform(currentFamily, platformList, 0.0, 0.50, 600,500);
         addPlatform(currentFamily, platformList, 0.8, 0.95, 100,700);
         addAcidPlatform(platformList, 0.5, 300); //reacts differently
@@ -159,7 +164,7 @@ public class World {
     /**
      * Sets size and location for platforms for second part of Level 3
      */
-    public static void setPlatformsType32(Family currentFamily, List<Platform> platformList) {
+    private static void setPlatformsType32(Family currentFamily, List<Platform> platformList) {
         addPlatform(currentFamily, platformList, 0.00, 0.40, 100,400);
         addPlatform(currentFamily, platformList, 0.40, 0.150, 100,300);
         addPlatform(currentFamily, platformList, 0.90, 0.20, 100,600);
@@ -218,4 +223,24 @@ public class World {
         //TODO add the acid to the top layer so we can see it
     }
 
+    public static void setSprites() {
+        for (int i = 0; i < 15; i++) {
+            initSprite("electron", electronImg, sprite1, sprite1List);
+            initSprite("proton", protonImg, sprite2, sprite2List);
+        }
+    }
+
+    private static void initSprite(String type, Image image, Sprite sprite, List<Sprite> spriteList) {
+        sprite = new Sprite(type, image);
+        sprite.setImage(image);
+
+        sprite.setSize(30 * BaseWindow.sceneHeight / 770);
+
+        //position should be set with  the rest of the platforms
+        double px = BaseWindow.sceneWidth * 0.7 * Math.random() + 50;
+        double py = BaseWindow.sceneHeight * 0.7 * Math.random() + 50;
+
+        sprite.setPosition(px, py);
+        spriteList.add(sprite);
+    }
 }
