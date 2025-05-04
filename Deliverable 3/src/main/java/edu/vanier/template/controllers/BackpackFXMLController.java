@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollBar;
@@ -74,8 +75,15 @@ public class BackpackFXMLController {
     private int powerUpCounter;
     private int chocolatePowerUpCounter;
     private int numRows;
+    private Scene scene;
 
-    //TODO: when done, do a drag and drop of the items into the game scene
+    public Scene getScene() {
+        return scene;
+    }
+
+    public void setScene(Scene scene) {
+        this.scene = scene;
+    }
 
     /**
      * actions performed with the backpack
@@ -83,8 +91,8 @@ public class BackpackFXMLController {
     public void initialize() {
         logger.info("initializing backpack");
         doneBtn.setOnAction(this::handleDoneBtn);
-        setBackground(backpackGridPane);
-        setBackground(backpackPane);
+        //setBackground(backpackGridPane);
+       // setBackground(backpackPane);
 
         /* both done and exit will lead to the same next Scene, they should both go to the scene they were
         last on. In case the user presses the backpack by accident, they can exit it without having to take anything
@@ -103,10 +111,12 @@ public class BackpackFXMLController {
         }
     }
 
-    public void setUI() {
+    /*public void setUI() {
         setBackground(backpackGridPane);
         setBackground(backpackPane);
     }
+
+     */
     @FXML
     //set up the grid pane first in the table, then add the object then implement the removal
     public void setUpGridPane() {

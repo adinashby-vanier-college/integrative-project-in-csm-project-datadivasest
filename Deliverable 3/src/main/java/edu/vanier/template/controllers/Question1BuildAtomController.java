@@ -1,5 +1,6 @@
 package edu.vanier.template.controllers;
 
+import edu.vanier.template.helpers.BackpackHelper;
 import edu.vanier.template.models.Elements;
 import edu.vanier.template.ui.BaseWindow;
 import edu.vanier.template.ui.MainMenu;
@@ -46,18 +47,10 @@ public class Question1BuildAtomController {
     Pane backpackPane;
 
     public Stage backpackStage;
-    BackpackFXMLController backpackFXMLController;
-    MapFXMLController mapFXMLController;
-    QuestionEx1FXMLController questionEx1FXMLController;
+    public BackpackFXMLController backpack;
+    public MapFXMLController mapFXMLController;
+    public QuestionEx1FXMLController questionEx1FXMLController;
     private Elements currentElement;
-
-    public Elements getCurrentElement() {
-        return currentElement;
-    }
-
-    public void setCurrentElement(Elements element) {
-        this.currentElement = element;
-    }
 
     @FXML
     public void initialize() {
@@ -67,6 +60,7 @@ public class Question1BuildAtomController {
 
         //Buttons
         btnBack.setOnAction(this::handleBack);
+        btnBack.setLayoutX(BaseWindow.sceneWidth * 0.1);
         btnSettings.setOnAction(this::handleSettings);
         btnMap.setOnAction(this::handleMapButton);
         btnHelp.setOnAction(this::handleHelpButton);
@@ -93,7 +87,7 @@ public class Question1BuildAtomController {
         if(baseAtomImage != null) {
             atomImg.setImage(baseAtomImage);
             //atomImg = new ImageView(baseAtomImage);
-            System.out.println("showing image: " + backgroundImg.getUrl());
+            System.out.println("showing image: " + baseAtomImage.getUrl());
         }
 
         else {
@@ -103,25 +97,7 @@ public class Question1BuildAtomController {
             atomImg.setImage(image);
         }
         atomImg.setFitWidth(500);
-        atomImg.setFitHeight(500);
-
-
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/BackpackScene.fxml"));
-            //loader.setController(this);
-            Parent root = loader.load();
-            backpackFXMLController = loader.getController();
-            backpackStage = new Stage();
-            backpackStage.setTitle("Backpack");
-            Scene backpackScene = new Scene(root, 460, 574);
-            backpackStage.setScene(backpackScene);
-            backpackStage.setResizable(false);
-            backpackStage.setAlwaysOnTop(true);
-        }
-        catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-
+        atomImg.setFitHeight(495);
     }
 
     private void handleBack(Event e) {
@@ -134,12 +110,37 @@ public class Question1BuildAtomController {
         MainMenu.switchScene(MainMenu.SETTINGS_SCENE);
         logger.info("Settings has been clicked...");
     }
+
     public void handleBackpackButton(Event e) {
         try {
             System.out.println("Backpack has been clicked");
 
-            if(backpackStage != null && !backpackStage.isShowing()) {
-                backpackStage.show();
+            if(backpackStage == null) {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/BackpackScene.fxml"));
+
+                    Parent root = loader.load();
+                    backpack = loader.getController();
+                    BackpackHelper.setCurrentBackpack(backpack);
+
+                    Scene backpackScene = new Scene(root, 460, 574);
+                    backpack.setScene(backpackScene);
+
+                    backpackStage = new Stage();
+                    backpackStage.setTitle("Backpack");
+                    backpackStage.setScene(backpackScene);
+                    backpackStage.setResizable(false);
+                    backpackStage.setAlwaysOnTop(true);
+                }
+                catch (IOException err) {
+                    System.out.println(err.getMessage());
+                }
+                if(!backpackStage.isShowing()) {
+                    System.out.println("backstage is not null ");
+                    System.out.println("is backpack showing: " + backpackStage.isShowing());
+                    backpackStage.show();
+
+                }
                 backpackStage.toFront();
                 //backpackFXMLController.setUpGridPane();
             }
