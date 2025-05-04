@@ -76,6 +76,7 @@ public class MainMenu extends Application {
     public static final String SETTINGS_SCENE = "Settings_layout";
     //The FXML file name of the backpack scene
     public static final String BACKPACK_SCENE = "BackpackScene";
+    public static final String MAP_SCENE = "MapScene";
     public static final String HELP_SCENE = "Help_layout";
     public static final String INSTRUCTIONS_SCENE = "Instruction";
     public static final String INSTRUCTIONS2_SCENE = "Instruction2";
@@ -87,6 +88,7 @@ public class MainMenu extends Application {
     public static QuestionEx1FXMLController questionEx1FXMLController;
     public static QuestionEx2FXMLController questionEx2FXMLController;
     public static QuestionEx3FXMLController questionEx3FXMLController;
+    public static MapFXMLController mapFXMLController;
     public static Question1BuildAtomController question1BuildAtomController;
     public static CreateAccountFXMLController createAccountFXMLController;
     public static LoginFXMLController loginFXMLController;
@@ -329,7 +331,6 @@ public class MainMenu extends Application {
                 // The scene has been previously added, we activate it.
                 sceneController.activateScene(fxmlFileName);
             }
-
             else if (fxmlFileName.equals(DIALOGUE_SCENE)) {
                 if (!sceneController.sceneExists(fxmlFileName)) {
                     // Instantiate the corresponding FXML controller if the
@@ -407,6 +408,15 @@ public class MainMenu extends Application {
                     instruction2FXMLController = new Instruction2FXMLController();
                     Parent root = FxUIHelper.loadFXML(fxmlFileName, instruction2FXMLController);
                     sceneController.addScene(INSTRUCTIONS2_SCENE, root);
+                }
+                sceneController.activateScene(fxmlFileName);
+            }  else if(fxmlFileName.equals(MAP_SCENE)) {
+                if (!sceneController.sceneExists(fxmlFileName)) {
+                    // Instantiate the corresponding FXML controller if the
+                    // specified scene is being loaded for the first time.
+                    mapFXMLController = new MapFXMLController();
+                    Parent root = FxUIHelper.loadFXML(fxmlFileName, mapFXMLController);
+                    sceneController.addScene(MAP_SCENE, root);
                 }
                 sceneController.activateScene(fxmlFileName);
             }

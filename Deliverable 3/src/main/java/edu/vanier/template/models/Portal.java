@@ -5,6 +5,7 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.image.Image;
 
 import static edu.vanier.template.ui.MainMenu.GAME_SCENE;
+import static edu.vanier.template.ui.MainMenu.INSTRUCTIONS2_SCENE;
 
 /**
  * @author Eliza
@@ -54,7 +55,7 @@ public class Portal extends Sprite{
                     AnimationTimer animationTimer = MainMenu.getGameController().getAnimation();
                     if (animationTimer != null)
                         animationTimer.stop();
-                    MainMenu.switchScene(GAME_SCENE, Family.LEVEL11); // switch to it
+                    MainMenu.switchScene(GAME_SCENE, Family.LEVEL2); // switch to it
                 }
                 else if (level == 32) {
                     MainMenu.getSceneController().removeScene(GAME_SCENE);
@@ -62,6 +63,12 @@ public class Portal extends Sprite{
                     if (animationTimer != null)
                         animationTimer.stop();
                     MainMenu.switchScene(GAME_SCENE, Family.LEVEL31); // switch to it
+                }else if (level == 2) {
+                    MainMenu.getSceneController().removeScene(GAME_SCENE);
+                    AnimationTimer animationTimer = MainMenu.getGameController().getAnimation();
+                    if (animationTimer != null)
+                        animationTimer.stop();
+                    MainMenu.switchScene(INSTRUCTIONS2_SCENE); // switch to it
                 }
             }
             else

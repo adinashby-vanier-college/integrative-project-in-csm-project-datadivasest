@@ -15,9 +15,9 @@ public enum Family {
     TRANSITIONMETAL6("transitionMetal6",  "3.2"),
     HALOGENS("halogens", "A"),
     NOBLEGAS("nobleGas",    "B"),
-    LEVEL11("noFamily",  "1.1"),
+    LEVEL11("noFamily",  "2"),
     LEVEL12("noFamily",  "1.2"),
-    LEVEL2("noFamily",    "2"), //not being used
+    LEVEL2("noFamily",    "1.1"), //not being used
     LEVEL31("noFamily",  "3.1"),
     LEVEL32("noFamily",  "3.2"); //not being used
 
