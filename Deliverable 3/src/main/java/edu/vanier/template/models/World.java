@@ -4,16 +4,14 @@ import edu.vanier.template.controllers.MainAppFXMLController;
 import edu.vanier.template.ui.BaseWindow;
 import javafx.scene.image.Image;
 
-import javax.sound.sampled.Port;
 import java.util.ArrayList;
 import java.util.List;
 
-import static edu.vanier.template.controllers.GameFXMLController.*;
-import static edu.vanier.template.ui.MainMenu.GAME_SCENE;
-import static edu.vanier.template.ui.MainMenu.getImage;
+import static edu.vanier.template.ui.MainMenu.*;
 
 /**
  * World-class
+ * Initializes location of portals, sprites and platforms based on level and family
  *
  * @author Tabasuum Chowdhury
  */
@@ -31,6 +29,12 @@ public class World {
     static int widthScreen = (int) (BaseWindow.sceneWidth * 0.9);
     static int heightScreen = (int) (BaseWindow.sceneHeight * 0.9);
 
+    /**
+     * given type of the world it sets platform and portal accordingly
+     * @param currentFamily the family of the world
+     * @param platformList all the lists that will be shown
+     * @param portal the portal that leads to the next world
+     */
     public static void generateElements(Family currentFamily, List<Platform> platformList, Portal portal) {
         switch (currentFamily.getLayoutType()) {
             case "A" -> setPlatformsTypeA(currentFamily, platformList);
@@ -38,24 +42,22 @@ public class World {
             case "C" -> setPlatformsTypeC(currentFamily, platformList);
             case "1.1" -> {
                 setPlatformsType11(currentFamily, platformList);
-                portal.setPositionX(BaseWindow.sceneWidth - 50);
-                portal.setDestination(GAME_SCENE);
-                portal.setLevel(11);
-                portal.setHeight(BaseWindow.sceneHeight);
+                setPortal1(portal);
             }
-            case "1.2" -> setPlatformsType12(currentFamily, platformList);
+            case "1.2" -> {
+                setPlatformsType12(currentFamily, platformList);
+                setPortal12(portal);
+            }
             case "2" -> setPlatformsType2(currentFamily, platformList);
             case "3.1" -> {
                 setPlatformsType31(currentFamily, platformList);
-                portal.setDestination(GAME_SCENE);
-                portal.setPositionX(BaseWindow.sceneWidth - 50);
-                portal.setLevel(31);
-                portal.setHeight(BaseWindow.sceneHeight);
+                setPortal1(portal);
             }
             case "3.2" -> setPlatformsType32(currentFamily, platformList);
         }
     }
 
+    //Start of setting platforms
     /**
      * Sets size and location for platforms of type A
      */
@@ -68,6 +70,7 @@ public class World {
         addPlatform(currentFamily, platformList, 0.60, 0.80, 100,400);
         addPlatform(currentFamily, platformList, 0.97, 0.65, 100,300);
     }
+
 
     /**
      * Sets size and location for platforms of type B
@@ -197,6 +200,7 @@ public class World {
         platformList.add(platform);
     }
 
+
     /**
      * Adds to screen all the acid platforms at given location and for given size
      * Behaves differently than normal platforms
@@ -217,6 +221,32 @@ public class World {
         //TODO add the acid to the top layer so we can see it
     }
 
+    // Sets location of portals
+    /**
+     * Sets location of portal for level 1.1 to leve 1.2
+     * @param portal
+     */
+    private static void setPortal1(Portal portal) {
+        portal.setDestination(GAME_SCENE);
+        portal.setPositionX(BaseWindow.sceneWidth - 50);
+        portal.setLevel(11);
+        portal.setHeight(BaseWindow.sceneHeight);
+    }
+    /**
+     * Sets location of portal for level 1.2 to question
+     * @param portal
+     */
+    private static void setPortal12(Portal portal) {
+        portal.setDestination(GAME_SCENE);
+        portal.setPositionX(BaseWindow.sceneWidth - 50);
+        portal.setLevel(12);
+        portal.setHeight(BaseWindow.sceneHeight * 0.9);
+    }
+
+    /**
+     * Based on the currently family it sets the sprites in their sprite lists accordingly
+     * @param currentFamily the current look of the world
+     */
     public static void setSprites(Family currentFamily,
                                   Sprite sprite1, Sprite sprite2, Sprite sprite3, Sprite sprite4,
                                   List<Sprite> sprite1List, List<Sprite> sprite2List,
@@ -234,10 +264,11 @@ public class World {
         }
     }
 
+    // Start of setting the sprites based on their family
     public static void setAlkaliSprites(Sprite sprite1, Sprite sprite2, Sprite sprite3, Sprite sprite4,
                                         List<Sprite> sprite1List, List<Sprite> sprite2List,
                                         List<Sprite> sprite3List, List<Sprite> sprite4List) {
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++) { //5 sprites of each king will be created
             initSprite("Hydrogen", getImage("elements/Hydrogen.png"), sprite1, sprite1List);
             initSprite("Lithium", getImage("elements/Lithium.png"), sprite2,  sprite2List);
             initSprite("Sodium", getImage("elements/Sodium.png"), sprite3,  sprite3List);
@@ -247,7 +278,7 @@ public class World {
     public static void setAlkalineEMSprites(Sprite sprite1, Sprite sprite2, Sprite sprite3,
                                             List<Sprite> sprite1List, List<Sprite> sprite2List,
                                             List<Sprite> sprite3List) {
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++) { //5 sprites of each king will be created
             initSprite("Beryllium", getImage("elements/Beryllium.png"), sprite1, sprite1List);
             initSprite("Magnesium", getImage("elements/Magnesium.png"), sprite2,  sprite2List);
             initSprite("Calcium", getImage("elements/Calcium.png"), sprite3,  sprite3List);
@@ -257,7 +288,7 @@ public class World {
     public static void setTM3Sprites(Sprite sprite1, Sprite sprite2, Sprite sprite3,
                                      List<Sprite> sprite1List, List<Sprite> sprite2List,
                                      List<Sprite> sprite3List) {
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++) { //5 sprites of each king will be created
             initSprite("Boron", getImage("elements/Boron.png"), sprite1, sprite1List);
             initSprite("Aluminium", getImage("elements/Aluminium.png"), sprite2,  sprite2List);
             initSprite("Gallium", getImage("elements/Gallium.png"), sprite3,  sprite3List);
@@ -266,7 +297,7 @@ public class World {
     public static void setTM4Sprites(Sprite sprite1, Sprite sprite2, Sprite sprite3,
                                      List<Sprite> sprite1List, List<Sprite> sprite2List,
                                      List<Sprite> sprite3List) {
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++) { //5 sprites of each king will be created
             initSprite("Carbon", getImage("elements/Carbon.png"), sprite1, sprite1List);
             initSprite("Silicon", getImage("elements/Silicon.png"), sprite2,  sprite2List);
             initSprite("Germanium", getImage("elements/Germanium.png"), sprite3,  sprite3List);
@@ -275,7 +306,7 @@ public class World {
     public static void setTM5Sprites(Sprite sprite1, Sprite sprite2, Sprite sprite3,
                                      List<Sprite> sprite1List, List<Sprite> sprite2List,
                                      List<Sprite> sprite3List) {
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++) { //5 sprites of each king will be created
             initSprite("Nitrogen", getImage("elements/Nitrogen.png"), sprite1, sprite1List);
             initSprite("Phosphorus", getImage("elements/Phosphorus.png"), sprite2,  sprite2List);
             initSprite("Arsenic", getImage("elements/Arsenic.png"), sprite3,  sprite3List);
@@ -284,7 +315,7 @@ public class World {
     public static void setTM6Sprites(Sprite sprite1, Sprite sprite2, Sprite sprite3,
                                      List<Sprite> sprite1List, List<Sprite> sprite2List,
                                      List<Sprite> sprite3List) {
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++) { //5 sprites of each king will be created
             initSprite("Oxygen", getImage("elements/Oxygen.png"), sprite1, sprite1List);
             initSprite("Sulfur", getImage("elements/Sulfur.png"), sprite2,  sprite2List);
             initSprite("Selenium", getImage("elements/Selenium.png"), sprite3,  sprite3List);
@@ -303,7 +334,7 @@ public class World {
     public static void setNobleGasSprites(Sprite sprite1, Sprite sprite2, Sprite sprite3, Sprite sprite4,
                                           List<Sprite> sprite1List, List<Sprite> sprite2List,
                                           List<Sprite> sprite3List, List<Sprite> sprite4List) {
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++) { //5 sprites of each king will be created
             initSprite("Helium", getImage("elements/Helium.png"), sprite1, sprite1List);
             initSprite("Neon", getImage("elements/Neon.png"), sprite2,  sprite2List);
             initSprite("Argon", getImage("elements/Argon.png"), sprite3,  sprite3List);
@@ -316,6 +347,14 @@ public class World {
             initSprite("proton", protonImg, sprite2,  sprite2List);
         }
     }
+
+    /**
+     * puts the sprites based on their images proportional to the screen size
+     * @param type what kind of sprite is it (electron, proton, helium, etc.)
+     * @param image the image that will be shown
+     * @param sprite which of the four sprite is it
+     * @param spriteList the list that will hold the sprites of this kin din this world
+     */
     private static void initSprite(String type, Image image, Sprite sprite, List<Sprite> spriteList) {
         sprite = new Sprite(type, image);
         sprite.setImage(image);

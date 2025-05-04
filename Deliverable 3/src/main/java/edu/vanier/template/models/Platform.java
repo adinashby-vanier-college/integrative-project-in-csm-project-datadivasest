@@ -22,6 +22,16 @@ public class Platform extends Sprite {
     //ensures there is proper white space
     static int widthScreen = (int) (BaseWindow.sceneWidth * 0.9);
     static int heightScreen = (int) (BaseWindow.sceneHeight * 0.9);
+
+    /***
+     * constructor for a platform
+     * @param x position x
+     * @param y position y
+     * @param type type of platform
+     * @param sizeX width
+     * @param sizeY height
+     * @param img image of platform
+     */
     public Platform(int x, int y, String type, int sizeX, int sizeY, Image img) {
         super(x, y, "platform", sizeX, sizeY, img);
         this.type = type;
@@ -30,5 +40,4 @@ public class Platform extends Sprite {
         setFitWidth(sizeX);
         setFitHeight(sizeY);
     }
-
 }

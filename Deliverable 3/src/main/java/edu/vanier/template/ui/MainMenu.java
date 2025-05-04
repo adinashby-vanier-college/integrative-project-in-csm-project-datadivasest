@@ -397,16 +397,17 @@ public class MainMenu extends Application {
                     instructionFXMLController = new InstructionFXMLController();
                      Parent root = FxUIHelper.loadFXML(fxmlFileName, instructionFXMLController);
                     sceneController.addScene(INSTRUCTIONS_SCENE, root);
-                } else if(fxmlFileName.equals(INSTRUCTIONS2_SCENE)) {
-                    if (!sceneController.sceneExists(fxmlFileName)) {
-                        // Instantiate the corresponding FXML controller if the
-                        // specified scene is being loaded for the first time.
-                        instruction2FXMLController = new Instruction2FXMLController();
-                        Parent root = FxUIHelper.loadFXML(fxmlFileName, instruction2FXMLController);
-                        sceneController.addScene(INSTRUCTIONS2_SCENE, root);
-                    }
                 }
                // The scene has been previously added, we activate it.
+                sceneController.activateScene(fxmlFileName);
+            }  else if(fxmlFileName.equals(INSTRUCTIONS2_SCENE)) {
+                if (!sceneController.sceneExists(fxmlFileName)) {
+                    // Instantiate the corresponding FXML controller if the
+                    // specified scene is being loaded for the first time.
+                    instruction2FXMLController = new Instruction2FXMLController();
+                    Parent root = FxUIHelper.loadFXML(fxmlFileName, instruction2FXMLController);
+                    sceneController.addScene(INSTRUCTIONS2_SCENE, root);
+                }
                 sceneController.activateScene(fxmlFileName);
             }
             appFlow.add(fxmlFileName);
@@ -439,6 +440,18 @@ public class MainMenu extends Application {
             throw new RuntimeException();
         }
     }
+
+
+    //Start of helper methods to set the UI and images of the game
+    //@author Tabasuum
+
+    /**
+     * fixes the image to a certain image of a title
+     * @param borderPane where its placed
+     * @param title name of the imageview
+     * @param titleName name of image
+     * @author Tabasuum
+     */
     public static void setUI(BorderPane borderPane, ImageView title, String titleName) {
         //Sets background
         setBackground(borderPane);
@@ -459,6 +472,12 @@ public class MainMenu extends Application {
         title.setFitHeight(BaseWindow.sceneHeight * size);
     }
 
+    /**
+     * sets the pane to a specific image
+     * @param borderPane the pane that gets set
+     * @param backgroundName name of image
+     * @author Tabasuum
+     */
     public static void setBackground(BorderPane borderPane, String backgroundName) {
         //Sets background
         Image backgroundImg = getImage(backgroundName);
@@ -473,11 +492,10 @@ public class MainMenu extends Application {
 
     /**
      * Sets the background of the image of the background to pink one
-     * @param borderPane
+     * @param borderPane the pane of which is sets the background
+     * @author Tabasuum
      */
     public static void setBackground(Pane borderPane) {
-//        Image backgroundImg = new Image(MainAppFXMLController.class.
-//                getResource("/images/Files/png/BG.png").toString());
         BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, true, true, false, true);
 
         borderPane.setBackground(new Background(new BackgroundImage(backgroundImg,
@@ -486,6 +504,13 @@ public class MainMenu extends Application {
                 BackgroundPosition.CENTER,
                 bSize)));
     }
+
+    /**
+     * helper method to get image based on
+     * @param imageName name of image
+     * @return the image if it was found
+     * @author Tabasuum
+     */
     public static Image getImage(String imageName) {
         try {
             return new Image(MainAppFXMLController.class.
@@ -494,6 +519,12 @@ public class MainMenu extends Application {
             System.out.println("Could not find image "+ imageName   );
         } return null;
     }
+
+    /**
+     * Makes images proportional to specific size
+     * @param image different images
+     * @author Tabasuum
+     */
 
     public static void fixSize(double size, ImageView image) {
         image.setPreserveRatio(true);
@@ -504,6 +535,7 @@ public class MainMenu extends Application {
     /**
      * Makes images proportional to screen size
      * @param imageView different images
+     * @author Tabasuum
      */
     public static void setSizeImg(ImageView imageView) {
         imageView.setFitWidth(BaseWindow.sceneWidth * 0.25);
@@ -513,6 +545,7 @@ public class MainMenu extends Application {
     /**
      * Makes buttons proportional to screen size
      * @param button
+     * @author Tabasuum
      */
     public static void setSizeBtn(Button button) {
         button.setMinSize(BaseWindow.sceneWidth * 0.20, BaseWindow.sceneHeight * 0.05);
@@ -522,6 +555,7 @@ public class MainMenu extends Application {
     /**
      * Makes buttons proportional to screen size
      * @param button
+     * @author Tabasuum
      */
     public static void setSizeBtn1(Button button) {
         button.setMinSize(BaseWindow.sceneWidth * 0.01, BaseWindow.sceneHeight * 0.01);
@@ -531,6 +565,7 @@ public class MainMenu extends Application {
      * Sets background to buttons
      * @param button
      * @param string
+     * @author Tabasuum
      */
     public static void setButton(Button button, String string, int height, int width) {
         Image image = new Image(MainAppFXMLController.class.
