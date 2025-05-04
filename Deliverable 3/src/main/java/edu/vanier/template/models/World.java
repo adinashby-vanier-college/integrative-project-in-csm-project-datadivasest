@@ -157,19 +157,19 @@ public class World {
     }
 
     /**
-     * Sets size and location for platforms for second part of Level 2
-     * TODO: Finish adding the erst of the platforms
+     * Sets size and location for platforms for second part of Level 3
      */
     public static void setPlatformsType32(Family currentFamily, List<Platform> platformList) {
-        addPlatform(currentFamily, platformList, 0.0, 0.40, 800,400);
-//        addPlatform(currentFamily, platformList, 0.2, 0.70, 500,600);
-//        addPlatform(currentFamily, platformList, 0.25, 0.50, 80,400);
-//        addPlatform(currentFamily, platformList, 0.60, 0.40, 80,400);
-//        addPlatform(currentFamily, platformList, 0.90, 0.30, 100,300);
-//        addPlatform(currentFamily, platformList, 0.60, 0.80, 100,400);
-//        addPlatform(currentFamily, platformList, 0.97, 0.65, 100,300);
-//        addPlatform(currentFamily, platformList, 0.97, 0.65, 100,300);
-//        addPlatform(currentFamily, platformList, 0.97, 0.65, 100,300);
+        addPlatform(currentFamily, platformList, 0.00, 0.40, 100,400);
+        addPlatform(currentFamily, platformList, 0.40, 0.150, 100,300);
+        addPlatform(currentFamily, platformList, 0.90, 0.20, 100,600);
+        addPlatform(currentFamily, platformList, 0.10, 0.70, 80,80);
+        addPlatform(currentFamily, platformList, 0.50, 0.70, 400,320);
+        addPlatform(currentFamily, platformList, 0.62, 0.50, 600,220);
+        addPlatform(currentFamily, platformList, 0.70, 0.35, 800,120);
+        addPlatform(currentFamily, platformList, 0.25, 0.55, 80,400);
+        addPlatform(currentFamily, platformList, 0.80, 0.55, 80,200);
+        addPlatform(currentFamily, platformList, 1.07, 0.70, 80,300);
     }
 
     /**
