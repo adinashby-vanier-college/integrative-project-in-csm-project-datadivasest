@@ -222,42 +222,93 @@ public class World {
                                   List<Sprite> sprite1List, List<Sprite> sprite2List,
                                   List<Sprite> sprite3List, List<Sprite> sprite4List) {
         switch (currentFamily.getName()) {
-            case "alkaliMetal" -> setAlkaliSprites();
-            case "alkalineEarthMetal" -> setAlkalineEMSprites();
-            case "transitionMetal3" -> setTM3Sprites();
-            case "transitionMetal4" -> setTM4Sprites();
-            case "transitionMetal5" -> setTM5Sprites();
-            case "transitionMetal6" -> setTM6Sprites();
-            case "halogens" -> setHalogensSprites();
-            case "nobleGas" -> setNobleGasSprites();
+            case "alkaliMetal" -> setAlkaliSprites(sprite1, sprite2, sprite3, sprite4, sprite1List  , sprite2List, sprite3List, sprite4List);
+            case "alkalineEarthMetal" -> setAlkalineEMSprites(sprite1, sprite2, sprite3, sprite1List  , sprite2List, sprite3List);
+            case "transitionMetal3" -> setTM3Sprites(sprite1, sprite2, sprite3, sprite1List  , sprite2List, sprite3List);
+            case "transitionMetal4" -> setTM4Sprites(sprite1, sprite2, sprite3, sprite1List  , sprite2List, sprite3List);
+            case "transitionMetal5" -> setTM5Sprites(sprite1, sprite2, sprite3, sprite1List  , sprite2List, sprite3List);
+            case "transitionMetal6" -> setTM6Sprites(sprite1, sprite2, sprite3, sprite1List  , sprite2List, sprite3List);
+            case "halogens" -> setHalogensSprites(sprite1, sprite2, sprite3, sprite1List  , sprite2List, sprite3List);
+            case "nobleGas" -> setNobleGasSprites(sprite1, sprite2, sprite3, sprite4, sprite1List  , sprite2List, sprite3List, sprite4List);
             case "noFamily" -> setLevelSprites(sprite1, sprite2, sprite1List, sprite2List);
         }
     }
 
-    public static void setAlkaliSprites() {
-
+    public static void setAlkaliSprites(Sprite sprite1, Sprite sprite2, Sprite sprite3, Sprite sprite4,
+                                        List<Sprite> sprite1List, List<Sprite> sprite2List,
+                                        List<Sprite> sprite3List, List<Sprite> sprite4List) {
+        for (int i = 0; i < 5; i++) {
+            initSprite("Hydrogen", getImage("elements/Hydrogen.png"), sprite1, sprite1List);
+            initSprite("Lithium", getImage("elements/Lithium.png"), sprite2,  sprite2List);
+            initSprite("Sodium", getImage("elements/Sodium.png"), sprite3,  sprite3List);
+            initSprite("Potassium", getImage("elements/Potassium.png"), sprite4,  sprite4List);
+        }
     }
-    public static void setAlkalineEMSprites() {
+    public static void setAlkalineEMSprites(Sprite sprite1, Sprite sprite2, Sprite sprite3,
+                                            List<Sprite> sprite1List, List<Sprite> sprite2List,
+                                            List<Sprite> sprite3List) {
+        for (int i = 0; i < 5; i++) {
+            initSprite("Beryllium", getImage("elements/Beryllium.png"), sprite1, sprite1List);
+            initSprite("Magnesium", getImage("elements/Magnesium.png"), sprite2,  sprite2List);
+            initSprite("Calcium", getImage("elements/Calcium.png"), sprite3,  sprite3List);
 
+        }
     }
-    public static void setTM3Sprites() {
-
+    public static void setTM3Sprites(Sprite sprite1, Sprite sprite2, Sprite sprite3,
+                                     List<Sprite> sprite1List, List<Sprite> sprite2List,
+                                     List<Sprite> sprite3List) {
+        for (int i = 0; i < 5; i++) {
+            initSprite("Boron", getImage("elements/Boron.png"), sprite1, sprite1List);
+            initSprite("Aluminium", getImage("elements/Aluminium.png"), sprite2,  sprite2List);
+            initSprite("Gallium", getImage("elements/Gallium.png"), sprite3,  sprite3List);
+        }
     }
-    public static void setTM4Sprites() {
-
+    public static void setTM4Sprites(Sprite sprite1, Sprite sprite2, Sprite sprite3,
+                                     List<Sprite> sprite1List, List<Sprite> sprite2List,
+                                     List<Sprite> sprite3List) {
+        for (int i = 0; i < 5; i++) {
+            initSprite("Carbon", getImage("elements/Carbon.png"), sprite1, sprite1List);
+            initSprite("Silicon", getImage("elements/Silicon.png"), sprite2,  sprite2List);
+            initSprite("Germanium", getImage("elements/Germanium.png"), sprite3,  sprite3List);
+        }
     }
-    public static void setTM5Sprites() {
-
+    public static void setTM5Sprites(Sprite sprite1, Sprite sprite2, Sprite sprite3,
+                                     List<Sprite> sprite1List, List<Sprite> sprite2List,
+                                     List<Sprite> sprite3List) {
+        for (int i = 0; i < 15; i++) {
+            initSprite("Nitrogen", getImage("elements/Nitrogen.png"), sprite1, sprite1List);
+            initSprite("Phosphorus", getImage("elements/Phosphorus.png"), sprite2,  sprite2List);
+            initSprite("Arsenic", getImage("elements/Arsenic.png"), sprite3,  sprite3List);
+        }
     }
-    public static void setTM6Sprites() {
-
+    public static void setTM6Sprites(Sprite sprite1, Sprite sprite2, Sprite sprite3,
+                                     List<Sprite> sprite1List, List<Sprite> sprite2List,
+                                     List<Sprite> sprite3List) {
+        for (int i = 0; i < 15; i++) {
+            initSprite("Oxygen", getImage("elements/Oxygen.png"), sprite1, sprite1List);
+            initSprite("Sulfur", getImage("elements/Sulfur.png"), sprite2,  sprite2List);
+            initSprite("Selenium", getImage("elements/Selenium.png"), sprite3,  sprite3List);
+        }
     }
 
-    public static void setHalogensSprites() {
-
+    public static void setHalogensSprites(Sprite sprite1, Sprite sprite2, Sprite sprite3,
+                                          List<Sprite> sprite1List, List<Sprite> sprite2List,
+                                          List<Sprite> sprite3List) {
+        for (int i = 0; i < 15; i++) {
+            initSprite("Fluorine", getImage("elements/Fluorine.png"), sprite1, sprite1List);
+            initSprite("Chlorine", getImage("elements/Chlorine.png"), sprite2,  sprite2List);
+            initSprite("Bromine", getImage("elements/Bromine.png"), sprite3,  sprite3List);
+        }
     }
-    public static void setNobleGasSprites() {
-
+    public static void setNobleGasSprites(Sprite sprite1, Sprite sprite2, Sprite sprite3, Sprite sprite4,
+                                          List<Sprite> sprite1List, List<Sprite> sprite2List,
+                                          List<Sprite> sprite3List, List<Sprite> sprite4List) {
+        for (int i = 0; i < 15; i++) {
+            initSprite("Helium", getImage("elements/Helium.png"), sprite1, sprite1List);
+            initSprite("Neon", getImage("elements/Neon.png"), sprite2,  sprite2List);
+            initSprite("Argon", getImage("elements/Argon.png"), sprite3,  sprite3List);
+            initSprite("Krypton", getImage("elements/Krypton.png"), sprite4,  sprite4List);
+        }
     }
     public static void setLevelSprites(Sprite sprite1, Sprite sprite2, List<Sprite> sprite1List, List<Sprite> sprite2List) {
         for (int i = 0; i < 15; i++) {

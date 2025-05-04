@@ -161,18 +161,18 @@ public class GameFXMLController {
         Iterator<Sprite> sprite1Iter = sprite1List.iterator();
         while (sprite1Iter.hasNext()) {
             //TODO for logic of electron check if name is electron
-            Sprite electron = sprite1Iter.next();
-            if (player.intersects(electron)) {
+            Sprite sprite1 = sprite1Iter.next();
+            if (player.intersects(sprite1)) {
                 sprite1Iter.remove();
                 itemClip.setVolume(volume);
                 if (isSound)
                     itemClip.play();
                 System.out.println("interacting with a sprite");
-                score--;
+                mainPane.getChildren().remove(sprite1);
+
                 electronNum++;
                 elementCollected.put("electron", electronNum);
-                mainPane.getChildren().remove(electron);
-                //backpackFXMLController.setupCoinDrag(electron);
+
                 if(backpackFXMLController != null) {
                     backpackFXMLController.increaseCount(electron);
                     System.out.println("backpack is not null");
@@ -187,21 +187,24 @@ public class GameFXMLController {
                 itemClip.setVolume(volume);
                 if (isSound)
                     itemClip.play();
-                score++;
+
                 protonNum++;
                 elementCollected.put("proton", protonNum);
                 backpackFXMLController.increaseCount(proton);
             }
         }
 
-        for (Sprite electron : sprite1List) {
-            electron.render(gc);
-        }
-        for (Sprite proton : sprite2List) {
-            proton.render(gc);
-        }
+        renderList(sprite1List, gc);
+        renderList(sprite2List, gc);
+        renderList(sprite3List, gc);
+        renderList(sprite4List, gc);
     }
 
+    private void renderList(List<Sprite> spriteList, GraphicsContext gc) {
+        for (Sprite sprite : spriteList) {
+            sprite.render(gc);
+        }
+    }
     @FXML
     public void initialize() {
         logger.info("Initializing Game Controller...");
