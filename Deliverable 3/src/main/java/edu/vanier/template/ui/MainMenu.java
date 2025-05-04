@@ -485,8 +485,12 @@ public class MainMenu extends Application {
                 bSize)));
     }
     public static Image getImage(String imageName) {
-        return new Image(MainAppFXMLController.class.
-                getResource("/images/" + imageName).toString());
+        try {
+            return new Image(MainAppFXMLController.class.
+                    getResource("/images/" + imageName).toString());
+        } catch(Error e) {
+            System.out.println("Could not find image "+ imageName   );
+        } return null;
     }
 
     public static void fixSize(double size, ImageView image) {

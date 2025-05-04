@@ -17,6 +17,8 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
+import static edu.vanier.template.ui.MainMenu.setButton;
+
 /**
  * @author Tabasuum
  * TODO: fix up variable names, code, etc.
@@ -41,15 +43,20 @@ public class DialogueFXMLController {
     public void initialize() {
         logger.info("Initializing Dialogue Controller...");
 
-        //Set background
-        MainMenu.setBackground(borderPane, "dialogueBG.png");
+        //Set up UI
+        MainMenu.setBackground(borderPane, "Files/png/BG.png");
+        setButton(btnSettings, "Button_settings", 5 ,5);
+        setButton(btnSkip, "Button_right", 5, 5);
+        setButton(btnPlay, "next", 5, 5);
+        borderPane.setOnKeyPressed(this::handleKeyPressed);
+
 
         //Set character images
-        character1ImgView.setImage(MainMenu.getImage("character1.png"));
-        character2ImgView.setImage(MainMenu.getImage("character2.png"));
-        dialogueBoxImgView.setImage(MainMenu.getImage("dialogueBox.png"));
+        character1ImgView.setImage(MainMenu.getImage("dialogue/character1.png"));
+        character2ImgView.setImage(MainMenu.getImage("dialogue/character2.png"));
+        dialogueBoxImgView.setImage(MainMenu.getImage("dialogue/dialogueBox1.png"));
 
-        //Set button actions
+        //Setup buttons actions
         btnSettings.setOnAction(this::loadSettingsScene);
         btnSkip.setOnAction(this::handleSkip);
         btnPlay.setOnAction(this::handlePlay);
@@ -61,27 +68,23 @@ public class DialogueFXMLController {
         // Size adjustments
         MainMenu.fixSize(0.85, character1ImgView);
         MainMenu.fixSize(0.85, character2ImgView);
-        MainMenu.fixSize(0.75, dialogueBoxImgView);
+        character1ImgView.setX(0);
+        character1ImgView.setY(BaseWindow.sceneHeight);
+        character2ImgView.setY(BaseWindow.sceneHeight);
+        character2ImgView.setX(BaseWindow.sceneWidth);
 
-        characterNameText.setTranslateY( - 140);
-        characterNameText.setTranslateX( 300);
+        MainMenu.fixSize(0.50, dialogueBoxImgView);
         dialogueText.setTranslateY( - 50 );
-        dialogueText.setTranslateX(270);
-
-        // Set focus for key events
-        borderPane.setFocusTraversable(true);
-        borderPane.requestFocus();
-        borderPane.setOnKeyPressed(this::handleKeyPressed);
     }
 
     private void initializeDialogue() {
         // Add your dialogue lines here
-        dialogueLines.add(new DialogueLine("Sayeri", "A villain (Professor Enthropy) kidnaps the user into a different dimension and the user must escape.. ", "character1.png", null));
-        dialogueLines.add(new DialogueLine("Yuri", " The user discovers that the villain has booby traps in case he tries to leave.", null, "character2.png"));
-        dialogueLines.add(new DialogueLine("Sayeri", "The booby traps are all chemistry questions (Oh no!).", "character1.png", null));
-        dialogueLines.add(new DialogueLine("Yuri", "But wait, the user just learned this stuff in class, can the user remember enough to escape.\n", null, "character2.png"));
-        dialogueLines.add(new DialogueLine("Sayeri", "The villain leaves the world to get fresh vegetables from a local beet farm.\n", "character1.png", null));
-        dialogueLines.add(new DialogueLine("Yuri", "The user takes his chance but first he has to get through the obstacles.\n", null, "character2.png"));
+        dialogueLines.add(new DialogueLine("", "A villain (Professor Enthropy) \n kidnaps the user \ninto a different dimension\n and the user must escape.. ", "dialogue/character1.png", null));
+        dialogueLines.add(new DialogueLine("", " The user discovers that the villain has \nbooby traps in case he tries to leave.", null, "dialogue/character2.png"));
+        dialogueLines.add(new DialogueLine("", "The booby traps are all \n chemistry questions\n (Oh no!).", "dialogue/character1.png", null));
+        dialogueLines.add(new DialogueLine("", "But wait, the user just learned this stuff in class,\n can the user remember enough to escape.\n", null, "dialogue/character2.png"));
+        dialogueLines.add(new DialogueLine("", "The villain leaves the world\n to get fresh vegetables\n from a local beet farm.\n", "dialogue/character1.png", null));
+        dialogueLines.add(new DialogueLine("", "The user takes his chance but first he has \nto get through the obstacles.\n", null, "dialogue/character2.png"));
 
 
         // Add more lines as needed
@@ -100,9 +103,11 @@ public class DialogueFXMLController {
             // Update character images if needed
             if (line.character1Image() != null) {
                 character1ImgView.setImage(MainMenu.getImage(line.character1Image()));
+                dialogueBoxImgView.setImage(MainMenu.getImage("dialogue/dialogueBox1.png"));
             }
             if (line.character2Image() != null) {
                 character2ImgView.setImage(MainMenu.getImage(line.character2Image()));
+                dialogueBoxImgView.setImage(MainMenu.getImage("dialogue/dialogueBox2.png"));
             }
         } else {
             // Dialogue ended
