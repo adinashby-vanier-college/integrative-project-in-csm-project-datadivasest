@@ -2,36 +2,23 @@ package edu.vanier.template.controllers;
 
 import edu.vanier.template.models.Sprite;
 import edu.vanier.template.ui.BaseWindow;
-import edu.vanier.template.ui.MainApp;
-import edu.vanier.template.ui.MainMenu;
-import javafx.collections.ObservableList;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
-import javafx.stage.Stage;
-import org.kordamp.ikonli.fontawesome5.FontAwesomeRegular;
-import org.kordamp.ikonli.javafx.FontIcon;
-import org.kordamp.ikonli.materialdesign2.MaterialDesignA;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 import static edu.vanier.template.ui.MainMenu.*;
 
@@ -47,30 +34,30 @@ public class BackpackFXMLController {
     @FXML
     Pane backpackPane;
     @FXML
-    ImageView coin;
+    ImageView sodium;
     @FXML
     ImageView electron;
     @FXML
     ImageView proton;
 
     @FXML
-    public Label coinLabel;
+    public Label sodiumLabel;
     @FXML
     public Label electronLabel;
     @FXML
     public Label protonLabel;
 
-    private Label powerUpLabel;
-    private Label chocolatePowerUpLabel;
+    private Label oxygenLabel;
+    private Label hydrogenLabel;
     private int currentColumn;
     private int currentRow;
-    private Map<String, Integer> itemsCount = new HashMap<>();
-    private Map<String, Label> itemLabels = new HashMap<>();
-    private int coinCounter;
+    public Map<String, Integer> itemsCount = new HashMap<>();
+    public Map<String, Label> itemLabels = new HashMap<>();
+    private int sodiumCounter;
     private int electronCounter;
     private int protonCounter;
-    private int powerUpCounter;
-    private int chocolatePowerUpCounter;
+    private int oxygenCounter;
+    private int hydrogenCounter;
     private int numRows;
     private Scene scene;
 
@@ -131,7 +118,7 @@ public class BackpackFXMLController {
 //        }
 
         ColumnConstraints colConstraint = new ColumnConstraints();
-        colConstraint.setPrefWidth(100); // Fixed width
+        colConstraint.setPrefWidth(80); // Fixed width
         backpackGridPane.getColumnConstraints().add(colConstraint);
         int columnWidth = backpackGridPane.getColumnConstraints().size();
         RowConstraints rowConstraint = new RowConstraints();
@@ -139,34 +126,17 @@ public class BackpackFXMLController {
         backpackGridPane.getRowConstraints().add(rowConstraint);
         int rowWidth = backpackGridPane.getRowConstraints().size();
 
-        Image coinImage = new Image(getClass().getResource("/images/coin.png").toExternalForm());
-        coin = new ImageView(coinImage);
-        coin.setFitHeight(50);
-        coin.setFitWidth(50);
-        System.out.println("is backpack null: " + (backpackGridPane == null));
-        coin.setId("coin");
-        backpackGridPane.add(coin, 0, 0);
-        GridPane.setHalignment(coin, HPos.CENTER);
-        GridPane.setValignment(coin, VPos.CENTER);
-        coinCounter = 0;
-        coinLabel = new Label(" x " + 0 );
-        backpackGridPane.add(coinLabel, 1, 0);
-        itemsCount.put("coin", coinCounter);
-        itemLabels.put("coin", coinLabel);
-        //coinImageView.setFitHeight(GridPane.getRowIndex(coinImageView));
-        logger.info("Loading coin image: T/F" + coinImage.isError());
-
         Image electronImage = new Image(getClass().getResource("/images/Electron.png").toExternalForm());
         electron = new ImageView(electronImage);
         electron.setFitWidth(50);
         electron.setFitHeight(50);
         electron.setId("electron");
-        backpackGridPane.add(electron, 0, 1);
+        backpackGridPane.add(electron, 0, 0);
         GridPane.setHalignment(electron, HPos.CENTER);
         GridPane.setValignment(electron, VPos.CENTER);
         electronCounter = 0;
         electronLabel = new Label(" x " + 0);
-        backpackGridPane.add(electronLabel, 1, 1);
+        backpackGridPane.add(electronLabel, 1, 0);
         itemsCount.put("electron", electronCounter);
         itemLabels.put("electron", electronLabel);
 
@@ -178,39 +148,54 @@ public class BackpackFXMLController {
         GridPane.setValignment(proton, VPos.CENTER);
         protonCounter = 0;
         protonLabel = new Label(" x " + 0);
-        backpackGridPane.add(protonLabel, 1, 2);
+        backpackGridPane.add(protonLabel, 1, 1);
         proton.setId("proton");
-        backpackGridPane.add(proton, 0, 2);
+        backpackGridPane.add(proton, 0, 1);
         itemsCount.put("proton", protonCounter);
         itemLabels.put("proton", protonLabel);
 
-        Image powerUpImage = new Image(getClass().getResource("/images/PowerUp.png").toExternalForm());
-        ImageView powerUp = new ImageView(powerUpImage);
-        powerUp.setFitWidth(50);
-        powerUp.setFitHeight(50);
-        GridPane.setHalignment(powerUp, HPos.CENTER);
-        GridPane.setValignment(powerUp, VPos.CENTER);
-        powerUpCounter = 0;
-        powerUpLabel = new Label(" x " + 0);
-        backpackGridPane.add(powerUpLabel, 1, 3);
-        powerUp.setId("powerUp");
-        backpackGridPane.add(powerUp, 0, 3);
-        itemsCount.put("powerUp", powerUpCounter);
-        itemLabels.put("powerUp", powerUpLabel);
+        Image sodiumImage = new Image(getClass().getResource("/images/elements/sodium.png").toExternalForm());
+        sodium = new ImageView(sodiumImage);
+        sodium.setFitHeight(50);
+        sodium.setFitWidth(50);
+        System.out.println("is backpack null: " + (backpackGridPane == null));
+        sodium.setId("sodium");
+        backpackGridPane.add(sodium, 0, 2);
+        GridPane.setHalignment(sodium, HPos.CENTER);
+        GridPane.setValignment(sodium, VPos.CENTER);
+        sodiumCounter = 0;
+        sodiumLabel = new Label(" x " + 0 );
+        backpackGridPane.add(sodiumLabel, 1, 2);
+        itemsCount.put("sodium", sodiumCounter);
+        itemLabels.put("sodium", sodiumLabel);
 
-        Image chocolatePowerUpImage= new Image(getClass().getResource("/images/ChocolatePowerUp.png").toExternalForm());
-        ImageView chocolatePowerUp = new ImageView(chocolatePowerUpImage);
-        chocolatePowerUp.setFitWidth(50);
-        chocolatePowerUp.setFitHeight(50);
-        GridPane.setHalignment(chocolatePowerUp, HPos.CENTER);
-        GridPane.setValignment(chocolatePowerUp, VPos.CENTER);
-        chocolatePowerUpCounter = 0;
-        chocolatePowerUpLabel = new Label(" x " + 0);
-        backpackGridPane.add(chocolatePowerUpLabel, 1, 4);
-        chocolatePowerUp.setId("chocolatePowerUp");
-        backpackGridPane.add(chocolatePowerUp, 0, 4);
-        itemsCount.put("chocolatePowerUp", chocolatePowerUpCounter);
-        itemLabels.put("chocolatePowerUp", chocolatePowerUpLabel);
+        Image oxygenImg = new Image(getClass().getResource("/images/elements/oxygen.png").toExternalForm());
+        ImageView oxygen = new ImageView(oxygenImg);
+        oxygen.setFitWidth(50);
+        oxygen.setFitHeight(50);
+        GridPane.setHalignment(oxygen, HPos.CENTER);
+        GridPane.setValignment(oxygen, VPos.CENTER);
+        oxygenCounter = 0;
+        oxygenLabel = new Label(" x " + 0);
+        backpackGridPane.add(oxygenLabel, 1, 3);
+        oxygen.setId("oxygen");
+        backpackGridPane.add(oxygen, 0, 3);
+        itemsCount.put("oxygen", oxygenCounter);
+        itemLabels.put("oxygen", oxygenLabel);
+
+        Image hydrogenImage= new Image(getClass().getResource("/images/elements/hydrogen.png").toExternalForm());
+        ImageView hydrogen = new ImageView(hydrogenImage);
+        hydrogen.setFitWidth(50);
+        hydrogen.setFitHeight(50);
+        GridPane.setHalignment(hydrogen, HPos.CENTER);
+        GridPane.setValignment(hydrogen, VPos.CENTER);
+        hydrogenCounter = 0;
+        hydrogenLabel = new Label(" x " + 0);
+        backpackGridPane.add(hydrogenLabel, 1, 4);
+        hydrogen.setId("hydrogen");
+        backpackGridPane.add(hydrogen, 0, 4);
+        itemsCount.put("hydrogen", hydrogenCounter);
+        itemLabels.put("hydrogen", hydrogenLabel);
         //check how to adjust the font size
 //        System.out.println("method is being executed/");
 
@@ -257,6 +242,16 @@ public class BackpackFXMLController {
                 itemLabel.setText("x " + updatedCountOfItem);
             }
             System.out.println("method is being executed");
+        }
+
+        public void globalInventory() {
+            for(Map.Entry<String, Integer> entry : itemsCount.entrySet()) {
+                String type = entry.getKey();
+                int spriteCount = entry.getValue();
+
+                Label itemLabel = itemLabels.get(type);
+                itemLabel.setText("x " + spriteCount);
+            }
         }
 
         public void setUI() {
