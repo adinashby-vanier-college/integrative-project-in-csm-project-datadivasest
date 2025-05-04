@@ -50,12 +50,7 @@ public class SettingsFXMLController {
         checkBoxThemeSong.setSelected(MainMenu.isMusicPlaying());
         checkBoxThemeSong.setOnAction(this::toggleThemeSong);
 
-        if (MainMenu.getGameController() != null) {
-            checkBoxSound.setSelected(MainMenu.getGameController().isMusicPlaying());
-        }
-        else {
-            checkBoxSound.setSelected(true);
-        }
+        checkBoxThemeSong.setSelected(MainMenu.isSoundPlaying());
         checkBoxSound.setOnAction(this::toggleSound);
 
         sliderVolume.setValue(MainMenu.isMusicPlaying() ? 30 : 0);
@@ -83,8 +78,7 @@ public class SettingsFXMLController {
     }
     private void toggleSound(ActionEvent e) {
         boolean play = checkBoxSound.isSelected();
-        if(MainMenu.getGameController() != null)
-            MainMenu.getGameController().toggleMusic(play);
+        MainMenu.toggleSound(play);
         logger.info("In game sound: " + (play ? "Playing" : "Stopped"));
     }
 

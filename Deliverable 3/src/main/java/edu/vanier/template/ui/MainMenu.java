@@ -86,6 +86,7 @@ public class MainMenu extends Application {
             getResource("/images/Files/png/BG.png").toString());
     private static GameFXMLController gameController;
     private static ArrayDeque<String> appFlow;
+    private static boolean isSound;
 
 
     @Override
@@ -103,6 +104,7 @@ public class MainMenu extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
+            isSound = true;
             logger.info("Bootstrapping the application...");
             // Load the scene of the primary stage.
             Parent root = FxUIHelper.loadFXML(MAINMENU_SCENE, new MainMenuFXMLController());
@@ -144,6 +146,11 @@ public class MainMenu extends Application {
             }
         }
     }
+    public static void toggleSound(boolean play) {
+        isSound = play;
+        if (gameController != null)
+            gameController.toggleMusic(play);
+    }
 
     public static void setMusicVolume(double volume) {
         if (isMusicPlaying()) {
@@ -156,6 +163,9 @@ public class MainMenu extends Application {
 
     public static boolean isMusicPlaying() {
         return backgroundMusic != null && backgroundMusic.isPlaying();
+    }
+    public static boolean isSoundPlaying() {
+        return isSound;
     }
 
     public static void setGameController(GameFXMLController gameController) {

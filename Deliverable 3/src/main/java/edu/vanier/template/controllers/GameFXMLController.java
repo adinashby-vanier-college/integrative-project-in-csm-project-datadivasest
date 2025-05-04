@@ -117,9 +117,6 @@ public class GameFXMLController {
     public void setVolume(double volume) {
         this.volume = volume;
     }
-    public boolean isMusicPlaying() {
-        return isSound;
-    }
     public void toggleMusic(boolean play) {
         isSound = play;
     }
@@ -170,7 +167,7 @@ public class GameFXMLController {
         setButton(backpackBtn, "backpack",3 ,3);
         setButton(btnSettings, "Button_settings", 3 ,3);
         setButton(btnBack, "back", 3 ,3);
-        isSound = true;
+        isSound = MainMenu.isSoundPlaying();
         volume = 0.3;
 
         btnBack.setOnAction(this::handleBack);
