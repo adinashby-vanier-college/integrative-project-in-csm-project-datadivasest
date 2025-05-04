@@ -1,5 +1,6 @@
 package edu.vanier.template.controllers;
 
+import edu.vanier.template.helpers.FxUIHelper;
 import edu.vanier.template.models.*;
 import edu.vanier.template.models.Platform;
 import edu.vanier.template.models.Player;
@@ -44,8 +45,6 @@ public class GameFXMLController {
     Button btnMap;
     @FXML
     Button btnHelp;
-    //    @FXML
-//    ToggleButton toggleBackpack;
     @FXML
     Button backpackBtn;
     @FXML
@@ -76,7 +75,6 @@ public class GameFXMLController {
     private Sprite powerUp;
     private boolean facingLeft = false;
     private Map<String, Integer> elementCollected = new HashMap<>();
-    BackpackFXMLController backpackFXMLController;
     MapFXMLController mapFXMLController;
     private Portal portal;
     //    private Portal portalBack;
@@ -213,15 +211,13 @@ public class GameFXMLController {
         btnHelp.setOnAction(this::handleHelpButton);
         btnMap.setOnAction(this::handleMapButton);
 
+
+
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/BackpackScene.fxml"));
-            //loader.setController(this);
-            Parent root = loader.load();
-            backpackFXMLController = loader.getController();
             backpackFXMLController.setUpGridPane();
             backpackStage = new Stage();
             backpackStage.setTitle("Backpack");
-            Scene backpackScene = new Scene(root, 460, 574);
+            Scene backpackScene = new Scene(FxUIHelper.loadFXML(BACKPACK_SCENE, backpackFXMLController), 460, 574);
             backpackStage.setScene(backpackScene);
             backpackStage.setResizable(false);
             backpackStage.setAlwaysOnTop(true);
@@ -416,67 +412,6 @@ public class GameFXMLController {
         });
     }
 
-    /*
-        @FXML
-        public void setUpGridPane() {
-            itemsGridPane.setStyle("-fx-background-color: #fff");
-            itemsGridPane.setPrefWidth(240);
-            itemsGridPane.setPrefHeight(300);
-            Image coinImage = new Image((MainAppFXMLController.class.getResource("/images/player.png").toString()));
-            ImageView coinImageView = new ImageView(coinImage);
-            coinImageView.setFitWidth(50);
-            coinImageView.setFitHeight(50);
-            coinImageView.setPreserveRatio(true);
-            itemsGridPane.add(coinImageView, 0, 0);
-            logger.info("Loading coin image: T/F" + coinImage.isError());
-            coinLabel.setText(" x 0");
-            itemsGridPane.add(coinLabel, 1, 0);
-            Image electronImage = new Image((MainAppFXMLController.class.getResource("/images/player.png").toString()));
-            ImageView electronImageView = new ImageView(electronImage);
-            itemsGridPane.add(electronImageView, 0, 1);
-            electronLabel.setText(" x 0");
-            itemsGridPane.add(electronLabel, 1, 1);
-            Image protonImage = new Image(MainAppFXMLController.class.getResource("/images/player.png").toString());
-            ImageView protonImageView = new ImageView(protonImage);
-            itemsGridPane.add(protonImageView, 0, 2);
-            protonLabel.setText(" x 0");
-            itemsGridPane.add(protonLabel, 1, 2);
-            Image powerUpImage = new Image(MainAppFXMLController.class.getResource("/images/player.png").toString());
-            ImageView powerUpImageView = new ImageView(powerUpImage);
-            itemsGridPane.add(powerUpImageView, 0, 3);
-            powerUpLabel.setText(" x 0");
-            itemsGridPane.add(powerUpLabel, 1, 3);
-            Image chocolatePowerUp = new Image(MainAppFXMLController.class.getResource("/images/player.png").toString());
-            ImageView chocolatePowerUpImageView = new ImageView(chocolatePowerUp);
-            itemsGridPane.add(chocolatePowerUpImageView, 0, 4);
-            chocolatePowerLabel.setText(" x 0");
-            itemsGridPane.add(chocolatePowerLabel, 1, 4);
-            System.out.println("Number of items in the gridPane: " + itemsGridPane.getChildren().size());
-        }
-
-        public void isBackpackEmpty() {
-            if (itemsGridPane.getChildren().isEmpty()) {
-                setUpGridPane();
-                System.out.println("isBackpackEmpty method being used");
-            }
-        }
-
-        //should addToBackpack and removeFromBackpack be one method (updateBackpack)
-        //how can I update the backpack
-
-        public void updateBackpack() {
-            coinLabel.setText(" x " + String.valueOf(coinNum));
-            electronLabel.setText(" x " + String.valueOf(electronNum));
-            protonLabel.setText(" x " + String.valueOf(protonNum));
-            powerUpLabel.setText(" x " + String.valueOf(powerUpNum));
-            chocolatePowerLabel.setText(" x " + String.valueOf(chocolatePowerNum));
-        }
-
-        public void dragElements() {
-
-        }
-
-    */
 //    private void handleBack(Event e) {
 //        System.out.println("Going back to...");
 //
@@ -488,51 +423,6 @@ public class GameFXMLController {
         MainMenu.switchScene(MainMenu.SETTINGS_SCENE);
         logger.info("Settings has been clicked...");
     }
-/*
-    @FXML
-    private void handleToggleBackpack(Event e) {
-        System.out.println("Showing the backpack");
-        boolean isBackpackVisible = backpackPane.isVisible(); //sets it to a true value//set to false in the FXML file originally
-        if(isBackpackVisible == false) {
-            isBackpackEmpty();
-            backpackPane.setVisible(true); //now sets the backpack to visible
-            backpackPane.setManaged(true); //now sets the backpack to be in the screen of the game
-            borderPane.setRight(backpackPane);
-            isBackpackVisible = true;
-            logger.info("Backpack has been clicked...");
-        }
-        else {
-            isBackpackEmpty();
-            backpackPane.setVisible(false);
-            backpackPane.setManaged(false);
-            isBackpackVisible = false;
-            logger.info("Backpack has been clicked...");
-        }
-    }
-/*
-    @FXML
-    private void handleToggleBackpack(Event e) {
-        // Check if the backpack is currently attached to the right region.
-        if (borderPane.getRight() == null) {
-            // Show the backpack: add it to the right region.
-            borderPane.setRight(backpackScrollPane);
-            backpackScrollPane.setVisible(true);
-            backpackScrollPane.setManaged(true);
-            // Optionally initialize its content if necessary.
-            isBackpackEmpty();
-            logger.info("Backpack shown.");
-        } else {
-            // Hide the backpack: remove it from the right region.
-            borderPane.setRight(null);
-            backpackScrollPane.setVisible(false);
-            backpackScrollPane.setManaged(false);
-            logger.info("Backpack hidden.");
-        }
-    }
-
- */
-
-    //where should I use this
 
 
     private ImageView createItemImageView(String itemType) {

@@ -1,6 +1,7 @@
 package edu.vanier.template.controllers;
 
 import edu.vanier.template.helpers.BackpackHelper;
+import edu.vanier.template.helpers.FxUIHelper;
 import edu.vanier.template.models.Elements;
 import edu.vanier.template.ui.BaseWindow;
 import edu.vanier.template.ui.MainMenu;
@@ -58,6 +59,19 @@ public class Question1BuildAtomController {
 
         setBackground(borderPane);
 
+        try {
+            backpackFXMLController.setUpGridPane();
+            backpackStage = new Stage();
+            backpackStage.setTitle("Backpack");
+            Scene backpackScene = new Scene(FxUIHelper.loadFXML(BACKPACK_SCENE, backpackFXMLController), 460, 574);
+            backpackStage.setScene(backpackScene);
+            backpackStage.setResizable(false);
+            backpackStage.setAlwaysOnTop(true);
+        }
+        catch (IOException err) {
+            System.out.println(err.getMessage());
+        }
+
         //Buttons
         btnBack.setOnAction(this::handleBack);
         btnBack.setLayoutX(BaseWindow.sceneWidth * 0.1);
@@ -112,44 +126,22 @@ public class Question1BuildAtomController {
     }
 
     public void handleBackpackButton(Event e) {
+
         try {
             System.out.println("Backpack has been clicked");
 
-            if(backpackStage == null) {
-                try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/BackpackScene.fxml"));
-
-                    Parent root = loader.load();
-                    backpack = loader.getController();
-                    BackpackHelper.setCurrentBackpack(backpack);
-
-                    Scene backpackScene = new Scene(root, 460, 574);
-                    backpack.setScene(backpackScene);
-
-                    backpackStage = new Stage();
-                    backpackStage.setTitle("Backpack");
-                    backpackStage.setScene(backpackScene);
-                    backpackStage.setResizable(false);
-                    backpackStage.setAlwaysOnTop(true);
-                }
-                catch (IOException err) {
-                    System.out.println(err.getMessage());
-                }
-                if(!backpackStage.isShowing()) {
-                    System.out.println("backstage is not null ");
-                    System.out.println("is backpack showing: " + backpackStage.isShowing());
-                    backpackStage.show();
-
-                }
+            if(backpackStage != null && !backpackStage.isShowing()) {
+                backpackStage.show();
                 backpackStage.toFront();
                 //backpackFXMLController.setUpGridPane();
             }
 
-            //
+
         } catch (Exception exception) {
             System.err.println(exception.getMessage());
             exception.printStackTrace();
         }
+
     }
 
     public void handleMapButton(Event e) {

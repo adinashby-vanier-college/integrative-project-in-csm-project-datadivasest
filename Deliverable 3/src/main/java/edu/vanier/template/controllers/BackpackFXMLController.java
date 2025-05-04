@@ -1,6 +1,7 @@
 package edu.vanier.template.controllers;
 
 import edu.vanier.template.models.Sprite;
+import edu.vanier.template.ui.BaseWindow;
 import edu.vanier.template.ui.MainApp;
 import edu.vanier.template.ui.MainMenu;
 import javafx.collections.ObservableList;
@@ -59,8 +60,6 @@ public class BackpackFXMLController {
     @FXML
     public Label protonLabel;
 
-    GameFXMLController gameFXMLController;
-
     private Label powerUpLabel;
     private Label chocolatePowerUpLabel;
     private int currentColumn;
@@ -83,15 +82,16 @@ public class BackpackFXMLController {
         this.scene = scene;
     }
 
-    public static BackpackFXMLController getInstance() {
-        return backpackFXMLController;
-    }
     /**
      * actions performed with the backpack
      */
+    @FXML
     public void initialize() {
         logger.info("initializing backpack");
-
+        backpackGridPane.setPrefHeight(BaseWindow.sceneHeight * 0.8);
+        backpackGridPane.setPrefWidth(BaseWindow.sceneWidth * 0.3);
+        setUpGridPane();
+        setUI();
         //setBackground(backpackGridPane);
        // setBackground(backpackPane);
 
@@ -103,9 +103,6 @@ public class BackpackFXMLController {
         //exitBtn.setOnAction(this::loadLastScene);
     }
 
-    public void start(Stage stage) {
-        logger.info("starting backpack");
-    }
     public void isBackpackEmpty() {
         if (backpackGridPane.getChildren().isEmpty()) {
             setUpGridPane();
@@ -302,7 +299,7 @@ public class BackpackFXMLController {
     //instead of taking that image deleting it from the backpack, it'll be drag and dropped in the screen and the number of
     //those items will change
 
-    //instead of taking that image deleting it from the backpack, it'll be drag and dropped in the screen and the number of
+    //instead of taking that image deleting it from the , it'll be drag and dropped in the screen and the number of
     //those items will change
     //we could either remove the image or make it invisible
     //to remove the can just remove then sprite since the spring and image are related

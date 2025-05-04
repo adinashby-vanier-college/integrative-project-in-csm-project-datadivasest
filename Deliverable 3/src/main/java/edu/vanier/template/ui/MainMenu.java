@@ -143,6 +143,9 @@ public class MainMenu extends Application {
             primaryStage.setAlwaysOnTop(true);
             primaryStage.show();
             primaryStage.setAlwaysOnTop(false);
+            backpackFXMLController = new BackpackFXMLController();
+            Parent root1 = FxUIHelper.loadFXML(BACKPACK_SCENE, backpackFXMLController);
+            sceneController.addScene(BACKPACK_SCENE, root1);
             initBackgroundMusic();
         } catch (IOException ex) {
             logger.error(ex.getMessage(), ex);
@@ -374,7 +377,6 @@ public class MainMenu extends Application {
                      backpackFXMLController = new BackpackFXMLController();
                      Parent root = FxUIHelper.loadFXML(fxmlFileName, backpackFXMLController);
                     sceneController.addScene(BACKPACK_SCENE, root);
-
                 }
                // The scene has been previously added, we activate it.
                 sceneController.activateScene(fxmlFileName);
