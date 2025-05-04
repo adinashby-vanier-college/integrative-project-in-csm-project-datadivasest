@@ -268,7 +268,8 @@ public class BackpackFXMLController {
         public void setUI() {
          setBackground(backpackGridPane);
          setBackground(backpackPane);
-         }
+        }
+
         public void addNewItem(Sprite sprite) {
             String type = sprite.getType().toLowerCase();
 
