@@ -96,6 +96,9 @@ public class GameFXMLController {
     private Image imgPortal;
     private double volume;
     private boolean isSound;
+    List<Sprite> sprite1List = new ArrayList<>();
+    List<Sprite> sprite2List = new ArrayList<>();
+
 
     public GameFXMLController(Family currentFamily) {
         this.currentFamily = currentFamily;
@@ -122,26 +125,20 @@ public class GameFXMLController {
     }
     public void setWorld() {
         //Images for the game
-        imgPlatformFloor = new Image(MainAppFXMLController.class.
-                getResource("/images/PNG/forest_pack_05.png").toString());
-        backgroundImg = new Image(MainAppFXMLController.class.
-                getResource("/images/"+currentFamily.getName()+"/background.png").toString());
+
+        //Images for the game
+        imgPlatformFloor = getImage("forest_pack_05.png");
+        backgroundImg = getImage(currentFamily.getName()+"/background.png");
         bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, true);
-        imgPortal = new Image(MainAppFXMLController.class.
-                getResource("/images/PNG/galaxy.png").toString());
+        imgPortal = getImage("PNG/galaxy.png");
         strPlayerImg = MainAppFXMLController.class.
                 getResource("/images/player.gif").toString();
         strPlayerFlippedImg = MainAppFXMLController.class.
                 getResource("/images/playerFlipped.gif").toString();
-        electronImg = new Image(MainAppFXMLController.class.
-                getResource("/images/Electron.png").toString());
-        protonImg = new Image(MainAppFXMLController.class.
-                getResource("/images/Proton.png").toString());
-        borderPane.setBackground(new Background(new BackgroundImage(backgroundImg,
-                BackgroundRepeat.REPEAT,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.CENTER,
-                bSize)));
+        electronImg = getImage("Electron.png");
+        protonImg = getImage("Proton.png");
+        setBackground(borderPane, currentFamily.getName()+"/background.png");
+
         platformList = new ArrayList<>();
         platformFloor = new Platform(0, (int)BaseWindow.sceneHeight - 200, "floor", (int)BaseWindow.sceneWidth, 200, imgPlatformFloor);
         canvas = new Canvas(BaseWindow.sceneWidth, BaseWindow.sceneHeight);
@@ -157,7 +154,75 @@ public class GameFXMLController {
 //            portalBack.setLevel(32);
 //        portalBack.setHeight(BaseWindow.sceneHeight);
 //    }
+public void setSprites() {
+    //TODO: Generalize this code from being electrons and protons to being any sprite
+    for (int i = 0; i < 15; i++) {
+        //TODO: generalize
+        Sprite electron = new Sprite("electron", electronImg);
+        Sprite proton = new Sprite("proton", protonImg);
+        electron.setSize(30 * BaseWindow.sceneHeight / 770);
+        proton.setSize(30 * BaseWindow.sceneHeight / 770);
+        electron.setImage(electronImg);
+        proton.setImage(protonImg);
 
+        //position should be set with  the rest of the platforms
+        double px1 = BaseWindow.sceneWidth * 0.7 * Math.random() + 50;
+        double py1 = BaseWindow.sceneHeight * 0.7 * Math.random() + 50;
+
+        double px = BaseWindow.sceneWidth * 0.7 * Math.random() + 50;
+        double py = BaseWindow.sceneHeight * 0.7 * Math.random() + 50;
+
+        electron.setPosition(px1, py1);
+        proton.setPosition(px, py);
+        sprite2List.add(proton);
+        sprite1List.add(electron);
+    }
+}
+
+    public void renderSprites(Player player, GraphicsContext gc) {
+        Iterator<Sprite> sprite1Iter = sprite1List.iterator();
+        while (sprite1Iter.hasNext()) {
+            //TODO for logic of electron check if name is electron
+            Sprite electron = sprite1Iter.next();
+            if (player.intersects(electron)) {
+                sprite1Iter.remove();
+                itemClip.setVolume(volume);
+                if (isSound)
+                    itemClip.play();
+                System.out.println("interacting with a sprite");
+                score--;
+                electronNum++;
+                elementCollected.put("electron", electronNum);
+                mainPane.getChildren().remove(electron);
+                //backpackFXMLController.setupCoinDrag(electron);
+                if(backpackFXMLController != null) {
+                    backpackFXMLController.increaseCount(electron);
+                    System.out.println("backpack is not null");
+                }
+            }
+        }
+        Iterator<Sprite> sprite2Iter = sprite2List.iterator();
+        while (sprite2Iter.hasNext()) {
+            Sprite proton = sprite2Iter.next();
+            if (player.intersects(proton)) {
+                sprite2Iter.remove();
+                itemClip.setVolume(volume);
+                if (isSound)
+                    itemClip.play();
+                score++;
+                protonNum++;
+                elementCollected.put("proton", protonNum);
+                backpackFXMLController.increaseCount(proton);
+            }
+        }
+
+        for (Sprite electron : sprite1List) {
+            electron.render(gc);
+        }
+        for (Sprite proton : sprite2List) {
+            proton.render(gc);
+        }
+    }
     @FXML
     public void initialize() {
         logger.info("Initializing Game Controller...");
@@ -219,32 +284,8 @@ public class GameFXMLController {
         player.setBounds(0,(int) canvas.getWidth(), 0,
                 (int) canvas.getHeight() - (int) platformFloor.getHeight());
 
-        //TODO: Generalize this code from being electrons and protons to being any sprite
-        List<Sprite> sprite1List = new ArrayList<>();
-        List<Sprite> sprite2List = new ArrayList<>();
-
-        for (int i = 0; i < 15; i++) {
-            //TODO: generalize
-            Sprite electron = new Sprite("electron", electronImg);
-            Sprite proton = new Sprite("proton", protonImg);
-            electron.setSize(30 * BaseWindow.sceneHeight / 770);
-            proton.setSize(30 * BaseWindow.sceneHeight / 770);
-            electron.setImage(electronImg);
-            proton.setImage(protonImg);
-
-            //position should be set with  the rest of the platforms
-            double px1 = BaseWindow.sceneWidth * 0.7 * Math.random() + 50;
-            double py1 = BaseWindow.sceneHeight * 0.7 * Math.random() + 50;
-
-            double px = BaseWindow.sceneWidth * 0.7 * Math.random() + 50;
-            double py = BaseWindow.sceneHeight * 0.7 * Math.random() + 50;
-
-            electron.setPosition(px1, py1);
-            proton.setPosition(px, py);
-            sprite2List.add(proton);
-            sprite1List.add(electron);
-        }
-
+        setSprites();
+d
         animation = new AnimationTimer() {
             private boolean isJumping = false;
             private boolean isFalling = false;
@@ -347,42 +388,7 @@ public class GameFXMLController {
                     portal.unlock();
 
                 // Electron collection logic
-                Iterator<Sprite> sprite1Iter = sprite1List.iterator();
-                while (sprite1Iter.hasNext()) {
-                    //TODO for logic of electron check if name is electron
-                    Sprite electron = sprite1Iter.next();
-                    if (player.intersects(electron)) {
-                        sprite1Iter.remove();
-                        itemClip.setVolume(volume);
-                        if (isSound)
-                            itemClip.play();
-                        System.out.println("interacting with a sprite");
-                        score--;
-                        electronNum++;
-                        elementCollected.put("electron", electronNum);
-                        mainPane.getChildren().remove(electron);
-                        //backpackFXMLController.setupCoinDrag(electron);
-                        if(backpackFXMLController != null) {
-                            backpackFXMLController.increaseCount(electron);
-                            System.out.println("backpack is not null");
-                        }
-                    }
-                }
-                Iterator<Sprite> sprite2Iter = sprite2List.iterator();
-                while (sprite2Iter.hasNext()) {
-                    Sprite proton = sprite2Iter.next();
-                    if (player.intersects(proton)) {
-                        sprite2Iter.remove();
-                        itemClip.setVolume(volume);
-                        if (isSound)
-                            itemClip.play();
-                        score++;
-                        protonNum++;
-                        elementCollected.put("proton", protonNum);
-                        backpackFXMLController.increaseCount(proton);
-                    }
-                }
-
+                renderSprites(player, gc);
                 if (portal.intersects(player)) {
                     portal.enter();
                 }
@@ -391,13 +397,8 @@ public class GameFXMLController {
                 gc.clearRect(0, 0, canvasWidth, canvasHeight);
                 player.render(gc);
                 portal.render(gc);
+                renderSprites(player, gc);
 //                portalBack.render(gc);
-                for (Sprite electron : sprite1List) {
-                    electron.render(gc);
-                }
-                for (Sprite proton : sprite2List) {
-                    proton.render(gc);
-                }
 
                 for (Sprite platform : platformList) {
                     platform.render(gc);
