@@ -67,6 +67,7 @@ public class MainMenu extends Application {
     // The FXML file name of the QuestionEx2 scene
     public static final String QUESTIONEX2_SCENE = "QuestionEx2";
     public static final String QUESTIONEX3_SCENE = "QuestionEx3";
+    public static final String QUESTION1BUILDATOM = "Question1BuildAtom";
     // The FXML file name of the create account scene
     public static final String CREATEACCOUNT_SCENE = "CreateAccountPage";
     // The FXML file name of the login scene
@@ -86,6 +87,7 @@ public class MainMenu extends Application {
     public static QuestionEx1FXMLController questionEx1FXMLController;
     public static QuestionEx2FXMLController questionEx2FXMLController;
     public static QuestionEx3FXMLController questionEx3FXMLController;
+    public static Question1BuildAtomController question1BuildAtomController;
     public static CreateAccountFXMLController createAccountFXMLController;
     public static LoginFXMLController loginFXMLController;
     public static SettingsFXMLController settingsFXMLController;
@@ -98,10 +100,8 @@ public class MainMenu extends Application {
     public static SceneController sceneController;
     public static final String GAME_SCENE = "World_layout";
     private static AudioClip backgroundMusic;
-    public static final Image backgroundImgLight = new Image(MainAppFXMLController.class.
-            getResource("/images/Files/png/BG.png").toString());
-    public static final Image backgroundImgDark = new Image(MainAppFXMLController.class.
-            getResource("/images/backgroundDark.png").toString());
+    public static Image backgroundImgLight;
+    public static Image backgroundImgDark;
     public static Image backgroundImg;
     private static ArrayDeque<String> appFlow;
     private static boolean isSound;
@@ -174,9 +174,13 @@ public class MainMenu extends Application {
     }
     public static void toggleNightMode(boolean play) {
         if (play) {
+            backgroundImgDark = new Image(MainAppFXMLController.class.
+                    getResource("/images/backgroundDark.png").toString());
             backgroundImg = backgroundImgDark;
         }
         else {
+            backgroundImgLight = new Image(MainAppFXMLController.class.
+                    getResource("/images/Files/png/BG.png").toString());
             backgroundImg = backgroundImgLight;
         }
         mainMenuFXMLController.setUI();
@@ -307,6 +311,17 @@ public class MainMenu extends Application {
                     questionEx3FXMLController = new QuestionEx3FXMLController();
                     Parent root = FxUIHelper.loadFXML(fxmlFileName, questionEx3FXMLController);
                     sceneController.addScene(QUESTIONEX3_SCENE, root);
+                }
+                // The scene has been previously added, we activate it.
+                sceneController.activateScene(fxmlFileName);
+            }
+            else if(fxmlFileName.equals(QUESTION1BUILDATOM)) {
+                if(!sceneController.sceneExists(fxmlFileName)) {
+                    // Instantiate the corresponding FXML controller if the
+                    // specified scene is being loaded for the first time.
+                    question1BuildAtomController = new Question1BuildAtomController();
+                    Parent root = FxUIHelper.loadFXML(fxmlFileName, question1BuildAtomController);
+                    sceneController.addScene(QUESTION1BUILDATOM, root);
                 }
                 // The scene has been previously added, we activate it.
                 sceneController.activateScene(fxmlFileName);
