@@ -31,25 +31,17 @@
       </HBox>
    </top>
    <center>
-      <StackPane prefHeight="93.0" prefWidth="600.0" BorderPane.alignment="BOTTOM_CENTER">
+      <StackPane alignment="BOTTOM_LEFT" BorderPane.alignment="BOTTOM_LEFT">
          <children>
-            <HBox alignment="BOTTOM_CENTER" StackPane.alignment="BOTTOM_CENTER">
-               <children>
-                  <ImageView fx:id="character1ImgView" fitHeight="300.0" fitWidth="332.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/character1.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fx:id="character2ImgView" fitHeight="300.0" fitWidth="736.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/character2.png" />
-                     </image>
-                  </ImageView>
-               </children>
+            <AnchorPane StackPane.alignment="CENTER">
                <StackPane.margin>
-                  <Insets bottom="20.0" />
+                  <Insets />
                </StackPane.margin>
-            </HBox>
+               <children>
+                  <ImageView fx:id="character1ImgView" fitHeight="300.0" fitWidth="332.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" smooth="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
+                  <ImageView fx:id="character2ImgView" fitHeight="300.0" fitWidth="736.0" layoutX="332.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+               </children>
+            </AnchorPane>
             <StackPane alignment="BOTTOM_CENTER" prefHeight="101.0" prefWidth="602.0" StackPane.alignment="BOTTOM_CENTER">
                <StackPane.margin>
                   <Insets bottom="20.0" />
@@ -60,22 +52,24 @@
                         <Image url="@../images/dialogueBox.png" />
                      </image>
                   </ImageView>
-                  <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
+                  <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" style="-fx-background-color: pink;" text="History" />
                         <Button fx:id="btnSkip" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" style="-fx-background-color: pink;" text="Skip" textAlignment="CENTER" />
                         <Button fx:id="btnPlay" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" style="-fx-background-color: pink;" text="Next" />
                      </children>
                      <StackPane.margin>
                         <Insets bottom="5.0" />
                      </StackPane.margin>
+                     <padding>
+                        <Insets bottom="100.0" right="100.0" />
+                     </padding>
                   </HBox>
-                  <Text fx:id="dialogueText" strokeType="OUTSIDE" strokeWidth="0.0" text="Dialogue: blah blah blah " StackPane.alignment="BOTTOM_LEFT">
+                  <Text fx:id="dialogueText" strokeLineCap="ROUND" strokeLineJoin="BEVEL" strokeWidth="0.0" text="Dialogue: blah blah blah " textAlignment="CENTER" StackPane.alignment="BOTTOM_CENTER">
                      <StackPane.margin>
-                        <Insets bottom="100.0" left="10.0" />
+                        <Insets bottom="60.0" left="10.0" />
                      </StackPane.margin>
                      <font>
-                        <Font size="24.0" />
+                        <Font name="System Bold" size="36.0" />
                      </font>
                   </Text>
                   <Text fx:id="characterNameText" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" StackPane.alignment="BOTTOM_LEFT">
