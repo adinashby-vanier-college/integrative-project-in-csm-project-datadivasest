@@ -275,7 +275,7 @@ public class World {
     public static void setTM5Sprites(Sprite sprite1, Sprite sprite2, Sprite sprite3,
                                      List<Sprite> sprite1List, List<Sprite> sprite2List,
                                      List<Sprite> sprite3List) {
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 5; i++) {
             initSprite("Nitrogen", getImage("elements/Nitrogen.png"), sprite1, sprite1List);
             initSprite("Phosphorus", getImage("elements/Phosphorus.png"), sprite2,  sprite2List);
             initSprite("Arsenic", getImage("elements/Arsenic.png"), sprite3,  sprite3List);
@@ -284,7 +284,7 @@ public class World {
     public static void setTM6Sprites(Sprite sprite1, Sprite sprite2, Sprite sprite3,
                                      List<Sprite> sprite1List, List<Sprite> sprite2List,
                                      List<Sprite> sprite3List) {
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 5; i++) {
             initSprite("Oxygen", getImage("elements/Oxygen.png"), sprite1, sprite1List);
             initSprite("Sulfur", getImage("elements/Sulfur.png"), sprite2,  sprite2List);
             initSprite("Selenium", getImage("elements/Selenium.png"), sprite3,  sprite3List);
@@ -294,7 +294,7 @@ public class World {
     public static void setHalogensSprites(Sprite sprite1, Sprite sprite2, Sprite sprite3,
                                           List<Sprite> sprite1List, List<Sprite> sprite2List,
                                           List<Sprite> sprite3List) {
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 5; i++) {
             initSprite("Fluorine", getImage("elements/Fluorine.png"), sprite1, sprite1List);
             initSprite("Chlorine", getImage("elements/Chlorine.png"), sprite2,  sprite2List);
             initSprite("Bromine", getImage("elements/Bromine.png"), sprite3,  sprite3List);
@@ -303,7 +303,7 @@ public class World {
     public static void setNobleGasSprites(Sprite sprite1, Sprite sprite2, Sprite sprite3, Sprite sprite4,
                                           List<Sprite> sprite1List, List<Sprite> sprite2List,
                                           List<Sprite> sprite3List, List<Sprite> sprite4List) {
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 5; i++) {
             initSprite("Helium", getImage("elements/Helium.png"), sprite1, sprite1List);
             initSprite("Neon", getImage("elements/Neon.png"), sprite2,  sprite2List);
             initSprite("Argon", getImage("elements/Argon.png"), sprite3,  sprite3List);
@@ -323,10 +323,12 @@ public class World {
         sprite.setSize(30 * BaseWindow.sceneHeight / 770);
 
         //position should be set with  the rest of the platforms
-        double px = BaseWindow.sceneWidth * 0.7 * Math.random() + 50;
+        double px = BaseWindow.sceneWidth * 0.9 * Math.random() + 50;
         double py = BaseWindow.sceneHeight * 0.7 * Math.random() + 50;
 
         sprite.setPosition(px, py);
         spriteList.add(sprite);
     }
+
+
 }

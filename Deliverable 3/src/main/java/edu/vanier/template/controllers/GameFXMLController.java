@@ -26,9 +26,6 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
 import javafx.scene.media.AudioClip;
 
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 import org.slf4j.Logger;
@@ -76,8 +73,6 @@ public class GameFXMLController {
     private int protonNum = 0;
     private int powerUpNum = 0;
     private int chocolatePowerNum = 0;
-    private Sprite electron;
-    private Sprite proton;
     private Sprite powerUp;
     private boolean facingLeft = false;
     private Map<String, Integer> elementCollected = new HashMap<>();
@@ -158,41 +153,10 @@ public class GameFXMLController {
 //    }
 
     public void renderSprites(Player player, GraphicsContext gc) {
-        Iterator<Sprite> sprite1Iter = sprite1List.iterator();
-        while (sprite1Iter.hasNext()) {
-            //TODO for logic of electron check if name is electron
-            Sprite sprite1 = sprite1Iter.next();
-            if (player.intersects(sprite1)) {
-                sprite1Iter.remove();
-                itemClip.setVolume(volume);
-                if (isSound)
-                    itemClip.play();
-                System.out.println("interacting with a sprite");
-                mainPane.getChildren().remove(sprite1);
-
-                electronNum++;
-                elementCollected.put("electron", electronNum);
-
-                if(backpackFXMLController != null) {
-                    backpackFXMLController.increaseCount(electron);
-                    System.out.println("backpack is not null");
-                }
-            }
-        }
-        Iterator<Sprite> sprite2Iter = sprite2List.iterator();
-        while (sprite2Iter.hasNext()) {
-            Sprite proton = sprite2Iter.next();
-            if (player.intersects(proton)) {
-                sprite2Iter.remove();
-                itemClip.setVolume(volume);
-                if (isSound)
-                    itemClip.play();
-
-                protonNum++;
-                elementCollected.put("proton", protonNum);
-                backpackFXMLController.increaseCount(proton);
-            }
-        }
+        iterateList(player, sprite1List);
+        iterateList(player, sprite2List);
+        iterateList(player, sprite3List);
+        iterateList(player, sprite4List);
 
         renderList(sprite1List, gc);
         renderList(sprite2List, gc);
@@ -200,6 +164,33 @@ public class GameFXMLController {
         renderList(sprite4List, gc);
     }
 
+    private void iterateList(Player player, List<Sprite> spriteList) {
+        Iterator<Sprite> spriteIter = spriteList.iterator();
+        while (spriteIter.hasNext()) {
+            Sprite sprite = spriteIter.next();
+            if (player.intersects(sprite)) {
+                spriteIter.remove();
+                itemClip.setVolume(volume);
+                if (isSound)
+                    itemClip.play();
+                mainPane.getChildren().remove(sprite);
+                updateCounts(sprite);
+            }
+        }
+    }
+    private void updateCounts(Sprite sprite) {
+        if (sprite.getType().equals("electron")) {
+            electronNum++;
+            elementCollected.put("electron", electronNum);
+        } else if (sprite.getType().equals("proton")) {
+            protonNum++;
+            elementCollected.put("proton", protonNum);
+        }
+
+        if (backpackFXMLController != null)
+            backpackFXMLController.increaseCount(sprite);
+
+    }
     private void renderList(List<Sprite> spriteList, GraphicsContext gc) {
         for (Sprite sprite : spriteList) {
             sprite.render(gc);
@@ -241,8 +232,7 @@ public class GameFXMLController {
         }
 
         setWorld();
-//        if (currentFamily.equals(Family.LEVEL12) || currentFamily.equals(Family.LEVEL32))
-//            setPortalBack();
+
         //user should first build the atom, below line directs them to build atom after collecting electrons and protons from the game scene
         // Portal portal = new Portal((int)BaseWindow.sceneWidth - 30, (int)BaseWindow.sceneHeight - 200 - (int)platformFloor.getHeight(), 30, 200, imgPortal, QUESTION1BUILDATOM);
         //-- Create and configure the media player.
@@ -250,12 +240,6 @@ public class GameFXMLController {
         jumpClip = new AudioClip(getClass().getResource("/sounds/jump.wav").toExternalForm());
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
-
-        Font scoreFont = Font.font("Helvetica", FontWeight.BOLD, 24);
-        gc.setFont(scoreFont);
-        gc.setFill(Color.GREEN);
-        gc.setStroke(Color.BLACK);
-        gc.setLineWidth(1);
 
         //@author Tabasuum
         //allows to flip character while moving to simulate animation
@@ -303,6 +287,7 @@ public class GameFXMLController {
                     if (!player.getImgStr().equals(strPlayerImg))
                         player.setImage(strPlayerImg);
                 }
+
                 // Jumping logic (double jump)
                 if (input.contains("W") && cnt < 5) {
                     velocityY = jumpStrength;
@@ -314,17 +299,6 @@ public class GameFXMLController {
                             jumpClip.play();
                     }
                 }
-
-                /*
-                if (input.contains("W")) {
-                    velocityY = jumpStrength;
-                    cnt++;
-                    input.remove("W");
-                    if(!jumpClip.isPlaying()){
-                        jumpClip.play();
-                    }
-                }
-                */
 
                 // Apply gravity
                 velocityY += gravity * elapsedTime;
@@ -369,8 +343,9 @@ public class GameFXMLController {
                 if (score >= 0)
                     portal.unlock();
 
-                // Electron collection logic
+                // Sprite collection logic
                 renderSprites(player, gc);
+
                 if (portal.intersects(player)) {
                     portal.enter();
                 }
@@ -385,10 +360,6 @@ public class GameFXMLController {
                 for (Sprite platform : platformList) {
                     platform.render(gc);
                 }
-
-                String pointsText = "charge: " + (2 * score);
-                gc.fillText(pointsText, 360, 36);
-                gc.strokeText(pointsText, 360, 36);
             }
         };
 
