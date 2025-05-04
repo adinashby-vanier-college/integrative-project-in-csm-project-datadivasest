@@ -32,7 +32,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import static edu.vanier.template.ui.MainMenu.setBackground;
+import static edu.vanier.template.ui.MainMenu.*;
 
 /**
  * @author Sofia Martinez
@@ -91,6 +91,7 @@ public class BackpackFXMLController {
     public void initialize() {
         logger.info("initializing backpack");
         doneBtn.setOnAction(this::handleDoneBtn);
+
         //setBackground(backpackGridPane);
        // setBackground(backpackPane);
 
@@ -264,7 +265,10 @@ public class BackpackFXMLController {
             System.out.println("method is being executed");
         }
 
-
+        public void setUI() {
+         setBackground(backpackGridPane);
+         setBackground(backpackPane);
+         }
         public void addNewItem(Sprite sprite) {
             String type = sprite.getType().toLowerCase();
 
