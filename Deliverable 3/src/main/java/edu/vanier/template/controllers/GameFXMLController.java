@@ -355,10 +355,6 @@ public class GameFXMLController {
                             backpackFXMLController.increaseCount(electron);
                             System.out.println("backpack is not null");
                         }
-                        //backpackFXMLController.addObject(electron);
-                        //don't necessarily need ot delete the coin
-                        //won't the electron need to be removed after it collides with the player
-                        //we'll also need protons but this can be done for deliverable three (the differentiation)
                     }
                 }
                 Iterator<Sprite> sprite2Iter = sprite2List.iterator();
@@ -371,10 +367,6 @@ public class GameFXMLController {
                         protonNum++;
                         elementCollected.put("proton", protonNum);
                         backpackFXMLController.increaseCount(proton);
-                        //backpackFXMLController.addObject(electron);
-                        //don't necessarily need ot delete the coin
-                        //won't the electron need to be removed after it collides with the player
-                        //we'll also need protons but this can be done for deliverable three (the differentiation)
                     }
                 }
 

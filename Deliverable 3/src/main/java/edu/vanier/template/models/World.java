@@ -123,18 +123,27 @@ public class World {
 
     /**
      * Sets size and location for platforms for Level 2
-     * TODO: Finish setting the rest of the platforms
      */
     public static void setPlatformsType2(Family currentFamily, List<Platform> platformList) {
-        addPlatform(currentFamily, platformList, 0.0, 0.40, 800,400);
-//        addPlatform(currentFamily, platformList, 0.2, 0.70, 500,600);
-//        addPlatform(currentFamily, platformList, 0.25, 0.50, 80,400);
-//        addPlatform(currentFamily, platformList, 0.60, 0.40, 80,400);
-//        addPlatform(currentFamily, platformList, 0.90, 0.30, 100,300);
-//        addPlatform(currentFamily, platformList, 0.60, 0.80, 100,400);
-//        addPlatform(currentFamily, platformList, 0.97, 0.65, 100,300);
-//        addPlatform(currentFamily, platformList, 0.97, 0.65, 100,300);
-//        addPlatform(currentFamily, platformList, 0.97, 0.65, 100,300);
+        addPlatform(currentFamily, platformList, 0.1, 0.85, 100,700);
+        addPlatform(currentFamily, platformList, 0.3, 0.80, 200,200);
+        addPlatform(currentFamily, platformList, 0.15, 0.50, 80,500);
+        addPlatform(currentFamily, platformList, 0.185, 0.45, 80,300);
+        addPlatform(currentFamily, platformList, 0.45, 0.70, 100,600);
+        addPlatform(currentFamily, platformList, 0.80, 0.70, 100,400);
+        addPlatform(currentFamily, platformList, 0.83, 0.75, 300,100);
+        addPlatform(currentFamily, platformList, 0.48, 0.75, 300,100);
+        addPlatform(currentFamily, platformList, 0.45, 0.30, 100,100);
+        addPlatform(currentFamily, platformList, 0.695, 0.30, 100,500);
+        addPlatform(currentFamily, platformList, 0.685, 0.77, 200,100);
+        addPlatform(currentFamily, platformList, 0.565, 0.70, 200,100);
+        addPlatform(currentFamily, platformList, 0.565, 0.40, 100,200);
+        addPlatform(currentFamily, platformList, 0.604, 0.70, 300,100);
+        addPlatform(currentFamily, platformList, 0.93, 0.70, 200,100);
+        addPlatform(currentFamily, platformList, 0.0, 0.20, 80,400);
+        addPlatform(currentFamily, platformList, 0.0, 0.60, 80,200);
+        addPlatform(currentFamily, platformList, 0.94, 0.20, 80,500);
+        addPlatform(currentFamily, platformList, 1, 0.50, 80,300);
     }
 
     /**
