@@ -50,8 +50,8 @@ public class GameFXMLController {
     Button backpackBtn;
     @FXML
     Button btnSettings;
-    @FXML
-    Button btnBack;
+//    @FXML
+//    Button btnBack;
     @FXML
     BorderPane borderPane;
 
@@ -124,8 +124,6 @@ public class GameFXMLController {
     }
     public void setWorld() {
         //Images for the game
-
-        //Images for the game
         imgPlatformFloor = getImage("forest_pack_05.png");
         backgroundImg = getImage(currentFamily.getName()+"/background.png");
         bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, true);
@@ -140,7 +138,7 @@ public class GameFXMLController {
         platformFloor = new Platform(0, (int)BaseWindow.sceneHeight - 200, "floor", (int)BaseWindow.sceneWidth, 200, imgPlatformFloor);
         canvas = new Canvas(BaseWindow.sceneWidth, BaseWindow.sceneHeight);
         mainPane.getChildren().addAll(canvas, platformFloor);
-        portal = new Portal((int)BaseWindow.sceneWidth - 100, (int)BaseWindow.sceneHeight - 100 - (int)platformFloor.getHeight(), 30, 100, imgPortal, QUESTIONEX2_SCENE);
+        portal = new Portal((int)BaseWindow.sceneWidth - 100, (int)BaseWindow.sceneHeight - 100 - (int)platformFloor.getHeight(), 30, 100, imgPortal, INSTRUCTIONS2_SCENE);
         World.generateElements(currentFamily, platformList, portal);
     }
 //    void setPortalBack() {
@@ -179,6 +177,7 @@ public class GameFXMLController {
         }
     }
     private void updateCounts(Sprite sprite) {
+        score++;
         if (sprite.getType().equals("electron")) {
             electronNum++;
             elementCollected.put("electron", electronNum);
@@ -186,11 +185,10 @@ public class GameFXMLController {
             protonNum++;
             elementCollected.put("proton", protonNum);
         }
-
         if (backpackFXMLController != null)
             backpackFXMLController.increaseCount(sprite);
-
     }
+
     private void renderList(List<Sprite> spriteList, GraphicsContext gc) {
         for (Sprite sprite : spriteList) {
             sprite.render(gc);
@@ -204,11 +202,11 @@ public class GameFXMLController {
         setButton(btnHelp, "Button_help",3 ,3);
         setButton(backpackBtn, "backpack",3 ,3);
         setButton(btnSettings, "Button_settings", 3 ,3);
-        setButton(btnBack, "back", 3 ,3);
+//        setButton(btnBack, "back", 3 ,3);
         isSound = MainMenu.isSoundPlaying();
         volume = 0.3;
 
-        btnBack.setOnAction(this::handleBack);
+//        btnBack.setOnAction(this::handleBack);
         btnSettings.setOnAction(this::handleSettings);
         backpackBtn.setOnAction(this::handleBackpackButton);
         btnHelp.setOnAction(this::handleHelpButton);
@@ -478,11 +476,12 @@ public class GameFXMLController {
         }
 
     */
-    private void handleBack(Event e) {
-        System.out.println("Going back to...");
-        MainMenu.goBack();
-        logger.info("Back button has been clicked...");
-    }
+//    private void handleBack(Event e) {
+//        System.out.println("Going back to...");
+//
+//        MainMenu.goBack();
+//        logger.info("Back button has been clicked...");
+//    }
     private void handleSettings(Event e) {
         System.out.println("Going to settings...");
         MainMenu.switchScene(MainMenu.SETTINGS_SCENE);

@@ -77,6 +77,7 @@ public class MainMenu extends Application {
     public static final String BACKPACK_SCENE = "BackpackScene";
     public static final String HELP_SCENE = "Help_layout";
     public static final String INSTRUCTIONS_SCENE = "Instruction";
+    public static final String INSTRUCTIONS2_SCENE = "Instruction2";
 
     private static GameFXMLController gameController;
     public static DialogueFXMLController dialogueController;
@@ -91,6 +92,7 @@ public class MainMenu extends Application {
     public static BackpackFXMLController backpackFXMLController;
     public static HelpFXMLController helpFXMLController;
     public static InstructionFXMLController instructionFXMLController;
+    public static Instruction2FXMLController instruction2FXMLController;
     private final static Logger logger = LoggerFactory.getLogger(edu.vanier.template.ui.MainMenu.class);
     public static Scene scene;
     public static SceneController sceneController;
@@ -198,6 +200,8 @@ public class MainMenu extends Application {
             helpFXMLController.setUI();
         if (instructionFXMLController != null)
             instructionFXMLController.setUI();
+        if (instruction2FXMLController != null)
+            instruction2FXMLController.setUI();
     }
 
     public static void setMusicVolume(double volume) {
@@ -376,6 +380,14 @@ public class MainMenu extends Application {
                     instructionFXMLController = new InstructionFXMLController();
                      Parent root = FxUIHelper.loadFXML(fxmlFileName, instructionFXMLController);
                     sceneController.addScene(INSTRUCTIONS_SCENE, root);
+                } else if(fxmlFileName.equals(INSTRUCTIONS2_SCENE)) {
+                    if (!sceneController.sceneExists(fxmlFileName)) {
+                        // Instantiate the corresponding FXML controller if the
+                        // specified scene is being loaded for the first time.
+                        instruction2FXMLController = new Instruction2FXMLController();
+                        Parent root = FxUIHelper.loadFXML(fxmlFileName, instruction2FXMLController);
+                        sceneController.addScene(INSTRUCTIONS2_SCENE, root);
+                    }
                 }
                // The scene has been previously added, we activate it.
                 sceneController.activateScene(fxmlFileName);
