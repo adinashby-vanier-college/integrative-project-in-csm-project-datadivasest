@@ -11,6 +11,8 @@ import javafx.event.Event;
 //import jdk.jfr.Event;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,8 +25,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
-import static edu.vanier.template.ui.MainMenu.setButton;
-import static edu.vanier.template.ui.MainMenu.setSizeBtn1;
+import static edu.vanier.template.ui.MainMenu.*;
 
 /**
  * @author Sofia Martinez, Eliza Toma
@@ -68,6 +69,8 @@ public class LoginFXMLController {
         backBtn.setOnAction(this::handleBackBtn);
         MainMenu.setUI(borderPane, signInImgView, "titles/signIn.png");
         vBox.setMaxWidth(BaseWindow.sceneWidth * 0.5);
+        borderPane.setOnKeyPressed(this::handleKeyPressed);
+
     }
     public void setUI() {
         MainMenu.setBackground(borderPane);
@@ -88,13 +91,26 @@ public class LoginFXMLController {
             messageLbl.setText("Login successful.");
             usernameLBtn.setText("");
             passwordLBtn.setText("");
-            MainMenu.switchScene(MainMenu.INSTRUCTIONS_SCENE);
+            MainMenu.switchScene(INSTRUCTIONS_SCENE);
             logger.info("Loaded the instruction scene...");
         } else {
             messageLbl.setText("Invalid credentials.");
         }
     }
 
+    /**
+     * if the f key is pressed then the brings to next
+     *
+     * @param event key press, must correspond to enter
+     * @author Tabasuum
+     */
+    @FXML
+    private void handleKeyPressed(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            handleLoginBtn(event);
+            logger.info("enter key was pressed");
+        }
+    }
     /**
      * directs user to the create account page
      * @param e is the event if the user clicks on the create account button
