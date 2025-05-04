@@ -40,8 +40,6 @@ import static edu.vanier.template.ui.MainMenu.*;
 public class BackpackFXMLController {
     private final static Logger logger = LoggerFactory.getLogger(BackpackFXMLController.class);
     @FXML
-    Button doneBtn;
-    @FXML
     GridPane backpackGridPane;
     @FXML
     ScrollPane backpackScrollPane;
@@ -85,12 +83,14 @@ public class BackpackFXMLController {
         this.scene = scene;
     }
 
+    public static BackpackFXMLController getInstance() {
+        return backpackFXMLController;
+    }
     /**
      * actions performed with the backpack
      */
     public void initialize() {
         logger.info("initializing backpack");
-        doneBtn.setOnAction(this::handleDoneBtn);
 
         //setBackground(backpackGridPane);
        // setBackground(backpackPane);
@@ -244,9 +244,6 @@ public class BackpackFXMLController {
                 itemLabel.setText(" x " + itemsCount.get("electron"));
                  */
                 System.out.println("drag done");
-
-                //NEXT TASK: MAKE IT SO THAT THE BACKPACK IS SET UP WITHOUT HAVING THE CLICK THE BACKPACK BUTTON SO THAT WHEN THE USER COLLECTS ITEMS THEY DON'T NEED TO FIRST CLICK THE BACKPACK TO COLLECT ITEMS IN THEIR BACKPACK
-                //THE USERE SHOULD ALREADY HAVE THEIR "BAKCPACK OPEN" WITHOUT HAVING TO OPEN THEIR BACKPACK FIRST
             }
         });
     }
@@ -310,11 +307,6 @@ public class BackpackFXMLController {
     //we could either remove the image or make it invisible
     //to remove the can just remove then sprite since the spring and image are related
 
-    public void handleDoneBtn (Event event) {
-
-       // MainMenu.switchScene(MainMenu.GAME_OVER_SCENE);
-        gameFXMLController.backpackStage.close();
-    }
 
 }
 
