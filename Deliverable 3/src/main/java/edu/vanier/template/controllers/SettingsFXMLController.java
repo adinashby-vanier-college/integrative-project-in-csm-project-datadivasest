@@ -1,5 +1,6 @@
 package edu.vanier.template.controllers;
 
+import com.sun.tools.javac.Main;
 import edu.vanier.template.ui.MainMenu;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -20,9 +21,8 @@ import static edu.vanier.template.ui.MainMenu.setSizeBtn1;
 public class SettingsFXMLController {
     @FXML
     CheckBox checkBoxThemeSong;
-    // TODO: In game sound management
     @FXML
-    CheckBox checkboxSound;
+    CheckBox checkBoxSound;
     // TODO: NightMode
     @FXML
     CheckBox checkboxNightMode;
@@ -50,16 +50,25 @@ public class SettingsFXMLController {
         checkBoxThemeSong.setSelected(MainMenu.isMusicPlaying());
         checkBoxThemeSong.setOnAction(this::toggleThemeSong);
 
+        if (MainMenu.getGameController() != null) {
+            checkBoxSound.setSelected(MainMenu.getGameController().isMusicPlaying());
+        }
+        else {
+            checkBoxSound.setSelected(true);
+        }
+        checkBoxSound.setOnAction(this::toggleSound);
+
         sliderVolume.setValue(MainMenu.isMusicPlaying() ? 30 : 0);
         sliderVolume.valueProperty().addListener((observable, oldValue, newValue) -> {
             double volume = newValue.doubleValue() / 100; // Convert to 0-1 range
             MainMenu.setMusicVolume(volume);
+            if (MainMenu.getGameController() != null)
+                MainMenu.getGameController().setVolume(volume);
         });
     }
     private void handleBack(Event e) {
         MainMenu.goBack();
         logger.info("Going back...");
-
     }
     private void quit(ActionEvent e) {
         logger.info("Exiting application...");
@@ -71,6 +80,12 @@ public class SettingsFXMLController {
         boolean play = checkBoxThemeSong.isSelected();
         MainMenu.toggleMusic(play);
         logger.info("Theme song: " + (play ? "Playing" : "Stopped"));
+    }
+    private void toggleSound(ActionEvent e) {
+        boolean play = checkBoxSound.isSelected();
+        if(MainMenu.getGameController() != null)
+            MainMenu.getGameController().toggleMusic(play);
+        logger.info("In game sound: " + (play ? "Playing" : "Stopped"));
     }
 
 }

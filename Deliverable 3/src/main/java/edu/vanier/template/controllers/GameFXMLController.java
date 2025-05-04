@@ -46,7 +46,7 @@ public class GameFXMLController {
     Button btnMap;
     @FXML
     Button btnHelp;
-//    @FXML
+    //    @FXML
 //    ToggleButton toggleBackpack;
     @FXML
     Button backpackBtn;
@@ -83,7 +83,7 @@ public class GameFXMLController {
     BackpackFXMLController backpackFXMLController;
     MapFXMLController mapFXMLController;
     private Portal portal;
-//    private Portal portalBack;
+    //    private Portal portalBack;
     private Canvas canvas;
     private String strPlayerImg;
     private Sprite platformFloor;
@@ -94,6 +94,8 @@ public class GameFXMLController {
     private Image imgPlatformFloor;
     private BackgroundSize bSize;
     private Image imgPortal;
+    private double volume;
+    private boolean isSound;
 
     public GameFXMLController(Family currentFamily) {
         this.currentFamily = currentFamily;
@@ -112,7 +114,15 @@ public class GameFXMLController {
             case LEVEL11 -> portal.setDestination(GAME_SCENE);
         }
     }
-
+    public void setVolume(double volume) {
+        this.volume = volume;
+    }
+    public boolean isMusicPlaying() {
+        return isSound;
+    }
+    public void toggleMusic(boolean play) {
+        isSound = play;
+    }
     public void setWorld() {
         //Images for the game
         imgPlatformFloor = new Image(MainAppFXMLController.class.
@@ -160,6 +170,8 @@ public class GameFXMLController {
         setButton(backpackBtn, "backpack",3 ,3);
         setButton(btnSettings, "Button_settings", 3 ,3);
         setButton(btnBack, "back", 3 ,3);
+        isSound = true;
+        volume = 0.3;
 
         btnBack.setOnAction(this::handleBack);
         btnSettings.setOnAction(this::handleSettings);
@@ -188,12 +200,10 @@ public class GameFXMLController {
 //        if (currentFamily.equals(Family.LEVEL12) || currentFamily.equals(Family.LEVEL32))
 //            setPortalBack();
         //user should first build the atom, below line directs them to build atom after collecting electrons and protons from the game scene
-       // Portal portal = new Portal((int)BaseWindow.sceneWidth - 30, (int)BaseWindow.sceneHeight - 200 - (int)platformFloor.getHeight(), 30, 200, imgPortal, QUESTION1BUILDATOM);
+        // Portal portal = new Portal((int)BaseWindow.sceneWidth - 30, (int)BaseWindow.sceneHeight - 200 - (int)platformFloor.getHeight(), 30, 200, imgPortal, QUESTION1BUILDATOM);
         //-- Create and configure the media player.
         itemClip = new AudioClip(getClass().getResource("/sounds/item_pickup.wav").toExternalForm());
-        itemClip.setVolume(0.40);
         jumpClip = new AudioClip(getClass().getResource("/sounds/jump.wav").toExternalForm());
-        jumpClip.setVolume(0.40);
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
@@ -278,8 +288,10 @@ public class GameFXMLController {
                     velocityY = jumpStrength;
                     cnt++;
                     input.remove("W");
-                    if(!jumpClip.isPlaying()){
-                        jumpClip.play();
+                    if(!jumpClip.isPlaying() && isSound){
+                        jumpClip.setVolume(volume);
+                        if (isSound)
+                            jumpClip.play();
                     }
                 }
 
@@ -344,7 +356,9 @@ public class GameFXMLController {
                     Sprite electron = sprite1Iter.next();
                     if (player.intersects(electron)) {
                         sprite1Iter.remove();
-                        itemClip.play();
+                        itemClip.setVolume(volume);
+                        if (isSound)
+                            itemClip.play();
                         System.out.println("interacting with a sprite");
                         score--;
                         electronNum++;
@@ -362,7 +376,9 @@ public class GameFXMLController {
                     Sprite proton = sprite2Iter.next();
                     if (player.intersects(proton)) {
                         sprite2Iter.remove();
-                        itemClip.play();
+                        itemClip.setVolume(volume);
+                        if (isSound)
+                            itemClip.play();
                         score++;
                         protonNum++;
                         elementCollected.put("proton", protonNum);
@@ -449,67 +465,67 @@ public class GameFXMLController {
             event.consume();
         });
     }
-/*
-    @FXML
-    public void setUpGridPane() {
-        itemsGridPane.setStyle("-fx-background-color: #fff");
-        itemsGridPane.setPrefWidth(240);
-        itemsGridPane.setPrefHeight(300);
-        Image coinImage = new Image((MainAppFXMLController.class.getResource("/images/player.png").toString()));
-        ImageView coinImageView = new ImageView(coinImage);
-        coinImageView.setFitWidth(50);
-        coinImageView.setFitHeight(50);
-        coinImageView.setPreserveRatio(true);
-        itemsGridPane.add(coinImageView, 0, 0);
-        logger.info("Loading coin image: T/F" + coinImage.isError());
-        coinLabel.setText(" x 0");
-        itemsGridPane.add(coinLabel, 1, 0);
-        Image electronImage = new Image((MainAppFXMLController.class.getResource("/images/player.png").toString()));
-        ImageView electronImageView = new ImageView(electronImage);
-        itemsGridPane.add(electronImageView, 0, 1);
-        electronLabel.setText(" x 0");
-        itemsGridPane.add(electronLabel, 1, 1);
-        Image protonImage = new Image(MainAppFXMLController.class.getResource("/images/player.png").toString());
-        ImageView protonImageView = new ImageView(protonImage);
-        itemsGridPane.add(protonImageView, 0, 2);
-        protonLabel.setText(" x 0");
-        itemsGridPane.add(protonLabel, 1, 2);
-        Image powerUpImage = new Image(MainAppFXMLController.class.getResource("/images/player.png").toString());
-        ImageView powerUpImageView = new ImageView(powerUpImage);
-        itemsGridPane.add(powerUpImageView, 0, 3);
-        powerUpLabel.setText(" x 0");
-        itemsGridPane.add(powerUpLabel, 1, 3);
-        Image chocolatePowerUp = new Image(MainAppFXMLController.class.getResource("/images/player.png").toString());
-        ImageView chocolatePowerUpImageView = new ImageView(chocolatePowerUp);
-        itemsGridPane.add(chocolatePowerUpImageView, 0, 4);
-        chocolatePowerLabel.setText(" x 0");
-        itemsGridPane.add(chocolatePowerLabel, 1, 4);
-        System.out.println("Number of items in the gridPane: " + itemsGridPane.getChildren().size());
-    }
-
-    public void isBackpackEmpty() {
-        if (itemsGridPane.getChildren().isEmpty()) {
-            setUpGridPane();
-            System.out.println("isBackpackEmpty method being used");
+    /*
+        @FXML
+        public void setUpGridPane() {
+            itemsGridPane.setStyle("-fx-background-color: #fff");
+            itemsGridPane.setPrefWidth(240);
+            itemsGridPane.setPrefHeight(300);
+            Image coinImage = new Image((MainAppFXMLController.class.getResource("/images/player.png").toString()));
+            ImageView coinImageView = new ImageView(coinImage);
+            coinImageView.setFitWidth(50);
+            coinImageView.setFitHeight(50);
+            coinImageView.setPreserveRatio(true);
+            itemsGridPane.add(coinImageView, 0, 0);
+            logger.info("Loading coin image: T/F" + coinImage.isError());
+            coinLabel.setText(" x 0");
+            itemsGridPane.add(coinLabel, 1, 0);
+            Image electronImage = new Image((MainAppFXMLController.class.getResource("/images/player.png").toString()));
+            ImageView electronImageView = new ImageView(electronImage);
+            itemsGridPane.add(electronImageView, 0, 1);
+            electronLabel.setText(" x 0");
+            itemsGridPane.add(electronLabel, 1, 1);
+            Image protonImage = new Image(MainAppFXMLController.class.getResource("/images/player.png").toString());
+            ImageView protonImageView = new ImageView(protonImage);
+            itemsGridPane.add(protonImageView, 0, 2);
+            protonLabel.setText(" x 0");
+            itemsGridPane.add(protonLabel, 1, 2);
+            Image powerUpImage = new Image(MainAppFXMLController.class.getResource("/images/player.png").toString());
+            ImageView powerUpImageView = new ImageView(powerUpImage);
+            itemsGridPane.add(powerUpImageView, 0, 3);
+            powerUpLabel.setText(" x 0");
+            itemsGridPane.add(powerUpLabel, 1, 3);
+            Image chocolatePowerUp = new Image(MainAppFXMLController.class.getResource("/images/player.png").toString());
+            ImageView chocolatePowerUpImageView = new ImageView(chocolatePowerUp);
+            itemsGridPane.add(chocolatePowerUpImageView, 0, 4);
+            chocolatePowerLabel.setText(" x 0");
+            itemsGridPane.add(chocolatePowerLabel, 1, 4);
+            System.out.println("Number of items in the gridPane: " + itemsGridPane.getChildren().size());
         }
-    }
 
-    //should addToBackpack and removeFromBackpack be one method (updateBackpack)
-    //how can I update the backpack
+        public void isBackpackEmpty() {
+            if (itemsGridPane.getChildren().isEmpty()) {
+                setUpGridPane();
+                System.out.println("isBackpackEmpty method being used");
+            }
+        }
 
-    public void updateBackpack() {
-        coinLabel.setText(" x " + String.valueOf(coinNum));
-        electronLabel.setText(" x " + String.valueOf(electronNum));
-        protonLabel.setText(" x " + String.valueOf(protonNum));
-        powerUpLabel.setText(" x " + String.valueOf(powerUpNum));
-        chocolatePowerLabel.setText(" x " + String.valueOf(chocolatePowerNum));
-    }
+        //should addToBackpack and removeFromBackpack be one method (updateBackpack)
+        //how can I update the backpack
 
-    public void dragElements() {
+        public void updateBackpack() {
+            coinLabel.setText(" x " + String.valueOf(coinNum));
+            electronLabel.setText(" x " + String.valueOf(electronNum));
+            protonLabel.setText(" x " + String.valueOf(protonNum));
+            powerUpLabel.setText(" x " + String.valueOf(powerUpNum));
+            chocolatePowerLabel.setText(" x " + String.valueOf(chocolatePowerNum));
+        }
 
-    }
+        public void dragElements() {
 
-*/
+        }
+
+    */
     private void handleBack(Event e) {
         System.out.println("Going back to...");
         MainMenu.goBack();
