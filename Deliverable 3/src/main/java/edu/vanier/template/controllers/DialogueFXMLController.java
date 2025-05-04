@@ -20,21 +20,23 @@ import java.util.List;
 import static edu.vanier.template.ui.MainMenu.setButton;
 
 /**
+ * Displays dialogue of two characters while alternating between their images and texts
+ *
  * @author Tabasuum
- * TODO: fix up variable names, code, etc.
  */
 public class DialogueFXMLController {
     private final static Logger logger = LoggerFactory.getLogger(DialogueFXMLController.class);
 
-    @FXML private Button btnSkip;
-    @FXML private Button btnSettings;
-    @FXML private Button btnPlay;
-    @FXML private ImageView character1ImgView;
-    @FXML private ImageView character2ImgView;
-    @FXML private Text characterNameText;
-    @FXML private Text dialogueText;
-    @FXML private BorderPane borderPane;
-    @FXML private ImageView dialogueBoxImgView;
+    //data members
+    @FXML Button btnSkip;
+    @FXML Button btnSettings;
+    @FXML Button btnPlay;
+    @FXML ImageView character1ImgView;
+    @FXML ImageView character2ImgView;
+    @FXML Text characterNameText;
+    @FXML Text dialogueText;
+    @FXML BorderPane borderPane;
+    @FXML ImageView dialogueBoxImgView;
 
     private List<DialogueLine> dialogueLines = new ArrayList<>();
     private int currentLineIndex = 0;
@@ -48,13 +50,12 @@ public class DialogueFXMLController {
         setButton(btnSettings, "Button_settings", 5 ,5);
         setButton(btnSkip, "Button_right", 5, 5);
         setButton(btnPlay, "next", 5, 5);
-        borderPane.setOnKeyPressed(this::handleKeyPressed);
-
+        borderPane.setOnKeyPressed(this::handleKeyPressed); //checks if f key was pressed to skip dialogue
 
         //Set character images
         character1ImgView.setImage(MainMenu.getImage("dialogue/character1.png"));
         character2ImgView.setImage(MainMenu.getImage("dialogue/character2.png"));
-        dialogueBoxImgView.setImage(MainMenu.getImage("dialogue/dialogueBox1.png"));
+        dialogueBoxImgView.setImage(MainMenu.getImage("dialogue/dialogueBox1.png")); //starts with the 1st one
 
         //Setup buttons actions
         btnSettings.setOnAction(this::loadSettingsScene);
@@ -77,8 +78,10 @@ public class DialogueFXMLController {
         dialogueText.setTranslateY( - 50 );
     }
 
+    /**
+     * Stores all the dialogue as well as who's image will be shown with the dialogue
+     */
     private void initializeDialogue() {
-        // Add your dialogue lines here
         dialogueLines.add(new DialogueLine("", "A villain (Professor Enthropy) \n kidnaps the user \ninto a different dimension\n and the user must escape.. ", "dialogue/character1.png", null));
         dialogueLines.add(new DialogueLine("", " The user discovers that the villain has \nbooby traps in case he tries to leave.", null, "dialogue/character2.png"));
         dialogueLines.add(new DialogueLine("", "The booby traps are all \n chemistry questions\n (Oh no!).", "dialogue/character1.png", null));
@@ -86,12 +89,15 @@ public class DialogueFXMLController {
         dialogueLines.add(new DialogueLine("", "The villain leaves the world\n to get fresh vegetables\n from a local beet farm.\n", "dialogue/character1.png", null));
         dialogueLines.add(new DialogueLine("", "The user takes his chance but first he has \nto get through the obstacles.\n", null, "dialogue/character2.png"));
 
-
         // Add more lines as needed
     }
 
+
+    /**
+     * Displays dialogue  one at a time
+     */
     private void showCurrentLine() {
-        if (currentLineIndex < dialogueLines.size()) {
+        if (currentLineIndex < dialogueLines.size()) { //if all dialogue has been gone through then skips to game
             DialogueLine line = dialogueLines.get(currentLineIndex);
             characterNameText.setText(line.characterName());
             dialogueText.setText(line.text());
@@ -115,6 +121,21 @@ public class DialogueFXMLController {
         }
     }
 
+    /**
+     * sets up the dialogue to traverse through it line by line
+     * @param dialogue each line that makes up the list of all the dialogues
+     */
+    public void setDialogue(List<DialogueLine> dialogue) {
+        this.dialogueLines = new ArrayList<>(dialogue);
+        this.currentLineIndex = 0;
+        showCurrentLine();
+    }
+
+    /**
+     * if the f key is pressed then the dialogue is skipped to the next one
+     *
+     * @param event key press, must correspond to F
+     */
     @FXML
     private void handleKeyPressed(KeyEvent event) {
         if (event.getCode() == KeyCode.F) {
@@ -124,11 +145,7 @@ public class DialogueFXMLController {
         }
     }
 
-    public void setDialogue(List<DialogueLine> dialogue) {
-        this.dialogueLines = new ArrayList<>(dialogue);
-        this.currentLineIndex = 0;
-        showCurrentLine();
-    }
+    //handles buttons
 
     private void handlePlay(Event e) {
         currentLineIndex++;
@@ -145,7 +162,7 @@ public class DialogueFXMLController {
         logger.info("Settings button clicked");
     }
 
-    // Record to hold dialogue line information
+    //record to hold dialogue line information
     public record DialogueLine(String characterName, String text,
                                String character1Image, String character2Image) {
     }

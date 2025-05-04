@@ -22,7 +22,7 @@ import java.io.IOException;
 import static edu.vanier.template.ui.MainMenu.*;
 
 /**
- * @author Tabasuum
+ * @author Tabasuum, Eliza
  * TODO: finish documentation
  */
 public class MapFXMLController {
@@ -42,18 +42,18 @@ public class MapFXMLController {
     @FXML
     public void initialize() {
         logger.info("Initializing MainAppController...");
+
+        //initializes size
         borderPane.setPrefHeight(BaseWindow.sceneHeight * 0.8);
         borderPane.setPrefWidth(BaseWindow.sceneWidth * 0.8);
-
-        setBackground(borderPaneBg);
-
         vBox.setPrefHeight(BaseWindow.sceneHeight * 0.75);
         vBox.setPrefWidth(BaseWindow.sceneWidth * 0.60);
 
+        //initializes images
+        setBackground(borderPaneBg);
         Image bGImg = new Image(MainAppFXMLController.class.
                 getResource("/images/map_pergament.png").toString());
         BackgroundSize bGSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, true, true, false, true);
-
         vBox.setBackground(new Background(new BackgroundImage(bGImg,
                 BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT,
@@ -70,6 +70,7 @@ public class MapFXMLController {
         halogensImgView.setImage(getImage("halogens"));
         nobleGasImgView.setImage(getImage("nobleGas"));
 
+        //set on action
         alkaliMetalImgView.setOnMouseClicked(this::alkaliMetalWorld);
         alkalineEarthMetalImgView.setOnMouseClicked(this::alkalineEarthMetalWorld);
         transitionMetal3ImgView.setOnMouseClicked(this::transitionMetal3World);
@@ -86,10 +87,16 @@ public class MapFXMLController {
         logger.info("Loaded the primary scene...");
     }
 
+    //gets the specific icon from the string name
     private Image getImage(String string) {
         return new Image(MainAppFXMLController.class.
                 getResource("/images/" + string + "/icon.png").toString());
     }
+
+    /**
+     * Allows to open up and instantiate an alkali world
+     * @param e image clicked
+     */
     private void alkaliMetalWorld(Event e) {
 //        try {
 //            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Game_layout.fxml"));
@@ -112,6 +119,11 @@ public class MapFXMLController {
 //            logger.error("Failed to load Game scene from map.", ex);
 //        }
     }
+
+    /**
+     * Allows to open up and instantiate an alkaline earth metal world
+     * @param e image clicked
+     */
     private void alkalineEarthMetalWorld(Event e) {
         MainMenu.getSceneController().removeScene(GAME_SCENE);
         AnimationTimer animationTimer = MainMenu.getGameController().getAnimation();
@@ -120,6 +132,12 @@ public class MapFXMLController {
         MainMenu.switchScene(GAME_SCENE, Family.ALKALINEEARTHMETALS); // switch to it
         logger.info("Alkaline Earth Metals has been clicked...");
     }
+
+
+    /**
+     * Allows to open up and instantiate a transmetal 3 world
+     * @param e image clicked
+     */
     private void transitionMetal3World(Event e) {
         MainMenu.getSceneController().removeScene(GAME_SCENE);
         AnimationTimer animationTimer = MainMenu.getGameController().getAnimation();
@@ -128,6 +146,11 @@ public class MapFXMLController {
         MainMenu.switchScene(GAME_SCENE, Family.TRANSITIONMETAL3); // switch to it
         logger.info("Transition Metal 3 has been clicked...");
     }
+
+    /**
+     * Allows to open up and instantiate a transmetal 4 world
+     * @param e image clicked
+     */
     private void transitionMetal4World(Event e) {
         MainMenu.getSceneController().removeScene(GAME_SCENE);
         AnimationTimer animationTimer = MainMenu.getGameController().getAnimation();
@@ -136,6 +159,11 @@ public class MapFXMLController {
         MainMenu.switchScene(GAME_SCENE, Family.TRANSITIONMETAL4); // switch to it
         logger.info("Transition Metal 4 has been clicked...");
     }
+
+    /**
+     * Allows to open up and instantiate a transmetal 5 world
+     * @param e image clicked
+     */
     private void transitionMetal5World(Event e) {
         MainMenu.getSceneController().removeScene(GAME_SCENE);
         AnimationTimer animationTimer = MainMenu.getGameController().getAnimation();
@@ -144,6 +172,11 @@ public class MapFXMLController {
         MainMenu.switchScene(GAME_SCENE, Family.TRANSITIONMETAL5); // switch to it
         logger.info("Transition Metal 5 has been clicked...");
     }
+
+    /**
+     * Allows to open up and instantiate a transmetal 6 world
+     * @param e image clicked
+     */
     private void transitionMetal6World(Event e) {
         MainMenu.getSceneController().removeScene(GAME_SCENE);
         AnimationTimer animationTimer = MainMenu.getGameController().getAnimation();
@@ -152,6 +185,11 @@ public class MapFXMLController {
         MainMenu.switchScene(GAME_SCENE, Family.TRANSITIONMETAL6); // switch to it
         logger.info("Transition Metal 6 has been clicked...");
     }
+
+    /**
+     * Allows to open up and instantiate a halogen world
+     * @param e image clicked
+     */
     private void halogensWorld(Event e) {
         MainMenu.getSceneController().removeScene(GAME_SCENE);
         AnimationTimer animationTimer = MainMenu.getGameController().getAnimation();
@@ -160,6 +198,11 @@ public class MapFXMLController {
         MainMenu.switchScene(GAME_SCENE, Family.HALOGENS); // switch to it
         logger.info("Halogens has been clicked...");
     }
+
+    /**
+     * Allows to open up and instantiate a noble gas world
+     * @param e image clicked
+     */
     private void nobleGasWorld(Event e) {
         MainMenu.getSceneController().removeScene(GAME_SCENE);
         AnimationTimer animationTimer = MainMenu.getGameController().getAnimation();

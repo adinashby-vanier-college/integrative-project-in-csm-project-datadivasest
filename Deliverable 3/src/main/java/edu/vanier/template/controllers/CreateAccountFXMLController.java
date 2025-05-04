@@ -9,6 +9,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import org.slf4j.Logger;
@@ -58,6 +60,20 @@ public class CreateAccountFXMLController {
         backBtn.setOnAction(this::handleBackBtn);
         //MainMenu.setUI(borderPane, signUpImgView, "signUp.png");
         vBox.setMaxWidth(BaseWindow.sceneWidth * 0.5);
+    }
+
+    /**
+     * if the f key is pressed then the brings to next scene
+     *
+     * @param event key press, must correspond to F
+     */
+    @FXML
+    private void handleKeyPressed(KeyEvent event) {
+        if (event.getCode() == KeyCode.F) {
+            handleCreateAccountBtn(event);
+            logger.info("F button has been clicked...");
+            event.consume(); // Prevent further handling
+        }
     }
 
     public void setUI() {

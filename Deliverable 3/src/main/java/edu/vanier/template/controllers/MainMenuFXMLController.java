@@ -8,9 +8,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static edu.vanier.template.ui.MainMenu.DIALOGUE_SCENE;
 
 /**
  * FXML controller class for the primary stage scene.
@@ -45,11 +49,27 @@ public class MainMenuFXMLController {
         createAccountBtn.setOnAction(this::loadCreateAccountScene);
         settingsBtn.setOnAction(this::loadSettingsScene);
         MainMenu.setUI(borderPane, titleImgView, "titles/title.png");
+        borderPane.setOnKeyPressed(this::handleKeyPressed);
 
 //        setButton(loginBtn, "login");
 //        setButton(createAccountBtn, "createAcc");
 //        setButton(settingsBtn, "settings");
     }
+
+    /**
+     * if the f key is pressed then the brings to next scene
+     *
+     * @param event key press, must correspond to F
+     */
+    @FXML
+    private void handleKeyPressed(KeyEvent event) {
+        if (event.getCode() == KeyCode.F) {
+          loadLoginScene(event);
+          event.consume(); // Prevent further handling
+
+        }
+    }
+
 
     /**
      * switches to the login scene/page

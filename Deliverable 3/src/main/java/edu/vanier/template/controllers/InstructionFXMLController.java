@@ -7,6 +7,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +29,12 @@ public class InstructionFXMLController {
     @FXML private javafx.scene.image.ImageView jumpImgView;
     @FXML private ImageView nextDialogueImgView;
 
+
+    /**
+     * Introduces the user to the game with the instruction controllers
+     *
+     * @author Tabasuum
+     */
     @FXML
     public void initialize() {
         logger.info("Initializing HelpFXMLController...");
@@ -35,6 +43,7 @@ public class InstructionFXMLController {
         //ensures proper white space
         borderPane.setPrefHeight(BaseWindow.sceneHeight * 0.8);
         borderPane.setPrefWidth(BaseWindow.sceneWidth *0.8);
+        borderPane.setOnKeyPressed(this::handleKeyPressed);
 
         setBackground(borderPaneBg);
 
@@ -67,6 +76,21 @@ public class InstructionFXMLController {
 
     public void setUI() {
         setBackground(borderPaneBg);
+    }
+
+    /**
+     * if the f key is pressed then the brings to next scene
+     *
+     * @param event key press, must correspond to F
+     */
+    @FXML
+    private void handleKeyPressed(KeyEvent event) {
+        if (event.getCode() == KeyCode.F) {
+            System.out.println("Going to dialogue...");
+            MainMenu.switchScene(DIALOGUE_SCENE);
+            logger.info("F button has been clicked...");
+            event.consume(); // Prevent further handling
+        }
     }
     /**
      * Brings users to the proper next scene

@@ -120,6 +120,12 @@ public class GameFXMLController {
     public void toggleMusic(boolean play) {
         isSound = play;
     }
+
+    /**
+     * sets the world to prepare the images based on the family of the world
+     *
+     * @author Eliza
+     */
     public void setWorld() {
         //Images for the game
         imgPlatformFloor = getImage("forest_pack_05.png");
@@ -149,6 +155,14 @@ public class GameFXMLController {
 //        portalBack.setHeight(BaseWindow.sceneHeight);
 //    }
 
+
+    /**
+     * updates sprites so that they can be removed when the user has interacted with them
+     *
+     * @param player the player
+     * @param gc where its shown
+     * @author Tabasuum
+     */
     public void renderSprites(Player player, GraphicsContext gc) {
         iterateList(player, sprite1List);
         iterateList(player, sprite2List);
@@ -161,6 +175,16 @@ public class GameFXMLController {
         renderList(sprite4List, gc);
     }
 
+    /**
+     * helper method that iterates through list of sprites and removes them from the
+     * world if the user interacts with it by removing it from the main pane and the
+     * sprite list. Also plays a sound when the user interacts with it. and updates the
+     * count to update the backpack as well.
+     *
+     * @param player player that interacted with sprite
+     * @param spriteList sprite list where sprite is stored
+     * @author Sofia and Tabasuum
+     */
     private void iterateList(Player player, List<Sprite> spriteList) {
         Iterator<Sprite> spriteIter = spriteList.iterator();
         while (spriteIter.hasNext()) {
@@ -175,6 +199,14 @@ public class GameFXMLController {
             }
         }
     }
+
+    /**
+     * updates the count of the collected sprites namely the electron and protons
+     * in order to update the backpack accordingly
+     *
+     * @param sprite what has been collected
+     * @author Tabasuum
+     */
     private void updateCounts(Sprite sprite) {
         score++;
         if (sprite.getType().equals("electron")) {
@@ -188,6 +220,13 @@ public class GameFXMLController {
             backpackFXMLController.increaseCount(sprite);
     }
 
+    /**
+     * goes through sprite list and renders each
+     * @param spriteList where sprite is stored
+     * @param gc where graphics are displayed
+     *
+     * @author Tabasuum
+     */
     private void renderList(List<Sprite> spriteList, GraphicsContext gc) {
         for (Sprite sprite : spriteList) {
             sprite.render(gc);
@@ -197,22 +236,26 @@ public class GameFXMLController {
     public void initialize() {
         logger.info("Initializing Game Controller...");
 
+        //setup the buttons (UI, size, action, visibility)
         setButton(btnMap, "Button_132",3 ,3);
         setButton(btnHelp, "Button_help",3 ,3);
         setButton(backpackBtn, "backpack",3 ,3);
         setButton(btnSettings, "Button_settings", 3 ,3);
-//        setButton(btnBack, "back", 3 ,3);
         isSound = MainMenu.isSoundPlaying();
         volume = 0.3;
 
-//        btnBack.setOnAction(this::handleBack);
         btnSettings.setOnAction(this::handleSettings);
         backpackBtn.setOnAction(this::handleBackpackButton);
         btnHelp.setOnAction(this::handleHelpButton);
         btnMap.setOnAction(this::handleMapButton);
 
+        //the Map should not be accessible in the begining of the game
+        if (currentFamily == Family.LEVEL11 |
+                currentFamily == Family.LEVEL12 |
+                currentFamily == Family.LEVEL2)
+            btnMap.setDisable(true);
 
-
+        //Backpack
         try {
             backpackFXMLController.setUpGridPane();
             backpackStage = new Stage();
@@ -226,6 +269,7 @@ public class GameFXMLController {
             System.out.println(e.getMessage());
         }
 
+        //set up the worlds images
         setWorld();
 
         //user should first build the atom, below line directs them to build atom after collecting electrons and protons from the game scene

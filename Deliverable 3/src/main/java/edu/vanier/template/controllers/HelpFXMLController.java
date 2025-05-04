@@ -10,6 +10,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -26,8 +28,8 @@ import static edu.vanier.template.ui.MainMenu.*;
 
 /**
  * @author Tabasuum
+ *
  * Class for users to access help
- * TODO: finish documentation
  */
 public class HelpFXMLController {
     /**
@@ -48,6 +50,8 @@ public class HelpFXMLController {
             this.practiceLink = practiceLink;
         }
     }
+
+    //data members of the class
     private final static Logger logger = LoggerFactory.getLogger(HelpFXMLController.class);
     private final Map<Button, HelpContent> helpContents = new HashMap<>();
     @FXML private ImageView contentImage;
@@ -70,25 +74,22 @@ public class HelpFXMLController {
     @FXML private Text titleText;
     @FXML private VBox scienceVBox;
 
+    /**
+     * initializes the world
+     */
     @FXML
     public void initialize() {
+        //sets on action
         logger.info("Initializing HelpFXMLController...");
         settingBtn.setOnAction(this::handleSettings);
         commandsBtn.setOnAction(this::handleCommands);
 
+        //sets the borderpane size and image
         borderPane.setPrefHeight(BaseWindow.sceneHeight * 0.8);
         borderPane.setPrefWidth(BaseWindow.sceneWidth *0.8);
-
-        Image backgroundImg = new Image(MainAppFXMLController.class.
-                getResource("/images/Files/png/BG.png").toString());
         setBackground(borderPaneBg);
-//        BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, true, true, false, true);
-//
-//        borderPaneBg.setBackground(new Background(new BackgroundImage(backgroundImg,
-//                BackgroundRepeat.NO_REPEAT,
-//                BackgroundRepeat.NO_REPEAT,
-//                BackgroundPosition.CENTER,
-//                bSize)));
+
+        //create every type of help content
         helpContents.put(periodsBtn, new HelpContent( "Periods and Families",
                 "What Are Periods?\n\nPeriods are horizontal rows in the periodic table. Each element in a period has the same number of atomic orbitals.\n\n" +
                         "**Periods vs Families**:\n- Periods = Rows → number of shells\n- Families = Columns → number of valence electrons\n\n" +
@@ -132,6 +133,8 @@ public class HelpFXMLController {
                 "https://www.khanacademy.org/science/biology/photosynthesis-in-plants"
         ));
 
+
+        //changes between science information layout of commands layout
         for (Map.Entry<Button, HelpContent> entry : helpContents.entrySet()) {
             entry.getKey().setOnAction(e -> {
                 titleText.setText(entry.getValue().title);
@@ -143,6 +146,8 @@ public class HelpFXMLController {
             });
         }
 
+
+        //commands of the game images and setting the sizes
         Image jumpImg = new Image(MainAppFXMLController.class.
                 getResource("/images/commands/w.png").toString());
         jumpImgView.setImage(jumpImg);
@@ -158,6 +163,8 @@ public class HelpFXMLController {
         rightImgView.setImage(rightImg);
         setSizeImg(rightImgView);
 
+
+        //sets size of tall the help resource buttons
         Button[] buttons = {commandsBtn,periodsBtn, electronsBtn,stoichiometryBtn,neutralizationBtn, photosynthesisBtn, settingBtn};
         for (Button btn : buttons) {
             setSizeBtn(btn);
@@ -167,18 +174,24 @@ public class HelpFXMLController {
         setBackground(borderPaneBg);
     }
 
+    /**
+     * displays content of the category
+     * @param content information given
+     */
     private void showHelpContent(HelpContent content) {
-        if (content.imagePath != null) {
+        if (content.imagePath != null) { //verifies path exists
             Image img = new Image(getClass().getResource(content.imagePath).toString());
             contentImage.setImage(img);
-            contentImage.setFitWidth(BaseWindow.sceneWidth * 0.5);
+            contentImage.setFitWidth(BaseWindow.sceneWidth * 0.5); //ensure size is not too big for screen
             contentImage.setFitHeight(BaseWindow.sceneHeight * 0.4);
             contentImage.setOpacity(1.0);
         }
 
+        //prepares to change from a different instructions
         contentTextFlow.getChildren().clear();
         exampleBox.getChildren().clear();
 
+        //ensures wraps correctly for visibility
         Text explanation = new Text(content.htmlText + "\n\n");
         explanation.setWrappingWidth(BaseWindow.sceneWidth * 0.65);
         explanation.setFont(new Font(BaseWindow.sceneHeight * 0.025));
@@ -190,6 +203,7 @@ public class HelpFXMLController {
             exampleBox.getChildren().add(exText);
         }
 
+        //add link for extra support for uer
         link.setText("Practice here");
         link.setFont(new Font(BaseWindow.sceneHeight * 0.02));
         link.setOnAction(e -> {
