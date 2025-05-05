@@ -272,7 +272,7 @@ public class MainMenu extends Application {
                 if (!sceneController.sceneExists(fxmlFileName)) {
                     // Instantiate the corresponding FXML controller if the
                     // specified scene is being loaded for the first time.
-                    gameController = new GameFXMLController(Family.LEVEL11);
+                    gameController = new GameFXMLController(Family.ALKALIMETAL);
                     Parent root = FxUIHelper.loadFXML(fxmlFileName, gameController);
                     sceneController.addScene(GAME_SCENE, root);
                 }

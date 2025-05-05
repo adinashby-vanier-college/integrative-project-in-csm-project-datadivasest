@@ -41,38 +41,38 @@ public class Portal extends Sprite{
                     AnimationTimer animationTimer = MainMenu.getGameController().getAnimation();
                     if (animationTimer != null)
                         animationTimer.stop();
-                    MainMenu.switchScene(GAME_SCENE, Family.LEVEL12); // switch to it
+                    MainMenu.switchScene(GAME_SCENE, Family.LEVEL31); // switch to it
                 }
                 else if (level == 31) {
                     MainMenu.getSceneController().removeScene(GAME_SCENE);
                     AnimationTimer animationTimer = MainMenu.getGameController().getAnimation();
                     if (animationTimer != null)
                         animationTimer.stop();
-                    MainMenu.switchScene(QUESTIONEX2_SCENE); // switch to it
+                    MainMenu.switchScene(GAME_SCENE, Family.LEVEL31); // switch to it
                 }
                 else if (level == 12) {
                     MainMenu.getSceneController().removeScene(GAME_SCENE);
                     AnimationTimer animationTimer = MainMenu.getGameController().getAnimation();
                     if (animationTimer != null)
                         animationTimer.stop();
-                    MainMenu.switchScene(GAME_SCENE, Family.LEVEL2); // switch to it
+                    MainMenu.switchScene(GAME_SCENE, Family.LEVEL31); // switch to it
                 }
                 else if (level == 32) {
                     MainMenu.getSceneController().removeScene(GAME_SCENE);
                     AnimationTimer animationTimer = MainMenu.getGameController().getAnimation();
                     if (animationTimer != null)
                         animationTimer.stop();
-                    MainMenu.switchScene(QUESTIONEX2_SCENE); // switch to it
+                    MainMenu.switchScene(GAME_SCENE, Family.LEVEL31); // switch to it
                 }else if (level == 2) {
                     MainMenu.getSceneController().removeScene(GAME_SCENE);
                     AnimationTimer animationTimer = MainMenu.getGameController().getAnimation();
                     if (animationTimer != null)
                         animationTimer.stop();
-                    MainMenu.switchScene(GAMEOVER_SCENE); // switch to it
+                    MainMenu.switchScene(GAME_SCENE, Family.LEVEL31); // switch to it
                 }
             }
             else
-                MainMenu.switchScene(destination);
+                MainMenu.switchScene(GAME_SCENE, Family.LEVEL31);
         }
     }
 
