@@ -272,8 +272,8 @@ public class World {
         if(currentFamily == Family.LEVEL11) {
             System.out.println("The user is in level 1.1");
             portal.setDestination(GAME_SCENE);
-//            portal.setPositionY((double) (300) /1440);
-//            portal.setPositionX(BaseWindow.sceneWidth - 300);
+            portal.setPositionY((double) BaseWindow.sceneHeight * (150)/1440);
+            portal.setPositionX(BaseWindow.sceneWidth - 200);
             portal.setLevel(11);
             portal.setPreserveRatio(false);
             portal.setFitHeight(BaseWindow.sceneHeight);
