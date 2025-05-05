@@ -37,6 +37,8 @@ public class QuestionEx2FXMLController {
     @FXML private Button btnHelp;
     @FXML private Label lblQuestion;
 
+    private String prompt;
+
     private Label lblReview;
     @FXML private TextField txtLeft;
     @FXML private Label lblLeft;
@@ -46,6 +48,7 @@ public class QuestionEx2FXMLController {
     private StoichProblem currentProblem;
     private Map<String, Double> molarMassMap = new HashMap<>();
     private static final Pattern ELEMENT_PATTERN = Pattern.compile("([A-Z][a-z]*)(\\d*)");
+
 
 
     @FXML
@@ -61,6 +64,7 @@ public class QuestionEx2FXMLController {
         btnBack.setOnAction(this::handleBack);
         btnCheck.setOnAction(this::handleCheck);
         btnHelp.setOnAction(this::handleHelp);
+        lblQuestion.setText(prompt);
 
     }
     public void setUI() {
@@ -69,7 +73,7 @@ public class QuestionEx2FXMLController {
     private void loadMolarMasses() {
         try (InputStream is = getClass().getResourceAsStream("/database/periodicTable.csv");
              BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
-//            String header = br.readLine(); // skip header
+           br.readLine();
             String line;
             while ((line = br.readLine()) != null) {
                 String[] f = line.split(",");
@@ -88,27 +92,34 @@ public class QuestionEx2FXMLController {
             return;
         }
 
+        // Pick a random balanced‐equation problem
         currentProblem = problems.get(rnd.nextInt(problems.size()));
 
+        // 1) Show the equation on one line
         String eq = String.format(
-                "%d%s + %d%s \u2192 %d%s",
+                "%d%s + %d%s → %d%s",
                 currentProblem.aCoeff, currentProblem.elementX,
                 currentProblem.bCoeff, currentProblem.elementY,
                 currentProblem.cCoeff, currentProblem.productFormula
         );
 
-        String prompt = String.format(
-                "You need %d grams of %s!\nEnter the right grams of %s and %s to make it.",
-                currentProblem.productMass,
-                currentProblem.productFormula,
-                currentProblem.elementX,
-                currentProblem.elementY
+
+        prompt = String.format(
+                "%s\n\n" +
+                        "You need %d grams of %s!\n" +
+                        "Enter the right grams of %s and %s to make it.",
+                eq,
+                currentProblem.productMass, currentProblem.productFormula,
+                currentProblem.elementX,     currentProblem.elementY
         );
 
-        lblQuestion.setText(eq + "\n\n" + prompt);
-        lblLeft.setText(currentProblem.elementX);
-        lblRight.setText(currentProblem.elementY);
+
+        lblQuestion.setText(prompt);
+
+
+        lblLeft .setText(currentProblem.elementX + " (g):");
         txtLeft.clear();
+        lblRight.setText(currentProblem.elementY + " (g):");
         txtRight.clear();
     }
 
@@ -166,22 +177,24 @@ public class QuestionEx2FXMLController {
             double targetProdMoles = currentProblem.productMass / mmProd;
 
             // 4) Required grams of each reactant
-            double reqGramsX = targetProdMoles * currentProblem.aCoeff * mmX;
-            double reqGramsY = targetProdMoles * currentProblem.bCoeff * mmY;
+            double reqGramsX = targetProdMoles * currentProblem.aCoeff / currentProblem.cCoeff * mmX;
+            double reqGramsY = targetProdMoles * currentProblem.bCoeff /currentProblem.cCoeff * mmY;
 
             // 5) Check within tolerance (±1g)
             double tol = 1.0;
             if (Math.abs(gramsX - reqGramsX) <= tol
                     && Math.abs(gramsY - reqGramsY) <= tol) {
                 lblQuestion.setText("Yes! Congrats! That is the correct answer :)");
+                btnCheck.setText("Next");
+
                 // … proceed to next problem …
             } else {
-                pickAndShowProblem();
-                lblQuestion.setText("Mmm at least one of these is wrong... why don't you try again?");
+                lblQuestion.setText(prompt + "\n\n\t\t\tMmm at least one of these is wrong... why don't you try again?");
+
             }
         } catch (NumberFormatException ex) {
+            lblQuestion.setText(prompt + "\n\n\nI think you should put numbers...");
 
-            lblQuestion.setText("I think you should put numbers...");
         }
 
     }
@@ -202,7 +215,14 @@ public class QuestionEx2FXMLController {
             String line = br.readLine(); // skip header
 
             while ((line = br.readLine()) != null) {
-                String[] formula = line.split(",");
+                String[] formula = line.split(",", -1);
+                if (formula.length < 7) continue;
+
+                String reactionType = formula[6].trim();
+                if (!reactionType.equalsIgnoreCase("Synthesis")) {
+                    continue;
+                }
+
 
 //                String productsCell = formula[2];
 //                productsCell = productsCell.replace(";", " + ");
