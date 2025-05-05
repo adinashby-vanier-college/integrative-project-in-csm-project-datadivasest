@@ -40,7 +40,7 @@ public class Instruction2FXMLController {
         imageView.setPreserveRatio(false);
         imageView.setFitHeight(BaseWindow.sceneHeight * 0.7);
         imageView.setFitWidth(BaseWindow.sceneWidth * 0.7);
-        imageView.setImage(getImage("map_pergament"));
+        imageView.setImage(getImage("map_pergament.png"));
         setBackground(borderPaneBg);
 
         //sets size proportionally to user's screen
