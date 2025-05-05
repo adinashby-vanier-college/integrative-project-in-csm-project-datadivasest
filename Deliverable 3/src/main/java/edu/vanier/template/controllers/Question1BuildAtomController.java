@@ -190,6 +190,6 @@ public class Question1BuildAtomController {
         helpStage.initOwner(borderPane.getScene().getWindow());
         helpStage.show();
     }
-
+//
 
 }
