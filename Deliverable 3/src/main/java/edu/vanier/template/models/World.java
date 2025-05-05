@@ -365,7 +365,7 @@ public class World {
     }
 
     /**
-     * Sets location of portal for level 1.1 to leve 1.2
+     * Sets location of portal B
      * @param portal that's being placed
      */
     private static void setPortalB(Portal portal, Family currentFamily) {
@@ -375,15 +375,21 @@ public class World {
             System.out.println("The user is in alkaline earth metal world");
             portal.setDestination(GAME_SCENE);
             portal.setLevel(11);
+            portal.setPositionY((double) BaseWindow.sceneHeight * (200)/1440);
+            portal.setPositionX(BaseWindow.sceneWidth/2);
+
         } else if (currentFamily == Family.NOBLEGAS) {
             System.out.println("The user is in noble gas world");
             portal.setDestination(GAME_SCENE);
             portal.setLevel(11);
+            portal.setPositionY((double) BaseWindow.sceneHeight * (200)/1440);
+            portal.setPositionX(BaseWindow.sceneWidth /2);
+
         }
     }
 
     /**
-     * Sets location of portal for
+     * Sets location of portal C
      * @param portal that's being placed
      */
     private static void setPortalC(Portal portal) {
@@ -396,7 +402,7 @@ public class World {
         portal.setHeight(BaseWindow.sceneHeight);
     }
     /**
-     * Based on the currently family it sets the sprites in their sprite lists accordingly
+     * Based on the current family it sets the sprites in their sprite lists accordingly
      * @param currentFamily the current look of the world
      */
     public static void setSprites(Family currentFamily,

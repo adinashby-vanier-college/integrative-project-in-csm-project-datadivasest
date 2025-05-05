@@ -78,7 +78,7 @@ public class MainMenuFXMLController {
      * @param e is the action of clicking the login button, directing the user to the login page
      */
     private void loadLoginScene(Event e) {
-        MainMenu.switchScene(MainMenu.GAME_SCENE, Family.HALOGENS); //TODO set back to login when testing done
+        MainMenu.switchScene(MainMenu.GAME_SCENE, Family.ALKALINEEARTHMETALS); //TODO set back to login when testing done
         logger.info("Loaded the login scene...");
     }
 
