@@ -129,7 +129,7 @@ public class GameFXMLController {
     public void setWorld() {
         //Images for the game
         imgPlatformFloor = getImage("forest_pack_05.png");
-        backgroundImg = getImage(currentFamily.getName()+"/background.png");
+        //backgroundImg = getImage(currentFamily.getName()+"/background.png");
         bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, true);
         imgPortal = getImage("PNG/galaxy.png");
         strPlayerImg = MainAppFXMLController.class.

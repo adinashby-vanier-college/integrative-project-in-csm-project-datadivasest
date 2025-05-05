@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 import static edu.vanier.template.ui.MainMenu.*;
 
 /**
+ * Portal Class
  * @author Eliza
  */
 public class Portal extends Sprite{
@@ -30,9 +31,16 @@ public class Portal extends Sprite{
         this.destination = destination;
     }
 
+    /**
+     * Unlock portal
+     */
     public void unlock() {
         isOpen = true;
     }
+
+    /**
+     * Go to destination scene when entering the portal
+     */
     public void enter() {
         if (isOpen) {
             if (destination.equals(MainMenu.GAME_SCENE)) {
