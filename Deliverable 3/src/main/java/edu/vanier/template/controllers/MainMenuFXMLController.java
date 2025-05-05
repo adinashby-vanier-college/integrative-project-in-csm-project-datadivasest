@@ -1,6 +1,7 @@
 package edu.vanier.template.controllers;
 
 import com.sun.tools.javac.Main;
+import edu.vanier.template.models.Family;
 import edu.vanier.template.ui.BaseWindow;
 import edu.vanier.template.ui.MainMenu;
 import javafx.event.Event;
@@ -76,7 +77,7 @@ public class MainMenuFXMLController {
      * @param e is the action of clicking the login button, directing the user to the login page
      */
     private void loadLoginScene(Event e) {
-        MainMenu.switchScene(MainMenu.GAME_SCENE);
+        MainMenu.switchScene(MainMenu.GAME_SCENE, Family.ALKALIMETAL);
         logger.info("Loaded the login scene...");
     }
 

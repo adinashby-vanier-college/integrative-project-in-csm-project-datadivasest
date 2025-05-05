@@ -93,6 +93,7 @@ public class BackpackFXMLController {
     private int currentRow;
     public Map<String, Integer> itemsCount = new HashMap<>();
     public Map<String, Label> itemLabels = new HashMap<>();
+
     private int sodiumCounter;
     private int electronCounter;
     private int protonCounter;
@@ -174,10 +175,10 @@ public class BackpackFXMLController {
         backpackGridPane.add(electron, 0, 0);
         GridPane.setHalignment(electron, HPos.CENTER);
         GridPane.setValignment(electron, VPos.CENTER);
-        electronCounter = 0;
-        electronLabel = new Label(" x " + 0);
+        //electronCounter = 0;
+        electronLabel = new Label(" x " + numElectron);
         backpackGridPane.add(electronLabel, 1, 0);
-        itemsCount.put("electron", electronCounter);
+        itemsCount.put("electron", numElectron);
         itemLabels.put("electron", electronLabel);
 
         Image protonImage = new Image((getClass().getResource("/images/Proton.png")).toExternalForm());
@@ -191,7 +192,7 @@ public class BackpackFXMLController {
         backpackGridPane.add(protonLabel, 1, 1);
         proton.setId("proton");
         backpackGridPane.add(proton, 0, 1);
-        itemsCount.put("proton", protonCounter);
+        itemsCount.put("proton", numProton);
         itemLabels.put("proton", protonLabel);
 
         Image sodiumImage = new Image(getClass().getResource("/images/elements/sodium.png").toExternalForm());
@@ -206,7 +207,7 @@ public class BackpackFXMLController {
         sodiumCounter = 0;
         sodiumLabel = new Label(" x " + 0 );
         backpackGridPane.add(sodiumLabel, 1, 2);
-        itemsCount.put("sodium", sodiumCounter);
+        itemsCount.put("sodium", numSodium);
         itemLabels.put("sodium", sodiumLabel);
 
         Image oxygenImg = new Image(getClass().getResource("/images/elements/oxygen.png").toExternalForm());
@@ -220,7 +221,7 @@ public class BackpackFXMLController {
         backpackGridPane.add(oxygenLabel, 1, 3);
         oxygen.setId("oxygen");
         backpackGridPane.add(oxygen, 0, 3);
-        itemsCount.put("oxygen", oxygenCounter);
+        itemsCount.put("oxygen", numOxygen);
         itemLabels.put("oxygen", oxygenLabel);
 
         Image hydrogenImage= new Image(getClass().getResource("/images/elements/hydrogen.png").toExternalForm());
@@ -234,7 +235,7 @@ public class BackpackFXMLController {
         backpackGridPane.add(hydrogenLabel, 1, 4);
         hydrogen.setId("hydrogen");
         backpackGridPane.add(hydrogen, 0, 4);
-        itemsCount.put("hydrogen", hydrogenCounter);
+        itemsCount.put("hydrogen", numHydrogen);
         itemLabels.put("hydrogen", hydrogenLabel);
         //check how to adjust the font size
 //        System.out.println("method is being executed/");
@@ -275,24 +276,27 @@ public class BackpackFXMLController {
             String type = sprite.getType().toLowerCase();
 
             if (itemsCount.containsKey(type)) {
+
                 int updatedCountOfItem = itemsCount.get(type) + 1;
+                switch (type) {
+                    case "proton":
+                        numProton = updatedCountOfItem;
+                        break;
+                    case "sodium":
+                        numSodium = updatedCountOfItem;
+                        break;
+                    case "oxygen":
+                        numOxygen = updatedCountOfItem;
+                        break;
+                    case "hydrogen":
+                        numHydrogen = updatedCountOfItem;
+                }
+
                 itemsCount.put(type, updatedCountOfItem);
 
                 Label itemLabel = itemLabels.get(type);
                 itemLabel.setText("x " + updatedCountOfItem);
 
-                switch(type) {
-                    case "sodium": getSodiumLabel().setText("x " + updatedCountOfItem);
-                    break;
-                    case "oxygen": getOxygenLabel().setText("x " + updatedCountOfItem);
-                    break;
-                    case "hydrogen": getHydrogenLabel().setText("x " + updatedCountOfItem);
-                    break;
-                    case "electron": getElectronLabel().setText("x " + updatedCountOfItem);
-                    break;
-                    case "proton": getProtonLabel().setText("x " + updatedCountOfItem);
-                    break;
-                };
             }
             System.out.println("method is being executed");
         }
@@ -333,6 +337,24 @@ public class BackpackFXMLController {
             if (numAvailable > 0) {
                 numAvailable--;
                 itemsCount.put(type.toLowerCase(), numAvailable);
+
+                switch (type) {
+                    case "proton":
+                        numProton = numAvailable;
+                        break;
+                    case "sodium":
+                        numSodium = numAvailable;
+                        break;
+                    case "oxygen":
+                        numOxygen = numAvailable;
+                        break;
+                    case "hydrogen":
+                        numHydrogen = numAvailable;
+                        break;
+                    case "electron":
+                        numElectron = numAvailable;
+                        break;
+                }
 
                 //then update the cell
                 if(itemLabels.containsKey(type)){

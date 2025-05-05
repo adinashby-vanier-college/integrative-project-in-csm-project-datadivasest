@@ -94,6 +94,12 @@ public class MainMenu extends Application {
     public static HelpFXMLController helpFXMLController;
     public static InstructionFXMLController instructionFXMLController;
     public static Instruction2FXMLController instruction2FXMLController;
+    public static int numElectron;
+    public static int numProton;
+    public static int numHydrogen;
+    public static int numOxygen;
+    public static int numSodium;
+
     private final static Logger logger = LoggerFactory.getLogger(edu.vanier.template.ui.MainMenu.class);
     public static Scene scene;
     public static SceneController sceneController;
@@ -143,8 +149,14 @@ public class MainMenu extends Application {
             primaryStage.show();
             primaryStage.setAlwaysOnTop(false);
             backpackFXMLController = new BackpackFXMLController();
+            numElectron = 0;
+            numProton = 0;
+            numHydrogen = 0;
+            numOxygen = 0;
+            numSodium = 0;
             Parent root1 = FxUIHelper.loadFXML(BACKPACK_SCENE, backpackFXMLController);
             sceneController.addScene(BACKPACK_SCENE, root1);
+            backpackFXMLController.setUpGridPane();
             initBackgroundMusic();
         } catch (IOException ex) {
             logger.error(ex.getMessage(), ex);
