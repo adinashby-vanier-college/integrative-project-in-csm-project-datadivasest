@@ -171,7 +171,7 @@ public class World {
      */
     private static void setPlatformsType31(Family currentFamily, List<Platform> platformList) {
         addPlatform(currentFamily, platformList, 0.0, 0.50, 600,500);
-        addPlatform(currentFamily, platformList, 0.8, 0.95, 300,700);
+        addPlatform(currentFamily, platformList, 0.8, 0.80, 200,900);
         addAcidPlatform(platformList, 0.5, 300); //reacts differently
     }
 
@@ -298,9 +298,11 @@ public class World {
     private static void setPortal31(Portal portal) {
         System.out.println("The user is in level 3.1 with the acid and base");
         portal.setDestination(GAME_SCENE);
-        portal.setPositionX(BaseWindow.sceneWidth - 50);
         portal.setLevel(31);
-        portal.setHeight(BaseWindow.sceneHeight);
+        portal.setPreserveRatio(false);
+        portal.setOpacity(0);
+        portal.setSize(BaseWindow.sceneHeight);
+        portal.setPositionY(0);
     }
     /**
      * Sets location of portal for level 1.1 to leve 1.2
