@@ -55,7 +55,7 @@ public class QuestionEx3FXMLController {
 
     @FXML
     public void initialize(){
-        logger.info("Initializing Question 1 Controller...");
+        logger.info("Initializing Question 3 Controller...");
         setBackground(borderPane);
         setButton(btnCheck, "Button_confirm", 5, 5);
         btnCheck.setOnAction(this::handleCheck);
@@ -73,21 +73,22 @@ public class QuestionEx3FXMLController {
         logger.info("Back button clicked");
     }
     private void handleCheck(Event e) {
-        try {
-            double ans = Double.parseDouble(inputField.getText().trim());
-            if (Math.abs(ans - correctAnswer) <= 0.10) {
-                lblQuestion.setText(
-                        "That's right! Excellent job :)"
-                );
-                btnCheck.setText("Next");
-
-
-            } else {
-                lblQuestion.setText(currentQst + "\n\n\t\t\tMmm! I don't think that's quite right :(");
-            }
-        } catch (NumberFormatException ex) {
-            lblQuestion.setText(currentQst + "\n\n\t\t\tI think putting a number would be a place to start..");
-        }
+//        try {
+//            double ans = Double.parseDouble(inputField.getText().trim());
+//            if (Math.abs(ans - correctAnswer) <= 0.10) {
+//                lblQuestion.setText(
+//                        "That's right! Excellent job :)"
+//                );
+//                btnCheck.setText("Next");
+//
+//
+//            } else {
+//                lblQuestion.setText(currentQst + "\n\n\t\t\tMmm! I don't think that's quite right :(");
+//            }
+//        } catch (NumberFormatException ex) {
+//            lblQuestion.setText(currentQst + "\n\n\t\t\tI think putting a number would be a place to start..");
+//        }
+        switchScene(GAMEOVER_SCENE);
     }
 
     public void generateNeutralizationProblems(){

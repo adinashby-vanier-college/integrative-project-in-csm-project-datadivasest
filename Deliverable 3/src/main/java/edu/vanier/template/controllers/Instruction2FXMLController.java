@@ -1,5 +1,6 @@
 package edu.vanier.template.controllers;
 
+import edu.vanier.template.models.Family;
 import edu.vanier.template.ui.BaseWindow;
 import edu.vanier.template.ui.MainMenu;
 import javafx.event.Event;
@@ -21,15 +22,19 @@ import static edu.vanier.template.ui.MainMenu.*;
  */
 public class Instruction2FXMLController {
     private final static Logger logger = LoggerFactory.getLogger(Instruction2FXMLController.class);
-    @FXML private Button nextBtn;
-    @FXML private BorderPane borderPaneBg;
-    @FXML private BorderPane borderPane;
-    @FXML private ImageView imageView;
+    @FXML
+    private Button nextBtn;
+    @FXML
+    private BorderPane borderPaneBg;
+    @FXML
+    private BorderPane borderPane;
+    @FXML
+    private ImageView imageView;
 
 
     @FXML
     public void initialize() {
-        logger.info("Initializing HelpFXMLController...");
+        logger.info("Initializing Instructions2FXMLController...");
         nextBtn.setOnAction(this::handleNext); //brings to next scene
 
         //ensures proper white space
@@ -46,6 +51,7 @@ public class Instruction2FXMLController {
         //sets size proportionally to user's screen
         setSizeBtn1(nextBtn);
         setButton(nextBtn, "next", 5, 5);
+
         //nextBtn.setMinSize(BaseWindow.sceneWidth * 0.10, BaseWindow.sceneHeight * 0.05);
     }
 
@@ -61,8 +67,8 @@ public class Instruction2FXMLController {
      * @param e
      */
     private void handleNext(Event e) {
-        System.out.println("Going to Game Scene...");
-        MainMenu.switchScene(GAME_SCENE);
+        System.out.println("Going to map scene...");
+        MainMenu.switchScene(GAME_SCENE, Family.ALKALIMETAL);
         logger.info("Next button has been clicked...");
     }
 

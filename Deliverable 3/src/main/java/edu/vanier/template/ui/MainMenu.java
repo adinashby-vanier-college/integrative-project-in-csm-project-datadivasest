@@ -201,6 +201,8 @@ public class MainMenu extends Application {
         mainMenuFXMLController.setUI();
         if (periodicTableFXMLController != null)
             periodicTableFXMLController.setUI();
+//        if (mapFXMLController != null)
+//            mapFXMLController.setUI();
         if (questionEx1FXMLController != null)
             questionEx1FXMLController.setUI();
         if (questionEx2FXMLController != null)
@@ -285,7 +287,7 @@ public class MainMenu extends Application {
                 if (!sceneController.sceneExists(fxmlFileName)) {
                     // Instantiate the corresponding FXML controller if the
                     // specified scene is being loaded for the first time.
-                    gameController = new GameFXMLController(Family.ALKALIMETAL);
+                    gameController = new GameFXMLController(Family.LEVEL11);
                     Parent root = FxUIHelper.loadFXML(fxmlFileName, gameController);
                     sceneController.addScene(GAME_SCENE, root);
                 }

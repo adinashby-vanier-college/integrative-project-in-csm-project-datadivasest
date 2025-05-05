@@ -37,7 +37,7 @@ public class InstructionFXMLController {
      */
     @FXML
     public void initialize() {
-        logger.info("Initializing HelpFXMLController...");
+        logger.info("Initializing Instructions2FXMLController...");
         nextBtn.setOnAction(this::handleNext); //brings to next scene
 
         //ensures proper white space

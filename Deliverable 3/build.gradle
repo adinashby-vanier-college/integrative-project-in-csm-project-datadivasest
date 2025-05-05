@@ -21,33 +21,31 @@ javafx {
 }
 
 dependencies {
-    // The following .jars are pulled from:
-    // https://repo.maven.apache.org/maven2/org/openjfx/    
-    compileOnly  "org.openjfx:javafx-base:$javafxVersion:sources"
-    compileOnly  "org.openjfx:javafx-controls:$javafxVersion:sources"
-    compileOnly  "org.openjfx:javafx-fxml:$javafxVersion:sources"
-    compileOnly  "org.openjfx:javafx-graphics:$javafxVersion:sources"
-    
-    // Load the Javadoc for the specified JavaFX modules.
-    compileOnly  "org.openjfx:javafx-base:$javafxVersion:javadoc"
-    compileOnly  "org.openjfx:javafx-controls:$javafxVersion:javadoc"
-    compileOnly  "org.openjfx:javafx-fxml:$javafxVersion:javadoc"
-    compileOnly  "org.openjfx:javafx-graphics:$javafxVersion:javadoc"
+    // JavaFX modules - needed at runtime!
+    implementation "org.openjfx:javafx-base:$javafxVersion"
+    implementation "org.openjfx:javafx-controls:$javafxVersion"
+    implementation "org.openjfx:javafx-fxml:$javafxVersion"
+    implementation "org.openjfx:javafx-graphics:$javafxVersion"
+    implementation "org.openjfx:javafx-media:$javafxVersion"
 
-    // Link Logback to the project: @see: https://logback.qos.ch/ 
+    // Javadoc + sources (optional, for IntelliJ IDE only)
+    compileOnly "org.openjfx:javafx-base:$javafxVersion:sources"
+    compileOnly "org.openjfx:javafx-controls:$javafxVersion:sources"
+    compileOnly "org.openjfx:javafx-fxml:$javafxVersion:sources"
+    compileOnly "org.openjfx:javafx-graphics:$javafxVersion:sources"
+    compileOnly "org.openjfx:javafx-base:$javafxVersion:javadoc"
+    compileOnly "org.openjfx:javafx-controls:$javafxVersion:javadoc"
+    compileOnly "org.openjfx:javafx-fxml:$javafxVersion:javadoc"
+    compileOnly "org.openjfx:javafx-graphics:$javafxVersion:javadoc"
+
+    // Other dependencies
     implementation "ch.qos.logback:logback-classic:$logbackVersion"
     implementation "ch.qos.logback:logback-core:$logbackVersion"
-    
-    // Ikonli icon sets.
-    // https://mvnrepository.com/artifact/org.kordamp.ikonli/ikonli-fontawesome5-pack
-    implementation group: 'org.kordamp.ikonli', name: 'ikonli-fontawesome5-pack', version: '12.3.1'
-    // https://mvnrepository.com/artifact/org.kordamp.ikonli/ikonli-javafx
-    implementation group: 'org.kordamp.ikonli', name: 'ikonli-javafx', version: '12.3.1'    
+
+    implementation 'org.kordamp.ikonli:ikonli-fontawesome5-pack:12.3.1'
+    implementation 'org.kordamp.ikonli:ikonli-javafx:12.3.1'
     implementation 'org.kordamp.ikonli:ikonli-materialdesign2-pack:12.3.1'
-
-
 }
-
 // Apply a specific Java toolchain to ease working on different environments.
 java {
     toolchain {
@@ -59,4 +57,15 @@ application {
    //       that contains the main method to be executed.
    mainClass = 'edu.vanier.Launcher'
     mainClass = 'edu.vanier.template.ui.MainMenu'
+}
+jar {
+    manifest {
+        attributes(
+                'Main-Class': application.mainClass
+        )
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }

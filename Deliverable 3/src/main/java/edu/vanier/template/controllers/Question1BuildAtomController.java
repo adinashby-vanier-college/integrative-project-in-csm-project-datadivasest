@@ -84,6 +84,7 @@ public class Question1BuildAtomController {
         btnMap.setOnAction(this::handleMapButton);
         btnHelp.setOnAction(this::handleHelpButton);
         backpackBtn.setOnAction(this::handleBackpackButton);
+        checkBtn.setOnAction(this::handleCheck);
 
         //setting up the question
         questionTxt.setText("Build the atom: " + QuestionEx1FXMLController.currentElement.getName() + " with the correct number of protons and electrons" + " \nHint: Use your the " +
@@ -117,6 +118,11 @@ public class Question1BuildAtomController {
         }
         atomImg.setFitWidth(500);
         atomImg.setFitHeight(495);
+    }
+    private void handleCheck(Event e) {
+        System.out.println("Going to instructions 2...");
+        MainMenu.switchScene(INSTRUCTIONS2_SCENE);
+        logger.info("Check has been clicked...");
     }
 
     private void handleBack(Event e) {

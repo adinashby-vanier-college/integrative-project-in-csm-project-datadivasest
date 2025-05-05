@@ -1,5 +1,6 @@
 package edu.vanier.template.controllers;
 
+import com.sun.tools.javac.Main;
 import edu.vanier.template.ui.BaseWindow;
 import edu.vanier.template.ui.MainMenu;
 import javafx.event.Event;
@@ -26,7 +27,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static edu.vanier.template.ui.MainMenu.setBackground;
+import static edu.vanier.template.ui.MainMenu.*;
 
 
 public class QuestionEx2FXMLController {
@@ -161,39 +162,40 @@ public class QuestionEx2FXMLController {
     private void handleCheck(Event e) {
 //        MainMenu.switchScene(MainMenu.GAME_SCENE);
         logger.info("Check button clicked");
-        try {
-            // 1) Parse inputs
-            String inputX = txtLeft.getText().trim();
-            String inputY = txtRight.getText().trim();
-            double gramsX = Double.parseDouble(inputX);
-            double gramsY = Double.parseDouble(inputY);
-
-            // 2) Compute molar masses
-            double mmX    = computeMolarMass(currentProblem.elementX);
-            double mmY    = computeMolarMass(currentProblem.elementY);
-            double mmProd = computeMolarMass(currentProblem.productFormula);
-
-            // 3) Target product moles
-            double targetProdMoles = currentProblem.productMass / mmProd;
-
-            // 4) Required grams of each reactant
-            double reqGramsX = targetProdMoles * currentProblem.aCoeff / currentProblem.cCoeff * mmX;
-            double reqGramsY = targetProdMoles * currentProblem.bCoeff /currentProblem.cCoeff * mmY;
-
-            // 5) Check within tolerance (±1g)
-            double tol = 1.0;
-            if (Math.abs(gramsX - reqGramsX) <= tol
-                    && Math.abs(gramsY - reqGramsY) <= tol) {
-                lblQuestion.setText("Yes! Congrats! That is the correct answer :)");
-                btnCheck.setText("Next");
-
-                // … proceed to next problem …
-            } else {
-                lblQuestion.setText(prompt + "\n\n\t\t\tMmm at least one of these is wrong... why don't you try again?");
-            }
-        } catch (NumberFormatException ex) {
-            lblQuestion.setText(prompt + "\n\n\nI think you should put numbers...");
-        }
+//        try {
+//            // 1) Parse inputs
+//            String inputX = txtLeft.getText().trim();
+//            String inputY = txtRight.getText().trim();
+//            double gramsX = Double.parseDouble(inputX);
+//            double gramsY = Double.parseDouble(inputY);
+//
+//            // 2) Compute molar masses
+//            double mmX    = computeMolarMass(currentProblem.elementX);
+//            double mmY    = computeMolarMass(currentProblem.elementY);
+//            double mmProd = computeMolarMass(currentProblem.productFormula);
+//
+//            // 3) Target product moles
+//            double targetProdMoles = currentProblem.productMass / mmProd;
+//
+//            // 4) Required grams of each reactant
+//            double reqGramsX = targetProdMoles * currentProblem.aCoeff / currentProblem.cCoeff * mmX;
+//            double reqGramsY = targetProdMoles * currentProblem.bCoeff /currentProblem.cCoeff * mmY;
+//
+//            // 5) Check within tolerance (±1g)
+//            double tol = 1.0;
+//            if (Math.abs(gramsX - reqGramsX) <= tol
+//                    && Math.abs(gramsY - reqGramsY) <= tol) {
+//                lblQuestion.setText("Yes! Congrats! That is the correct answer :)");
+//                btnCheck.setText("Next");
+//
+//                // … proceed to next problem …
+//            } else {
+//                lblQuestion.setText(prompt + "\n\n\t\t\tMmm at least one of these is wrong... why don't you try again?");
+//            }
+//        } catch (NumberFormatException ex) {
+//            lblQuestion.setText(prompt + "\n\n\nI think you should put numbers...");
+//        }
+        MainMenu.switchScene(QUESTIONEX3_SCENE);
     }
 
     private void handleBack(Event e) {
