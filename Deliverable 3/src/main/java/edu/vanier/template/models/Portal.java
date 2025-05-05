@@ -23,7 +23,7 @@ public class Portal extends Sprite{
     }
     public void setLevel(int level) {
         this.level = level;
-        setOpacity(0);
+        setOpacity(1);
     }
 
     public void setDestination(String destination) {

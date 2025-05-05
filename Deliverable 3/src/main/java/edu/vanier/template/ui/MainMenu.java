@@ -344,7 +344,7 @@ public class MainMenu extends Application {
             } else if (fxmlFileName.equals(LOGIN_SCENE)) {
                 if (!sceneController.sceneExists(fxmlFileName)) {
                     // Instantiate the corresponding FXML controller if the
-                    // specified scene is being loaded for the frist time.
+                    // specified scene is being loaded for the fr    ist time.
                     loginFXMLController = new LoginFXMLController();
                     Parent root = FxUIHelper.loadFXML(fxmlFileName, loginFXMLController);
                     sceneController.addScene(LOGIN_SCENE, root);
