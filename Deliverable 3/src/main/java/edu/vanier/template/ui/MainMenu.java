@@ -52,11 +52,6 @@ public class MainMenu extends Application {
 //        private static SceneController sceneController;
 //        public static final String GAME_SCENE = "World_layout";
 //=======
-    // The FXML file name of the primary scene.
-    public static final String MAINAPP_SCENE = "MainApp_layout";
-    // The FXML file name of the secondary scene.
-    public static final String SECONDARY_SCENE = "secondary_layout";
-    // The FXML file name of the dialogue scene.
     public static final String DIALOGUE_SCENE = "Dialogue_layout";
     // The FXML file name of the main menu scene
     public static final String MAINMENU_SCENE = "MainMenu";
@@ -78,10 +73,12 @@ public class MainMenu extends Application {
     public static final String BACKPACK_SCENE = "BackpackScene";
     public static final String MAP_SCENE = "MapScene";
     public static final String HELP_SCENE = "Help_layout";
+    public static final String GAMEOVER_SCENE = "GameOverPage";
     public static final String INSTRUCTIONS_SCENE = "Instruction";
     public static final String INSTRUCTIONS2_SCENE = "Instruction2";
 
     private static GameFXMLController gameController;
+    private static GameOverFXMLController gameOverFXMLController;
     public static DialogueFXMLController dialogueController;
     public static MainMenuFXMLController mainMenuFXMLController;
     public static PeriodicTableFXMLController periodicTableFXMLController;
@@ -211,6 +208,9 @@ public class MainMenu extends Application {
             instructionFXMLController.setUI();
         if (instruction2FXMLController != null)
             instruction2FXMLController.setUI();
+        // TODO
+//        if (gameOverFXMLController != null)
+//            gameOverFXMLController.setUI();
     }
 
     public static void setMusicVolume(double volume) {
@@ -275,6 +275,16 @@ public class MainMenu extends Application {
                     gameController = new GameFXMLController(Family.LEVEL11);
                     Parent root = FxUIHelper.loadFXML(fxmlFileName, gameController);
                     sceneController.addScene(GAME_SCENE, root);
+                }
+                // The scene has been previously added, we activate it.
+                sceneController.activateScene(fxmlFileName);
+            } else if (fxmlFileName.equals(GAMEOVER_SCENE)) {
+                if (!sceneController.sceneExists(fxmlFileName)) {
+                    // Instantiate the corresponding FXML controller if the
+                    // specified scene is being loaded for the first time.
+                    gameOverFXMLController = new GameOverFXMLController();
+                    Parent root = FxUIHelper.loadFXML(fxmlFileName, gameOverFXMLController);
+                    sceneController.addScene(GAMEOVER_SCENE, root);
                 }
                 // The scene has been previously added, we activate it.
                 sceneController.activateScene(fxmlFileName);

@@ -142,7 +142,7 @@ public class GameFXMLController {
         platformFloor = new Platform(0, (int)BaseWindow.sceneHeight - 200, "floor", (int)BaseWindow.sceneWidth, 200, imgPlatformFloor);
         canvas = new Canvas(BaseWindow.sceneWidth, BaseWindow.sceneHeight);
         mainPane.getChildren().addAll(canvas, platformFloor);
-        portal = new Portal((int)BaseWindow.sceneWidth - 100, (int)BaseWindow.sceneHeight - 100 - (int)platformFloor.getHeight(), 30, 100, imgPortal, QUESTION1BUILDATOM);
+        portal = new Portal((int)BaseWindow.sceneWidth - 100, (int)BaseWindow.sceneHeight - 100 - (int)platformFloor.getHeight(), 30, 100, imgPortal, INSTRUCTIONS2_SCENE);
        // portal = new Portal((int)BaseWindow.sceneWidth - 100, (int)BaseWindow.sceneHeight - 100 - (int)platformFloor.getHeight(), 30, 100, imgPortal, INSTRUCTIONS2_SCENE);
         World.generateElements(currentFamily, platformList, portal);
     }

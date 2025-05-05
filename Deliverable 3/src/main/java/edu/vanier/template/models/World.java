@@ -269,7 +269,7 @@ public class World {
     private static void setPortal2(Portal portal) {
         portal.setDestination(GAME_SCENE);
         portal.setPositionX(BaseWindow.sceneWidth - 50);
-        portal.setLevel(11);
+        portal.setLevel(2);
         portal.setHeight(BaseWindow.sceneHeight);
     }
     /**
@@ -279,7 +279,7 @@ public class World {
     private static void setPortal31(Portal portal) {
         portal.setDestination(GAME_SCENE);
         portal.setPositionX(BaseWindow.sceneWidth - 50);
-        portal.setLevel(11);
+        portal.setLevel(31);
         portal.setHeight(BaseWindow.sceneHeight);
     }
     /**
@@ -289,7 +289,7 @@ public class World {
     private static void setPortal32(Portal portal) {
         portal.setDestination(GAME_SCENE);
         portal.setPositionX(BaseWindow.sceneWidth - 50);
-        portal.setLevel(11);
+        portal.setLevel(32);
         portal.setHeight(BaseWindow.sceneHeight);
     }
     /**
