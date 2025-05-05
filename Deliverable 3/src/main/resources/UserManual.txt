@@ -1,0 +1,42 @@
+# User Manual
+
+Welcome to Lets Chem, a game by students for students. Did you take chemistry in high schoo or general chemistry in cegep?
+LETS CHEM is a game that brings its users through multiple levels to help them practice chemistry concepts learned in class.
+
+## Chemistry Subjects
+The game introduces concepts such as neutralization, building atoms with electrons and protons (atomic number), periods and families, stoichiometry, etc.
+
+### Help/Resources class
+The help and ressources scene allows the user to get help about any chemistry concept they may have forgotten about. This scene includes an image that represents the concept, an explanation of the concept, an example as well as a link to some extra videos.
+It can be found by clicking on the button at the top right of the screen.
+
+## Backpack Class
+Whenevever the user collects something important (by having the user interact with it) it gets stored in the backpack class. These sprites are collected and can be dropped back into the scene as well.
+The backpack can be opened by clicking the button on the top right of the screen
+
+### How to drop
+To drop a sprite into the game (such as electrons), the user must open the backpack, grab the image of the sprite they want to drop and drop it into the scene.
+
+## Controls
+The game is controlled using buttons on the keyboard (WASD). The user jumps using W and is allowed to jump a maximum of 4 times, if the user starts falling down, they must land on a surface before being allowed to jump back up. The user moves right and left using A and D.
+To move on to the next scene the user could press F, pressing F also allows the user to continue to the next dialogue.
+
+*Note: avoid clicking on the space bar as the game has difficulty recognizing it and may switch to an unwanted scene.
+
+## Goal
+The goal of the user is to pass through all the levels to finally defeat the boss after escaping his rampage of chemistry questions.
+
+## Settings
+The user can go to settings to change a few things about the game. This includes visual and hearing cues. The user can lower the volume of the music and turn off the sound effects. The user can turn on night mode where all the background will change to a darker version.
+
+## Back button
+When the back button is available it will allow the user to head back to the last scene they were in.
+
+## Proportionality
+The game was coded so that the sprites and UI will be shown to be proportional to all screen sizes and change accordingly to fit every computer.
+
+## Portals
+Portals can be used by users to travel from one layout or scene to the next.
+
+## Maps
+Users can find the map button on the top right of the screen to open the map and go to a different group. 

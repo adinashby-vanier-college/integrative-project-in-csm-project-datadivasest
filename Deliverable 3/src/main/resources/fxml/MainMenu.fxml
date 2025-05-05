@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane fx:id="borderPane" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <VBox alignment="CENTER" fillWidth="false" prefHeight="305.0" prefWidth="327.0">
+         <children>
+            <ImageView fx:id="titleImgView" fitHeight="100.0" fitWidth="600.0" pickOnBounds="true">
+               <VBox.margin>
+                  <Insets bottom="50.0" />
+               </VBox.margin>
+            </ImageView>
+            <HBox spacing="100.0">
+               <children>
+                  <Button fx:id="loginBtn" alignment="CENTER" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: pink;" text="Login" textAlignment="CENTER">
+                     <font>
+                        <Font size="35.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="createAccountBtn" alignment="CENTER" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: pink;" text="Create Account" textAlignment="CENTER" textOverrun="CLIP">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="settingsBtn" alignment="CENTER" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: pink;" text="Settings" textAlignment="CENTER">
+                     <font>
+                        <Font size="35.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
