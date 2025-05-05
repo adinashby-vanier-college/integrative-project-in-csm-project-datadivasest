@@ -244,11 +244,10 @@ public class World {
      * @param portal
      */
     private static void setPortal1(Portal portal) {
-        portal.setDestination(GAME_SCENE);
+        System.out.println("the user is in level2");    // switched the templates of level 1.1 and 2
+        portal.setDestination(GAME_SCENE);              // bc the latter looked better and should be presented first
         portal.setPositionX(BaseWindow.sceneWidth - 50);
-        portal.setLevel(11); //TODO: change this just because its type 1.1 or type 2 doesnt mean its level 2
-        // the same template is reused more than once, to know the level check currently Family == Family.LEVEL11
-        // ex method -> if currentlyFamily == Family.LEVEL11 -> portal.setLevel(11);
+        portal.setLevel(2);
         portal.setHeight(BaseWindow.sceneHeight);
     }
 
@@ -257,6 +256,7 @@ public class World {
      * @param portal
      */
     private static void setPortal12(Portal portal) {
+        System.out.println("The user is is level 1.2");
         portal.setDestination(GAME_SCENE);
         portal.setPositionX(BaseWindow.sceneWidth - 50);
         portal.setLevel(12);
