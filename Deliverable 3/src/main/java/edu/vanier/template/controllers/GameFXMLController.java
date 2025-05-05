@@ -273,7 +273,8 @@ public class GameFXMLController {
         setWorld();
 
         //user should first build the atom, below line directs them to build atom after collecting electrons and protons from the game scene
-        // Portal portal = new Portal((int)BaseWindow.sceneWidth - 30, (int)BaseWindow.sceneHeight - 200 - (int)platformFloor.getHeight(), 30, 200, imgPortal, QUESTION1BUILDATOM);
+         //Portal portal = new Portal((int)BaseWindow.sceneWidth - 30, (int)BaseWindow.sceneHeight - 200 - (int)platformFloor.getHeight(), 30, 200, imgPortal, GAMEOVER_SCENE);
+         Portal portal = new Portal((int)BaseWindow.sceneWidth - 30, (int)BaseWindow.sceneHeight - 200 - (int)platformFloor.getHeight(), 30, 200, imgPortal, GAME_SCENE);
         //-- Create and configure the media player.
         itemClip = new AudioClip(getClass().getResource("/sounds/item_pickup.wav").toExternalForm());
         jumpClip = new AudioClip(getClass().getResource("/sounds/jump.wav").toExternalForm());

@@ -47,6 +47,46 @@ public class BackpackFXMLController {
     @FXML
     public Label protonLabel;
 
+    public Label getSodiumLabel() {
+        return sodiumLabel;
+    }
+
+    public void setSodiumLabel(Label sodiumLabel) {
+        this.sodiumLabel = sodiumLabel;
+    }
+
+    public Label getElectronLabel() {
+        return electronLabel;
+    }
+
+    public void setElectronLabel(Label electronLabel) {
+        this.electronLabel = electronLabel;
+    }
+
+    public Label getProtonLabel() {
+        return protonLabel;
+    }
+
+    public void setProtonLabel(Label protonLabel) {
+        this.protonLabel = protonLabel;
+    }
+
+    public Label getOxygenLabel() {
+        return oxygenLabel;
+    }
+
+    public void setOxygenLabel(Label oxygenLabel) {
+        this.oxygenLabel = oxygenLabel;
+    }
+
+    public Label getHydrogenLabel() {
+        return hydrogenLabel;
+    }
+
+    public void setHydrogenLabel(Label hydrogenLabel) {
+        this.hydrogenLabel = hydrogenLabel;
+    }
+
     private Label oxygenLabel;
     private Label hydrogenLabel;
     private int currentColumn;
@@ -240,6 +280,19 @@ public class BackpackFXMLController {
 
                 Label itemLabel = itemLabels.get(type);
                 itemLabel.setText("x " + updatedCountOfItem);
+
+                switch(type) {
+                    case "sodium": getSodiumLabel().setText("x " + updatedCountOfItem);
+                    break;
+                    case "oxygen": getOxygenLabel().setText("x " + updatedCountOfItem);
+                    break;
+                    case "hydrogen": getHydrogenLabel().setText("x " + updatedCountOfItem);
+                    break;
+                    case "electron": getElectronLabel().setText("x " + updatedCountOfItem);
+                    break;
+                    case "proton": getProtonLabel().setText("x " + updatedCountOfItem);
+                    break;
+                };
             }
             System.out.println("method is being executed");
         }
