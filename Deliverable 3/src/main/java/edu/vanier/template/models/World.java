@@ -240,27 +240,26 @@ public class World {
 
     // Sets location of portals
     /**
-     * Sets location of portal for level 1.1 to leve 1.2
+     * Sets location of portal for level 2
      * @param portal
      */
     private static void setPortal1(Portal portal) {
         System.out.println("the user is in level2");    // switched the templates of level 1.1 and 2
         portal.setDestination(GAME_SCENE);              // bc the latter looked better and should be presented first
-        portal.setPositionX(BaseWindow.sceneWidth - 50);
         portal.setLevel(2);
-        portal.setHeight(BaseWindow.sceneHeight);
+        portal.setPositionY((double) BaseWindow.sceneHeight * (340)/1440);
     }
 
     /**
-     * Sets location of portal for level 1.2 to question
+     * Sets location of portal for level 1.2
      * @param portal
      */
     private static void setPortal12(Portal portal) {
         System.out.println("The user is is level 1.2");
         portal.setDestination(GAME_SCENE);
-        portal.setPositionX(BaseWindow.sceneWidth - 50);
         portal.setLevel(12);
-        portal.setHeight(BaseWindow.sceneHeight * 0.9);
+        portal.setPositionY((double) BaseWindow.sceneHeight * (150)/1440);
+        portal.setPositionX(BaseWindow.sceneWidth - (BaseWindow.sceneHeight * 800/2560));
     }
 
     /**
@@ -282,13 +281,13 @@ public class World {
             portal.setDestination(GAME_SCENE);
             portal.setLevel(2); //TODO: Liz you can change this to be where you want
             portal.setPositionY((double) BaseWindow.sceneHeight * (150)/1440);
-            portal.setPositionX(BaseWindow.sceneWidth - 200);
+            portal.setPositionX(BaseWindow.sceneWidth - (BaseWindow.sceneHeight * 200/ 2560));
         } else if (currentFamily == Family.TRANSITIONMETAL5) {
             System.out.println("The user is in transitional metal 5");
             portal.setDestination(GAME_SCENE);
             portal.setLevel(2);
             portal.setPositionY((double) BaseWindow.sceneHeight * (150)/1440);
-            portal.setPositionX(BaseWindow.sceneWidth - 200);
+            portal.setPositionX(BaseWindow.sceneWidth - (BaseWindow.sceneHeight * 200/ 2560));
         }
     }
     /**
