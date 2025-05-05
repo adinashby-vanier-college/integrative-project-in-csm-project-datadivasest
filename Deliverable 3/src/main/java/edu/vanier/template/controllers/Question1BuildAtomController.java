@@ -58,12 +58,17 @@ public class Question1BuildAtomController {
         logger.info("Initializing the building atom controller");
 
         setBackground(borderPane);
+        setButton(btnMap, "Button_132",3 ,3);
+        setButton(btnHelp, "Button_help",3 ,3);
+        setButton(backpackBtn, "backpack",3 ,3);
+        setButton(btnSettings, "Button_settings", 3 ,3);
 
         try {
             backpackFXMLController.setUpGridPane();
             backpackStage = new Stage();
             backpackStage.setTitle("Backpack");
             Scene backpackScene = new Scene(FxUIHelper.loadFXML(BACKPACK_SCENE, backpackFXMLController), 460, 574);
+            //backpackFXMLController.setElectronLabel(backpackFXMLController.getElectronLabel());
             backpackStage.setScene(backpackScene);
             backpackStage.setResizable(false);
             backpackStage.setAlwaysOnTop(true);
@@ -126,7 +131,6 @@ public class Question1BuildAtomController {
     }
 
     public void handleBackpackButton(Event e) {
-
         try {
             System.out.println("Backpack has been clicked");
 
@@ -186,5 +190,6 @@ public class Question1BuildAtomController {
         helpStage.initOwner(borderPane.getScene().getWindow());
         helpStage.show();
     }
+
 
 }
