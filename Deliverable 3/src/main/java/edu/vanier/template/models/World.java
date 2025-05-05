@@ -375,14 +375,14 @@ public class World {
             System.out.println("The user is in alkaline earth metal world");
             portal.setDestination(GAME_SCENE);
             portal.setLevel(11);
-            portal.setPositionY((double) BaseWindow.sceneHeight * (200)/1440);
+            portal.setPositionY((double) BaseWindow.sceneHeight * (160)/1440);
             portal.setPositionX(BaseWindow.sceneWidth/2);
 
         } else if (currentFamily == Family.NOBLEGAS) {
             System.out.println("The user is in noble gas world");
             portal.setDestination(GAME_SCENE);
             portal.setLevel(11);
-            portal.setPositionY((double) BaseWindow.sceneHeight * (200)/1440);
+            portal.setPositionY((double) BaseWindow.sceneHeight * (160)/1440);
             portal.setPositionX(BaseWindow.sceneWidth /2);
         }
     }
