@@ -9,6 +9,7 @@ import javafx.scene.media.AudioClip;
 import javax.lang.model.util.SimpleElementVisitor14;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static edu.vanier.template.ui.MainMenu.*;
 
@@ -83,8 +84,8 @@ public class World {
      * Sets size and location for platforms of type A
      */
     private static void setPlatformsTypeA(Family currentFamily, List<Platform> platformList) {
-        addPlatform(currentFamily, platformList, 0.0, 0.40, 800,400);
-        addPlatform(currentFamily, platformList, 0.2, 0.70, 500,600);
+        addPlatform(currentFamily, platformList, 0.0, 0.40, 800,420);
+        addPlatform(currentFamily, platformList, 0.16, 0.70, 500,600);
         addPlatform(currentFamily, platformList, 0.25, 0.50, 80,400);
         addPlatform(currentFamily, platformList, 0.60, 0.40, 80,400);
         addPlatform(currentFamily, platformList, 0.90, 0.30, 100,300);
@@ -230,8 +231,8 @@ public class World {
     =     * @param width of the platform
      */
     private static void addAcidPlatform(List<Platform> platformList, double posX, double width) {
-        Image imgPlatformFloating = new Image(MainAppFXMLController.class.
-                getResource("/images/acidPlatform.png").toString());
+        Image imgPlatformFloating = new Image(Objects.requireNonNull(MainAppFXMLController.class.
+                getResource("/images/acidPlatform.png")).toString());
 
         Platform platform = new Platform((int) (widthScreen *  posX),
                 (int) BaseWindow.sceneHeight - 100, "floor",
@@ -245,7 +246,7 @@ public class World {
     // Sets location of portals
     /**
      * Sets location of portal for level 2
-     * @param portal
+     * @param portal that's being placed
      */
     private static void setPortal1(Portal portal) {
         magicClip.setVolume(0.20);
@@ -258,7 +259,7 @@ public class World {
 
     /**
      * Sets location of portal for level 1.2
-     * @param portal
+     * @param portal that's being placed
      */
     private static void setPortal12(Portal portal) {
         magicClip.setVolume(0.20);
@@ -272,7 +273,7 @@ public class World {
 
     /**
      * Sets location of portal for level 1.1, alkali and TM 5
-     * @param portal
+     * @param portal that's being placed
      */
     private static void setPortal2(Portal portal, Family currentFamily) {
         magicClip.setVolume(0.20);
@@ -301,8 +302,8 @@ public class World {
         }
     }
     /**
-     * Sets location of portal for level 1.1 to leve 1.2
-     * @param portal
+     * Sets location of portal for level 3.1
+     * @param portal that's being placed
      */
     private static void setPortal31(Portal portal) {
         magicClip.setVolume(0.20);
@@ -316,8 +317,8 @@ public class World {
         portal.setPositionY(0);
     }
     /**
-     * Sets location of portal for level 1.1 to leve 1.2
-     * @param portal
+     * Sets location of portal for level 3.2
+     * @param portal that's being placed
      */
     private static void setPortal32(Portal portal, Family currentFamily) {
         magicClip.setVolume(0.20);
@@ -340,8 +341,8 @@ public class World {
         }
     }
     /**
-     * Sets location of portal for level 1.1 to leve 1.2
-     * @param portal
+     * Sets location of portal for layout A
+     * @param portal that's being placed
      */
     private static void setPortalA(Portal portal, Family currentFamily) {
         magicClip.setVolume(0.20);
@@ -350,17 +351,22 @@ public class World {
             System.out.println("The user is in halogens world");
             portal.setDestination(GAME_SCENE);
             portal.setLevel(11);
+            portal.setPositionY((double) BaseWindow.sceneHeight * (730)/1440);
+            portal.setPositionX(BaseWindow.sceneWidth - (BaseWindow.sceneHeight * 350/2560));
+
         } else if (currentFamily == Family.TRANSITIONMETAL4) {
             System.out.println("The user has entered transitionMetal4 world");
             portal.setDestination(GAME_SCENE);
             portal.setLevel(11);
+            portal.setPositionY((double) BaseWindow.sceneHeight * (730)/1440);
+            portal.setPositionX(BaseWindow.sceneWidth - (BaseWindow.sceneHeight * 350/2560));
 
         }
     }
 
     /**
      * Sets location of portal for level 1.1 to leve 1.2
-     * @param portal
+     * @param portal that's being placed
      */
     private static void setPortalB(Portal portal, Family currentFamily) {
         magicClip.setVolume(0.20);
@@ -368,22 +374,17 @@ public class World {
         if (currentFamily == Family.ALKALINEEARTHMETALS) {
             System.out.println("The user is in alkaline earth metal world");
             portal.setDestination(GAME_SCENE);
-            portal.setPositionX(BaseWindow.sceneWidth - 50);
             portal.setLevel(11);
-            portal.setHeight(BaseWindow.sceneHeight);
         } else if (currentFamily == Family.NOBLEGAS) {
             System.out.println("The user is in noble gas world");
             portal.setDestination(GAME_SCENE);
-            portal.setPositionX(BaseWindow.sceneWidth - 50);
             portal.setLevel(11);
-            portal.setHeight(BaseWindow.sceneHeight);
-
         }
     }
 
     /**
-     * Sets location of portal for level 1.1 to leve 1.2
-     * @param portal
+     * Sets location of portal for
+     * @param portal that's being placed
      */
     private static void setPortalC(Portal portal) {
         magicClip.setVolume(0.20);
