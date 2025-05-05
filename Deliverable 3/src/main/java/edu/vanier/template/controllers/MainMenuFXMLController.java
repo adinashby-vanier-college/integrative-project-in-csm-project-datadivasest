@@ -15,8 +15,7 @@ import javafx.scene.layout.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static edu.vanier.template.ui.MainMenu.DIALOGUE_SCENE;
-import static edu.vanier.template.ui.MainMenu.LOGIN_SCENE;
+import static edu.vanier.template.ui.MainMenu.*;
 
 /**
  * FXML controller class for the primary stage scene.

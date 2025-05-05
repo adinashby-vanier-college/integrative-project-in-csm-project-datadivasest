@@ -265,7 +265,7 @@ public class World {
         magicClip.setVolume(0.20);
         magicClip.play();
         System.out.println("The user is is level 1.2");
-        portal.setDestination(INSTRUCTIONS2_SCENE);
+        portal.setDestination(QUESTION1BUILDATOM);
         portal.setLevel(12);
         portal.setPositionY((double) BaseWindow.sceneHeight * (150)/1440);
         portal.setPositionX(BaseWindow.sceneWidth - (BaseWindow.sceneHeight * 800/2560));

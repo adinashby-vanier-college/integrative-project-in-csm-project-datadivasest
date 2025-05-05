@@ -57,6 +57,11 @@ public class QuestionEx2FXMLController {
         logger.info("Initializing Question 2 Controller...");
         setBackground(borderPane);
 
+        setButton(btnCheck, "Button_confirm",5 ,5);
+        setButton(btnHelp, "Button_big",20,35);
+        setButton(btnBack, "back", 5 ,5);
+
+
         loadCsvProblems();
         pickAndShowProblem();
         loadMolarMasses();
@@ -187,6 +192,7 @@ public class QuestionEx2FXMLController {
                     && Math.abs(gramsY - reqGramsY) <= tol) {
                 lblQuestion.setText("Yes! Congrats! That is the correct answer :)");
                 btnCheck.setText("Next");
+                MainMenu.switchScene(QUESTIONEX3_SCENE);
 
                 // … proceed to next problem …
             } else {
@@ -195,7 +201,7 @@ public class QuestionEx2FXMLController {
         } catch (NumberFormatException ex) {
             lblQuestion.setText(prompt + "\n\n\nI think you should put numbers...");
         }
-//        MainMenu.switchScene(QUESTIONEX3_SCENE);
+        //MainMenu.switchScene(QUESTIONEX3_SCENE);
     }
 
     private void handleBack(Event e) {

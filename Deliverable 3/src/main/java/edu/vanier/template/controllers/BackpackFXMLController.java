@@ -326,7 +326,6 @@ public class BackpackFXMLController {
 
             Label itemLabel = itemLabels.get(type);
             itemLabel.setText("x " + currentNum);
-
         }
 
 

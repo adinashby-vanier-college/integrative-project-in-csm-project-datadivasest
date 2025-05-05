@@ -66,6 +66,7 @@ public class Question1BuildAtomController {
         setButton(btnHelp, "Button_help",3 ,3);
         setButton(backpackBtn, "backpack",3 ,3);
         setButton(btnSettings, "Button_settings", 3 ,3);
+        setButton(checkBtn, "next", 3, 3);
 
         try {
             backpackFXMLController.setUpGridPane();
@@ -145,18 +146,23 @@ public class Question1BuildAtomController {
                 switch (spriteType) {
                     case "electron":
                         sprite = new Image(getClass().getResource("/images/Electron.png").toExternalForm());
+                        gameFXMLController.sprite1List.add(new Sprite(spriteType, sprite));
                         break;
                     case "proton":
                         sprite = new Image(getClass().getResource("/images/Proton.png").toExternalForm());
+                        gameFXMLController.sprite2List.add(new Sprite(spriteType, sprite));
                         break;
                     case "sodium":
                         sprite = new Image(getClass().getResource("/images/Sodium.png").toExternalForm());
+                        gameFXMLController.sprite3List.add(new Sprite(spriteType, sprite));
                         break;
                     case "hydrogen":
                         sprite = new Image(getClass().getResource("/images/Hydrogen.png").toExternalForm());
+                        gameFXMLController.sprite4List.add(new Sprite(spriteType, sprite));
                         break;
                     case "oxygen":
                         sprite = new Image(getClass().getResource("/images/Oxygen.png").toExternalForm());
+                        gameFXMLController.sprite4List.add(new Sprite(spriteType, sprite));
                         break;
                 }
 

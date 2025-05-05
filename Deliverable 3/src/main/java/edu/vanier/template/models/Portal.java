@@ -63,7 +63,7 @@ public class Portal extends Sprite{
                     AnimationTimer animationTimer = MainMenu.getGameController().getAnimation();
                     if (animationTimer != null)
                         animationTimer.stop();
-                    MainMenu.switchScene(GAME_SCENE, Family.ALKALIMETAL); // switch to it
+                    MainMenu.switchScene(QUESTION1BUILDATOM); // switch to it
                 }
                 else if (level == 32) {
                     MainMenu.getSceneController().removeScene(GAME_SCENE);

@@ -3,6 +3,7 @@ package edu.vanier.template.controllers;
 import edu.vanier.template.models.Family;
 import edu.vanier.template.ui.BaseWindow;
 import edu.vanier.template.ui.MainMenu;
+import javafx.animation.AnimationTimer;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -68,7 +69,13 @@ public class Instruction2FXMLController {
      */
     private void handleNext(Event e) {
         System.out.println("Going to map scene...");
-        MainMenu.switchScene(GAME_SCENE, Family.ALKALIMETAL);
+
+        sceneController.removeScene(GAME_SCENE);
+        AnimationTimer animationTimer = MainMenu.getGameController().getAnimation();
+        if (animationTimer != null)
+            animationTimer.stop();
+        MainMenu.switchScene(GAME_SCENE, Family.ALKALIMETAL); // switch to it
+        logger.info("Noble Gas has been clicked...");
         logger.info("Next button has been clicked...");
     }
 
@@ -81,7 +88,7 @@ public class Instruction2FXMLController {
     private void handleKeyPressed(KeyEvent event) {
         if (event.getCode() == KeyCode.F) {
             System.out.println("Going to Game Scene...");
-            MainMenu.switchScene(GAME_SCENE, Family.ALKALIMETAL);
+            MainMenu.switchScene(GAME_SCENE, Family.ALKALINEEARTHMETALS);
             logger.info("F button has been clicked...");
             event.consume(); // Prevent further handling
         }
