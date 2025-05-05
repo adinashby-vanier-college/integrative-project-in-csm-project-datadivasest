@@ -37,9 +37,18 @@ public class World {
      */
     public static void generateElements(Family currentFamily, List<Platform> platformList, Portal portal) {
         switch (currentFamily.getLayoutType()) {
-            case "A" -> setPlatformsTypeA(currentFamily, platformList);
-            case "B" -> setPlatformsTypeB(currentFamily, platformList);
-            case "C" -> setPlatformsTypeC(currentFamily, platformList);
+            case "A" -> {
+                setPlatformsTypeA(currentFamily, platformList);
+                setPortalA(portal);
+            }
+            case "B" -> {
+                setPlatformsTypeB(currentFamily, platformList);
+                setPortalB(portal);
+            }
+            case "C" -> {
+                setPlatformsTypeC(currentFamily, platformList);
+                setPortalC(portal);
+            }
             case "1.1" -> {
                 setPlatformsType11(currentFamily, platformList);
                 setPortal1(portal);
@@ -48,14 +57,21 @@ public class World {
                 setPlatformsType12(currentFamily, platformList);
                 setPortal12(portal);
             }
-            case "2" -> setPlatformsType2(currentFamily, platformList);
+            case "2" -> {
+                setPlatformsType2(currentFamily, platformList);
+                setPortal2(portal);
+            }
             case "3.1" -> {
                 setPlatformsType31(currentFamily, platformList);
-                setPortal1(portal);
+                setPortal31(portal);
             }
-            case "3.2" -> setPlatformsType32(currentFamily, platformList);
+            case "3.2" -> {
+                setPlatformsType32(currentFamily, platformList);
+                setPortal32(portal);
+            }
         }
     }
+
 
     //Start of setting platforms
     /**
@@ -229,9 +245,12 @@ public class World {
     private static void setPortal1(Portal portal) {
         portal.setDestination(GAME_SCENE);
         portal.setPositionX(BaseWindow.sceneWidth - 50);
-        portal.setLevel(11);
+        portal.setLevel(11); //TODO: change this just because its type 1.1 or type 2 doesnt mean its level 2
+        // the same template is reused more than once, to know the level check currently Family == Family.LEVEL11
+        // ex method -> if currentlyFamily == Family.LEVEL11 -> portal.setLevel(11);
         portal.setHeight(BaseWindow.sceneHeight);
     }
+
     /**
      * Sets location of portal for level 1.2 to question
      * @param portal
@@ -243,6 +262,68 @@ public class World {
         portal.setHeight(BaseWindow.sceneHeight * 0.9);
     }
 
+    /**
+     * Sets location of portal for level 1.1 to leve 1.2
+     * @param portal
+     */
+    private static void setPortal2(Portal portal) {
+        portal.setDestination(GAME_SCENE);
+        portal.setPositionX(BaseWindow.sceneWidth - 50);
+        portal.setLevel(11);
+        portal.setHeight(BaseWindow.sceneHeight);
+    }
+    /**
+     * Sets location of portal for level 1.1 to leve 1.2
+     * @param portal
+     */
+    private static void setPortal31(Portal portal) {
+        portal.setDestination(GAME_SCENE);
+        portal.setPositionX(BaseWindow.sceneWidth - 50);
+        portal.setLevel(11);
+        portal.setHeight(BaseWindow.sceneHeight);
+    }
+    /**
+     * Sets location of portal for level 1.1 to leve 1.2
+     * @param portal
+     */
+    private static void setPortal32(Portal portal) {
+        portal.setDestination(GAME_SCENE);
+        portal.setPositionX(BaseWindow.sceneWidth - 50);
+        portal.setLevel(11);
+        portal.setHeight(BaseWindow.sceneHeight);
+    }
+    /**
+     * Sets location of portal for level 1.1 to leve 1.2
+     * @param portal
+     */
+    private static void setPortalA(Portal portal) {
+        portal.setDestination(GAME_SCENE);
+        portal.setPositionX(BaseWindow.sceneWidth - 50);
+        portal.setLevel(11);
+        portal.setHeight(BaseWindow.sceneHeight);
+    }
+
+    /**
+     * Sets location of portal for level 1.1 to leve 1.2
+     * @param portal
+     */
+    private static void setPortalB(Portal portal) {
+        portal.setDestination(GAME_SCENE);
+        portal.setPositionX(BaseWindow.sceneWidth - 50);
+        portal.setLevel(11);
+        portal.setHeight(BaseWindow.sceneHeight);
+    }
+
+    /**
+     * Sets location of portal for level 1.1 to leve 1.2
+     * @param portal
+     */
+    private static void setPortalC(Portal portal) {
+        portal.setDestination(GAME_SCENE);
+        portal.setPositionX(BaseWindow.sceneWidth - 50);
+        portal.setLevel(11);
+        portal.setHeight(BaseWindow.sceneHeight);
+    }
     /**
      * Based on the currently family it sets the sprites in their sprite lists accordingly
      * @param currentFamily the current look of the world

@@ -24,6 +24,7 @@ public class Instruction2FXMLController {
     @FXML private Button nextBtn;
     @FXML private BorderPane borderPaneBg;
     @FXML private BorderPane borderPane;
+    @FXML private ImageView imageView;
 
 
     @FXML
@@ -36,6 +37,10 @@ public class Instruction2FXMLController {
         borderPane.setPrefWidth(BaseWindow.sceneWidth *0.8);
         borderPane.setOnKeyPressed(this::handleKeyPressed);
 
+        imageView.setPreserveRatio(false);
+        imageView.setFitHeight(BaseWindow.sceneHeight * 0.7);
+        imageView.setFitWidth(BaseWindow.sceneWidth * 0.7);
+        imageView.setImage(getImage("map_pergament"));
         setBackground(borderPaneBg);
 
         //sets size proportionally to user's screen

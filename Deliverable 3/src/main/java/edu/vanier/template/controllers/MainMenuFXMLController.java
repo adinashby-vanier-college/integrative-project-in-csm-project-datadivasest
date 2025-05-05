@@ -76,7 +76,7 @@ public class MainMenuFXMLController {
      * @param e is the action of clicking the login button, directing the user to the login page
      */
     private void loadLoginScene(Event e) {
-        MainMenu.switchScene(MainMenu.LOGIN_SCENE);
+        MainMenu.switchScene(MainMenu.GAME_SCENE);
         logger.info("Loaded the login scene...");
     }
 
