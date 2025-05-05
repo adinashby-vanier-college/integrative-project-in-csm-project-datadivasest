@@ -23,7 +23,7 @@ Cl2 + KI → KCl + I2,Cl2 + 2KI → 2KCl + I2,Cl2;KI,1;2,KCl;I2,2;1,Single Repla
 Al + Fe2O3 → Al2O3 + Fe,2Al + Fe2O3 → Al2O3 + 2Fe,Al;Fe2O3,2;1,Al2O3;Fe,1;2,Thermite
 Na + H2O → NaOH + H2,2Na + 2H2O → 2NaOH + H2,Na;H2O,2;2,NaOH;H2,2;1,Single Replacement
 C + O2 → CO2,C + O2 → CO2,C;O2,1;1,CO2,1,Combustion
-P4 + O2 → P2O5,4P + 5O2 → 2P2O5,P4;O2,4;5,P2O5,2,Synthesis
+P4 + O2 → P2O5,4P + 5O2 → 2P2O5,P4;O2,1;5,P2O5,2,Synthesis
 SO2 + O2 → SO3,2SO2 + O2 → 2SO3,SO2;O2,2;1,SO3,2,Synthesis
 K + Br2 → KBr,2K + Br2 → 2KBr,K;Br2,2;1,KBr,2,Synthesis
 H2S + O2 → SO2 + H2O,2H2S + 3O2 → 2SO2 + 2H2O,H2S;O2,2;3,SO2;H2O,2;2,Combustion

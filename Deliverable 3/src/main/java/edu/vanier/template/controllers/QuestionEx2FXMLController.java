@@ -190,13 +190,10 @@ public class QuestionEx2FXMLController {
                 // … proceed to next problem …
             } else {
                 lblQuestion.setText(prompt + "\n\n\t\t\tMmm at least one of these is wrong... why don't you try again?");
-
             }
         } catch (NumberFormatException ex) {
             lblQuestion.setText(prompt + "\n\n\nI think you should put numbers...");
-
         }
-
     }
 
     private void handleBack(Event e) {
