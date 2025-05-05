@@ -39,11 +39,11 @@ public class World {
         switch (currentFamily.getLayoutType()) {
             case "A" -> {
                 setPlatformsTypeA(currentFamily, platformList);
-                setPortalA(portal);
+                setPortalA(portal, currentFamily);
             }
             case "B" -> {
                 setPlatformsTypeB(currentFamily, platformList);
-                setPortalB(portal);
+                setPortalB(portal, currentFamily);
             }
             case "C" -> {
                 setPlatformsTypeC(currentFamily, platformList);
@@ -59,7 +59,7 @@ public class World {
             }
             case "2" -> {
                 setPlatformsType2(currentFamily, platformList);
-                setPortal2(portal);
+                setPortal2(portal, currentFamily);
             }
             case "3.1" -> {
                 setPlatformsType31(currentFamily, platformList);
@@ -67,7 +67,7 @@ public class World {
             }
             case "3.2" -> {
                 setPlatformsType32(currentFamily, platformList);
-                setPortal32(portal);
+                setPortal32(portal, currentFamily);
             }
         }
     }
@@ -170,7 +170,7 @@ public class World {
      */
     private static void setPlatformsType31(Family currentFamily, List<Platform> platformList) {
         addPlatform(currentFamily, platformList, 0.0, 0.50, 600,500);
-        addPlatform(currentFamily, platformList, 0.8, 0.95, 100,700);
+        addPlatform(currentFamily, platformList, 0.8, 0.95, 300,700);
         addAcidPlatform(platformList, 0.5, 300); //reacts differently
     }
 
@@ -266,17 +266,36 @@ public class World {
      * Sets location of portal for level 1.1 to leve 1.2
      * @param portal
      */
-    private static void setPortal2(Portal portal) {
-        portal.setDestination(GAME_SCENE);
-        portal.setPositionX(BaseWindow.sceneWidth - 50);
-        portal.setLevel(2);
-        portal.setHeight(BaseWindow.sceneHeight);
+    private static void setPortal2(Portal portal, Family currentFamily) {
+        System.out.println("set up of portal 2");
+        if(currentFamily == Family.LEVEL11) {
+            System.out.println("The user is in level 1.1");
+            portal.setDestination(GAME_SCENE);
+//            portal.setPositionY((double) (300) /1440);
+//            portal.setPositionX(BaseWindow.sceneWidth - 300);
+            portal.setLevel(11);
+            portal.setPreserveRatio(false);
+            portal.setFitHeight(BaseWindow.sceneHeight);
+        } else if (currentFamily == Family.ALKALIMETAL) {
+            System.out.println("The user is in level alkali metal");
+            portal.setDestination(GAME_SCENE);
+            portal.setPositionX(BaseWindow.sceneWidth - 50);
+            portal.setLevel(2); //TODO: Liz you can change this to be where you want
+            portal.setHeight(BaseWindow.sceneHeight * 0.2);
+        } else if (currentFamily == Family.TRANSITIONMETAL5) {
+            System.out.println("The user is in transitional metal 5");
+            portal.setDestination(GAME_SCENE);
+            portal.setPositionX(BaseWindow.sceneWidth - 50);
+            portal.setLevel(2);
+            portal.setHeight(BaseWindow.sceneHeight * 0.2);
+        }
     }
     /**
      * Sets location of portal for level 1.1 to leve 1.2
      * @param portal
      */
     private static void setPortal31(Portal portal) {
+        System.out.println("The user is in level 3.1 with the acid and base");
         portal.setDestination(GAME_SCENE);
         portal.setPositionX(BaseWindow.sceneWidth - 50);
         portal.setLevel(31);
@@ -286,32 +305,55 @@ public class World {
      * Sets location of portal for level 1.1 to leve 1.2
      * @param portal
      */
-    private static void setPortal32(Portal portal) {
-        portal.setDestination(GAME_SCENE);
-        portal.setPositionX(BaseWindow.sceneWidth - 50);
-        portal.setLevel(32);
-        portal.setHeight(BaseWindow.sceneHeight);
+    private static void setPortal32(Portal portal, Family currentFamily) {
+        if (currentFamily == Family.LEVEL32) {
+            System.out.println("The user is in the level of 32");
+            portal.setDestination(GAME_SCENE);
+            portal.setPositionX(BaseWindow.sceneWidth - 50);
+            portal.setLevel(32);
+            portal.setHeight(BaseWindow.sceneHeight);
+        }
+        else if (currentFamily == Family.TRANSITIONMETAL6) {
+            System.out.println("The user is in the transition metal 6 world");
+            portal.setDestination(GAME_SCENE);
+            portal.setPositionX(BaseWindow.sceneWidth - 50);
+            portal.setLevel(32);
+            portal.setHeight(BaseWindow.sceneHeight);
+        }
     }
     /**
      * Sets location of portal for level 1.1 to leve 1.2
      * @param portal
      */
-    private static void setPortalA(Portal portal) {
-        portal.setDestination(GAME_SCENE);
-        portal.setPositionX(BaseWindow.sceneWidth - 50);
-        portal.setLevel(11);
-        portal.setHeight(BaseWindow.sceneHeight);
+    private static void setPortalA(Portal portal, Family currentFamily) {
+        if (currentFamily == Family.HALOGENS) {
+            System.out.println("The user is in halogens world");
+            portal.setDestination(GAME_SCENE);
+            portal.setPositionX(BaseWindow.sceneWidth - 50);
+            portal.setLevel(11);
+            portal.setHeight(BaseWindow.sceneHeight);
+        }
     }
 
     /**
      * Sets location of portal for level 1.1 to leve 1.2
      * @param portal
      */
-    private static void setPortalB(Portal portal) {
-        portal.setDestination(GAME_SCENE);
-        portal.setPositionX(BaseWindow.sceneWidth - 50);
-        portal.setLevel(11);
-        portal.setHeight(BaseWindow.sceneHeight);
+    private static void setPortalB(Portal portal, Family currentFamily  ) {
+        if (currentFamily == Family.ALKALINEEARTHMETALS) {
+            System.out.println("The user is in alkaline earth metal world");
+            portal.setDestination(GAME_SCENE);
+            portal.setPositionX(BaseWindow.sceneWidth - 50);
+            portal.setLevel(11);
+            portal.setHeight(BaseWindow.sceneHeight);
+        } else if (currentFamily == Family.NOBLEGAS) {
+            System.out.println("The user is in noble gas world");
+            portal.setDestination(GAME_SCENE);
+            portal.setPositionX(BaseWindow.sceneWidth - 50);
+            portal.setLevel(11);
+            portal.setHeight(BaseWindow.sceneHeight);
+
+        }
     }
 
     /**
@@ -319,6 +361,7 @@ public class World {
      * @param portal
      */
     private static void setPortalC(Portal portal) {
+        System.out.println("The user is in TM3 world");
         portal.setDestination(GAME_SCENE);
         portal.setPositionX(BaseWindow.sceneWidth - 50);
         portal.setLevel(11);
