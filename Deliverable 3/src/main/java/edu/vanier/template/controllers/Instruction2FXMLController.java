@@ -81,7 +81,7 @@ public class Instruction2FXMLController {
     private void handleKeyPressed(KeyEvent event) {
         if (event.getCode() == KeyCode.F) {
             System.out.println("Going to Game Scene...");
-            MainMenu.switchScene(GAME_SCENE);
+            MainMenu.switchScene(GAME_SCENE, Family.ALKALIMETAL);
             logger.info("F button has been clicked...");
             event.consume(); // Prevent further handling
         }

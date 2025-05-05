@@ -69,6 +69,7 @@ public class LoginFXMLController {
         backBtn.setOnAction(this::handleBackBtn);
         MainMenu.setUI(borderPane, signInImgView, "titles/signIn.png");
         vBox.setMaxWidth(BaseWindow.sceneWidth * 0.5);
+        vBox.setMaxHeight(BaseWindow.sceneHeight * 0.7);
         borderPane.setOnKeyPressed(this::handleKeyPressed);
 
     }
