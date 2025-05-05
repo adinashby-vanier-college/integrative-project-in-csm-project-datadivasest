@@ -27,6 +27,8 @@ dependencies {
     implementation "org.openjfx:javafx-fxml:$javafxVersion"
     implementation "org.openjfx:javafx-graphics:$javafxVersion"
     implementation "org.openjfx:javafx-media:$javafxVersion"
+    implementation 'junit:junit:4.13.1'
+    implementation 'org.junit.jupiter:junit-jupiter:5.8.1'
 
     // Javadoc + sources (optional, for IntelliJ IDE only)
     compileOnly "org.openjfx:javafx-base:$javafxVersion:sources"
