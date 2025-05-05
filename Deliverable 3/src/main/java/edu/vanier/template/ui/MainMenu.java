@@ -157,6 +157,7 @@ public class MainMenu extends Application {
             Parent root1 = FxUIHelper.loadFXML(BACKPACK_SCENE, backpackFXMLController);
             sceneController.addScene(BACKPACK_SCENE, root1);
             backpackFXMLController.setUpGridPane();
+            //
             initBackgroundMusic();
         } catch (IOException ex) {
             logger.error(ex.getMessage(), ex);

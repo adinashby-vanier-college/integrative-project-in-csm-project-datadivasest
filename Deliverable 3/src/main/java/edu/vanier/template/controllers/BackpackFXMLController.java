@@ -237,6 +237,7 @@ public class BackpackFXMLController {
         backpackGridPane.add(hydrogen, 0, 4);
         itemsCount.put("hydrogen", numHydrogen);
         itemLabels.put("hydrogen", hydrogenLabel);
+        //
         //check how to adjust the font size
 //        System.out.println("method is being executed/");
 

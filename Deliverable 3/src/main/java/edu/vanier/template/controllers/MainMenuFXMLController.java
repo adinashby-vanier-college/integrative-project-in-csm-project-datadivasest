@@ -43,6 +43,7 @@ public class MainMenuFXMLController {
      * loads the next scene, depending on which button is clicked
      * @author Sofia Martinez
      */
+    //
     @FXML
     public void initialize() {
         logger.info("Initializing MainAppController...");
