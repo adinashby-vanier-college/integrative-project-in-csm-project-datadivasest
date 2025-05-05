@@ -240,15 +240,14 @@ public class World {
 
     // Sets location of portals
     /**
-     * Sets location of portal for level 1.1 to leve 1.2
+     * Sets location of portal for level 2
      * @param portal
      */
     private static void setPortal1(Portal portal) {
         System.out.println("the user is in level2");    // switched the templates of level 1.1 and 2
         portal.setDestination(GAME_SCENE);              // bc the latter looked better and should be presented first
-        portal.setPositionX(BaseWindow.sceneWidth - 50);
         portal.setLevel(2);
-        portal.setHeight(BaseWindow.sceneHeight);
+        portal.setPositionY((double) BaseWindow.sceneHeight * (340)/1440);
     }
 
     /**
