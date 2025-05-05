@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.event.Event;
 import javafx.scene.input.KeyCode;
@@ -92,7 +93,6 @@ public class DialogueFXMLController {
         // Add more lines as needed
     }
 
-
     /**
      * Displays dialogue  one at a time
      */
@@ -102,6 +102,7 @@ public class DialogueFXMLController {
             characterNameText.setText(line.characterName());
             dialogueText.setText(line.text());
 
+            dialogueText.setFont(new Font(40 * BaseWindow.sceneWidth / 2560));
             // Update character visibility
             character1ImgView.setVisible(line.character1Image() != null);
             character2ImgView.setVisible(line.character2Image() != null);
@@ -110,8 +111,10 @@ public class DialogueFXMLController {
             if (line.character1Image() != null) {
                 character1ImgView.setImage(MainMenu.getImage(line.character1Image()));
                 dialogueBoxImgView.setImage(MainMenu.getImage("dialogue/dialogueBox1.png"));
+                dialogueText.setTranslateX(-100);
             }
             if (line.character2Image() != null) {
+//                dialogueText.setTranslateX();
                 character2ImgView.setImage(MainMenu.getImage(line.character2Image()));
                 dialogueBoxImgView.setImage(MainMenu.getImage("dialogue/dialogueBox2.png"));
             }
