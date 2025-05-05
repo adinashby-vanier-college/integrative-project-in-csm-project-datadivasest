@@ -14,7 +14,7 @@
 
 <!--fixed all the red issues-->
 
-<BorderPane fx:id="borderPane" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="borderPane" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <VBox fx:id="vBox" alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
@@ -40,7 +40,7 @@
                            </font></TextField>
                      </children>
                      <VBox.margin>
-                        <Insets bottom="20.0" />
+                        <Insets bottom="10.0" />
                      </VBox.margin>
                   </VBox>
                   <VBox prefHeight="119.0" prefWidth="100.0">
@@ -60,11 +60,8 @@
                         </PasswordField>
                      </children>
                      <VBox.margin>
-                        <Insets bottom="20.0" />
+                        <Insets bottom="10.0" />
                      </VBox.margin>
-                     <padding>
-                        <Insets bottom="50.0" />
-                     </padding>
                   </VBox>
                   <Label fx:id="messageLbl" contentDisplay="RIGHT" textFill="#dc1212">
                      <font>
