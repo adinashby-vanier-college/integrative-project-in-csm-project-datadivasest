@@ -54,7 +54,7 @@ public class QuestionEx1FXMLController {
         setBackground(borderPane);
 
         setButton(btnCheck, "Button_confirm",5 ,5);
-        setButton(btnPeriodicTable, "Button_big",5,20);
+        setButton(btnPeriodicTable, "Button_big",44,77);
         setButton(btnIncrease, "Button_80",2,2);
         setButton(btnDecrease, "Button_96", 2, 2);
         setButton(btnBack, "back", 5 ,5);
