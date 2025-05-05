@@ -2,7 +2,9 @@ package edu.vanier.template.models;
 
 import edu.vanier.template.controllers.MainAppFXMLController;
 import edu.vanier.template.ui.BaseWindow;
+import edu.vanier.template.ui.MainMenu;
 import javafx.scene.image.Image;
+import javafx.scene.media.AudioClip;
 
 import javax.lang.model.util.SimpleElementVisitor14;
 import java.util.ArrayList;
@@ -22,6 +24,8 @@ public class World {
     private String chemistryTheme;
     private ArrayList <String> obstacles;
     private ArrayList <String> portals;
+    private static final AudioClip magicClip = new AudioClip(MainAppFXMLController.class.getResource("/sounds/magic.wav").toExternalForm());
+
 
     private static Image electronImg = getImage("Electron.png");
     private static Image protonImg= getImage("Proton.png");
@@ -244,6 +248,8 @@ public class World {
      * @param portal
      */
     private static void setPortal1(Portal portal) {
+        magicClip.setVolume(0.20);
+        magicClip.play();
         System.out.println("the user is in level2");    // switched the templates of level 1.1 and 2
         portal.setDestination(GAME_SCENE);              // bc the latter looked better and should be presented first
         portal.setLevel(2);
@@ -255,6 +261,8 @@ public class World {
      * @param portal
      */
     private static void setPortal12(Portal portal) {
+        magicClip.setVolume(0.20);
+        magicClip.play();
         System.out.println("The user is is level 1.2");
         portal.setDestination(GAME_SCENE);
         portal.setLevel(12);
@@ -267,7 +275,9 @@ public class World {
      * @param portal
      */
     private static void setPortal2(Portal portal, Family currentFamily) {
+        magicClip.setVolume(0.20);
         System.out.println("set up of portal 2");
+        magicClip.play();
         if(currentFamily == Family.LEVEL11) {
             System.out.println("The user is in level 1.1");
             portal.setDestination(GAME_SCENE);
@@ -295,6 +305,8 @@ public class World {
      * @param portal
      */
     private static void setPortal31(Portal portal) {
+        magicClip.setVolume(0.20);
+        magicClip.play();
         System.out.println("The user is in level 3.1 with the acid and base");
         portal.setDestination(GAME_SCENE);
         portal.setLevel(31);
@@ -308,19 +320,23 @@ public class World {
      * @param portal
      */
     private static void setPortal32(Portal portal, Family currentFamily) {
+        magicClip.setVolume(0.20);
+        magicClip.play();
         if (currentFamily == Family.LEVEL32) {
             System.out.println("The user is in the level of 32");
             portal.setDestination(GAME_SCENE);
-            portal.setPositionX(BaseWindow.sceneWidth - 50);
             portal.setLevel(32);
-            portal.setHeight(BaseWindow.sceneHeight);
+            portal.setPositionY((double) BaseWindow.sceneHeight * (790)/1440);
+            portal.setPositionX(BaseWindow.sceneWidth - (BaseWindow.sceneHeight * 150/2560));
+
         }
         else if (currentFamily == Family.TRANSITIONMETAL6) {
             System.out.println("The user is in the transition metal 6 world");
             portal.setDestination(GAME_SCENE);
-            portal.setPositionX(BaseWindow.sceneWidth - 50);
             portal.setLevel(32);
-            portal.setHeight(BaseWindow.sceneHeight);
+            portal.setPositionY((double) BaseWindow.sceneHeight * (790)/1440);
+            portal.setPositionX(BaseWindow.sceneWidth - (BaseWindow.sceneHeight * 150/2560));
+
         }
     }
     /**
@@ -328,12 +344,17 @@ public class World {
      * @param portal
      */
     private static void setPortalA(Portal portal, Family currentFamily) {
+        magicClip.setVolume(0.20);
+        magicClip.play();
         if (currentFamily == Family.HALOGENS) {
             System.out.println("The user is in halogens world");
             portal.setDestination(GAME_SCENE);
-            portal.setPositionX(BaseWindow.sceneWidth - 50);
             portal.setLevel(11);
-            portal.setHeight(BaseWindow.sceneHeight);
+        } else if (currentFamily == Family.TRANSITIONMETAL4) {
+            System.out.println("The user has entered transitionMetal4 world");
+            portal.setDestination(GAME_SCENE);
+            portal.setLevel(11);
+
         }
     }
 
@@ -341,7 +362,9 @@ public class World {
      * Sets location of portal for level 1.1 to leve 1.2
      * @param portal
      */
-    private static void setPortalB(Portal portal, Family currentFamily  ) {
+    private static void setPortalB(Portal portal, Family currentFamily) {
+        magicClip.setVolume(0.20);
+        magicClip.play();
         if (currentFamily == Family.ALKALINEEARTHMETALS) {
             System.out.println("The user is in alkaline earth metal world");
             portal.setDestination(GAME_SCENE);
@@ -363,6 +386,8 @@ public class World {
      * @param portal
      */
     private static void setPortalC(Portal portal) {
+        magicClip.setVolume(0.20);
+        magicClip.play();
         System.out.println("The user is in TM3 world");
         portal.setDestination(GAME_SCENE);
         portal.setPositionX(BaseWindow.sceneWidth - 50);
