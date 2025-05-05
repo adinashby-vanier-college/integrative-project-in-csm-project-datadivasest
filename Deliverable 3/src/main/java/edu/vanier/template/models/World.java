@@ -114,7 +114,7 @@ public class World {
         addPlatform(currentFamily, platformList, 0.45, 0.35, 100,200);
         addPlatform(currentFamily, platformList, 0.65, 0.30, 100,250);
         addPlatform(currentFamily, platformList, 0.20, 0.50, 100,400);
-        addPlatform(currentFamily, platformList, 0.50, 0.85, 125,500);
+        addPlatform(currentFamily, platformList, 0.50, 0.65, 125,500);
         addPlatform(currentFamily, platformList, 0.80, 0.75, 100,200);
         addPlatform(currentFamily, platformList, 0.97, 0.65, 100,200);
         addPlatform(currentFamily, platformList, 0.05, 0.35, 100,200);
@@ -384,7 +384,6 @@ public class World {
             portal.setLevel(11);
             portal.setPositionY((double) BaseWindow.sceneHeight * (200)/1440);
             portal.setPositionX(BaseWindow.sceneWidth /2);
-
         }
     }
 
@@ -397,9 +396,10 @@ public class World {
         magicClip.play();
         System.out.println("The user is in TM3 world");
         portal.setDestination(GAME_SCENE);
-        portal.setPositionX(BaseWindow.sceneWidth - 50);
         portal.setLevel(11);
-        portal.setHeight(BaseWindow.sceneHeight);
+        portal.setPositionY((double) BaseWindow.sceneHeight * (370)/1440);
+        portal.setPositionX(130 * BaseWindow.sceneWidth /2560);
+
     }
     /**
      * Based on the current family it sets the sprites in their sprite lists accordingly

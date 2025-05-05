@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static edu.vanier.template.ui.MainMenu.DIALOGUE_SCENE;
+import static edu.vanier.template.ui.MainMenu.LOGIN_SCENE;
 
 /**
  * FXML controller class for the primary stage scene.
@@ -78,7 +79,7 @@ public class MainMenuFXMLController {
      * @param e is the action of clicking the login button, directing the user to the login page
      */
     private void loadLoginScene(Event e) {
-        MainMenu.switchScene(MainMenu.GAME_SCENE, Family.ALKALINEEARTHMETALS); //TODO set back to login when testing done
+        MainMenu.switchScene(LOGIN_SCENE);
         logger.info("Loaded the login scene...");
     }
 
