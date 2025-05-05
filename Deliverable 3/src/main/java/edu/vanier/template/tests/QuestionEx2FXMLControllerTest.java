@@ -47,12 +47,12 @@ class QuestionEx2FXMLControllerTest {
         // reflectively build a StoichProblem(2,1,2,66,"K","Br2","KBr")
         Class<?> probCls = Class.forName(
                 "edu.vanier.template.controllers.QuestionEx2FXMLController$StoichProblem");
-        Constructor<?> ctor = probCls.getDeclaredConstructor(
+        Constructor<?> constructor = probCls.getDeclaredConstructor(
                 int.class, int.class, int.class,
                 int.class, String.class, String.class, String.class
         );
-        ctor.setAccessible(true);
-        Object problem = ctor.newInstance(
+        constructor.setAccessible(true);
+        Object problem = constructor.newInstance(
                 2,    // aCoeff
                 1,    // bCoeff
                 2,    // cCoeff
