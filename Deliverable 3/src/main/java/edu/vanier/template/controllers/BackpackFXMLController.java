@@ -188,7 +188,7 @@ public class BackpackFXMLController {
         GridPane.setHalignment(proton, HPos.CENTER);
         GridPane.setValignment(proton, VPos.CENTER);
         protonCounter = 0;
-        protonLabel = new Label(" x " + 0);
+        protonLabel = new Label(" x " + numProton);
         backpackGridPane.add(protonLabel, 1, 1);
         proton.setId("proton");
         backpackGridPane.add(proton, 0, 1);
@@ -205,7 +205,7 @@ public class BackpackFXMLController {
         GridPane.setHalignment(sodium, HPos.CENTER);
         GridPane.setValignment(sodium, VPos.CENTER);
         sodiumCounter = 0;
-        sodiumLabel = new Label(" x " + 0 );
+        sodiumLabel = new Label(" x " + numSodium );
         backpackGridPane.add(sodiumLabel, 1, 2);
         itemsCount.put("sodium", numSodium);
         itemLabels.put("sodium", sodiumLabel);
@@ -217,7 +217,7 @@ public class BackpackFXMLController {
         GridPane.setHalignment(oxygen, HPos.CENTER);
         GridPane.setValignment(oxygen, VPos.CENTER);
         oxygenCounter = 0;
-        oxygenLabel = new Label(" x " + 0);
+        oxygenLabel = new Label(" x " + numOxygen);
         backpackGridPane.add(oxygenLabel, 1, 3);
         oxygen.setId("oxygen");
         backpackGridPane.add(oxygen, 0, 3);
@@ -231,7 +231,7 @@ public class BackpackFXMLController {
         GridPane.setHalignment(hydrogen, HPos.CENTER);
         GridPane.setValignment(hydrogen, VPos.CENTER);
         hydrogenCounter = 0;
-        hydrogenLabel = new Label(" x " + 0);
+        hydrogenLabel = new Label(" x " + numHydrogen);
         backpackGridPane.add(hydrogenLabel, 1, 4);
         hydrogen.setId("hydrogen");
         backpackGridPane.add(hydrogen, 0, 4);
