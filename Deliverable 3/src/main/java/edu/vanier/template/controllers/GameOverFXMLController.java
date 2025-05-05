@@ -35,14 +35,13 @@ public class GameOverFXMLController {
         exitBtn.setOnAction(this::handleExitBtn);
         setBackground(borderPane);
 
-        setButton(exitBtn, "exitBtn", 6, 8);
-        setButton(tryAgnBtn, "try again", 6, 8);
-        setButton(MainMenuBtn, "Main Menu", 6, 8);
+        //setButton(exitBtn, "exitBtn", 6, 8);
+        //setButton(tryAgnBtn, "try again", 6, 8);
+        //setButton(MainMenuBtn, "Main Menu", 6, 8);
 
     }
 
     public void handleTryAgnBtn(Event e) {
-        //TODO: switch scees to the first Game Scene\
         MainMenu.switchScene(MainMenu.QUESTIONEX1_SCENE);
         logger.info("try again button has been clicked");
     }
