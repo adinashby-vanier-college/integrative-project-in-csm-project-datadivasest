@@ -3,6 +3,7 @@ package edu.vanier.template.controllers;
 import edu.vanier.template.helpers.BackpackHelper;
 import edu.vanier.template.helpers.FxUIHelper;
 import edu.vanier.template.models.Elements;
+import edu.vanier.template.models.Sprite;
 import edu.vanier.template.ui.BaseWindow;
 import edu.vanier.template.ui.MainMenu;
 import javafx.event.Event;
@@ -13,6 +14,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -52,6 +55,7 @@ public class Question1BuildAtomController {
     public MapFXMLController mapFXMLController;
     public QuestionEx1FXMLController questionEx1FXMLController;
     private Elements currentElement;
+    GameFXMLController gameFXMLController;
 
     @FXML
     public void initialize() {
@@ -68,7 +72,8 @@ public class Question1BuildAtomController {
             backpackStage = new Stage();
             backpackStage.setTitle("Backpack");
             Scene backpackScene = new Scene(FxUIHelper.loadFXML(BACKPACK_SCENE, backpackFXMLController), 460, 574);
-            //backpackFXMLController.setElectronLabel(backpackFXMLController.getElectronLabel());
+            backpackFXMLController.setElectronLabel(backpackFXMLController.getElectronLabel());
+            backpackFXMLController.itemLabels.put("electron", backpackFXMLController.getElectronLabel());
             backpackStage.setScene(backpackScene);
             backpackStage.setResizable(false);
             backpackStage.setAlwaysOnTop(true);
@@ -118,6 +123,69 @@ public class Question1BuildAtomController {
         }
         atomImg.setFitWidth(500);
         atomImg.setFitHeight(495);
+
+        borderPane.setOnDragOver(event -> {
+            if (event.getGestureSource() != borderPane && event.getDragboard().hasString()) {
+                event.acceptTransferModes(TransferMode.COPY);
+            }
+            event.consume();
+
+            System.out.println();
+        });
+
+        borderPane.setOnDragDropped(event -> {
+            Dragboard dragboard = event.getDragboard();
+            boolean success = false;
+
+            if (dragboard.hasString()) {
+                String spriteType = dragboard.getString().toLowerCase();
+
+                Image sprite = null;
+
+                switch (spriteType) {
+                    case "electron":
+                        sprite = new Image(getClass().getResource("/images/Electron.png").toExternalForm());
+                        break;
+                    case "proton":
+                        sprite = new Image(getClass().getResource("/images/Proton.png").toExternalForm());
+                        break;
+                    case "sodium":
+                        sprite = new Image(getClass().getResource("/images/Sodium.png").toExternalForm());
+                        break;
+                    case "hydrogen":
+                        sprite = new Image(getClass().getResource("/images/Hydrogen.png").toExternalForm());
+                        break;
+                    case "oxygen":
+                        sprite = new Image(getClass().getResource("/images/Oxygen.png").toExternalForm());
+                        break;
+                }
+
+                if (sprite != null) {
+                    Sprite reuploadedSprite = new Sprite(spriteType, sprite);
+                    reuploadedSprite.setImage(sprite);
+                    reuploadedSprite.setSize(30);
+                    reuploadedSprite.setPreserveRatio(true);
+
+                    double positionX  = event.getX();
+                    double positionY = event.getY();
+                    reuploadedSprite.setPosition(positionX, positionY);
+
+                    switch (spriteType) {
+                        case "electron" -> gameFXMLController.sprite1List.add(reuploadedSprite);
+                        case "proton" -> gameFXMLController.sprite2List.add(reuploadedSprite);
+                        case "sodium" -> gameFXMLController.sprite3List.add(reuploadedSprite);
+                        case "hydrogen" -> gameFXMLController.sprite4List.add(reuploadedSprite);
+                        case "oxygen" -> gameFXMLController.sprite1List.add(reuploadedSprite);
+                    }
+                    borderPane.getChildren().add(reuploadedSprite);
+                }
+                success = true;
+            }
+
+            event.setDropCompleted(success);
+            System.out.println("Dropped: " + dragboard.getString());
+            event.consume();
+        });
     }
     private void handleCheck(Event e) {
         System.out.println("Going to instructions 2...");

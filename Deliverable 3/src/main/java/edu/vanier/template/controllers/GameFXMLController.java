@@ -211,9 +211,11 @@ public class GameFXMLController {
         score++;
         if (sprite.getType().equals("electron")) {
             electronNum++;
+            numElectron++;
             elementCollected.put("electron", electronNum);
         } else if (sprite.getType().equals("proton")) {
             protonNum++;
+            numProton++;
             elementCollected.put("proton", protonNum);
         }
         if (backpackFXMLController != null)
@@ -431,6 +433,15 @@ public class GameFXMLController {
                     case "proton":
                         sprite = new Image(getClass().getResource("/images/Proton.png").toExternalForm());
                         break;
+                    case "sodium":
+                        sprite = new Image(getClass().getResource("/images/Sodium.png").toExternalForm());
+                        break;
+                    case "hydrogen":
+                        sprite = new Image(getClass().getResource("/images/Hydrogen.png").toExternalForm());
+                        break;
+                    case "oxygen":
+                        sprite = new Image(getClass().getResource("/images/Oxygen.png").toExternalForm());
+                        break;
                 }
 
                 if (sprite != null) {
@@ -446,6 +457,9 @@ public class GameFXMLController {
                     switch (spriteType) {
                         case "electron" -> sprite1List.add(reuploadedSprite);
                         case "proton" -> sprite2List.add(reuploadedSprite);
+                        case "sodium" -> sprite3List.add(reuploadedSprite);
+                        case "hydrogen" -> sprite4List.add(reuploadedSprite);
+                        case "oxygen" -> sprite1List.add(reuploadedSprite);
                     }
                     mainPane.getChildren().add(reuploadedSprite);
                 }
